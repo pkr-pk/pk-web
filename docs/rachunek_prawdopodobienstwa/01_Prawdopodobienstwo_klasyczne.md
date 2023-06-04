@@ -83,6 +83,7 @@ $$A \cup (B \cap C) = (A \cup B) \cap (A \cup C).$$
 ## Kombinatoryka
 
 * Kombinacja pozwala policzyć na ile sposobów można wybrać k elementów z n-elementowego zbioru. Wzór na kombinację jest następujący:
+
 $$C^k_n = \frac{n!}{k!(n − k)!}.$$
 
 Kombinacje zapisujemy krótko za pomocą symbolu Newtona:
