@@ -4,8 +4,21 @@ title: Prawdopodobieństwo klasyczne
 parent: Rachunek prawdopodobieństwa
 nav_order: 1
 ---
-
 # Prawdopodobieństwo klasyczne
+{: .no_toc }
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
+
+---
+
+## Prawdopodobieństwo klasyczne
 
 Wzór na prawdopodobieństwo klasyczne:
 
@@ -16,6 +29,8 @@ gdzie:
 $\|A\|$ - to liczba zdarzeń sprzyjających (moc zbioru $A$),
 
 $\|\Omega\|$ - to liczba wszystkich możliwych zdarzeń (moc zbioru $\Omega$).
+
+---
 
 ## Własności prawdopodobieństwa
 
@@ -30,6 +45,8 @@ $$P(\Omega) = 1.$$
 - Prawdopodobieństwo zdarzenia niemożliwego jest równe 0.
 
 $$P(\emptyset) = 0.$$
+
+---
 
 ## Przydatne wzory
 
@@ -61,6 +78,8 @@ $$A \cap (B \cup C) = (A \cap B) \cup (A \cap C),$$
 
 $$A \cup (B \cap C) = (A \cup B) \cap (A \cup C).$$
 
+---
+
 ## Kombinatoryka
 
 * Kombinacja pozwala policzyć na ile sposobów można wybrać k elementów z n-elementowego zbioru. Wzór na kombinację jest następujący:
@@ -90,12 +109,17 @@ $$W^k_n = n^k.$$
 
 $$V^k_n = \frac{n!}{(n − k)!}.$$
 
+---
+
 ## Metoda bootstrap
 Jest to metoda estymacji polegająca na wielokrotnym losowaniu ze zwracaniem z próby. Jest przydatna gdy nie wiemy z jakiego rozkładu pochodzą zmienne losowe. Przykład użycia tej metody do oszacowania prawdopodobieństwa będzie pokazany w kilku zadaniach.
 
+---
+
 # Zadania
 
-### Zadanie 1.
+### Zadanie 1
+{: .no_toc }
 
 Wykonano 3 rzuty symetryczną monetą.\
 a) Określ przestrzeń zdarzeń elementarnych $\Omega$.\
@@ -120,6 +144,7 @@ $P(E') = 1 - P(E) = 1 - \frac{1}{2} = \frac{1}{2}$,\
 $P(F') = 1 - P(F) = 1 - \frac{1}{2} = \frac{1}{2}$.
 
 ### Zadanie 2
+{: .no_toc }
 
 Doświadczenie polega na rzucie dwiema symetrycznymi kostkami. Oblicz prawdopodobieństwo, że suma wyrzuconych oczek będzie parzysta.
 
@@ -144,6 +169,7 @@ $P = \frac{18}{36} = \frac{1}{2}$.
 Zadanie można też rozwiązać rysując tabelkę i sumując kolejne możliwości.
 
 ### Zadanie 3
+{: .no_toc }
 
 Zdarzenia $A$ oraz $B$ są takie, że $P(A) = 0.45$, $P(B) = 0.22$, $P(A \cup B) = 0.53$. Oblicz $P(A' \cup B')$.
 
@@ -164,6 +190,7 @@ Wstawiam drugie równanie do pierwszego i obliczam wynik:
 $P(A' \cup B') = 1 - P(A) - P(B) + P(A \cap B) = 1 - 0.45 - 0.22 + 0.53 = 0.86$.
 
 ### Zadanie 4
+{: .no_toc }
 
 W partii 170 sztuk towaru 102 elementy są gatunku I, 43 są gatunku II, 25 jest gatunku III. Wybrano losowo jeden element. Oblicz prawdopodobieństwo, że:\
 i) element jest III gatunku,\
@@ -178,6 +205,7 @@ i) $P = \frac{25}{170} \approx 0.15$
 ii) $P = \frac{102 + 43}{170} \approx 0.85$
 
 ### Zadanie 5
+{: .no_toc }
 
 60% uczestników konferencji zna tylko język angielski, 20% zna tylko język niemiecki, 10% zna oba języki. Pozostali nie znają żadnego języka obcego. Oblicz prawdopodobieństwo, że losowo wybrany uczestnik konferencji zna język angielski.
 
@@ -196,6 +224,7 @@ to:
 $P(A \cup C) = P(A) + P(C) = 0.7$.
 
 ### Zadanie 6
+{: .no_toc }
 
 Egzamin z matematyki zdaje za pierwszym razem 70% studentów wydziału informatyki, 60% studentów wydziału zarządzania i 50% studentów wydziału ekonomii. Wybrano losowo po jednym studencie z każdego wydziału. Oblicz prawdopodobieństwo, że wśród nich:\
 a) żaden nie zda egzaminu z matematyki za pierwszym razem,\
@@ -239,6 +268,7 @@ print(np.count_nonzero((A==2) | (A==3)) / Nboot)
 ```
 
 ### Zadanie 7
+{: .no_toc }
 
 Oblicz prawdopodobieństwo, że wśród 5-ciu losowo wybranych kart z talii 52 kart:\
 a) nie będzie pika,\
@@ -301,6 +331,7 @@ print(np.count_nonzero((A==2)) / Nboot)
 ```
 
 ### Zadanie 8
+{: .no_toc }
 
 Do windy w 10-cio piętrowym domu wsiada 5 nieznanych sobie osób. Oblicz prawdopodobieństwo, że wysiądą one na różnych piętrach.
 
@@ -319,6 +350,7 @@ Ostatecznie:
 $P = \frac{6 \cdot 7 \cdot 8 \cdot 9 \cdot 10}{10^5} = \frac{6 \cdot 7 \cdot 8 \cdot 9}{10^4} = 0.3024.$
 
 ### Zadanie 9
+{: .no_toc }
 
 Egzaminator przygotował 20 pytań, z których zdający losuje 3. Jakie jest prawdopodobieństwo, że uczeń dobrze odpowie na 3 pytania, jeżeli umie odpowiedzieć na połowę pytań.
 
@@ -351,6 +383,7 @@ print(np.count_nonzero(A==3) / Nboot)
 ```
 
 ### Zadanie 10
+{: .no_toc }
 
 Z urny, w której jest 13 kul białych i 7 czarnych losujemy 2 kule\
 a) ze zwrotem,\
@@ -362,6 +395,7 @@ a) $P = \frac{13}{20} \cdot \frac{13}{20} = \frac{169}{400} = 0.4225.$
 b) $P = \frac{13}{20} \cdot \frac{12}{19} = \frac{39}{95} \approx 0.4105.$
 
 ### Zadanie 11
+{: .no_toc }
 
 Z grupy studenckiej liczącej 30 osób w tym 20 chłopców wybrano delegację złożona z 5 osób, przy czym rozważano różne możliwości liczby chłopców i dziewcząt w delegacji, w każdym razie liczby różne od zera. Obliczyć prawdopodobieństwo, że do delegacji będą wybrane najwyżej 3 dziewczyny.
 
@@ -374,6 +408,7 @@ $\|A\| = {10 \choose 1}{20 \choose 4} + {10 \choose 2}{20 \choose 3} + {10 \choo
 $P = \frac{\|A\|}{\|\Omega\|} = \frac{10 \cdot 17 \cdot 18 \cdot 19}{4!} \cdot \frac{5!}{26 \cdot 27 \cdot 28 \cdot 29 \cdot 30} = \frac{5 \cdot 10 \cdot 17 \cdot 18 \cdot 19}{26 \cdot 27 \cdot 28 \cdot 29 \cdot 30} \approx 0.86$
 
 ### Zadanie 12
+{: .no_toc }
 
 Z talii złożonej z 52 kart losujemy jedną. Obliczyć prawdopodobieństwo, że wylosowana karta jest damą lub królem.
 
@@ -382,6 +417,7 @@ Rozwiązanie:
 $P = \frac{8}{52} = \frac{2}{13} \approx 0.15$
 
 ### Zadanie 13
+{: .no_toc }
 
 Rzucamy kostką do gry. Jakie jest prawdopodobieństwo, że w jednym rzucie uzyskano liczbę oczek podzielną przez trzy lub pięć?
 
@@ -390,6 +426,7 @@ Rozwiązanie:
 $P = 0.5$
 
 ### Zadanie 14
+{: .no_toc }
 
 Spośród liczb 5, 6, 7, 8, 9 losujemy kolejno dwie bez zwracania. Jakie jest prawdopodobieństwo, że suma wylosowanych liczb jest nie większa od 13?
 
@@ -406,6 +443,7 @@ $\|A\| = 8.$
 $P = \frac{\|A\|}{\|\Omega\|} = \frac{8}{20} = 0.4.$
 
 ### Zadanie 15
+{: .no_toc }
 
 W przetargu bierze udział 5 firm. Prawdopodobieństwo tego, że wygra firma A jest równe 0.25, natomiast, że wygra firma B - 0.4. Jakie jest prawdopodobieństwo, że przetarg wygra firma A lub B?
 
@@ -414,6 +452,7 @@ Rozwiązanie:
 $P = 0.25 + 0.4 = 0.65.$
 
 ### Zadanie 16
+{: .no_toc }
 
 Wykonujemy jeden rzut kostką sześcienną do gry. Jakie jest prawdopodobieństwo zdarzenia przeciwnego do zdarzenia polegającego na tym, że otrzymaliśmy jedno lub trzy oczka?
 
@@ -426,6 +465,8 @@ $P(A) = \frac{1}{3}$
 $P(A') = 1 - P(A) = 1 - \frac{1}{3} = \frac{2}{3}$
 
 ### Zadanie 17
+{: .no_toc }
+
 Z cyfr $1, 2, . . . , 9$ losujemy bez zwracania trzy cyfry $x, y, z$ i tworzymy liczbę trzycyfrową $xyz$. Obliczyć prawdopodobieństwo, że otrzymamy liczbę mniejszą od $555$.
 
 Rozwiązanie:
@@ -443,6 +484,8 @@ $\|A\| = 4 \cdot 8 \cdot 7 + 1 \cdot 4 \cdot 7 = 4 \cdot 7(8 + 1) = 4 \cdot 7 \c
 $P = \frac{\|A\|}{\|\Omega\|} = \frac{4 \cdot 7 \cdot 9}{9 \cdot 8 \cdot 7} = 0.5.$
 
 ### Zadanie 18
+{: .no_toc }
+
 Na dziesięciu klockach wyrzeźbiono litery: a, a, k, s, s, t, t, t, y, y. Bawiąc sie nimi dziecko układa je w rząd. Obliczyć prawdopodobieństwo tego, że przypadkowo złoży ono słowo „statystyka”.
 
 Rozwiązanie:
@@ -472,6 +515,8 @@ $P = \frac{2}{10} \cdot \frac{3}{9} \cdot \frac{2}{8} \cdot \frac{2}{7} \cdot \f
 Ciekawe zadanie z kombinatoryki z książki: W. Krysicki, J. Bartos, W. Dyczka, K. Królikowska, M. Wasilewski. Część I. Rachunek prawdopodobieństwa i statystyka matematyczna w zadaniach. Wydawnictwo Naukowe PWN Warszawa 1995.
 
 ### Zadanie 19
+{: .no_toc }
+
 W fizyce statystycznej rozważa się rozkład (rozmieszczenie) $k$ cząstek w $n$ elementarnych obszarach zwanych komórkami (komórki są rozróżnialne). W zależności od postaci tych cząstek przyjmuje się jedno z trzech następujących założeń:
 
 1. cząstki różnią się między sobą i liczba cząstek w jednej komórce jest dowolna,
