@@ -1,6 +1,6 @@
 ---
 layout: math
-title: Prawdopodobieństwo klasyczne
+title: 01 Prawdopodobieństwo klasyczne
 parent: Rachunek prawdopodobieństwa
 nav_order: 1
 ---

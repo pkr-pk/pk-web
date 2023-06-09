@@ -1,6 +1,6 @@
 ---
 layout: math
-title: Schemat Bernoulliego
+title: 03 Schemat Bernoulliego
 parent: Rachunek prawdopodobieństwa
 nav_order: 3
 ---

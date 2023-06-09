@@ -1,6 +1,6 @@
 ---
 layout: math
-title: Prawdopodobieństwo geometryczne
+title: 02 Prawdopodobieństwo geometryczne
 parent: Rachunek prawdopodobieństwa
 nav_order: 2
 ---
