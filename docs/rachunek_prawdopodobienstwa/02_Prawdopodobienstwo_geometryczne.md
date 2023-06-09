@@ -4,6 +4,7 @@ title: Prawdopodobieństwo geometryczne
 parent: Rachunek prawdopodobieństwa
 nav_order: 2
 ---
+
 # Prawdopodobieństwo geometryczne
 {: .no_toc }
 

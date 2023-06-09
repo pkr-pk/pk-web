@@ -4,6 +4,7 @@ title: Prawdopodobieństwo klasyczne
 parent: Rachunek prawdopodobieństwa
 nav_order: 1
 ---
+
 # Prawdopodobieństwo klasyczne
 {: .no_toc }
 
