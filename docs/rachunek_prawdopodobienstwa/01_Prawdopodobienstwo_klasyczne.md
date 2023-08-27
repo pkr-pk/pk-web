@@ -246,8 +246,8 @@ import numpy as np
 import scipy.stats as st
 
 def randsampl(x, size):
-  ind = st.randint.rvs(0, len(x), size=size,)
-  return x[ind]
+    ind = st.randint.rvs(0, len(x), size=size,)
+    return x[ind]
 
 A = np.ones(10)
 A[7:] = 0
@@ -261,8 +261,8 @@ D = np.concatenate((A, B, C))
 Nboot = 10000
 A = np.zeros(Nboot)
 for i in range(Nboot):
-  result = randsampl(D, 3)
-  A[i] = np.sum(result)
+    result = randsampl(D, 3)
+    A[i] = np.sum(result)
 
 print(np.count_nonzero(A==0) / Nboot)
 print(np.count_nonzero(A==2) / Nboot)
@@ -315,8 +315,8 @@ import numpy as np
 import scipy.stats as st
 
 def randsampl(x, size):
-  ind = st.randint.rvs(0, len(x), size=size,)
-  return x[ind]
+    ind = st.randint.rvs(0, len(x), size=size,)
+    return x[ind]
 
 x = np.ones(52)
 x[13:] = 0
@@ -324,8 +324,8 @@ x[13:] = 0
 Nboot = 10000
 A = np.zeros(Nboot)
 for i in range(Nboot):
-  result = randsampl(x, 5)
-  A[i] = np.sum(result)
+    result = randsampl(x, 5)
+    A[i] = np.sum(result)
 
 print(np.count_nonzero(A==0) / Nboot)
 print(np.count_nonzero((A==1) | (A==2) | (A==3) | (A==4) | (A==5)) / Nboot)
@@ -369,8 +369,8 @@ import numpy as np
 import scipy.stats as st
 
 def randsampl(x, size):
-  ind = st.randint.rvs(0, len(x), size=size,)
-  return x[ind]
+    ind = st.randint.rvs(0, len(x), size=size,)
+    return x[ind]
 
 x = np.ones(20)
 x[10:] = 0
@@ -378,8 +378,8 @@ x[10:] = 0
 Nboot = 100000
 A = np.zeros(Nboot)
 for i in range(Nboot):
-  result = randsampl(x, 3)
-  A[i] = np.sum(result)
+    result = randsampl(x, 3)
+    A[i] = np.sum(result)
 
 print(np.count_nonzero(A==3) / Nboot)
 ```

@@ -257,7 +257,7 @@ import numpy as np
 import matplotlib.pylab as plt
 
 def y(x):
-  return x**2 - x - 2
+    return x**2 - x - 2
 
 x = np.linspace(-3, 3)
 x_1 = np.linspace(-3, -1)
@@ -342,7 +342,7 @@ Poniżej całka z zadania obliczona numerycznie w pythonie za pomocą funkcji <b
 from scipy.integrate import quad
 
 def f(x):
-  return x**2
+    return x**2
 
 i, err = quad(f, 0, 1)
 print(i)
@@ -491,9 +491,9 @@ N_boot = 100000
 
 A = []
 for i in range(N_boot):
-  x = st.uniform.rvs(0, d/2)
-  alpha = st.uniform.rvs(0, np.pi)
-  A.append((x, alpha))
+    x = st.uniform.rvs(0, d/2)
+    alpha = st.uniform.rvs(0, np.pi)
+    A.append((x, alpha))
 
 res = [1 for x, alpha in A if x <= (l / 2) * np.sin(alpha)]
 
@@ -527,7 +527,7 @@ Zacienione pole to moc zbioru zdarzeń sprzyjających, obliczam stosowną całk�
 from scipy.integrate import quad
 
 def f(x):
-  return x**2
+    return x**2
 
 i, err = quad(f, 0, 2)
 print("Prawdopodobienstwo wynosi:", i/8)
@@ -711,7 +711,7 @@ from scipy.integrate import quad
 import numpy as np
 
 def f(x):
-  return 0.5 * np.sin(x)
+    return 0.5 * np.sin(x)
 
 i, err = quad(f, 0, np.pi)
 print("Prawdopodobienstwo wynosi:", i/(np.pi**2))
