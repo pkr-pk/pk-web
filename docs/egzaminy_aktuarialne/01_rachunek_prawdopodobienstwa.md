@@ -37,3 +37,13 @@ nav_order: 1
 28 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_28_dn_25_01_2003.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_28_dn_25_01_2003.pdf){:target="_blank"}\
 29 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_29_dn_17_05_2003.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_29_dn_17_05_2003.pdf){:target="_blank"}\
 30 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_30_dn_11_10_2003.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_30_dn_11_10_2003.pdf){:target="_blank"}\
+31 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_31_dn_06_12_2003.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_31_dn_06_12_2003.pdf){:target="_blank"}\
+32 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_32_dn_07_06_2004.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_32_dn_07_06_2004.pdf){:target="_blank"}\
+33 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_33_dn_11_10_2004.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_33_dn_11_10_2004.pdf){:target="_blank"}\
+34 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_34_dn_17_01_2005.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_34_dn_17_01_2005.pdf){:target="_blank"}\
+35 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_35_dn_16_05_2005.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_35_dn_16_05_2005.pdf){:target="_blank"}\
+36 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_36_dn_10_10_2005.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_36_dn_10_10_2005.pdf){:target="_blank"}\
+37 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_37_dn_05_12_2005.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_37_dn_05_12_2005.pdf){:target="_blank"}\
+38 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_38_dn_20_03_2006.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_38_dn_20_03_2006.pdf){:target="_blank"}\
+39 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_39_dn_05_06_2006.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_39_dn_05_06_2006.pdf){:target="_blank"}\
+40 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_40_dn_09_10_2006.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_40_dn_09_10_2006.pdf){:target="_blank"}\
