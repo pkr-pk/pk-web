@@ -2,7 +2,7 @@
 layout: math
 title: Matematyka ubezpieczeń na życie
 parent: Egzaminy aktuarialne
-nav_order: 1
+nav_order: 2
 ---
 
 # Matematyka ubezpieczeń na życie
