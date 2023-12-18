@@ -57,3 +57,18 @@ nav_order: 1
 48 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_48_dn_15_12_2008.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_48_dn_15_12_2008.pdf){:target="_blank"}\
 49 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_49_dn_06_04_2009.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_49_dn_06_04_2009.pdf){:target="_blank"}\
 50 [zadania](pdfs_rachunek_prawdopodobienstwa/zadania/egz_50_dn_05_10_2009.pdf){:target="_blank"} [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_50_dn_05_10_2009.pdf){:target="_blank"}\
+51 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_51_dn_30_11_2009.pdf){:target="_blank"}\
+52 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_52_dn_15_03_2010.pdf){:target="_blank"}\
+53 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_53_dn_31_05_2010.pdf){:target="_blank"}\
+54 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_54_dn_04_10_2010.pdf){:target="_blank"}\
+55 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_55_dn_13_12_2010.pdf){:target="_blank"}\
+56 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_56_dn_04_04_2011.pdf){:target="_blank"}\
+57 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_57_dn_20_06_2011.pdf){:target="_blank"}\
+58 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_58_dn_03_10_2011.pdf){:target="_blank"}\
+59 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_59_dn_12_03_2012.pdf){:target="_blank"}\
+60 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_60_dn_28_05_2012.pdf){:target="_blank"}\
+61 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_61_dn_01_10_2012.pdf){:target="_blank"}\
+62 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_62_dn_10_12_2012.pdf){:target="_blank"}\
+63 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_63_dn_25_03_2013.pdf){:target="_blank"}\
+64 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_64_dn_17_06_2013.pdf){:target="_blank"}\
+65 [rozwiązania](pdfs_rachunek_prawdopodobienstwa/rozwiazania/egz_65_dn_30_09_2013.pdf){:target="_blank"}
