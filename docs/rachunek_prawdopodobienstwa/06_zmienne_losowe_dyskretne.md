@@ -1,11 +1,11 @@
 ---
 layout: math
-title: 06 Dyskretne zmienne losowe
+title: 06 Zmienne losowe dyskretne
 parent: Rachunek prawdopodobieństwa
 nav_order: 6
 ---
 
-# Dyskretne zmienne losowe
+# Zmienne losowe dyskretne
 {: .no_toc }
 
 <details open markdown="block">
@@ -19,7 +19,7 @@ nav_order: 6
 
 ---
 
-## Dyskretna zmienna losowa 
+## Zmienna losowa dyskretna 
 W skrócie jest to funkcja, która przypisuje liczby zdarzeniom elementarnym. Zmienna losowa jest określona na przestrzeni zdarzeń elementarnych a jej wartości są ze zbioru liczb rzeczywistych. Zmienna losowa jest dyskretna jeśli jej zbiór wartości jest dyskretny.
 
 ## Rozkład prawdopodobieństwa
