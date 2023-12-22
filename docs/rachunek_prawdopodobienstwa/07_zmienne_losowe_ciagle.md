@@ -27,11 +27,16 @@ Jest to miara probabilistyczna (nie będę wnikał co to jest) przypisująca pra
 
 Dla zmiennej losowej ciągłej wprowadzamy funkcję gęstości prawdopodobieństwa. Jest to funkcja określona na zbiorze liczb rzeczywistych posiadająca następujące własności:
 
-*   jest nieujemna: 
-    $$f(x) \ge 0, $$
+*   jest nieujemna:
+
+    $$f(x) \ge 0,$$
+
 *   prawdopodobieństwo tego, że zmienna losowa przyjmie wartość z przedziału $(a,b]$, to:
+
     $$P( a< X \le b) = \int\limits_a^b f(x) dx,$$
-*   Prawdopodobieństwo tego, że zmienna losowa przyjmie dowolną wartość to:  
+
+*   Prawdopodobieństwo tego, że zmienna losowa przyjmie dowolną wartość to:
+
     $$P(-\infty < X \le +\infty) = \int\limits_{-\infty}^{+\infty} f(x) dx = 1 $$
 
 ## Dystrybuanta
@@ -46,15 +51,17 @@ $$F(x) = P(X \le x)= \int\limits_{-\infty}^x f(s) ds $$
 ## Własności dystrybuanty
 * $0 \le F(x) \le 1,$
 * $F(x_1) \le F(x_2) \text{ dla $x_1 \le x_2$},$
-* $\lim_{x \to -\infty} F(x) = 0,$
-* $\lim_{x \to \infty} F(x) = 1,$
+* $\lim\limits_{x \to -\infty} F(x) = 0,$
+* $\lim\limits_{x \to \infty} F(x) = 1,$
 * $F$ jest prawostronnie ciągła.
 
 ## Wartość oczekiwana
 Wartość oczekiwana zmiennej losowej $X$ określona jest wzorem:
+
 $$E(X) = \int\limits_{-\infty}^\infty xf(x)dx.$$
 
 Jest to pierwszy moment niecentralny. Momenty niecentralne można zdefiniować następująco:
+
 $$E(X^i) = \int\limits_{-\infty}^\infty x^if(x)dx.$$
 
 
@@ -73,21 +80,21 @@ $$E[g(X)]=\int\limits_{-\infty}^\infty g(x)f_X(x)dx.$$
 
 Jeżeli zmienna $X$ jest ciągła a zmienna $Y$ dyskretna:
 
-$$\mu_{X\|Y=y} = E(X\|Y=y) = \int\limits_{-\infty}^\infty x f_X(x\|Y=y)dx,$$
+$$\mu_{X|Y=y} = E(X|Y=y) = \int\limits_{-\infty}^\infty x f_X(x|Y=y)dx,$$
 
 gdzie:
 
-$$f_X(x\|Y=y) = \frac{f_{X,Y}(x, y)}{P(Y=y)},$$
+$$f_X(x|Y=y) = \frac{f_{X,Y}(x, y)}{P(Y=y)},$$
 
 $f_{X,Y}(x, y)$ - jest to rozkład łączny zmiennej $X$ i $Y$.
 
 Jeżeli obie zmienne są ciągłe to:
 
-$$\mu_{X\|Y=y} = E(X\|Y=y) = \int\limits_{-\infty}^\infty x f_X(x\|y)dx,$$
+$$\mu_{X|Y=y} = E(X|Y=y) = \int\limits_{-\infty}^\infty x f_X(x|y)dx,$$
 
 gdzie:
 
-$$f_X(x\|y) = \frac{f_{X,Y}(x, y)}{f_Y(y)},$$
+$$f_X(x|y) = \frac{f_{X,Y}(x, y)}{f_Y(y)},$$
 
 $f_Y(y)$ - jest to gęstość zmiennej $Y$.
 
@@ -119,7 +126,7 @@ Odchylenie standardowe to nie pierwszy moment centralny.
 
 ## Warunkowa wariancja
 
-$$D^2(X\|Y) = E(X^2\|Y)-[E(X\|Y)]^2 = E[(X-\mu_{X\|Y})^2\|Y]$$
+$$D^2(X|Y) = E(X^2|Y)-[E(X|Y)]^2 = E[(X-\mu_{X|Y})^2|Y]$$
 
 ## Mediana
 Kwantylem rzędu $p$, gdzie $0\le p\le 1$, w rozkładzie empirycznym $P_{X}$ zmiennej losowej $X$ nazywamy taką wartość $x_{p}$ zmiennej losowej $X$  dla której spełnione są nierówności:
@@ -146,7 +153,7 @@ $$A = \frac{\mu_3}{D^3(X)}.$$
 ## Twierdzenie 1
 Jeżeli $X = h(Y)$ to zmienna losowa $Y$ ma gęstość:
 
-$$f_Y(y) = f_X(h(y))\cdot\|h'(y)\|.$$
+$$f_Y(y) = f_X(h(y))\cdot |h'(y)|.$$
 
 ## Rozkład jednostajny
 Ciągły rozkład prawdopodobieństwa, dla którego gęstość prawdopodobieństwa w przedziale od $a$ do $b$ jest stała i różna od zera, a poza nim równa zeru.
