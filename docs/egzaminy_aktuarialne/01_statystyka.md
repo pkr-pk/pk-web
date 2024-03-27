@@ -71,4 +71,19 @@ nav_order: 1
 62 [rozwiązania](pdfs_statystyka/rozwiazania/egz_62_dn_10_12_2012.pdf){:target="_blank"}\
 63 [rozwiązania](pdfs_statystyka/rozwiazania/egz_63_dn_25_03_2013.pdf){:target="_blank"}\
 64 [rozwiązania](pdfs_statystyka/rozwiazania/egz_64_dn_17_06_2013.pdf){:target="_blank"}\
-65 [rozwiązania](pdfs_statystyka/rozwiazania/egz_65_dn_30_09_2013.pdf){:target="_blank"}
+65 [rozwiązania](pdfs_statystyka/rozwiazania/egz_65_dn_30_09_2013.pdf){:target="_blank"}\
+
+77 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_77.pdf){:target="_blank"}\
+78 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_78.pdf){:target="_blank"}\
+79 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_79.pdf){:target="_blank"}\
+80 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_80.pdf){:target="_blank"}\
+81 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_81.pdf){:target="_blank"}\
+82 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_82.pdf){:target="_blank"}\
+83 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_83.pdf){:target="_blank"}\
+84 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_84.pdf){:target="_blank"}\
+85 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_85.pdf){:target="_blank"}\
+86 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_86.pdf){:target="_blank"}\
+87 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_87.pdf){:target="_blank"}\
+88 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_88.pdf){:target="_blank"}\
+89 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_89.pdf){:target="_blank"}\
+90 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_90.pdf){:target="_blank"}
