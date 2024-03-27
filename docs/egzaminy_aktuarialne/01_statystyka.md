@@ -72,7 +72,6 @@ nav_order: 1
 63 [rozwiązania](pdfs_statystyka/rozwiazania/egz_63_dn_25_03_2013.pdf){:target="_blank"}\
 64 [rozwiązania](pdfs_statystyka/rozwiazania/egz_64_dn_17_06_2013.pdf){:target="_blank"}\
 65 [rozwiązania](pdfs_statystyka/rozwiazania/egz_65_dn_30_09_2013.pdf){:target="_blank"}\
-
 77 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_77.pdf){:target="_blank"}\
 78 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_78.pdf){:target="_blank"}\
 79 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_79.pdf){:target="_blank"}\
