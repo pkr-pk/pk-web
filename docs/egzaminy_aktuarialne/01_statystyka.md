@@ -7,8 +7,8 @@ nav_order: 1
 
 # Rachunek prawdopodobieństwa i statystyka
 
-01 [zadania](pdfs_statystyka/zadania/egz_01_dn_05_10_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/egz_01_dn_05_10_1996.pdf){:target="_blank"}\
-02 [zadania](pdfs_statystyka/zadania/egz_02_dn_26_10_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/egz_02_dn_26_10_1996.pdf){:target="_blank"}\
+01 [zadania](pdfs_statystyka/zadania/egz_01_dn_05_10_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_1.pdf){:target="_blank"}\
+02 [zadania](pdfs_statystyka/zadania/egz_02_dn_26_10_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_2.pdf){:target="_blank"}\
 03 [zadania](pdfs_statystyka/zadania/egz_03_dn_16_11_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/egz_03_dn_16_11_1996.pdf){:target="_blank"}\
 04 [zadania](pdfs_statystyka/zadania/egz_04_dn_07_12_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/egz_04_dn_07_12_1996.pdf){:target="_blank"}\
 05 [zadania](pdfs_statystyka/zadania/egz_05_dn_18_01_1997.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/egz_05_dn_18_01_1997.pdf){:target="_blank"}\
