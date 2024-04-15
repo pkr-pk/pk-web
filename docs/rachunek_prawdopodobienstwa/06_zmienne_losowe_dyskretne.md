@@ -68,19 +68,19 @@ $$E[g(X)]=\sum\limits_{x_k∈R_X}g(x_k)P_X(x_k).$$
 ## Wariancja
 Wariancja zmiennej losowej $X$ określona jest wzorem:
 
-$$D^2(X) = \sum\limits_{i=1}^n [x_i - E(X)]^2 p_i,$$
+$$Var(X) = \sum\limits_{i=1}^n [x_i - E(X)]^2 p_i,$$
 
 można zapisać również:
 
-$$D^2(X) = E\{[X - E(X)]^2\}.$$
+$$Var(X) = E\{[X - E(X)]^2\}.$$
 
 ## Własności wariancji
-* $D^2(X)=E(X^2)-[E(X)]^2,$
-* $D^2(c)=0,$
-* $D^2(a\cdot X)=a^2\cdot D^2(X),$
+* $Var(X)=E(X^2)-[E(X)]^2,$
+* $Var(c)=0,$
+* $Var(a\cdot X)=a^2\cdot Var(X),$
 * $D^{2}(X+b)=D^{2}(X),$
 * jeżeli zmienne losowe $X$ i $Y$ są niezależne to $D^{2}(X\pm Y)=D^{2}(X)+D^{2}(Y),$
-* $D^2(X) = E(X^2) - (E(X))^2.$
+* $Var(X) = E(X^2) - (E(X))^2.$
 
 ## Mediana
 Kwantylem rzędu $p$, gdzie $0\le p\le 1$, w rozkładzie empirycznym $P_{X}$ zmiennej losowej $X$ nazywamy taką wartość $x_{p}$ zmiennej losowej $X$  dla której spełnione są nierówności:
@@ -109,7 +109,7 @@ $$E(X) = np.$$
 
 Wariancja:
 
-$$D^2(X) = np(1 - p).$$
+$$Var(X) = np(1 - p).$$
 
 ## Rozkład Poissona
 Dyskretny rozkład prawdopodobieństwa, wyrażający prawdopodobieństwo szeregu wydarzeń mających miejsce w określonym czasie, gdy te wydarzenia występują ze znaną średnią częstotliwością $\lambda$ i w sposób niezależny od czasu jaki upłynął od ostatniego zajścia takiego zdarzenia. Rozkład Poissona można również stosować w odniesieniu do liczby zdarzeń w innych określonych przedziałach, takich jak odległość, powierzchnia lub objętość. Jeżeli zmienna losowa $X$ pochodzi z rozkładu Poissona to oznaczamy $X \sim Pois(\lambda)$ lub $X \sim P(\lambda)$
@@ -124,7 +124,7 @@ $$E(X) = \lambda.$$
 
 Wariancja:
 
-$$D^2(X) = \lambda.$$
+$$Var(X) = \lambda.$$
 
 # Zadania
 
@@ -311,7 +311,7 @@ Liczba polis ubezpieczeniowych, które posiada losowo wybrany mieszkaniec dużeg
 a) Oblicz stałą c.\
 b) Oblicz prawdopodobieństwo, że losowo wybrany mieszkaniec miasta ma więcej niż jedną polisę.\
 c) Znajdź dystrybuantę zmiennej losowej $X$.
-d) Oblicz wartość oczekiwaną $E(X)$ oraz wariancję $D^2(X)$.
+d) Oblicz wartość oczekiwaną $E(X)$ oraz wariancję $Var(X)$.
 
 Rozwiązanie:
 
@@ -335,7 +335,7 @@ Należy sumować kolejne prawdopodobieństwa $p_i$:
 d)\
 $E(X) = 0\cdot0.1 + 1\cdot0.3 + 2\cdot0.4 + 3\cdot0.2 = 1.7,$
 
-$D^2(X) = (0-1.7)^2\cdot0.1 + (1-1.7)^2\cdot0.3 + (2-1.7)^2\cdot0.4 + (3-1.7)^2\cdot0.2$ = 0.81.
+$Var(X) = (0-1.7)^2\cdot0.1 + (1-1.7)^2\cdot0.3 + (2-1.7)^2\cdot0.4 + (3-1.7)^2\cdot0.2$ = 0.81.
 
 ### Zadanie 5
 {: .no_toc }
@@ -345,7 +345,7 @@ Rozwiązanie:
 
 $E(X\|X>0) = \sum\limits_{i=1}^n x_i \frac{P(X = x_i \cap X>0)}{P(X>0)}$
 
-$E(X\|X>0) =  0\cdot\frac{0}{0.9} + 1\cdot\frac{0.3}{0.9} + 2\cdot\frac{0.4}{0.9} + 3\cdot\frac{0.2}{0.9} \approx 1.89$
+$E(X\|X>0) =  1\cdot\frac{0.3}{0.9} + 2\cdot\frac{0.4}{0.9} + 3\cdot\frac{0.2}{0.9} \approx 1.89$
 
 ### Zadanie 6
 {: .no_toc }
@@ -363,7 +363,7 @@ $$
 
 a) Oblicz prawdopodobieństwo, że gracz nic nie wygra.\
 b) Oblicz wartość średnią wygranej $E(X)$.\
-c) Oblicz wariancję wygranej $D^2(X).$
+c) Oblicz wariancję wygranej $Var(X).$
 
 Rozwiązanie:
 
@@ -382,13 +382,13 @@ Tutaj należy najpierw znaleźć funkcję prawdopodobieństwa co jest dość ła
 $E(X) = 0\cdot0.5 + 100\cdot0.3 + 200\cdot0.2 = 70.$
 
 c)\
-$D^2(X) = (0-70)^2\cdot0.5 + (100-70)^2\cdot0.3 + (200-70)^2\cdot0.2 = 6100.$
+$Var(X) = (0-70)^2\cdot0.5 + (100-70)^2\cdot0.3 + (200-70)^2\cdot0.2 = 6100.$
 
 ### Zadanie 7
 {: .no_toc }
 Niech $Y=0.9X-10$, gdzie $X$ jest zmienną losową z zadania 6.\
 a) Oblicz wartość oczekiwaną $E(Y)$.\
-b) Oblicz wariancję $D^2(Y)$.\
+b) Oblicz wariancję $Var(Y)$.\
 c) Wyznacz funkcję prawdopodobieństwa $f_Y$ zmiennej losowej $Y$.\
 d) Wyznacz dystrybuantę $F_Y$ zmiennej losowej $Y$.\
 e) Narysuj wykres funkcji $F_Y(y)$.
@@ -401,7 +401,7 @@ a)\
 $E(Y) = E(0.9X-10) = 0.9E(X) - 10 = 0.9\cdot70 - 10 = 53.$
 
 b)\
-$D^2(Y) = D^2(0.9X-10) = 0.9^2\cdot D^2(X) = 0.9^2 \cdot 6100 = 4941.$
+$Var(Y) = Var(0.9X-10) = 0.9^2\cdot Var(X) = 0.9^2 \cdot 6100 = 4941.$
 
 c)
 
@@ -514,7 +514,7 @@ $E(X) = \frac{1}{2} + 2\cdot\frac{1}{12} = \frac{2}{3},$
 
 $E(X^2) = \frac{1}{2} + 4\cdot\frac{1}{12} = \frac{5}{6},$
 
-$D^2(X)=E(X^2)-[E(X)]^2 = \frac{5}{6} - \left(\frac{2}{3}\right)^2 = \frac{7}{18} \approx 0.39.$
+$Var(X)=E(X^2)-[E(X)]^2 = \frac{5}{6} - \left(\frac{2}{3}\right)^2 = \frac{7}{18} \approx 0.39.$
 
 ### Zadanie 11
 {: .no_toc }
@@ -585,7 +585,7 @@ bo również nie ma takiego punktu.
 
 ### Zadanie 13
 {: .no_toc }
-Rzucamy 5 razy moneta. Niech zmienna losowa $X$ przyjmuje wartości równe liczbie wyrzuconych reszek. Znaleźć rozkład $X$ oraz obliczyć $D^2(X)$.
+Rzucamy 5 razy moneta. Niech zmienna losowa $X$ przyjmuje wartości równe liczbie wyrzuconych reszek. Znaleźć rozkład $X$ oraz obliczyć $Var(X)$.
 
 Rozwiązanie:
 
@@ -609,7 +609,7 @@ print("Wariancja:", st.binom.var(5, 0.5))
 
 ### Zadanie 14
 {: .no_toc }
-W partii składającej się z 6 detali znajdują się 4 detale standardowe. Losowo wybrano 3 detale. Znaleźć rozkład dyskretnej zmiennej losowej $X$ − liczby standardowych detali wśród wybranych. Obliczyć $E(X)$ i $D^2(X)$.
+W partii składającej się z 6 detali znajdują się 4 detale standardowe. Losowo wybrano 3 detale. Znaleźć rozkład dyskretnej zmiennej losowej $X$ − liczby standardowych detali wśród wybranych. Obliczyć $E(X)$ i $Var(X)$.
 
 
 Rozwiązanie:
@@ -634,7 +634,7 @@ $E(X) = \frac{1}{5} + 2\cdot\frac{3}{5} +  3\cdot\frac{1}{5}= 2,$
 
 $E(X^2) = \frac{1}{5} + 4\cdot\frac{3}{5} +  9\cdot\frac{1}{5}= 4.4,$
 
-$D^2(X)=E(X^2)-[E(X)]^2 = 4.4 - 2^2 = 0.4.$
+$Var(X)=E(X^2)-[E(X)]^2 = 4.4 - 2^2 = 0.4.$
 
 ### Zadanie 15
 {: .no_toc }
@@ -679,7 +679,7 @@ Wiadomo, że w rozkładzie dwumianowym:
 
 $E(X) =np,$
 
-$D^2(X) = np(1-p).$
+$Var(X) = np(1-p).$
 
 $40 =np,$
 
@@ -699,7 +699,7 @@ Rozwiązanie:
 
 Wiadomo, że w rozkładzie dwumianowym:
 
-$D^2(Z) = D^2(2X-3) = 4D^2(X) = 4\cdot2=8.$
+$Var(Z) = Var(2X-3) = 4Var(X) = 4\cdot2=8.$
 
 ### Zadanie 19
 {: .no_toc }
@@ -722,7 +722,7 @@ Rozkład zmiennej losowej skokowej $X$ przedstawia tabela:
 |:-:|:-:|:-:|:-:|:-:|:-:|
 |$p_i$| 0.1| 0.2| 0.3| 0.3| b|
 
-Wiadomo, że $E(X) = 31$. Wyznaczyć $a$ i $b$ oraz obliczyć $D^2(X)$.
+Wiadomo, że $E(X) = 31$. Wyznaczyć $a$ i $b$ oraz obliczyć $Var(X)$.
 
 Rozwiązanie:
 
@@ -736,7 +736,7 @@ $a = 20.$
 
 $E(X^2) = 100\cdot0.1 + 400\cdot0.2 + 900\cdot0.3 + 1600\cdot0.3 + 2500\cdot0.1 = 1090.$
 
-$D^2(X) = E(X^2) - [E(X)]^2 = 1090 - 31^2 = 129.$
+$Var(X) = E(X^2) - [E(X)]^2 = 1090 - 31^2 = 129.$
 
 ### Zadanie 21
 {: .no_toc }
@@ -744,9 +744,9 @@ Zmienna losowa $Y$ ma rozkład Bernoulliego z parametrami $n = 900$, $p = 0.1$. 
 
 Rozwiązanie:
 
-$D^2(X) = D^2(3Y+2) = 9D^2(Y)=9np(1-p)=9\cdot900\cdot0.1\cdot0.9 = 729,$
+$Var(X) = Var(3Y+2) = 9Var(Y)=9np(1-p)=9\cdot900\cdot0.1\cdot0.9 = 729,$
 
-$D(X) = \sqrt{D^2(X)} = 27.$
+$D(X) = \sqrt{Var(X)} = 27.$
 
 ### Zadanie 22
 {: .no_toc }
@@ -910,7 +910,7 @@ W pewnym drzewostanie zebrano informacje o liczbie nabiegów korzeniowych:
 
 Niech $X$ oznacza liczbę nabiegów korzeniowych w losowo wybranym drzewie.\
 a) Znaleźć dystrybuantę zmiennej $X$.\
-b) Obliczyć $E(X)$ oraz $D^2(X)$.\
+b) Obliczyć $E(X)$ oraz $Var(X)$.\
 c) Obliczyć $P(X > 2)$, $P(1 \le X \le 4)$.
 
 Rozwiązanie:
@@ -1034,7 +1034,7 @@ Dana jest funkcja prawdopodobieństwa pewnej zmiennej $X$:
 Wyznaczyć:\
 a) stałą $c$,\
 b) dystrybuantę,\
-c) $E(X)$, $D^2(X)$, $D(X)$,\
+c) $E(X)$, $Var(X)$, $D(X)$,\
 d) $P(X < 0)$, $P(X \le 0)$, $P(X < 4)$, $P(X \le 4)$, $P(−2 \le X < 4)$, $P(X = 2)$, $P(X = 3)$, $P(−6 < X \le 0)$, $P(1 < X \le 8)$.
 
 Rozwiązanie:
@@ -1055,7 +1055,7 @@ $E(X) = (-5)\cdot0.1 + (-2)\cdot0.2 + 0.2 + 3\cdot0.3 + 8\cdot0.1 = 1,$
 
 $E(X^2) = 25\cdot0.1 + 4\cdot0.2 + 0.2 + 9\cdot0.3 + 64\cdot0.1 = 12.6,$
 
-$D^2(X) = 12.6 - 1^2 = 11.6,$
+$Var(X) = 12.6 - 1^2 = 11.6,$
 
 $D(X) \approx 3.406.$
 
@@ -1094,7 +1094,7 @@ F(x) =
 \end{cases}
 $$
 
-Wyznaczyć rozkład, obliczyć $E(X)$, $D^2(X)$, $D(X)$, $P(X > 1)$, $P(X ­\ge 0.5)$, $P(−1 < X < 2)$, $P(X \ge­ 7)$.
+Wyznaczyć rozkład, obliczyć $E(X)$, $Var(X)$, $D(X)$, $P(X > 1)$, $P(X ­\ge 0.5)$, $P(−1 < X < 2)$, $P(X \ge­ 7)$.
 
 Rozwiązanie:
 
@@ -1106,7 +1106,7 @@ $E(X) = 2\cdot0.3 + 4\cdot0.4 + 6\cdot0.2 + 7\cdot0.1 = 4.1,$
 
 $E(X^2) = 4\cdot0.3 + 16\cdot0.4 + 36\cdot0.2 + 49\cdot0.1 = 19.7,$
 
-$D^2(X) = 19.7 - 4.1^2 = 2.89,$
+$Var(X) = 19.7 - 4.1^2 = 2.89,$
 
 $D(X) = \sqrt{2.89} = 1.7,$
 
@@ -1135,7 +1135,7 @@ Możemy przypuszczać, że gra jest dla nas opłacalna.
 
 ### Zadanie 33
 {: .no_toc }
-Wśród wszystkich dzieci szkolnych z pewnego województwa przeprowadzono ankietę: ile razy byłeś na wakacjach w ciągu ostatnich 4 lat. 20% odpowiedziało 0 razy, 14% − 1 raz, 43% − 2 razy, 19 % − 3, a reszta − 4. Zmienna $X$ jest określona jako: liczba wyjazdów na wakacje w ciągu ostatnich 4 lat. Znaleźć jej rozkład, obliczyć $E(X)$, $D^2(X)$, $P(X > 3)$, $P(X \le 1)$, $P(0 \le X \le 4)$.
+Wśród wszystkich dzieci szkolnych z pewnego województwa przeprowadzono ankietę: ile razy byłeś na wakacjach w ciągu ostatnich 4 lat. 20% odpowiedziało 0 razy, 14% − 1 raz, 43% − 2 razy, 19 % − 3, a reszta − 4. Zmienna $X$ jest określona jako: liczba wyjazdów na wakacje w ciągu ostatnich 4 lat. Znaleźć jej rozkład, obliczyć $E(X)$, $Var(X)$, $P(X > 3)$, $P(X \le 1)$, $P(0 \le X \le 4)$.
 
 Rozwiązanie:
 
@@ -1147,7 +1147,7 @@ $E(X) = 1.73,$
 
 $E(X^2) = 4.21,$
 
-$D^2(X) = 4.21 - 1.73^2 = 1.2171,$
+$Var(X) = 4.21 - 1.73^2 = 1.2171,$
 
 $P(X > 3) = 0.04,$
 
@@ -1198,11 +1198,11 @@ print("Q3:", st.poisson.ppf(0.75, 2))
 
 ### Zadanie 36
 {: .no_toc }
-Korzystając z własności wartości oczekiwanej zmiennej losowej $X$ wykazać, że $D^2(X) = E(X^2) − [E(X)]^2$.
+Korzystając z własności wartości oczekiwanej zmiennej losowej $X$ wykazać, że $Var(X) = E(X^2) − [E(X)]^2$.
 
 Rozwiązanie:
 
-$D^2(X) $\
+$Var(X) $\
 $= E\{[X-E(X)]^2\} $\
 $= E\{X^2 - 2XE(X) +[E(X)]^2\} $\
 $= E(X^2) - 2E(X)E[E(X)] + E\{[E(X)]^2 \} $\
