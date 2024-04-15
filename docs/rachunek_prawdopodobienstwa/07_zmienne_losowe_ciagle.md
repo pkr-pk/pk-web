@@ -101,32 +101,32 @@ $f_Y(y)$ - jest to gęstość zmiennej $Y$.
 ## Wariancja
 Wariancja zmiennej losowej $X$ określona jest wzorem:
 
-$$D^2(X) = \int\limits_{-\infty}^\infty [x - E(X)]^2 f(x)dx,$$
+$$Var(X) = \int\limits_{-\infty}^\infty [x - E(X)]^2 f(x)dx,$$
 
 można zapisać również:
 
-$$D^2(X) = E\{[X - E(X)]^2\}.$$
+$$Var(X) = E\{[X - E(X)]^2\}.$$
 
 Jest to drugi moment centralny. Momenty centralne można zdefiniować następująco:
 $$\mu_k = E\{[X - E(X)]^k\}.$$
 
 Definiowane jest odchylenie standardowe jako pierwiastek z wariancji:
 
-$$D(X) = \sqrt{D^2(X)}.$$
+$$D(X) = \sqrt{Var(X)}.$$
 
 Odchylenie standardowe to nie pierwszy moment centralny.
 
 ## Własności wariancji
-* $D^2(X)=E(X^2)-[E(X)]^2,$
-* $D^2(c)=0,$
-* $D^2(a\cdot X)=a^2\cdot D^2(X),$
+* $Var(X)=E(X^2)-[E(X)]^2,$
+* $Var(c)=0,$
+* $Var(a\cdot X)=a^2\cdot Var(X),$
 * $D^{2}(X+b)=D^{2}(X),$
 * $ D^{2}(X\pm Y)=D^{2}(X)+D^{2}(Y)\pm 2 Cov(X,Y)$
 * jeżeli zmienne losowe $X$ i $Y$ są niezależne to $D^{2}(X\pm Y)=D^{2}(X)+D^{2}(Y).$
 
 ## Warunkowa wariancja
 
-$$D^2(X|Y) = E(X^2|Y)-[E(X|Y)]^2 = E[(X-\mu_{X|Y})^2|Y]$$
+$$Var(X|Y) = E(X^2|Y)-[E(X|Y)]^2 = E[(X-\mu_{X|Y})^2|Y]$$
 
 ## Mediana
 Kwantylem rzędu $p$, gdzie $0\le p\le 1$, w rozkładzie empirycznym $P_{X}$ zmiennej losowej $X$ nazywamy taką wartość $x_{p}$ zmiennej losowej $X$  dla której spełnione są nierówności:
@@ -184,7 +184,7 @@ $$E(X) = \frac{a+b}{2}.$$
 
 Wariancja:
 
-$$D^2(X) = \frac{(a-b)^2}{12}.$$
+$$Var(X) = \frac{(a-b)^2}{12}.$$
 
 ## Rozkład wykładniczy
 Funkcja rozkładu prawdopodobieństwa:
@@ -212,7 +212,7 @@ $$E(X) = \frac{1}{\lambda}.$$
 
 Wariancja:
 
-$$D^2(X) = \frac{1}{\lambda^2}.$$
+$$Var(X) = \frac{1}{\lambda^2}.$$
 
 ## Rozkład normalny
 Funkcja rozkładu prawdopodobieństwa:
@@ -225,7 +225,7 @@ $$E(X) = \mu.$$
 
 Wariancja:
 
-$$D^2(X) = \sigma^2.$$
+$$Var(X) = \sigma^2.$$
 
 Funkcja tworząca momenty:
 
@@ -244,13 +244,13 @@ $$E(X) = \frac{\alpha}{\beta}.$$
 
 Wariancja:
 
-$$D^2(X) = \frac{\alpha}{\beta^2}.$$
+$$Var(X) = \frac{\alpha}{\beta^2}.$$
 
 # Zadania
 
 ### Zadanie 1
 {: .no_toc }
-Zmienna losowa $X$ ma rozkład jednostajny na przedziale $[a, b]$. Oblicz $E(X)$ oraz $D^2(X)$.
+Zmienna losowa $X$ ma rozkład jednostajny na przedziale $[a, b]$. Oblicz $E(X)$ oraz $Var(X)$.
 
 Rozwiązanie:
 
@@ -263,7 +263,7 @@ Wariancja:
 
 $E(X^2) = \int\limits_{-\infty}^\infty x^2f(x)dx = \int\limits_a^b x^2\frac{1}{b-a}dx = \frac{1}{b-a}\int\limits_a^b x^2dx = \frac{1}{b-a}\frac{x^3}{3}\bigr\|_a^b = \frac{1}{b-a}\frac{b^3 - a^3}{3} = \frac{(b-a)(b^2+ab+a^2)}{3(b-a)} = \frac{b^2+ab+a^2}{3}$
 
-$D^2(X) = E(X^2) - [E(X)]^2 = \frac{b^2+ab+a^2}{3} - \left(\frac{b+a}{2}\right)^2 = \frac{4b^2+4ab+4a^2}{12} -\frac{3b^2+6ab+3a^2}{12} = \frac{b^2-2ab+a^2}{12} = \frac{(b-a)^2}{12}.$
+$Var(X) = E(X^2) - [E(X)]^2 = \frac{b^2+ab+a^2}{3} - \left(\frac{b+a}{2}\right)^2 = \frac{4b^2+4ab+4a^2}{12} -\frac{3b^2+6ab+3a^2}{12} = \frac{b^2-2ab+a^2}{12} = \frac{(b-a)^2}{12}.$
 
 Można obliczyć wariancję z definicji ale wtedy jest dłużej bo jest więcej całek do liczenia.
 
@@ -291,7 +291,7 @@ Cx & \text{dla } x \in [0, 10].
 
 Oblicz:\
 a) stałą $C$,\
-b) $E(X)$, $D^2(X)$,\
+b) $E(X)$, $Var(X)$,\
 c) $P(X>5)$.\
 d) Wyznacz dystrybuantę zmiennej losowej $X$.
 
@@ -317,7 +317,7 @@ $E(X) = \int\limits_0^{10}x\frac{x}{50}dx=\frac{1}{50}\int\limits_0^{10}x^2dx = 
 
 $E(X^2) = \frac{1}{50}\int\limits_0^{10}x^3dx = \frac{1}{50} \frac{x^4}{4} \bigr\|_0^{10} = \frac{10000}{200} = 50.$
 
-$D^2(X) = 50 - \left( \frac{20}{3} \right)^2 = \frac{450}{9} - \frac{400}{9}= \frac{50}{9}.$
+$Var(X) = 50 - \left( \frac{20}{3} \right)^2 = \frac{450}{9} - \frac{400}{9}= \frac{50}{9}.$
 
 c)
 
@@ -405,7 +405,7 @@ $=0 + 0 - 0 + \frac{2}{\lambda^2} = \frac{2}{\lambda^2}$
 
 <br />
 
-$D^2(X) = \frac{2}{\lambda^2} - \left( \frac{1}{\lambda} \right)^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}$
+$Var(X) = \frac{2}{\lambda^2} - \left( \frac{1}{\lambda} \right)^2 = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2}$
 
 <br />
 
@@ -415,7 +415,7 @@ $E(X) = 0.5 = \frac{1}{\lambda}$
 
 $\lambda = 2$
 
-$D^2(X) = \frac{1}{2^2} = \frac{1}{4}$
+$Var(X) = \frac{1}{2^2} = \frac{1}{4}$
 
 Obliczę też dystrybuantę:
 
@@ -529,7 +529,7 @@ a)
 
 $E(Y) = E(0.9X-20) = 0.9E(X)-20 = 0.9\cdot100-20 = 70,$
 
-$D^2(Y) = D^2(0.9X-20) = 0.9^2D^2(X) = 0.9^2\cdot 100 = 81$
+$Var(Y) = Var(0.9X-20) = 0.9^2Var(X) = 0.9^2\cdot 100 = 81$
 
 b)
 
@@ -823,7 +823,7 @@ $E(Y) = 140 + 2\cdot26 - 3 = 189.$
 
 Druga metoda:
 
-$D^2(X) = E(X^2) - [E(X)]^2,$
+$Var(X) = E(X^2) - [E(X)]^2,$
 
 $1 = E(X^2) - 25,$
 
@@ -867,7 +867,7 @@ $E(X^2) = \int\limits_0^\infty 2x^2e^{-2x} = \frac{1}{2},$
 
 $E(X^3) = \int\limits_0^\infty 2x^3e^{-2x} = \frac{3}{4},$
 
-$D^2(X) = \frac{1}{2} - (\frac{1}{2})^2 = \frac{1}{4}.$
+$Var(X) = \frac{1}{2} - (\frac{1}{2})^2 = \frac{1}{4}.$
 
 $D(X) = \frac{1}{2}$
 
@@ -1255,7 +1255,7 @@ Rozwiązanie:
 
 Ponieważ zmienne losowe $X_i$ mają taką samą wariancję to można zapisać:
 
-$100\sigma^2 = kD^2(X_i) = k\sigma^2,$
+$100\sigma^2 = kVar(X_i) = k\sigma^2,$
 
 $k=100.$
 
@@ -1269,7 +1269,7 @@ Rozwiązanie:
 
 Ponieważ zmienne losowe $X_i$ mają taką samą wariancję to można zapisać:
 
-$100\sigma^2 = kD^2(X_i) = \frac{(\sigma + \sigma)^2}{12} = \frac{4\sigma^2}{12},$
+$100\sigma^2 = kVar(X_i) = \frac{(\sigma + \sigma)^2}{12} = \frac{4\sigma^2}{12},$
 
 $k=300.$
 
@@ -1293,7 +1293,7 @@ $E(X) = \int\limits_0^1 3x^3 dx = 0.75,$
 
 $E(X^2) = \int\limits_0^1 3x^4 dx = 0.6,$
 
-$D^2(X) = 0.6 - 0.75^2 = 0.0375.$
+$Var(X) = 0.6 - 0.75^2 = 0.0375.$
 
 ### Zadanie 39
 {: .no_toc }
@@ -1307,7 +1307,7 @@ $$f(x) =
 \end{cases}$$
 
 a) Znaleźć dystrybuantę.\
-b) Obliczyć $E(X)$ oraz $D^2(X)$.\
+b) Obliczyć $E(X)$ oraz $Var(X)$.\
 c) Obliczyć $P(X > 3)$, $P(-\frac{1}{2} \le X < 1)$, $P(X = 0)$.
 
 Rozwiązanie:
@@ -1343,7 +1343,7 @@ $E(X) = \int\limits_{-1}^0 -\frac{2}{5} x^2 dx + \int\limits_{-1}^0 \frac{2}{5} 
 
 $E(X^2) = \int\limits_{-1}^0 -\frac{2}{5} x^3 dx + \int\limits_{-1}^0 \frac{2}{5} x^3 dx = \frac{17}{10},$
 
-$D^2(X) = \frac{17}{10} - (\frac{14}{15})^2 = \frac{373}{450}.$
+$Var(X) = \frac{17}{10} - (\frac{14}{15})^2 = \frac{373}{450}.$
 
 c)
 
@@ -1389,7 +1389,7 @@ f(x) = \begin{cases}
 0           & \text{dla pozostałych } x.
 \end{cases}$$
 
-a) Obliczyć $E(X)$ oraz $D^2(X)$.\
+a) Obliczyć $E(X)$ oraz $Var(X)$.\
 b) Wyznaczyć momenty centralne rzędu pierwszego, drugiego i trzeciego oraz kwartyle zmiennej $X$.
 
 Rozwiązanie:
@@ -1402,7 +1402,7 @@ $E(X^2) = \int\limits_0^2 \frac{x^3}{2}dx = 2,$
 
 $E(X^3) = \int\limits_0^2 \frac{x^4}{2}dx = \frac{16}{5},$
 
-$D^2(X) = 2 - (\frac{4}{3})^2 = \frac{2}{9}$
+$Var(X) = 2 - (\frac{4}{3})^2 = \frac{2}{9}$
 
 b)
 
@@ -1410,7 +1410,7 @@ Dla ułatwienia oznaczę $E(X)$ jako $\mu$:
 
 $E(X - \mu) = E(X) - \mu = \mu - \mu = 0,$
 
-$E[(X - \mu)^2] = D^2(X) = \frac{2}{9},$
+$E[(X - \mu)^2] = Var(X) = \frac{2}{9},$
 
 $E[(X - \mu)^3] = E(X^3 - 3X^2\mu + 3X\mu^2 - \mu^3) = E(X^3) - 3\mu E(X^2) + 2\mu^3 = \frac{16}{5} - 3\cdot \frac{4}{3}\cdot2 + 2\cdot(\frac{4}{3})^3 = -\frac{8}{135}$
 
@@ -1495,7 +1495,7 @@ f(x) = \begin{cases}
 $$
 
 a) Znaleźć dystrybuantę $X$.\
-b) Obliczyć $EX$ oraz $D^2X$.\
+b) Obliczyć $EX$ oraz $VarX$.\
 c) Obliczyć $P(X > \frac{\pi}{4})$.\
 d) Obliczyć $x_{0.25}$ oraz $x_{0.75}$.
 
@@ -1519,7 +1519,7 @@ $E(X) = \int\limits_0^\frac{\pi}{2} x sin(2x)dx = \frac{\pi}{4},$
 
 $E(X^2) = \int\limits_0^\frac{\pi}{2} x^2 sin(2x)dx = \frac{\pi^2}{8} - \frac{1}{2},$
 
-$D^2(X) = \frac{\pi^2}{8} - \frac{1} - (\frac{\pi}{4})^2 = \frac{\pi^2}{16} - \frac{1}{2}.$
+$Var(X) = \frac{\pi^2}{8} - \frac{1} - (\frac{\pi}{4})^2 = \frac{\pi^2}{16} - \frac{1}{2}.$
 
 c)
 
@@ -1555,7 +1555,7 @@ $$
 Znaleźć:\
 a) stałą $a$,\
 b) dystrybuantę $X$,\
-c) $D^2(X)$,\
+c) $Var(X)$,\
 d) $P(−1 < X < 1)$, $P(X > 0)$, $P(X = \frac{1}{2})$.
 
 Rozwiązanie:
@@ -1588,7 +1588,7 @@ $E(X) = \frac{3}{2\pi} \int\limits_{-1}^2 \frac{xdx}{\sqrt{4−x^2}} = \frac{3\s
 
 $E(X^2) = \frac{3}{2\pi} \int\limits_{-1}^2 \frac{x^2dx}{\sqrt{4−x^2}} = 2 - \frac{3\sqrt{3}}{4\pi},$
 
-$D^2(X) = 2 - \frac{3\sqrt{3}}{4\pi} - (\frac{3\sqrt{3}}{2\pi})^2 = 2 - \frac{3\sqrt{3}}{4\pi} - \frac{27}{4\pi^2}$
+$Var(X) = 2 - \frac{3\sqrt{3}}{4\pi} - (\frac{3\sqrt{3}}{2\pi})^2 = 2 - \frac{3\sqrt{3}}{4\pi} - \frac{27}{4\pi^2}$
 
 d)
 
@@ -1612,7 +1612,7 @@ $$
 
 a) Wyznaczyć stałą $b$.\
 b) Znaleźć dystrybuantę $X$.\
-c) Obliczyć $E(X)$ oraz $D^2(X)$.\
+c) Obliczyć $E(X)$ oraz $Var(X)$.\
 d) Obliczyć $P(X > 1)$.
 
 Rozwiązanie:
@@ -1641,7 +1641,7 @@ $E(X) = \frac{1}{2}\int\limits_0^{ln3}xe^xdx = \frac{3}{2}ln3-1,$
 
 $E(X^2) = \frac{1}{2}\int\limits_0^{ln3}x^2e^xdx = 2 - 3ln3 + \frac{3}{2}(ln3)^2,$
 
-$D^2(X) = 2 - 3\ln3 + \frac{3}{2}(\ln3)^2 - (\frac{3}{2}\ln3-1)^2 = 2 - 3\ln3 + \frac{3}{2}(\ln3)^2 - \frac{9}{4}(\ln3)^2 + 3ln3 - 1 = 1 - \frac{3}{4}(\ln3)^2.$
+$Var(X) = 2 - 3\ln3 + \frac{3}{2}(\ln3)^2 - (\frac{3}{2}\ln3-1)^2 = 2 - 3\ln3 + \frac{3}{2}(\ln3)^2 - \frac{9}{4}(\ln3)^2 + 3ln3 - 1 = 1 - \frac{3}{4}(\ln3)^2.$
 
 d)
 
@@ -1699,9 +1699,9 @@ Rozwiązanie:
 
 $E(3XY − 2) = 3E(X)E(Y) - 2,$
 
-$E(X) = \sqrt{E(X^2) - D^2(X)} = \sqrt{16 - 4\cdot3} = 2,$
+$E(X) = \sqrt{E(X^2) - Var(X)} = \sqrt{16 - 4\cdot3} = 2,$
 
-$E(Y) = \sqrt{E(Y^2) - D^2(Y)} = \sqrt{12 - 9} = \sqrt{3},$
+$E(Y) = \sqrt{E(Y^2) - Var(Y)} = \sqrt{12 - 9} = \sqrt{3},$
 
 $E(3XY − 2) = 3\cdot2\sqrt{3}-2 = 6\sqrt{3}-2.$
 
@@ -1716,7 +1716,7 @@ f(x) = \begin{cases}
 \end{cases}
 $$
 
-Znaleźć dystrybuantę, obliczyć $E(X)$, $D^2(X)$, $P(X < 0)$, $P(X \ge­ 1)$.
+Znaleźć dystrybuantę, obliczyć $E(X)$, $Var(X)$, $P(X < 0)$, $P(X \ge­ 1)$.
 
 Rozwiązanie:
 
@@ -1745,7 +1745,7 @@ $E(X) = \int\limits_{-1}^0 -x^2 dx + \int\limits_{0}^1 x^2 dx = 0,$
 
 $E(X^2) = \int\limits_{-1}^0 -x^3 dx + \int\limits_{0}^1 x^3 dx = 0.5,$
 
-$D^2(X) = 0.5,$
+$Var(X) = 0.5,$
 
 $P(X < 0) = \frac{1}{2} - \frac{0}{2} = \frac{1}{2},$
 
@@ -1761,7 +1761,7 @@ f(x) = \begin{cases}
 \end{cases}
 $$
 
-Znaleźć dystrybuantę i narysować jej wykres, obliczyć $E(X)$, $D^2(X)$, $P(X < −\frac{1}{2})$, $P(\|X\| > \frac{1}{3})$.
+Znaleźć dystrybuantę i narysować jej wykres, obliczyć $E(X)$, $Var(X)$, $P(X < −\frac{1}{2})$, $P(\|X\| > \frac{1}{3})$.
 
 Rozwiązanie:
 
@@ -1779,7 +1779,7 @@ $E(X) = \int\limits_{-1}^1 \frac{3}{4}x(1-x^2) dx = 0,$
 
 $E(X^2) = \int\limits_{-1}^1 \frac{3}{4}x^2(1-x^2) dx = 0.2,$
 
-$D^2(X) = 0.2,$
+$Var(X) = 0.2,$
 
 $P(X < -\frac{1}{2}) = \frac{1}{4}(3(-\frac{1}{2}) - (-\frac{1}{2})^3 + 2) = \frac{5}{32},$
 
@@ -1794,7 +1794,7 @@ a \cos(x) & \text{dla } -\frac{\pi}{2} \le x < \frac{\pi}{2}, \\
 0         & \text{w p.p.}  
 \end{cases}$$
 
-była gęstością pewnej zmiennej losowej $X$. Znaleźć dystrybuantę, obliczyć $E(X)$, $D^2(X)$, $P(\|X\| > \frac{\pi}{6})$, $P(X ­ \ge \frac{\pi}{3})$, $P(−\frac{\pi}{6} < X \le \frac{\pi}{2})$ oraz medianę i modę $X$.
+była gęstością pewnej zmiennej losowej $X$. Znaleźć dystrybuantę, obliczyć $E(X)$, $Var(X)$, $P(\|X\| > \frac{\pi}{6})$, $P(X ­ \ge \frac{\pi}{3})$, $P(−\frac{\pi}{6} < X \le \frac{\pi}{2})$ oraz medianę i modę $X$.
 
 Rozwiązanie:
 
@@ -1816,7 +1816,7 @@ $E(X) = \frac{1}{2}\int\limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} x \cos(x) dx = 0
 
 $E(X^2) = \frac{1}{2}\int\limits_{-\frac{\pi}{2}}^{\frac{\pi}{2}} x^2\cos(x) dx = \frac{\pi^2}{4} - 2,$
 
-$D^2(X) = \frac{\pi^2}{4} - 2,$
+$Var(X) = \frac{\pi^2}{4} - 2,$
 
 $P(\|X\| > \frac{\pi}{6}) = P(X > \frac{\pi}{6} \cup X < -\frac{\pi}{6}) = P(X < -\frac{\pi}{6}) + 1 - P(X < \frac{\pi}{6}) = \frac{1}{2}(\sin(-\frac{\pi}{6})+1) + 1 - \frac{1}{2}(\sin(\frac{\pi}{6})+1) = 0.5,$
 
@@ -1857,7 +1857,7 @@ $$f(x) = \begin{cases}
 2e^{-2x} & \text{dla } x > 0.
 \end{cases}$$
 
-Znaleźć dystrybuantę, obliczyć $E(X)$, $D^2(X)$, $P(X > 1)$, $P(0 < X \le ln 3)$ oraz medianę $X$.
+Znaleźć dystrybuantę, obliczyć $E(X)$, $Var(X)$, $P(X > 1)$, $P(0 < X \le ln 3)$ oraz medianę $X$.
 
 Rozwiązanie:
 
@@ -1872,7 +1872,7 @@ $E(X) = 2\int\limits_0^\infty xe^{-2x}dx = \frac{1}{2},$
 
 $E(X^2) = 2\int\limits_0^\infty x^2e^{-2x}dx = \frac{1}{2},$
 
-$D^2(X) = \frac{1}{4},$
+$Var(X) = \frac{1}{4},$
 
 $P(X > 1) = 1 - P(X < 1) = 1 - (1-e^{-2}) = e^{-2},$
 
@@ -1898,7 +1898,7 @@ $$f(x) = \begin{cases}
 \frac{2}{x^3} & \text{dla } x > 1.
 \end{cases}$$
 
-Znaleźć dystrybuantę, obliczyć $E(X)$, $D^2(X)$, $P(\|X\| > 1)$, oraz medianę $X$.
+Znaleźć dystrybuantę, obliczyć $E(X)$, $Var(X)$, $P(\|X\| > 1)$, oraz medianę $X$.
 
 Rozwiązanie:
 
@@ -1913,7 +1913,7 @@ $E(X) = 2\int\limits_0^\infty \frac{1}{x^2} dx = 2,$
 
 $E(X^2) = 2\int\limits_0^\infty \frac{1}{x} dx = \infty,$
 
-$D^2(X) = \infty,$
+$Var(X) = \infty,$
 
 $P(\|X\| > 1) = P(X > 1 \cup X < -1) = P(X < -1)+ 1 -P(X < 1) = 0 + 1 - 0 = 1.$
 
@@ -2137,7 +2137,7 @@ a)
 
 Korzystam z wzorów na wariancję i wartość oczekiwaną rozkładu jednostajnego:
 
-$E(X^2) = D^2(X) + [E(X)]^2 = \frac{(0-10)^2}{12} + (\frac{0 + 10}{2})^2 = \frac{100}{3}.$
+$E(X^2) = Var(X) + [E(X)]^2 = \frac{(0-10)^2}{12} + (\frac{0 + 10}{2})^2 = \frac{100}{3}.$
 
 b)
 
@@ -2206,7 +2206,7 @@ $$F(x) = \begin{cases}
 1         & \text{dla } x > 1.
 \end{cases}$$
 
-Znaleźć funkcję gęstości. Obliczyć $E(X)$, $D^2(X)$, $P(0 < X < \frac{1}{2})$, $P(X > \frac{1}{3})$.
+Znaleźć funkcję gęstości. Obliczyć $E(X)$, $Var(X)$, $P(0 < X < \frac{1}{2})$, $P(X > \frac{1}{3})$.
 
 Rozwiązanie:
 
@@ -2219,7 +2219,7 @@ $E(X) = \int\limits_0^1 6x^2-6x^3 = 0.5,$
 
 $E(X^2) = \int\limits_0^1 6x^3-6x^4 = 0.3,$
 
-$D^2(X) = 0.3 - 0.25= 0.05.$
+$Var(X) = 0.3 - 0.25= 0.05.$
 
 $P(0 < X < \frac{1}{2}) = P(X < \frac{1}{2}) - P(X < 0) = 3(\frac{1}{2})^2-2(\frac{1}{2})^3 = 0.5,$
 
@@ -2234,7 +2234,7 @@ x^3 & \text{dla } x \in (0, 1], \\
 1   & \text{dla } x > 1.
 \end{cases}$$
 
-Znaleźć funkcję gęstości, obliczyć $E(X)$, $D^2(X)$, $P(0 < X <\frac{1}{2})$, medianę oraz $x_{0.2}$ i $x_{0.729}$.
+Znaleźć funkcję gęstości, obliczyć $E(X)$, $Var(X)$, $P(0 < X <\frac{1}{2})$, medianę oraz $x_{0.2}$ i $x_{0.729}$.
 
 Rozwiązanie:
 
@@ -2247,7 +2247,7 @@ $E(X) = \int\limits_0^1 3x^3 dx = \frac{3}{4},$
 
 $E(X) = \int\limits_0^1 3x^4 dx = \frac{3}{5},$
 
-$D^2(X) = \frac{3}{5} - (\frac{3}{4})^2 = \frac{3}{80}.$
+$Var(X) = \frac{3}{5} - (\frac{3}{4})^2 = \frac{3}{80}.$
 
 $P(0 < X < \frac{1}{2}) = P(X < \frac{1}{2}) - P(X < 0) = (\frac{1}{2})^3 = \frac{1}{8}$
 
