@@ -2403,7 +2403,7 @@ $P(W < w) = P(min(X^2,Y)<w) = 1 - P(min(X^2,Y)>w) = 1 - P(X^2>w,Y>w) = 1 - P(X^2
 1 - (1 - P(X^2<w))(1 - P(Y<w)) = 1 - (1 - P(-\sqrt{w}<X<\sqrt{w}))(1 - G(w)) =
 1 - (1 - F(\sqrt{w})+F(\sqrt{w}))(1 - G(w))$
 
-### Zadanie 67
+### Zadanie 68
 $X$, $Z$ są niezależnymi zmiennymi losowymi. Zmienna losowa $X$ jest typu ciągłego z gęstością $f$ i $P(X>0)=1$. Zmienna losowa $Z$ ma rozkład $Bin(1,p)$. Znajdź dystrybuantę i gęstość zmiennej $Y = ZX$.
 
 Rozwiązanie
