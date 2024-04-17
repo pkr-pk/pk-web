@@ -2354,3 +2354,45 @@ $= \frac{(\alpha+1)\alpha\Gamma(\alpha)}{\beta^2\Gamma(\alpha)}$
 $= \frac{\alpha^2+\alpha}{\beta^2},$
 
 $Var(X) = \frac{\alpha^2+\alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} = \frac{\alpha}{\beta^2}.$
+
+### Zadanie 66
+Zmienne losowe $X$, $Y$ są niezależne i mają jednakową gęstość $f$. Wyznacz gęstość zmiennych losowych:\
+a) $Z = max(X, Y)$,\
+b) $U = min(X, Y)$.
+
+Rozwiązanie:
+
+a)\ 
+$P(Z < z) = P(max(X,Y)<z) = P(X<z, Y<z) = P(X<z)P(Y<z)=F^2$
+
+$f_Z(z) = 2Ff$
+
+b)\ 
+$P(U < u) = P(min(X,Y)<u) = 1 - P(min(X,Y)>u) = 1 - P(X>u,Y>u) = 1 - P(X>u)p(Y>u)=
+1 - (1 - P(X<u))(1 - P(Y<u)) = 1-(1-F)(1-F)=1-(1-F)^2$
+
+$f_U(u) = 2f(1-F)$
+
+### Zadanie 67
+Zmienne losowe $X$, $Y$ są niezależne i mają dystrybuanty $F$, $G$, odpowiednio. Wyznacz dystrybuanty następujących zmiennych losowych:\
+a) $Z = max(X, Y)$,\
+b) $U = min(X, Y)$,\
+c) $V = max(2X, Y)$,\
+d) $W = min(X^2, Y)$.
+
+Rozwiązanie:
+
+a)\ 
+$P(Z < z) = P(max(X,Y)<z) = P(X<z, Y<z) = P(X<z)P(Y<z)=FG$
+
+b)\ 
+$P(U < u) = P(min(X,Y)<u) = 1 - P(min(X,Y)>u) = 1 - P(X>u,Y>u) = 1 - P(X>u)p(Y>u)=
+1 - (1 - P(X<u))(1 - P(Y<u)) = 1-(1-F)(1-G)$
+
+c)\ 
+$P(V < v) = P(max(2X,Y)<v) = P(2X<v, Y<v) = P(X<\frac{v}{2})P(Y<v)=F(\frac{v}{2})G(v)$
+
+d)\ 
+$P(W < w) = P(min(X^2,Y)<w) = 1 - P(min(X^2,Y)>w) = 1 - P(X^2>w,Y>w) = 1 - P(X^2>w)p(Y>w)=
+1 - (1 - P(X^2<w))(1 - P(Y<w)) = 1 - (1 - P(-\sqrt{w}<X<\sqrt{w}))(1 - G(w)) =
+1 - (1 - F(\sqrt{w})+F(\sqrt{w}))(1 - G(w))$
