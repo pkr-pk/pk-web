@@ -2362,13 +2362,13 @@ b) $U = min(X, Y)$.
 
 Rozwiązanie:
 
-a)\
+a)
 
 $P(Z < z) = P(max(X,Y)<z) = P(X<z, Y<z) = P(X<z)P(Y<z)=F^2$
 
 $f_Z(z) = 2Ff$
 
-b)\
+b)
 
 $P(U < u) = P(min(X,Y)<u) = 1 - P(min(X,Y)>u) = 1 - P(X>u,Y>u) = 1 - P(X>u)p(Y>u)=
 1 - (1 - P(X<u))(1 - P(Y<u)) = 1-(1-F)(1-F)=1-(1-F)^2$
@@ -2384,21 +2384,60 @@ d) $W = min(X^2, Y)$.
 
 Rozwiązanie:
 
-a)\
+a)
 
 $P(Z < z) = P(max(X,Y)<z) = P(X<z, Y<z) = P(X<z)P(Y<z)=FG$
 
-b)\
+b)
 
 $P(U < u) = P(min(X,Y)<u) = 1 - P(min(X,Y)>u) = 1 - P(X>u,Y>u) = 1 - P(X>u)p(Y>u)=
 1 - (1 - P(X<u))(1 - P(Y<u)) = 1-(1-F)(1-G)$
 
-c)\
+c)
 
 $P(V < v) = P(max(2X,Y)<v) = P(2X<v, Y<v) = P(X<\frac{v}{2})P(Y<v)=F(\frac{v}{2})G(v)$
 
-d)\
+d)
 
 $P(W < w) = P(min(X^2,Y)<w) = 1 - P(min(X^2,Y)>w) = 1 - P(X^2>w,Y>w) = 1 - P(X^2>w)p(Y>w)=
 1 - (1 - P(X^2<w))(1 - P(Y<w)) = 1 - (1 - P(-\sqrt{w}<X<\sqrt{w}))(1 - G(w)) =
 1 - (1 - F(\sqrt{w})+F(\sqrt{w}))(1 - G(w))$
+
+### Zadanie 67
+$X$, $Z$ są niezależnymi zmiennymi losowymi. Zmienna losowa $X$ jest typu ciągłego z gęstością $f$ i $P(X>0)=1$. Zmienna losowa $Z$ ma rozkład $Bin(1,p)$. Znajdź dystrybuantę i gęstość zmiennej $Y = ZX$.
+
+Rozwiązanie
+
+$P(X > 0) = 1$
+
+$1 - P(X < 0) = 1$
+
+$P(X < 0) = 0$
+
+stąd $f(x) = 0$ dla $x<0$.
+
+$q = 1-p$
+
+$P(Z = 0) = q$
+
+$P(Z = 1) = p$
+
+$P(Y < y) = P(ZX < y) = P(Z=0, 0<y) + P(Z=1, X<y) = 
+P(Z=0)\mathbb{1}_{(-\infty, 0)} + P(Z=1)P(X<y) = q\mathbb{1}_{(-\infty, 0)} +
+pF_X(y)$
+
+Ostatecznie:
+
+$$
+F_Y(y)={\begin{cases}
+0         & {\text{dla }} y<0,\\
+q         & {\text{dla }} y=0,\\
+q+pF_X(y) & {\text{dla }} y>0.
+\end{cases}}
+$$
+
+$$
+f_Y(y)={\begin{cases}
+pf_X(y) & {\text{dla }} y>0.
+\end{cases}}
+$$
