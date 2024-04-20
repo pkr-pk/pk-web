@@ -69,4 +69,16 @@ nav_order: 3
 60 [rozwiązania](pdfs_majatkowych/rozwiazania/egz_60_dn_28_05_2012.pdf){:target="_blank"}\
 61 [rozwiązania](pdfs_majatkowych/rozwiazania/egz_61_dn_01_10_2012.pdf){:target="_blank"}\
 62 [rozwiązania](pdfs_majatkowych/rozwiazania/egz_62_dn_10_12_2012.pdf){:target="_blank"}\
-63 [rozwiązania](pdfs_majatkowych/rozwiazania/egz_63_dn_25_03_2013.pdf){:target="_blank"}
+63 [rozwiązania](pdfs_majatkowych/rozwiazania/egz_63_dn_25_03_2013.pdf){:target="_blank"}\
+76 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_076_2017_06_12.pdf){:target="_blank"}\
+77 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_077_2017_11_20.pdf){:target="_blank"}\
+78 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_078_2018_03_26.pdf){:target="_blank"}\
+79 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_079_2018_11_26.pdf){:target="_blank"}\
+80 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_080_2019_03_04.pdf){:target="_blank"}\
+81 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_081_2019_11_18.pdf){:target="_blank"}\
+82 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_082_2020_03_02.pdf){:target="_blank"}\
+83 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_083_2021_10_04.pdf){:target="_blank"}\
+84 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_084_2022_04_11.pdf){:target="_blank"}\
+85 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_085_2022_06_09.pdf){:target="_blank"}\
+86 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_086_2022_09_19.pdf){:target="_blank"}\
+87 [rozwiązania](pdfs_majatkowych/rozwiazania/Egzamin_087_2023_01_23.pdf){:target="_blank"}
