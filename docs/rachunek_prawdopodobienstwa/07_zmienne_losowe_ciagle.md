@@ -1752,6 +1752,7 @@ $P(X < 0) = \frac{1}{2} - \frac{0}{2} = \frac{1}{2},$
 $P(X \ge 1) = 1 - P(X \le 1) = 1 - \frac{1}{2} - \frac{1}{2} = 0.$
 
 ### Zadanie 50
+{: .no_toc }
 Niech
 
 $$
@@ -1787,6 +1788,7 @@ $P(\|X\| > \frac{1}{3}) = P(X > \frac{1}{3} \cup X < -\frac{1}{3}) = P(X < - \fr
 $ = \frac{1}{4}(3(-\frac{1}{3}) - (- \frac{1}{3})^3 + 2) + 1 - \frac{1}{4}(3(\frac{1}{3}) - (\frac{1}{3})^3 + 2) = \frac{14}{27}.$
 
 ### Zadanie 51
+{: .no_toc }
 Dobrać tak stałą $a$, by funkcja
 
 $$f(x) = \begin{cases}
@@ -1850,6 +1852,7 @@ $x = 0.$
 
 
 ### Zadanie 52
+{: .no_toc }
 Funkcja gęstości prawdopodobieństwa zmiennej losowej X jest postaci:
 
 $$f(x) = \begin{cases}
@@ -1891,6 +1894,7 @@ $-2m = \ln(0.5),$
 $m = -\frac{\ln(0.2)}{2} = \frac{\ln2}{2}.$
 
 ### Zadanie 53
+{: .no_toc }
 Niech gęstość pewnej zmiennej $X$ będzie postaci
 
 $$f(x) = \begin{cases}
@@ -1929,6 +1933,7 @@ $x = \sqrt{2}.$
 
 
 ### Zadanie 54
+{: .no_toc }
 Niech $f(x) = \frac{1}{\pi} \cdot \frac{1}{1+x^2} \ \text{dla } x \in \mathbb{R}$. Znaleźć dystrybuantę i narysować, zbadać istnienie $E(X)$. Obliczyć $P(0 < X \le 1)$, $P(3X − 1 > \sqrt{3} − 1)$, $P(0 < X < \sqrt{3})$. Znaleźć medianę oraz modę.
 
 Rozwiązanie:
@@ -1969,6 +1974,7 @@ $x = 0.$
 
 
 ### Zadanie 55
+{: .no_toc }
 Zmienna $X$ ma gęstość postaci
 
 $$f(x) = \begin{cases}
@@ -2022,6 +2028,7 @@ $e^{-\frac{x^2}{2}}(1 - x^2)= 0,$
 $x = 1.$
 
 ### Zadanie 56
+{: .no_toc }
 Zmienna $X$ ma gęstość postaci
 
 $$f(x) = \begin{cases}
@@ -2054,6 +2061,7 @@ $$F(x) = \begin{cases}
 $P(1 < X \le 2) = P(X \le 2) - P(X < 1) = 1 - \frac{1}{\pi}arcsin(\frac{1}{2}) - \frac{1}{2} = \frac{1}{3}$
 
 ### Zadanie 57
+{: .no_toc }
 Zmienna $X$ ma gęstość postaci
 
 $$f(x) = \begin{cases}
@@ -2077,6 +2085,7 @@ $\ln\frac{1}{2} < 0.$
 
 
 ### Zadanie 58
+{: .no_toc }
 Dobrać $A$ i $B$ tak, by funkcja
 
 $$F(x) = \begin{cases}
@@ -2126,6 +2135,7 @@ $P(X > \frac{1}{2}) = 1 - P(X < \frac{1}{2}) = 1 - 1 + \frac{1}{\pi}\cdot \arcco
 
 
 ### Zadanie 59
+{: .no_toc }
 Bok prostokąta jest zmienną losową $X$ o rozkładzie jednostajnym na przedziale $[0, 10]$.\
 Obliczyć:\
 a) $E(X^2)$,\
@@ -2152,6 +2162,7 @@ $Y = 10 - X,$
 $E(Z) = E(XY) = E[X(10-X)] = E(10X-X^2) = 10E(X) - E(X^2) = 10\cdot\frac{10}{2} - \frac{100}{3} = \frac{50}{3}.$
 
 ### Zadanie 60
+{: .no_toc }
 Zmienna $X$ ma gęstość postaci
 
 $$f(x) = \begin{cases}
@@ -2178,6 +2189,7 @@ $$F(x) = \begin{cases}
 $P(0 < X < \ln2) = P(X < \ln2) - P(X < 0) = 1 - \ln2 \cdot e^{-\ln2} - e^{-\ln2} = 1 - \frac{1}{2}\ln2 - \frac{1}{2} = \frac{1}{2} - \frac{1}{2}\ln2$
 
 ### Zadanie 61
+{: .no_toc }
 Dobrać tak stała $k$, by funkcja
 
 $$f(x) = \begin{cases}
@@ -2198,6 +2210,7 @@ $= k(\frac{\pi-2}{2}),$
 $k = \frac{2}{\pi-2}.$
 
 ### Zadanie 62
+{: .no_toc }
 Zmienna losowa $X$ ma dystrybuantę postaci
 
 $$F(x) = \begin{cases}
@@ -2226,6 +2239,7 @@ $P(0 < X < \frac{1}{2}) = P(X < \frac{1}{2}) - P(X < 0) = 3(\frac{1}{2})^2-2(\fr
 $P(X > \frac{1}{3}) = 1 - P(X < \frac{1}{3}) = 1 - 3(\frac{1}{3})^2 + 2(\frac{1}{3})^3 = \frac{20}{27}.$
 
 ### Zadanie 63
+{: .no_toc }
 Dystrybuanta pewnej zmiennej losowej $X$ jest postaci
 
 $$F(x) = \begin{cases}
@@ -2271,7 +2285,7 @@ $x_{0.729} = 0.729^\frac{1}{3} = 0.9.$
 
 
 ### Zadanie 64
-
+{: .no_toc }
 Niech zmienna losowa $X$ ma rozkład normalny $N(\mu , \sigma^2)$. Wówczas rozkład zmiennej losowej $Y = exp(X)$ nazywamy rozkładem lognormalnym z parametrami $\mu$, $\sigma$. Oblicz wartość oczekiwaną i wariancje zmiennej losowej $Y$.
 
 Rozwiązanie:
@@ -2318,6 +2332,7 @@ $Var(Y) = e^{2\mu + 2\sigma^2} - \left(e^{\mu + \frac{\sigma^2}{2}}\right)^2 = e
 
 
 ### Zadanie 65
+{: .no_toc }
 Mówimy, że ciągła zmienna losowa $X$ ma rozkład gamma z parametrami $\alpha > 0$, $\beta > 0$, jeśli gęstość prawdopodobieństwa zmiennej $X$ jest postaci:
 
 $$f(x) = \begin{cases}
@@ -2356,6 +2371,7 @@ $= \frac{\alpha^2+\alpha}{\beta^2},$
 $Var(X) = \frac{\alpha^2+\alpha}{\beta^2} - \frac{\alpha^2}{\beta^2} = \frac{\alpha}{\beta^2}.$
 
 ### Zadanie 66
+{: .no_toc }
 Zmienne losowe $X$, $Y$ są niezależne i mają jednakową gęstość $f$. Wyznacz gęstość zmiennych losowych:\
 a) $Z = max(X, Y)$,\
 b) $U = min(X, Y)$.
@@ -2376,6 +2392,7 @@ $ = 1 - P(X>u)p(Y>u)= 1 - (1 - P(X<u))(1 - P(Y<u)) = 1-(1-F)(1-F)=1-(1-F)^2$
 $f_U(u) = 2f(1-F)$
 
 ### Zadanie 67
+{: .no_toc }
 Zmienne losowe $X$, $Y$ są niezależne i mają dystrybuanty $F$, $G$, odpowiednio. Wyznacz dystrybuanty następujących zmiennych losowych:\
 a) $Z = max(X, Y)$,\
 b) $U = min(X, Y)$,\
@@ -2404,6 +2421,7 @@ $ = 1 - P(X^2>w)P(Y>w)= 1 - (1 - P(X^2<w))(1 - P(Y<w))$
 $ = 1 - (1 - P(-\sqrt{w}<X<\sqrt{w}))(1 - G(w)) = 1 - (1 - F(\sqrt{w})+F(\sqrt{w}))(1 - G(w))$
 
 ### Zadanie 68
+{: .no_toc }
 $X$, $Z$ są niezależnymi zmiennymi losowymi. Zmienna losowa $X$ jest typu ciągłego z gęstością $f$ i $P(X>0)=1$. Zmienna losowa $Z$ ma rozkład $Bin(1,p)$. Znajdź dystrybuantę i gęstość zmiennej $Y = ZX$.
 
 Rozwiązanie
