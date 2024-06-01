@@ -85,4 +85,5 @@ nav_order: 1
 87 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_87.pdf){:target="_blank"}\
 88 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_88.pdf){:target="_blank"}\
 89 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_89.pdf){:target="_blank"}\
-90 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_90.pdf){:target="_blank"}
+90 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_90.pdf){:target="_blank"}\
+91 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_91.pdf){:target="_blank"}
