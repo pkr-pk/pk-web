@@ -55,4 +55,5 @@ nav_order: 4
 61 [rozwiązania](pdfs_finansowa/rozwiazania/egz_61_dn_01_10_2012.pdf){:target="_blank"}\
 62 [rozwiązania](pdfs_finansowa/rozwiazania/egz_62_dn_10_12_2012.pdf){:target="_blank"}\
 63 [rozwiązania](pdfs_finansowa/rozwiazania/egz_63_dn_25_03_2013.pdf){:target="_blank"}\
-64 [rozwiązania](pdfs_finansowa/rozwiazania/egz_64_dn_17_06_2013.pdf){:target="_blank"}
+64 [rozwiązania](pdfs_finansowa/rozwiazania/egz_64_dn_17_06_2013.pdf){:target="_blank"}\
+91 [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_091_2024_05_20.pdf){:target="_blank"}
