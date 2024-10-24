@@ -7,7 +7,7 @@ nav_order: 1
 
 # Rachunek prawdopodobieństwa i statystyka
 
-01 [zadania](pdfs_statystyka/zadania/egz_01_dn_05_10_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_001_1996_10_05.pdf){:target="_blank"}\
+01 [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_001.pdf){:target="_blank"}\
 02 [zadania](pdfs_statystyka/zadania/egz_02_dn_26_10_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_002_1996_10_26.pdf){:target="_blank"}\
 03 [zadania](pdfs_statystyka/zadania/egz_03_dn_16_11_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_003_1996_11_16.pdf){:target="_blank"}\
 04 [zadania](pdfs_statystyka/zadania/egz_04_dn_07_12_1996.pdf){:target="_blank"} [rozwiązania](pdfs_statystyka/rozwiazania/egz_04_dn_07_12_1996.pdf){:target="_blank"}\
