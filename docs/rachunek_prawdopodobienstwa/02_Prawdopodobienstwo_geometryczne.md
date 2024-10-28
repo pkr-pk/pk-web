@@ -8,14 +8,11 @@ nav_order: 2
 # Prawdopodobieństwo geometryczne
 {: .no_toc }
 
-<details open markdown="block">
-  <summary>
-    Table of contents
-  </summary>
-  {: .text-delta }
-- TOC
+## Spis treści
+{: .no_toc .text-delta }
+
+1. TOC
 {:toc}
-</details>
 
 ---
 
