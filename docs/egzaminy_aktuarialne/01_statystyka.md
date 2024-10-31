@@ -12,7 +12,7 @@ nav_order: 1
 3. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_003.pdf){:target="_blank"}
 4. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_004.pdf){:target="_blank"}
 5. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_005.pdf){:target="_blank"}
-6. [zadania](pdfs_statystyka/zadania/egz_06_dn_05_04_1997.pdf){:target="_blank"}
+6. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_006.pdf){:target="_blank"}
 7. [zadania](pdfs_statystyka/zadania/egz_07_dn_21_06_1997.pdf){:target="_blank"}
 8. [zadania](pdfs_statystyka/zadania/egz_08_dn_24_11_1997.pdf){:target="_blank"}
 9. [zadania](pdfs_statystyka/zadania/egz_09_dn_28_02_1998.pdf){:target="_blank"}
