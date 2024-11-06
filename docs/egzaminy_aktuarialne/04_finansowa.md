@@ -46,8 +46,8 @@ nav_order: 4
 {:style="counter-reset:step-counter 84"}
 85. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_085_2022_06_09.pdf){:target="_blank"}
 86. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_086_2022_09_19.pdf){:target="_blank"}
-87. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_087_2023_01_23.pdf){:target="_blank"}
-88. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_088_2023_06_12.pdf){:target="_blank"}
+87. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_087.pdf){:target="_blank"}
+88. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_088.pdf){:target="_blank"}
 89. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_089_2023_10_16.pdf){:target="_blank"}
 90. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_090_2024_02_26.pdf){:target="_blank"}
 91. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_091.pdf){:target="_blank"}
