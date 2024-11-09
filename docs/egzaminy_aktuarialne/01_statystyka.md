@@ -14,7 +14,7 @@ nav_order: 1
 5. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_005.pdf){:target="_blank"}
 6. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_006.pdf){:target="_blank"}
 7. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_007.pdf){:target="_blank"}
-8. [zadania](pdfs_statystyka/zadania/egz_08_dn_24_11_1997.pdf){:target="_blank"}
+8. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_008.pdf){:target="_blank"}
 9. [zadania](pdfs_statystyka/zadania/egz_09_dn_28_02_1998.pdf){:target="_blank"}
 10. [zadania](pdfs_statystyka/zadania/egz_10_dn_30_05_1998.pdf){:target="_blank"}
 11. [zadania](pdfs_statystyka/zadania/egz_11_dn_03_10_1998.pdf){:target="_blank"}
