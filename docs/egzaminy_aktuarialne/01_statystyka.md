@@ -74,3 +74,4 @@ nav_order: 1
 89. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_89.pdf){:target="_blank"}
 90. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_90.pdf){:target="_blank"}
 91. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_91.pdf){:target="_blank"}
+92. [rozwiązania](pdfs_statystyka/rozwiazania/Egzamin_092.pdf){:target="_blank"}
