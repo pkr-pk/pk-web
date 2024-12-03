@@ -12,3 +12,6 @@ markdown:
 
 mermaid:
   version: "9.1.3"
+
+sass:
+  quiet_deps: true
