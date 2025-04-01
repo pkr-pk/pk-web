@@ -487,3 +487,5 @@ nav_order: 1
     [1,] 0.02009  0  2.68    0 0.4161 8.034  8.4 1.8010   2 224    13.0  2.47 21.9
     [2,] 3.47428 95 19.58    1 0.7180 8.780 93.9 8.9067  24 666    20.2  7.44 50.0
     ```
+
+    Mieszkania z większą liczbą pokoi niż 8 występują w rejonach z niższym współczynnikiem przestępczości. Parametr lstat W tych rejonach jest niższy, cena nieruchomości (medv) jest wyższa.
