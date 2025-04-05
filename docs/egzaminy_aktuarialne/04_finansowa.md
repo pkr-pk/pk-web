@@ -52,3 +52,4 @@ nav_order: 4
 90. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_090_2024_02_26.pdf){:target="_blank"}
 91. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_091.pdf){:target="_blank"}
 92. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_092.pdf){:target="_blank"}
+93. [rozwiązania](pdfs_finansowa/rozwiazania/Egzamin_093.pdf){:target="_blank"}
