@@ -121,26 +121,26 @@ Jest to metoda estymacji polegająca na wielokrotnym losowaniu ze zwracaniem z p
 {: .no_toc }
 
 Wykonano 3 rzuty symetryczną monetą.\
-a) Określ przestrzeń zdarzeń elementarnych $\Omega$.\
-b) Określ zdarzenia:\
-i) $E$ = "w pierwszym rzucie orzeł",\
-ii) $F$ = "w drugim rzucie orzeł".\
-c) Oblicz: $P(E \cap F)$, $P(E \cup F)$, $P(E')$, $P(F')$.
+a. Określ przestrzeń zdarzeń elementarnych $\Omega$.
+> $\Omega = {(O,O,O),(O,O,R),(O,R,R),(R,R,R),(R,R,O),(R,O,O),(O,R,O),(R,O,R)}$.
 
-Rozwiązanie:
+b. Określ zdarzenia:
+>i. $E$ = "w pierwszym rzucie orzeł".
+>> $E = {(O,O,O),(O,O,R),(O,R,R),(O,R,O)}$.
 
-a)\
-$\Omega = {(O,O,O),(O,O,R),(O,R,R),(R,R,R),(R,R,O),(R,O,O),(O,R,O),(R,O,R)}$.
+>ii. $F$ = "w drugim rzucie orzeł".
+>> $F = {(O,O,O),(O,O,R),(R,O,R),(R,O,O)}$.
 
-b)\
-i) $E = {(O,O,O),(O,O,R),(O,R,R),(O,R,O)}$,\
-ii) $F = {(O,O,O),(O,O,R),(R,O,R),(R,O,O)}$.
+c. Oblicz: $P(E \cap F)$, $P(E \cup F)$, $P(E')$, $P(F')$.
+> $P(E \cap F) = \frac{1}{4}$,
+> 
+> $P(E \cup F) = P(E) + P(F) - P(E \cap F) = \frac{1}{2} + \frac{1}{2} - \frac{1}{4} = \frac{3}{4}$,
+> 
+> $P(E') = 1 - P(E) = 1 - \frac{1}{2} = \frac{1}{2}$,
+> 
+> $P(F') = 1 - P(F) = 1 - \frac{1}{2} = \frac{1}{2}$.
 
-c)\
-$P(E \cap F) = \frac{1}{4}$,\
-$P(E \cup F) = P(E) + P(F) - P(E \cap F) = \frac{1}{2} + \frac{1}{2} - \frac{1}{4} = \frac{3}{4}$,\
-$P(E') = 1 - P(E) = 1 - \frac{1}{2} = \frac{1}{2}$,\
-$P(F') = 1 - P(F) = 1 - \frac{1}{2} = \frac{1}{2}$.
+---
 
 ### Zadanie 2
 {: .no_toc }
@@ -167,6 +167,8 @@ $P = \frac{18}{36} = \frac{1}{2}$.
 
 Zadanie można też rozwiązać rysując tabelkę i sumując kolejne możliwości.
 
+---
+
 ### Zadanie 3
 {: .no_toc }
 
@@ -188,20 +190,19 @@ Wstawiam drugie równanie do pierwszego i obliczam wynik:
 
 $P(A' \cup B') = 1 - P(A) - P(B) + P(A \cap B) = 1 - 0.45 - 0.22 + 0.53 = 0.86$.
 
+---
+
 ### Zadanie 4
 {: .no_toc }
 
 W partii 170 sztuk towaru 102 elementy są gatunku I, 43 są gatunku II, 25 jest gatunku III. Wybrano losowo jeden element. Oblicz prawdopodobieństwo, że:\
-i) element jest III gatunku,\
-ii) element jes I lub II gatunku.
+i. element jest III gatunku.
+> $P = \frac{25}{170} \approx 0.15$
 
-Rozwiązanie:
+ii. Element jest I lub II gatunku.
+> $P = \frac{102 + 43}{170} \approx 0.85$
 
-$\|\Omega\| = 170$
-
-i) $P = \frac{25}{170} \approx 0.15$
-
-ii) $P = \frac{102 + 43}{170} \approx 0.85$
+---
 
 ### Zadanie 5
 {: .no_toc }
@@ -221,6 +222,8 @@ Ponieważ $P(A \cap C) = \emptyset,$
 to:
 
 $P(A \cup C) = P(A) + P(C) = 0.7$.
+
+---
 
 ### Zadanie 6
 {: .no_toc }

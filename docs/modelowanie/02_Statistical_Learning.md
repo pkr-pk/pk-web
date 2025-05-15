@@ -11,50 +11,50 @@ nav_order: 1
     
     (a) The sample size n is extremely large, and the number of predictors p is small.
     
-    Lepiej, większa liczba danych pozwala na lepsze dopasowanie modelu.
+    > Lepiej, większa liczba danych pozwala na lepsze dopasowanie modelu.
     
     (b) The number of predictors p is extremely large, and the number of observations n is small.
     
-    Gorzej, duża liczba predyktorów i mała liczba danych może spowodować przetrenowanie modelu.
+    > Gorzej, duża liczba predyktorów i mała liczba danych może spowodować przetrenowanie modelu.
     
     (c) The relationship between the predictors and response is highly non-linear.
     
-    Flexible modele dają lepsze dopasowanie na nieliniowych zbiorach danych ponieważ mają więcej stopni swobody.
+    > Flexible modele dają lepsze dopasowanie na nieliniowych zbiorach danych ponieważ mają więcej stopni swobody.
     
     (d) The variance of the error terms, i.e. $\sigma^2 = \text{Var}(\epsilon)$, is extremely high.
     
-    Prawdopodobnie flexible model będzie przetrenowany przez dokładniejsze dopasowanie szumu w znaczeniu błędu niż inflexible model. Innymi słowy, punkty danych będą bardziej oddalone od funkcji $f$ (idealnej funkcji opisującej dane) jeżeli wariancja błedu jest duża. Może to świadczyć o tym, że $f$ jest liniowa i prostszy model lepiej wyestymuje $f$.
+    > Prawdopodobnie flexible model będzie przetrenowany przez dokładniejsze dopasowanie szumu w znaczeniu błędu niż inflexible model. Innymi słowy, punkty danych będą bardziej oddalone od funkcji $f$ (idealnej funkcji opisującej dane) jeżeli wariancja błedu jest duża. Może to świadczyć o tym, że $f$ jest liniowa i prostszy model lepiej wyestymuje $f$.
 
 2. Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide n and p.
 
     (a) We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.
     
-    * Regresja - odpowiedź jest ilościowa.
+    > * Regresja - odpowiedź jest ilościowa.
     * Inference - chcemy zrozumieć jak predyktory wpływają na zarobki CEO, nie chcemy robić predykcji.
     * n=500
     * p=profit, number of employees, industry.
 
     (b) We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.
     
-    * Klasyfikacja - odpowiedź (sukces lub porażka).
+    > * Klasyfikacja - odpowiedź (sukces lub porażka).
     * Predykcja - chcemy wiedzieć czy nowy produkt odniesie sukces.
     * n=20
     * p=price, marketing budget, competition price and 10 other variables.
 
     (c) We are interested in predicting the % change in the USD/Euro exchange rate in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the % change in the USD/Euro, the % change in the US market, the % change in the British market, and the % change in the German market.
 
-    * Regresja - odpowiedź jest ilościowa (procent zmiany w kurcie USD/EUR).
+    > * Regresja - odpowiedź jest ilościowa (procent zmiany w kurcie USD/EUR).
     * Predykcja - napisane w zadaniu.
     * n=52
     * p=% change in US market, % change in UK market, % change in German market.
 
 3. We now revisit the bias-variance decomposition.<br><br>(a) Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one.
 
-    ![](img/02_3a.jpg)
+    > ![](img/02_3a.jpg)
 
     (b) Explain why each of the five curves has the shape displayed in part (a).
 
-    * Var(E) jest nieredukowalnym błędem stąd MSE będzie cały czas takie samo.
+    > * Var(E) jest nieredukowalnym błędem stąd MSE będzie cały czas takie samo.
     * Training MSE maleje wraz ze wzrostem stopni swobody
     * Bias podobnie do Training MSE.
     * Variance rośnie wraz ze wzrostem stopni swobody.
@@ -64,40 +64,40 @@ nav_order: 1
 
     (a) Describe three real-life applications in which classification might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.
 
-    Breast cancer prediction: Given a set of predictors such as a mammogram scan, age, family history, lifestyle and other variables, and a response of Yes(has cancer) and No(does not have cancer) – we can then train a model to predict whether a patient has breast cancer.
-
-    Classifying species of plants: Given a set of images of a plant, a model can be trained that will classify that plant into one of the trained species. This is a multi-class classification problem. The response would be the species name and the predictors would be images of that species.
-    
-    Fraud detection: Classify whether a transaction is fraudulent, given data like the transaction amount location, purchased item or service, previous customer transactions etc. The response would be “Yes” or “No”, and our aim is to make a prediction.
-    
-    Stock price: Classify whether a stock will go up or down in price the next day given a set of financial data and news from the preceding week. The aim is to make a prediction.
+    > Breast cancer prediction: Given a set of predictors such as a mammogram scan, age, family history, lifestyle and other variables, and a response of Yes(has cancer) and No(does not have cancer) – we can then train a model to predict whether a patient has breast cancer.
+    >
+    > Classifying species of plants: Given a set of images of a plant, a model can be trained that will classify that plant into one of the trained species. This is a multi-class classification problem. The response would be the species name and the predictors would be images of that species.
+    >
+    > Fraud detection: Classify whether a transaction is fraudulent, given data like the transaction amount location, purchased item or service, previous customer transactions etc. The response would be “Yes” or “No”, and our aim is to make a prediction.
+    >
+    > Stock price: Classify whether a stock will go up or down in price the next day given a set of financial data and news from the preceding week. The aim is to make a prediction.
     
     (b) Describe three real-life applications in which regression might be useful. Describe the response, as well as the predictors. Is the goal of each application inference or prediction? Explain your answer.
     
-    House price factors: Given a set of predictors such as location, house features, median income for the area and so on and the house price as the response/target, we can train a model to infer the impact of those variables on house prices.
-
-    Salary: Predict the salary of an individual given their education, work history, skillsets and other relevant data (age, sex, etc.). The response is the salary amount.
-
-    Sales: Predict unit sales of a product given marketing data such as TV, Radio or Internet advert expenditure, and use it to infer the importance of each advertising method. The response is the unit sales of the product.
-
-    Driving Insurance premium: Given a set of variables such as the drivers history, age, type of vehicle, expected yearly mileage and the premium as the response, we can train a model to predict the insurance premium for new customers.
+    > House price factors: Given a set of predictors such as location, house features, median income for the area and so on and the house price as the response/target, we can train a model to infer the impact of those variables on house prices.
+    >
+    > Salary: Predict the salary of an individual given their education, work history, skillsets and other relevant data (age, sex, etc.). The response is the salary amount.
+    >
+    > Sales: Predict unit sales of a product given marketing data such as TV, Radio or Internet advert expenditure, and use it to infer the importance of each advertising method. The response is the unit sales of the product.
+    >
+    > Driving Insurance premium: Given a set of variables such as the drivers history, age, type of vehicle, expected yearly mileage and the premium as the response, we can train a model to predict the insurance premium for new customers.
 
     (c) Describe three real-life applications in which cluster analysis might be useful.
 
-    Tissue classification: : Clustering can be used to separate different types of tissue in medical images. This can be useful in identifying groups of tissue that are not normal and need further study.
-
-    Market research: Differentiate a group of people within a city into distinct market segments to increase marketing effectiveness or identify new opportunities. Given data such as incomes, location, age, sex, opinion polls and so on for a city, we can segment the city into different consumer areas.
-
-    Image segmentation: Separate an image into different regions to make object recognition easier. For example, segmenting image frames from a video camera in a car into ‘other vehicles’, ‘humans’, ‘road signs’ and so on can help ADAS (Advanced driver-assistance systems) in vehicles make the correct decision.
-
-    Gaming market segmentation: Given a set observations with variables such as age, location, income, sex, hours spent gaming, gaming devices used and so on. We could use cluster analysis to see if these observations fall into distinct groups. If there are distinct groupings, then it could be helpful with further study – say for example one grouping could represent casual gamers and the other hardcore gamers, and another one could be newer gamers (say people over the age 60).
+    > Tissue classification: : Clustering can be used to separate different types of tissue in medical images. This can be useful in identifying groups of tissue that are not normal and need further study.
+    >
+    > Market research: Differentiate a group of people within a city into distinct market segments to increase marketing effectiveness or identify new opportunities. Given data such as incomes, location, age, sex, opinion polls and so on for a city, we can segment the city into different consumer areas.
+    >
+    > Image segmentation: Separate an image into different regions to make object recognition easier. For example, segmenting image frames from a video camera in a car into ‘other vehicles’, ‘humans’, ‘road signs’ and so on can help ADAS (Advanced driver-assistance systems) in vehicles make the correct decision.
+    >
+    > Gaming market segmentation: Given a set observations with variables such as age, location, income, sex, hours spent gaming, gaming devices used and so on. We could use cluster analysis to see if these observations fall into distinct groups. If there are distinct groupings, then it could be helpful with further study – say for example one grouping could represent casual gamers and the other hardcore gamers, and another one could be newer gamers (say people over the age 60).
     
 5. What are the advantages and disadvantages of a very flexible (versus a less flexible) approach for regression or classification? Under what circumstances might a more flexible approach be preferred to a less flexible approach? When might a less flexible approach be preferred?
 
 6. Describe the differences between a parametric and a non-parametric statistical learning approach. What are the advantages of a parametric approach to regression or classification (as opposed to a non-parametric approach)? What are its disadvantages?
 
     Flexible methods work well when the underlying function is non-linear. The predictions in general have a lower bias but can have a higher variance, as these models are more likely to overfit the data.
-    
+
     Less flexible methods do not tend to overfit the data but can have a high bias when the underlying function is non-linear. They can also use fewer observations and parameters, particularly when it is assumed that the underlying function is linear. Flexible methods tend to require a larger number of observations and parameters, and can lead to overfitting (higher variance).
 
     Flexible methods (non-parametric methods) are preferable when we make no assumptions about the function to be estimated.Most real-life relationships are non-linear and so a non-parametric approach is better suited to modelling them. Flexible models by their nature are more complex and less interpretable than their linear counterparts, so even though their predictions might be more accurate, we may not be able to explain why it has made those predictions (a black box model).
@@ -118,36 +118,36 @@ nav_order: 1
     Suppose we wish to use this data set to make a prediction for $Y$ when $X_1 = X_2 = X_3 = 0$ using K-nearest neighbors.
     
     (a) Compute the Euclidean distance between each observation and the test point, $X_1 = X_2 = X_3 = 0$.
-    
-    Odległość euklidesowa:
 
-    $d(p,q) = \sqrt{(p_1-q_1)^2 + (p_2-q_2)^2 +(p_3-q_3)^2}$
-
-    Wyniki:
-    
-    $𝑑(1, test) = 3$
-
-    $𝑑(2, test) = 2$
-
-    $𝑑(3, test) = 3.16$
-
-    $𝑑(4, test) = 2.24$
-
-    $𝑑(5, test) = 1.41$
-
-    $𝑑(6, test) = 1.73$
+    > Odległość euklidesowa:
+    >
+    > $d(p,q) = \sqrt{(p_1-q_1)^2 + (p_2-q_2)^2 +(p_3-q_3)^2}$
+    >
+    > Wyniki:
+    >
+    > $𝑑(1, test) = 3$
+    >
+    > $𝑑(2, test) = 2$
+    >   
+    > $𝑑(3, test) = 3.16$
+    >
+    > $𝑑(4, test) = 2.24$
+    >
+    > $𝑑(5, test) = 1.41$
+    >
+    > $𝑑(6, test) = 1.73$
 
     (b) What is our prediction with K = 1? Why?
 
-    Green - pojedyncza najbliższa obserwacja jest zielona.
+    > Green - pojedyncza najbliższa obserwacja jest zielona.
     
     (c) What is our prediction with K = 3? Why?
 
-    Red - trzy najbliższe obserwacje to: green, red, red. Prawdopodobieństwo, że testowany punkt należy do red wynosi 2/3 a do green 1/3. Stąd predykcja to red.
+    > Red - trzy najbliższe obserwacje to: green, red, red. Prawdopodobieństwo, że testowany punkt należy do red wynosi 2/3 a do green 1/3. Stąd predykcja to red.
     
     (d) If the Bayes decision boundary in this problem is highly non-linear, then would we expect the best value for K to be large or small? Why?
-
-   W takim przypadku lepsza będzie niska liczba K. Mniejsza liczba K zwiększa dopasowanie modelu KNN a co za tym idzie granice decyzyjne będą nieliniowe.
+    
+    > W takim przypadku lepsza będzie niska liczba K. Mniejsza liczba K zwiększa dopasowanie modelu KNN a co za tym idzie granice decyzyjne będą nieliniowe.
 
 8. This exercise relates to the `College` data set, which can be found in the file `College.csv` on the book website. It contains a number of variables for 777 different universities and colleges in the US. The variables are:
    * `Private` : Public/private indicator
@@ -281,7 +281,7 @@ nav_order: 1
 
     (a) Which of the predictors are quantitative, and which are qualitative?
 
-    * Jakościowe: name, origin.
+    > * Jakościowe: name, origin.
     * Ilościowe : mpg, cylinders, displacement, horsepower,  weight, acceleration, year.
 
     (b) What is the range of each quantitative predictor? You can answer this using the `range()` function.
@@ -333,13 +333,13 @@ nav_order: 1
 
     ![](img/02_9e.png)
 
-    * Na podstawie powyższych wykresów możemy stwierdzić, że istnieje zależność liniowa między niektórymi zmiennymi.
+    > * Na podstawie powyższych wykresów możemy stwierdzić, że istnieje zależność liniowa między niektórymi zmiennymi.
     * displacement rośnie wraz z horsepower lub z weight.
     * acceleration (wyrażone jako czas do 60 mil/h) maleje wraz ze wzrostem horsepower.
 
     (f) Suppose that we wish to predict gas mileage (mpg) on the basis of the other variables. Do your plots suggest that any of the other variables might be useful in predicting mpg? Justify your answer.
 
-    * Wykresy sugerują, że występuje pewna zależność między mpg a innymi predyktorami.
+    > * Wykresy sugerują, że występuje pewna zależność między mpg a innymi predyktorami.
     * mpg maleje wraz z displacement, horsepower, weight.
     * mpg rośnie wraz z year.
 
