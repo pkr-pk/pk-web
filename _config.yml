@@ -15,3 +15,7 @@ mermaid:
 
 sass:
   quiet_deps: true
+
+aux_links:
+  "":
+    - ""
