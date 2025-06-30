@@ -17,7 +17,7 @@ nav_order: 2
 
     $(Newspaper) H_0: \beta_2 = 0$
     
-    $p$-values dla TV i Radio są znaczące, co oznacza, że hipotezy zerowe nie mogą być odrzucone. Pokazuje to, że zmienna objaśniana silnie zależy od wspomnianych dwóch zmiennych objaśniających. $p$-value dla Newspaper jest duże co oznacza, że $\beta_2=0$ czyli ta zmienna nie ma wpływy na zmienną objaśnianą.
+    $p$-values dla TV i Radio są małe, co oznacza, że hipotezy zerowe muszą być odrzucone. Pokazuje to, że zmienna objaśniana silnie zależy od wspomnianych dwóch zmiennych objaśniających. $p$-value dla Newspaper jest duże co oznacza, że $\beta_2=0$ czyli ta zmienna nie ma wpływu na zmienną objaśnianą.
 
 2. Carefully explain the differences between the KNN classifier and KNN regression methods.
 
@@ -28,7 +28,7 @@ nav_order: 2
     Regresja KNN działa podobnie do klasyfikatora KNN jednak wyznaczana jest w tym przypadku ilościowa predykcja zależności $f(x_0)$.
 
 3. Suppose we have a data set with five predictors, $X_1 = \text{GPA}$, $X_2 = \text{IQ}$, $X_3 = \text{Level}$ (1 for College and 0 for High School), $X_4 = $ Interaction between $\text{GPA}$ and $\text{IQ}$, and $X_5 =$ Interaction between $\text{GPA}$ and $\text{Level}$. The response is starting salary after graduation (in thousands
-of dollars). Suppose we use least squares to fit the model, and get $\hat{β_0} = 50$, $\hat{β_1} = 20$, $\hat{β_2} = 0.07$, $\hat{β_3} = 35$, $\hat{β_4} = 0.01$, $\hat{β_5} =−10$.
+of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 = 50$, $\hat{β}_1 = 20$, $\hat{β}_2 = 0.07$, $\hat{β}_3 = 35$, $\hat{β}_4 = 0.01$, $\hat{β}_5 =−10$.
 
     (a) Which answer is correct, and why?
 
