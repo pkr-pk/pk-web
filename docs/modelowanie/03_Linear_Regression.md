@@ -76,4 +76,20 @@ of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 
     
     (d) Answer (c) using test rather than training RSS.
 
-    > Prawdopodobnie uzyskamy wartości statystyki F powyżej 1 co oznacza, że jeden z współczynniki nie wynoszą 0.
+    > Prawdopodobnie uzyskamy wartości statystyki F powyżej 1 co oznacza, że jeden z współczynników nie wynosi 0.
+
+5. Consider the fitted values that result from performing linear regression without an intercept. In this setting, the $i$-th fitted value takes the form 
+
+    $$\hat{y}_i=x_i\hat{\beta},$$
+
+    where 
+        
+    $$\hat{\beta}=\left(\sum\limits_{i=1}^n x_i y_i \right) /  \left(\sum\limits_{i'=1}^n x_{i'}^2\right).$$
+
+    Show that we can write
+
+    $$\hat{y}_i = \sum\limits_{i'=1}^n a_{i'}y_{i'}$$
+
+    What is $a_{i'}$?
+    
+    _Note: We interpret this result by saying that the fitted values from linear regression are linear combinations of the response values._
