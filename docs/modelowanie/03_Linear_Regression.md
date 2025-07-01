@@ -93,3 +93,12 @@ of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 
     What is $a_{i'}$?
     
     _Note: We interpret this result by saying that the fitted values from linear regression are linear combinations of the response values._
+
+    $$
+    \begin{align*}
+    \hat{y}_i = x_i\hat{\beta} &= x_i \frac{\sum\limits_{i=1}^n x_i y_i}{\sum\limits_{i'=1}^n x_{i'}^2} = x_i \frac{\sum\limits_{i'=1}^n x_{i'} y_{i'}}{\sum\limits_{i=1}^n x_{i}^2} = \\
+    &= \sum\limits_{i'=1}^n\frac{x_{i'} x_i}{\sum\limits_{i=1}^n x_{i}^2}y_{i'} = \sum\limits_{i'=1}^n a_{i'}y_{i'}
+    \end{align*}
+    $$
+
+    $$a_{i'} = \frac{x_{i'} x_i}{\sum\limits_{i=1}^n x_{i}^2}$$
