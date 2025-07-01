@@ -34,15 +34,19 @@ of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 
 
     > Model z zadania wygląda następująco: 
     >
-    > $Y = 50 + 20\cdot\text{GPA} + 0.07\cdot\text{IQ} + 35\cdot\text{Level} + 0.01\cdot\text{GPA:IQ} -10\cdot\text{GPA:Level}$
+    > $Y = 50 + 20\cdot\text{GPA} + 0.07\cdot\text{IQ} + 35\cdot\text{Level} + 0.01\cdot\text{GPA}\cdot\text{IQ} - 10\cdot\text{GPA}\cdot\text{Level}$
     
     i. For a fixed value of $\text{IQ}$ and $\text{GPA}$, high school graduates earn more, on average, than college graduates.
 
     > Fałsz, gdy $\text{Level} = 0$ to zarobki w modelu będą niższe.
 
-    ii. For a fixed value of $\text{IQ}$ and $\text{GP}$, college graduates earn more, on average, than high school graduates.
+    ii. For a fixed value of $\text{IQ}$ and $\text{GPA}$, college graduates earn more, on average, than high school graduates.
+
+    > Fałsz, w modelu jest czynnik $- 10\cdot\text{GPA}\cdot\text{Level}$ i dla odpowiednio wysokiego $\text{GPA}$ high school zarabia więcej od college.
 
     iii. For a fixed value of $\text{IQ}$ and $\text{GPA}$, high school graduates earn more, on average, than college graduates provided that the $\text{GPA}$ is high enough.
+
+    > Prawda.
     
     iv. For a fixed value of $\text{IQ}$ and $\text{GPA}$, college graduates earn more, on average, than high school graduates provided that the GPA is high enough.
 
