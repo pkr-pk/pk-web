@@ -94,11 +94,11 @@ of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 
     
     _Note: We interpret this result by saying that the fitted values from linear regression are linear combinations of the response values._
 
-    $
+    $$
     \hat{y}_i = x_i\hat{\beta} = x_i \frac{\sum\limits_{i'=1}^n x_{i'} y_{i'}}{\sum\limits_{j=1}^n x_{j}^2} = \sum\limits_{i'=1}^n\frac{x_{i'} x_i}{\sum\limits_{j=1}^n x_{j}^2}y_{i'} = \sum\limits_{i'=1}^n a_{i'}y_{i'}
-    $
+    $$
 
-    $a_{i'} = \frac{x_{i'} x_i}{\sum\limits_{j=1}^n x_{j}^2}$
+    $$a_{i'} = \frac{x_{i'} x_i}{\sum\limits_{j=1}^n x_{j}^2}$$
 
 6. Using (3.4), argue that in the case of simple linear regression, the least squares line always passes through the point $(\bar{x},\bar{y})$.
 
@@ -127,7 +127,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     $\hat{\beta}_1 = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^nx_i^2}$
 
-    $\begin{aligned}R^2 &= \frac{TSS-RSS}{TSS} = \frac{\sum_{i=1}^ny_i^2 - \sum_{i=1}^n(y_i-\hat{y}_i)^2}{\sum_{i=1}^ny_i^2} = \\
+    $$\begin{aligned}R^2 &= \frac{TSS-RSS}{TSS} = \frac{\sum_{i=1}^ny_i^2 - \sum_{i=1}^n(y_i-\hat{y}_i)^2}{\sum_{i=1}^ny_i^2} = \\
     &= \frac{\sum_{i=1}^ny_i^2 - \sum_{i=1}^n(y_i^2 - 2y_i\hat{y}_i +\hat{y}_i^2)}{\sum_{i=1}^ny_i^2} = \\
     &= \frac{2\sum_{i=1}^ny_i\hat{y}_i - \sum_{i=1}^n\hat{y}_i^2}{\sum_{i=1}^ny_i^2} = \\
     &= \frac{2\sum_{i=1}^ny_i\hat{\beta}_ix_i - \sum_{i=1}^n\hat{\beta}_i^2x_i^2}{\sum_{i=1}^ny_i^2} = \\      
@@ -135,4 +135,21 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     &= \frac{2\frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i=1}^nx_i^2} - \frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i=1}^nx_i^2}}{\sum_{i=1}^ny_i^2} = \\
     &= \frac{\frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i=1}^nx_i^2}}{\sum_{i=1}^ny_i^2} = \\
     &= \frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i=1}^nx_i^2\sum_{i=1}^ny_i^2} = \\ 
-    &= Cor^2(X,Y)\end{aligned}$
+    &= Cor^2(X,Y)\end{aligned}$$
+
+8. This question involves the use of simple linear regression on the `Auto` data set.
+    
+    (a) Use the `lm()` function to perform a simple linear regression with `mpg` as the response and `horsepower` as the predictor. Use the `summary()` function to print the results. Comment on the output.
+    For example:
+    
+    i. Is there a relationship between the predictor and the response?
+    
+    ii. How strong is the relationship between the predictor and the response?
+    
+    iii. Is the relationship between the predictor and the response positive or negative?
+    
+    iv. What is the predicted `mpg` associated with a `horsepower` of 98? What are the associated 95 % confidence and prediction intervals?
+
+    (b) Plot the response and the predictor. Use the `abline()` function to display the least squares regression line.
+    
+    (c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
