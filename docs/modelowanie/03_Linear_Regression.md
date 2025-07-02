@@ -117,15 +117,15 @@ of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 
 7. It is claimed in the text that in the case of simple linear regression of $Y$ onto $X$, the $R^2$ statistic (3.17) is equal to the square of the correlation between $X$ and $Y$ (3.18). Prove that this is the case. For
 simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
-    $R^2 = \frac{TSS-RSS}{TSS}$
+    $$R^2 = \frac{TSS-RSS}{TSS}$$
 
-    $RSS = \sum_{i=1}^n(y_i-\hat{y}_i)^2$
+    $$RSS = \sum_{i=1}^n(y_i-\hat{y}_i)^2$$
 
-    $TSS = \sum_{i=1}^ny_i^2$
+    $$TSS = \sum_{i=1}^ny_i^2$$
 
-    $\hat{y}_i = \hat{\beta}_1x_i$
+    $$\hat{y}_i = \hat{\beta}_1x_i$$
 
-    $\hat{\beta}_1 = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^nx_i^2}$
+    $$\hat{\beta}_1 = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^nx_i^2}$$
 
     $$\begin{aligned}R^2 &= \frac{TSS-RSS}{TSS} = \frac{\sum_{i=1}^ny_i^2 - \sum_{i=1}^n(y_i-\hat{y}_i)^2}{\sum_{i=1}^ny_i^2} = \\
     &= \frac{\sum_{i=1}^ny_i^2 - \sum_{i=1}^n(y_i^2 - 2y_i\hat{y}_i +\hat{y}_i^2)}{\sum_{i=1}^ny_i^2} = \\
