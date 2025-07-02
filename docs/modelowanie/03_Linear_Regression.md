@@ -102,15 +102,15 @@ of dollars). Suppose we use least squares to fit the model, and get $\hat{β}_0 
 
 6. Using (3.4), argue that in the case of simple linear regression, the least squares line always passes through the point $(\bar{x},\bar{y})$.
 
-    $\hat{\beta}_1 = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2}$
+    $$\hat{\beta}_1 = \frac{\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n(x_i-\bar{x})^2}$$
 
-    $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}$
+    $$\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x}$$
 
-    $\hat{y}_j = \hat{\beta}_0 + \hat{\beta}_1x_j$
+    $$\hat{y}_j = \hat{\beta}_0 + \hat{\beta}_1x_j$$
 
     gdy $x_j = \bar{x}$, to:
 
-    $\hat{y}_j = \bar{y} - \hat{\beta}_1\bar{x} + \hat{\beta}_1\bar{x} = \bar{y}$
+    $$\hat{y}_j = \bar{y} - \hat{\beta}_1\bar{x} + \hat{\beta}_1\bar{x} = \bar{y}$$
 
     Jeżeli $x_j = \bar{x}$ to linia regresji przechodzi przez punkt $(\bar{x}, \bar{y})$.
 
