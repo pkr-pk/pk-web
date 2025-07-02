@@ -183,10 +183,17 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     iv. What is the predicted `mpg` associated with a `horsepower` of 98? What are the associated 95 % confidence and prediction intervals?
 
     ```R
-    > predict(mpg_pwr, data.frame(horsepower=c(98)))
+    > predict(mpg_pwr, data.frame(horsepower=c(98)), interval='prediction')
 
-       1 
-    24.46708 
+        fit     lwr      upr
+    1 24.46708 14.8094 34.12476
+    ```
+
+    ```R
+    > predict(mpg_pwr, data.frame(horsepower=c(98)), interval='confidence')
+    
+        fit      lwr      upr
+    1 24.46708 23.97308 24.96108
     ```
 
     (b) Plot the response and the predictor. Use the `abline()` function to display the least squares regression line.
