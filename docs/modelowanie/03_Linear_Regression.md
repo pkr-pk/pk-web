@@ -140,16 +140,81 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 8. This question involves the use of simple linear regression on the `Auto` data set.
     
     (a) Use the `lm()` function to perform a simple linear regression with `mpg` as the response and `horsepower` as the predictor. Use the `summary()` function to print the results. Comment on the output.
+
+    ```R
+    > library(ISLR)
+    > data(Auto)
+    > mpg_pwr = lm(mpg ~ horsepower, data = Auto)
+    > summary(mpg_pwr)
+
+    Call:
+    lm(formula = mpg ~ horsepower, data = Auto)
+
+    Residuals:
+        Min       1Q   Median       3Q      Max 
+    -13.5710  -3.2592  -0.3435   2.7630  16.9240 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) 39.935861   0.717499   55.66   <2e-16 ***
+    horsepower  -0.157845   0.006446  -24.49   <2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 4.906 on 390 degrees of freedom
+    Multiple R-squared:  0.6059,	Adjusted R-squared:  0.6049 
+    F-statistic: 599.7 on 1 and 390 DF,  p-value: < 2.2e-16
+    ```
+
     For example:
     
     i. Is there a relationship between the predictor and the response?
+
+    > Na podstawie $p$-value bliskiego zeru można stwierdzić, że istnieje zależność.
     
     ii. How strong is the relationship between the predictor and the response?
+
+    > Statystyka $R^2$ wynosi 0.61 co oznacza, że 61% wariancji zmiennej `mpg` jest objaśniane przez model z `horsepower`, oznacza to, że ponad połowa zmienności jest objaśniana przez model.
     
     iii. Is the relationship between the predictor and the response positive or negative?
+
+    > Zależność jest negatywna. Na każdy 1 koń mechaniczny, `mpg` spada o 0.158.
     
     iv. What is the predicted `mpg` associated with a `horsepower` of 98? What are the associated 95 % confidence and prediction intervals?
 
+    ```R
+    > predict(mpg_pwr, data.frame(horsepower=c(98)))
+
+       1 
+    24.46708 
+    ```
+
     (b) Plot the response and the predictor. Use the `abline()` function to display the least squares regression line.
+
+    ```R
+    > plot(mpg~horsepower,main= "Scatter plot of mpg vs. horsepower", data=Auto)
+    > abline(mpg_pwr, lwd =3, col ="red")
+    ```
+
+    ![](img/03_8b.png)
     
-    (c) Use the plot() function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
+    (c) Use the `plot()` function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
+
+    ```R
+    > par(mfrow=c(2,2))
+    > plot(mpg_pwr)
+    ```
+
+    ![](img/03_8c.png)
+
+    * Residuals vs Fitted - widać pewną zależność w kształcie litery U co mówi o tym, że dane nie są liniowe.
+    * Residuals v leverage - wskazuje na pewne obserwacje z dużym wpływem na model.
+    * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy: 
+    ```R
+    > rstudent(mpg_pwr)[which(rstudent(mpg_pwr)>3)]
+
+        323      330 
+    3.508709 3.149671 
+    ```
+
+
