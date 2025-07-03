@@ -318,7 +318,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     > * Residuals vs Fitted - widać pewną zależność w kształcie litery U co mówi o tym, że dane nie są liniowe.
     * Residuals v leverage - wskazuje, że obserwacja 14 ma duży wpływ na model.
-    * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy: 
+    * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy:
+
     ```R
     > rstudent(mpg_all)[which(rstudent(mpg_all)>3)]
 
@@ -454,12 +455,12 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     Yes   1
     ```
 
-    > $Sales = \begin{cases}
+    > $$Sales = \begin{cases}
     13.04 - 0.05Price - 0.02 + 1.2 & \text{ gdy Urban = 1, US = 1} \\
     13.04 - 0.05Price - 0.02 & \text{ gdy Urban = 0, US = 1} \\
     13.04 - 0.05Price + 1.2 & \text{ gdy Urban = 1, US = 0} \\
     13.04 - 0.05Price & \text{ gdy Urban = 0, US = 0} \\
-    \end{cases}$
+    \end{cases}$$
     
     (d) For which of the predictors can you reject the null hypothesis $H_0: \beta_j = 0$?
 
