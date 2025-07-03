@@ -578,3 +578,99 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
         358 
     3.34075 
     ```
+
+11. In this problem we will investigate the t-statistic for the null hypothesis $H_0 : \beta = 0$ in simple linear regression without an intercept. To begin, we generate a predictor `x` and a response `y` as follows.
+
+    ```R
+    > set.seed(1)
+    > x <- rnorm(100)
+    > y <- 2 * x + rnorm(100)
+    ```
+
+    (a) Perform a simple linear regression of `y` onto `x`, _without_ an intercept. Report the coefficient estimate $\hat{\beta}$, the standard error of this coefficient estimate, and the $t$-statistic and $p$-value associated with the null hypothesis $H_0 : \beta = 0$. Comment on these results. (You can perform regression without an intercept using the command `lm(y~x+0)`.)
+
+    ```R
+    > set.seed(1)
+    > x <- rnorm(100)
+    > y <- 2 * x + rnorm(100)
+    > lm.fit <- lm(y~x+0)
+    > summary(lm.fit)
+
+    Call:
+    lm(formula = y ~ x + 0)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -1.9154 -0.6472 -0.1771  0.5056  2.3109 
+
+    Coefficients:
+      Estimate Std. Error t value Pr(>|t|)    
+    x   1.9939     0.1065   18.73   <2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 0.9586 on 99 degrees of freedom
+    Multiple R-squared:  0.7798,	Adjusted R-squared:  0.7776 
+    F-statistic: 350.7 on 1 and 99 DF,  p-value: < 2.2e-16
+    ```
+    
+    (b) Now perform a simple linear regression of `x` onto `y` _without_ an intercept, and report the coeﬀicient estimate, its standard error, and the corresponding $t$-statistic and $p$-values associated with the null hypothesis $H_0 : \beta = 0$. Comment on these results.
+
+    ```R
+    > lm.fit2 = lm(x~y+0)
+    > summary(lm.fit2)
+
+    Call:
+    lm(formula = x ~ y + 0)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -0.8699 -0.2368  0.1030  0.2858  0.8938 
+
+    Coefficients:
+      Estimate Std. Error t value Pr(>|t|)    
+    y  0.39111    0.02089   18.73   <2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 0.4246 on 99 degrees of freedom
+    Multiple R-squared:  0.7798,	Adjusted R-squared:  0.7776 
+    F-statistic: 350.7 on 1 and 99 DF,  p-value: < 2.2e-16
+    ```
+    
+    (c) What is the relationship between the results obtained in (a) and (b)?
+    
+    > W modelu zostały zamienione osie więc statystyki testowe mają takie same wartości podobnie jak R-squared i Adjusted R-squared.
+
+    (d) For the regression of Y onto X without an intercept, the $t$-statistic for $H_0 : \beta = 0$ takes the form $\hat{\beta}/SE(\hat{\beta})$, where $\hat{\beta}$ is given by (3.38), and where
+
+    $$SE(\hat{\beta}) = \sqrt{\frac{\sum_{i=1}^n (y_i - x_i\hat{\beta})^2}{(n-1)\sum_{i'=1}^n x_{i'}^2}}$$
+    
+    (These formulas are slightly different from those given in Sections 3.1.1 and 3.1.2, since here we are performing regression without an intercept.) Show algebraically, and confirm numerically in `R`, that the $t$-statistic can be written as
+
+    $$\frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i=1}^n x_i^2\right)\left(\sum_{i'=1}^n y_{i'}^2\right) - \left(\sum_{i'=1}^n x_{i'}y_{i'}\right)^2}}$$
+
+    $$\begin{aligned}t^2 &= \frac{\hat{\beta}^2}{SE^2(\hat{\beta})} = \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^n (y_i - x_i\hat{\beta})^2} = \\
+    &= \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^n (y_i^2 - 2y_ix_i\hat{\beta} + x_i^2\hat{\beta}^2)} = \\
+    &= \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^ny_i^2 - 2\sum_{i=1}^ny_ix_i\hat{\beta} + \sum_{i=1}^nx_i^2\hat{\beta}^2} = \\
+    &= \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\left(\sum_{i'=1}^nx_{i'}^2 \right)^2}}{\sum_{i=1}^ny_i^2 - 2\sum_{i=1}^ny_ix_i\frac{\sum_{i=1}^nx_iy_i}{\sum_{i'=1}^nx_{i'}^2} + \sum_{i=1}^nx_i^2\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\left(\sum_{i'=1}^nx_{i'}^2 \right)^2}} = \\
+    &= \frac{(n-1)\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2}}{\frac{\sum_{i'=1}^nx_{i'}^2\sum_{i=1}^ny_i^2}{\sum_{i'=1}^nx_{i'}^2} - 2\frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i'=1}^nx_{i'}^2} + \frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2}} = \\
+    &= \frac{(n-1)\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2}}{\frac{\sum_{i'=1}^nx_{i'}^2\sum_{i=1}^ny_i^2}{\sum_{i'=1}^nx_{i'}^2} - \frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i'=1}^nx_{i'}^2}} = \\
+    &= \frac{(n-1)\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2\sum_{i=1}^ny_i^2 - \left(\sum_{i=1}^nx_iy_i\right)^2}\end{aligned}$$
+
+    $$t = \frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i'=1}^n x_{i'}^2\right)\left(\sum_{i=1}^n y_{i}^2\right) - \left(\sum_{i=1}^n x_{i}y_{i'}\right)^2}}$$
+
+    ```R
+    > numerator = sqrt(length(x)-1)*sum(x*y)
+    > denumerator = sqrt(sum(x^2)*sum(y^2) - sum(x*y)^2)
+    > t_statistic = numerator/denumerator
+    > t_statistic
+
+    [1] 18.72593
+    ```
+
+    > Wyszło tyle co w modelu.
+
+    (e) Using the results from (d), argue that the $t$-statistic for the regression of `y` onto `x` is the same as the $t$-statistic for the regression of `x` onto `y`.
+    
+    (f) In `R`, show that when regression is performed _with_ an intercept, the $t$-statistic for $H_0 : \beta_1 = 0$ is the same for the regression of `y` onto `x` as it is for the regression of `x` onto `y`.
