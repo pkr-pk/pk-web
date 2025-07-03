@@ -316,7 +316,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     ![](img/03_9d.png)
 
-    * Residuals vs Fitted - widać pewną zależność w kształcie litery U co mówi o tym, że dane nie są liniowe.
+    > * Residuals vs Fitted - widać pewną zależność w kształcie litery U co mówi o tym, że dane nie są liniowe.
     * Residuals v leverage - wskazuje, że obserwacja 14 ma duży wpływ na model.
     * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy: 
     ```R
@@ -400,3 +400,178 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     ```
 
     > Nastąpiła poprawa modelu względem bazowego patrząc na R^2 adjusted ale transformacje `sqrt(displacement)` i `cylinders^2` są zbędne ponieważ ich $p$-value wynosi powyżej 0.05.
+
+10. This question should be answered using the `Carseats` data set.
+
+    (a) Fit a multiple regression model to predict `Sales` using `Price`, `Urban`, and `US`.
+
+    ```R
+    > library(ISLR)
+    > carseats_lm = lm(Sales~Price+Urban+US,data=Carseats)
+    > summary(carseats_lm)
+
+    Call:
+    lm(formula = Sales ~ Price + Urban + US, data = Carseats)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -6.9206 -1.6220 -0.0564  1.5786  7.0581 
+
+    Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) 13.043469   0.651012  20.036  < 2e-16 ***
+    Price       -0.054459   0.005242 -10.389  < 2e-16 ***
+    UrbanYes    -0.021916   0.271650  -0.081    0.936    
+    USYes        1.200573   0.259042   4.635 4.86e-06 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 2.472 on 396 degrees of freedom
+    Multiple R-squared:  0.2393,	Adjusted R-squared:  0.2335 
+    F-statistic: 41.52 on 3 and 396 DF,  p-value: < 2.2e-16
+    ```
+    
+    (b) Provide an interpretation of each coefficient in the model. Be careful — some of the variables in the model are qualitative!
+
+    > * Intercept - reprezentuje średnią sprzedaż gdy inne zmienne są zaniedbywalne.
+    * Price - sprzedaż spada gdy cena rośnie.
+    * UrbanYes - sprzedaż spada gdy sklep jest w mieście.
+    * USYes - sprzedaż rośnie gdy sklep jest w USA.
+    
+    (c) Write out the model in equation form, being careful to handle the qualitative variables properly.
+
+    ```R
+    > contrasts(Carseats$Urban)
+
+        Yes
+    No    0
+    Yes   1
+
+    > contrasts(Carseats$US)
+
+        Yes
+    No    0
+    Yes   1
+    ```
+
+    > $Sales = \begin{cases}
+    13.04 - 0.05Price - 0.02 + 1.2 & \text{ gdy Urban = 1, US = 1} \\
+    13.04 - 0.05Price - 0.02 & \text{ gdy Urban = 0, US = 1} \\
+    13.04 - 0.05Price + 1.2 & \text{ gdy Urban = 1, US = 0} \\
+    13.04 - 0.05Price & \text{ gdy Urban = 0, US = 0} \\
+    \end{cases}$
+    
+    (d) For which of the predictors can you reject the null hypothesis $H_0: \beta_j = 0$?
+
+    ```R
+    > carseats_all = lm(Sales~.,data=Carseats)
+    > summary(carseats_all)
+
+    Call:
+    lm(formula = Sales ~ ., data = Carseats)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -2.8692 -0.6908  0.0211  0.6636  3.4115 
+
+    Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)      5.6606231  0.6034487   9.380  < 2e-16 ***
+    CompPrice        0.0928153  0.0041477  22.378  < 2e-16 ***
+    Income           0.0158028  0.0018451   8.565 2.58e-16 ***
+    Advertising      0.1230951  0.0111237  11.066  < 2e-16 ***
+    Population       0.0002079  0.0003705   0.561    0.575    
+    Price           -0.0953579  0.0026711 -35.700  < 2e-16 ***
+    ShelveLocGood    4.8501827  0.1531100  31.678  < 2e-16 ***
+    ShelveLocMedium  1.9567148  0.1261056  15.516  < 2e-16 ***
+    Age             -0.0460452  0.0031817 -14.472  < 2e-16 ***
+    Education       -0.0211018  0.0197205  -1.070    0.285    
+    UrbanYes         0.1228864  0.1129761   1.088    0.277    
+    USYes           -0.1840928  0.1498423  -1.229    0.220    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 1.019 on 388 degrees of freedom
+    Multiple R-squared:  0.8734,	Adjusted R-squared:  0.8698 
+    F-statistic: 243.4 on 11 and 388 DF,  p-value: < 2.2e-16
+    ```
+    
+    > `CompPrice`, `Income`, `Advertising`, `Price`, `ShelveLocGood`, `ShelveLocMedium`, `Age`, opierając się na $p$-value > 0.05
+
+    (e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome.
+
+    ```R
+    > carseats_lm2 = lm(Sales~.-Education-Urban-US-Population,data=Carseats)
+    > summary(carseats_lm2)
+
+    Call:
+    lm(formula = Sales ~ . - Education - Urban - US - Population, 
+        data = Carseats)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -2.7728 -0.6954  0.0282  0.6732  3.3292 
+
+    Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)      5.475226   0.505005   10.84   <2e-16 ***
+    CompPrice        0.092571   0.004123   22.45   <2e-16 ***
+    Income           0.015785   0.001838    8.59   <2e-16 ***
+    Advertising      0.115903   0.007724   15.01   <2e-16 ***
+    Price           -0.095319   0.002670  -35.70   <2e-16 ***
+    ShelveLocGood    4.835675   0.152499   31.71   <2e-16 ***
+    ShelveLocMedium  1.951993   0.125375   15.57   <2e-16 ***
+    Age             -0.046128   0.003177  -14.52   <2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 1.019 on 392 degrees of freedom
+    Multiple R-squared:  0.872,	Adjusted R-squared:  0.8697 
+    F-statistic: 381.4 on 7 and 392 DF,  p-value: < 2.2e-16
+    ```
+    
+    (f) How well do the models in (a) and (e) fit the data?
+
+    > Statystyka $R^2$ adjusted wzrosła znacząco z 0.23 w (a) do 0.86 w (e). F-statistic również zwiększyło się. Oznacza to, że nowy model jest lepszy.
+    
+    (g) Using the model from (e), obtain 95 % confidence intervals for the coefficient(s).
+    
+    ```R
+    > confint(carseats_lm2)
+                          2.5 %      97.5 %
+    (Intercept)      4.48236820  6.46808427
+    CompPrice        0.08446498  0.10067795
+    Income           0.01217210  0.01939784
+    Advertising      0.10071856  0.13108825
+    Price           -0.10056844 -0.09006946
+    ShelveLocGood    4.53585700  5.13549250
+    ShelveLocMedium  1.70550103  2.19848429
+    Age             -0.05237301 -0.03988204
+    ```
+    
+    (h) Is there evidence of outliers or high leverage observations in the model from (e)?
+
+    ```R
+    par(mfrow=c(2,2))
+    plot(carseats_lm2)
+    ```
+
+    ![](img/03_10h.png)
+
+    > * Residuals v leverage - wskazuje, że jakaś obserwacja ma duży wpływ na model.
+
+    ```R
+    > hatvalues(carseats_lm2)[order(hatvalues(carseats_lm2), decreasing = T)][1]
+
+           311 
+    0.06154635
+    ```
+
+    > * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające.
+
+    ```R
+    > rstudent(carseats_lm2)[which(rstudent(carseats_lm2)>3)]
+
+        358 
+    3.34075 
+    ```
