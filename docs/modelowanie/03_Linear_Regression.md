@@ -330,7 +330,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (e) Use the `*` and `:` symbols to fit linear regression models with interaction effects. Do any interactions appear to be statistically significant?
 
     ```R
-    > mpg_interaction = lm(mpg~. + year:cylinders + acceleration:horsepower + weight:displacement,data=Auto)
+    > mpg_interaction = lm(mpg ~ . + year:cylinders + acceleration:horsepower 
+                           + weight:displacement,data=Auto)
     > summary(mpg_interaction)
 
     Call:
@@ -367,7 +368,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (f) Try a few different transformations of the variables, such as $\log(X)$, $\sqrt{X}$, $X^2$. Comment on your findings.
 
     ```R
-    > mpg_ope = lm(mpg~. + log(weight) + log(acceleration) + sqrt(displacement) + I(cylinders^2), data=Auto)
+    > mpg_ope = lm(mpg ~ . + log(weight) + log(acceleration) + sqrt(displacement) 
+                   + I(cylinders^2), data=Auto)
     > summary(mpg_ope)
 
     Call:
@@ -457,8 +459,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     > $$Sales = \begin{cases}
     13.04 - 0.05Price - 0.02 + 1.2 & \text{ gdy Urban = 1, US = 1} \\
-    13.04 - 0.05Price - 0.02 & \text{ gdy Urban = 0, US = 1} \\
-    13.04 - 0.05Price + 1.2 & \text{ gdy Urban = 1, US = 0} \\
+    13.04 - 0.05Price - 0.02 & \text{ gdy Urban = 1, US = 0} \\
+    13.04 - 0.05Price + 1.2 & \text{ gdy Urban = 0, US = 1} \\
     13.04 - 0.05Price & \text{ gdy Urban = 0, US = 0} \\
     \end{cases}$$
     
