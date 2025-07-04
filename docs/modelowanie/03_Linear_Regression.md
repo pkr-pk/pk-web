@@ -696,7 +696,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > $$\hat{\beta}_x = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^nx_i^2}$$
     >
     > $$\hat{\beta}_y = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^ny_i^2}$$
-    >$\hat{\beta}_x = \hat{\beta}_y$, gdy $\sum_{i=1}^nx_i^2 = \sum_{i=1}^ny_i^2$
+    > $$\hat{\beta}_x = \hat{\beta}_y, \text{ gdy } \sum_{i=1}^nx_i^2 = \sum_{i=1}^ny_i^2$$
     
     (b) Generate an example in `R` with $n = 100$ observations in which the coefficient estimate for the regression of $X$ onto $Y$ is different from the coefficient estimate for the regression of $Y$ onto $X$.
 
