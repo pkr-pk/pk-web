@@ -711,5 +711,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     ```R
     set.seed(1)
     x <- rnorm(100)
-    y <- sample(x) # sample miesza liczby z x, lepiej widać, że wystarczy, że suma obserwacji jest równa żeby dostać ten sam współczynnik
+    y <- sample(x) # sample miesza liczby z x, lepiej widać,
+                   # że wystarczy, że suma obserwacji jest 
+                   # równa żeby dostać ten sam współczynnik
     ```
