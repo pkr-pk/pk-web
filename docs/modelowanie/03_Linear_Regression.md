@@ -648,17 +648,17 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     
     (These formulas are slightly different from those given in Sections 3.1.1 and 3.1.2, since here we are performing regression without an intercept.) Show algebraically, and confirm numerically in `R`, that the $t$-statistic can be written as
 
-    $$\frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i=1}^n x_i^2\right)\left(\sum_{i'=1}^n y_{i'}^2\right) - \left(\sum_{i'=1}^n x_{i'}y_{i'}\right)^2}}$$
-
-    $$\begin{aligned}t^2 &= \frac{\hat{\beta}^2}{SE^2(\hat{\beta})} = \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^n (y_i - x_i\hat{\beta})^2} = \\
+    > $$\frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i=1}^n x_i^2\right)\left(\sum_{i'=1}^n y_{i'}^2\right) - \left(\sum_{i'=1}^n x_{i'}y_{i'}\right)^2}}$$
+    >
+    > $$\begin{aligned}t^2 &= \frac{\hat{\beta}^2}{SE^2(\hat{\beta})} = \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^n (y_i - x_i\hat{\beta})^2} = \\
     &= \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^n (y_i^2 - 2y_ix_i\hat{\beta} + x_i^2\hat{\beta}^2)} = \\
     &= \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\hat{\beta}^2}{\sum_{i=1}^ny_i^2 - 2\sum_{i=1}^ny_ix_i\hat{\beta} + \sum_{i=1}^nx_i^2\hat{\beta}^2} = \\
     &= \frac{(n-1)\sum_{i'=1}^n x_{i'}^2\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\left(\sum_{i'=1}^nx_{i'}^2 \right)^2}}{\sum_{i=1}^ny_i^2 - 2\sum_{i=1}^ny_ix_i\frac{\sum_{i=1}^nx_iy_i}{\sum_{i'=1}^nx_{i'}^2} + \sum_{i=1}^nx_i^2\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\left(\sum_{i'=1}^nx_{i'}^2 \right)^2}} = \\
     &= \frac{(n-1)\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2}}{\frac{\sum_{i'=1}^nx_{i'}^2\sum_{i=1}^ny_i^2}{\sum_{i'=1}^nx_{i'}^2} - 2\frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i'=1}^nx_{i'}^2} + \frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2}} = \\
     &= \frac{(n-1)\frac{\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2}}{\frac{\sum_{i'=1}^nx_{i'}^2\sum_{i=1}^ny_i^2}{\sum_{i'=1}^nx_{i'}^2} - \frac{\left(\sum_{i=1}^nx_iy_i\right)^2}{\sum_{i'=1}^nx_{i'}^2}} = \\
     &= \frac{(n-1)\left(\sum_{i=1}^nx_iy_i \right)^2}{\sum_{i'=1}^nx_{i'}^2\sum_{i=1}^ny_i^2 - \left(\sum_{i=1}^nx_iy_i\right)^2}\end{aligned}$$
-
-    $$t = \frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i'=1}^n x_{i'}^2\right)\left(\sum_{i=1}^n y_{i}^2\right) - \left(\sum_{i=1}^n x_{i}y_{i'}\right)^2}}$$
+    >
+    > $$t = \frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i'=1}^n x_{i'}^2\right)\left(\sum_{i=1}^n y_{i}^2\right) - \left(\sum_{i=1}^n x_{i}y_{i'}\right)^2}}$$
 
     ```R
     > numerator = sqrt(length(x)-1)*sum(x*y)
@@ -685,6 +685,31 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     > lm.fit4 = lm(x~y)
     > summary(lm.fit4)$coefficients[2,3]
-    
+
     [1] 18.5556
+    ```
+
+12. This problem involves simple linear regression without an intercept.
+
+    (a) Recall that the coefficient estimate $\hat{\beta}$ for the linear regression of $Y$ onto $X$ without an intercept is given by (3.38). Under what circumstance is the coefficient estimate for the regression of $X$ onto $Y$ the same as the coefficient estimate for the regression of $Y$ onto $X$?
+
+    > $$\hat{\beta}_x = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^nx_i^2}$$
+    >
+    > $$\hat{\beta}_y = \frac{\sum_{i=1}^nx_iy_i}{\sum_{i=1}^ny_i^2}$$
+    >$\hat{\beta}_x = \hat{\beta}_y$, gdy $\sum_{i=1}^nx_i^2 = \sum_{i=1}^ny_i^2$
+    
+    (b) Generate an example in `R` with $n = 100$ observations in which the coefficient estimate for the regression of $X$ onto $Y$ is different from the coefficient estimate for the regression of $Y$ onto $X$.
+
+    ```R
+    > set.seed(1)
+    > x <- rnorm(100)
+    > y <- 2 * x + rnorm(100)
+    ```
+    
+    (c) Generate an example in `R` with $n = 100$ observations in which the coefficient estimate for the regression of $X$ onto $Y$ is the same as the coefficient estimate for the regression of $Y$ onto $X$.
+
+    ```R
+    set.seed(1)
+    x <- rnorm(100)
+    y <- sample(x) # sample miesza liczby z x, lepiej widać, że wystarczy, że suma obserwacji jest równa żeby dostać ten sam współczynnik
     ```
