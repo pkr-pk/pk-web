@@ -672,5 +672,19 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > Wyszło tyle co w modelu.
 
     (e) Using the results from (d), argue that the $t$-statistic for the regression of `y` onto `x` is the same as the $t$-statistic for the regression of `x` onto `y`.
+
+    > Widać od razu, że zamiana `x` z `y` da ten sam wzór końcowy.
     
     (f) In `R`, show that when regression is performed _with_ an intercept, the $t$-statistic for $H_0 : \beta_1 = 0$ is the same for the regression of `y` onto `x` as it is for the regression of `x` onto `y`.
+
+    ```R
+    > lm.fit3 = lm(y~x)
+    > summary(lm.fit3)$coefficients[2,3]
+
+    [1] 18.5556
+
+    > lm.fit4 = lm(x~y)
+    > summary(lm.fit4)$coefficients[2,3]
+    
+    [1] 18.5556
+    ```
