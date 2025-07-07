@@ -11,11 +11,11 @@ nav_order: 2
 
     Hipotezy zerowe dla tabeli 3.4:
 
-    $(TV) H_0: \beta_0 = 0$
+    $(TV) H_0: \beta_1 = 0$
 
-    $(Radio) H_0: \beta_1 = 0$
+    $(Radio) H_0: \beta_2 = 0$
 
-    $(Newspaper) H_0: \beta_2 = 0$
+    $(Newspaper) H_0: \beta_3 = 0$
     
     $p$-values dla TV i Radio są małe, co oznacza, że hipotezy zerowe muszą być odrzucone. Pokazuje to, że zmienna objaśniana silnie zależy od wspomnianych dwóch zmiennych objaśniających. $p$-value dla Newspaper jest duże co oznacza, że $\beta_2=0$ czyli ta zmienna nie ma wpływu na zmienną objaśnianą.
 
@@ -716,3 +716,206 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
                    # że wystarczy, że suma obserwacji jest 
                    # równa żeby dostać ten sam współczynnik
     ```
+
+13. In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use `set.seed(1)` prior to starting part (a) to ensure consistent results.
+
+    (a) Using the `rnorm()` function, create a vector, `x`, containing 100 observations drawn from a $N(0,1)$ distribution. This represents a feature, $X$.
+
+    ```R
+    > set.seed(1)
+    > x <- rnorm(100, mean=0, sd=1)
+    ```
+
+    (b) Using the `rnorm()` function, create a vector, `eps`, containing 100 observations drawn from a $N(0,0.25)$ distribution—a normal distribution with mean zero and variance 0.25 .
+    
+    ```R
+    > eps <- rnorm(100, mean=0, sd=0.25)
+    ```
+
+    (c) Using `x` and `eps`, generate a vector `y` according to the model
+
+    $$
+    Y=-1+0.5 X+\epsilon
+    $$
+
+    What is the length of the vector `y`? What are the values of $\beta_0$ and $\beta_1$ in this linear model?
+
+    ```R
+    > y = -1 +(0.5*x) + eps
+    ```
+
+    > Długość wektora to 100. $\beta_0 = -1$, $\beta_1 = 0.5$
+
+    (d) Create a scatterplot displaying the relationship between `x` and `y`. Comment on what you observe.
+
+    ![](img/03_13d.png)
+
+    > Widać pewną liniową zależność.
+
+    (e) Fit a least squares linear model to predict `y` using `x`. Comment on the model obtained. How do $\hat{\beta}_0$ and $\hat{\beta}_1$ compare to $\beta_0$ and $\beta_1$?
+
+    ```R
+    > lm.fit <- lm(y~x)
+    > summary(lm.fit)
+
+    Call:
+    lm(formula = y ~ x)
+
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -0.93842 -0.30688 -0.06975  0.26970  1.17309 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) -1.01885    0.04849 -21.010  < 2e-16 ***
+    x            0.49947    0.05386   9.273 4.58e-15 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 0.4814 on 98 degrees of freedom
+    Multiple R-squared:  0.4674,	Adjusted R-squared:  0.4619 
+    F-statistic: 85.99 on 1 and 98 DF,  p-value: 4.583e-15
+    ```
+
+    > $\hat{\beta}_0$, $\hat{\beta}_1$ porównując do  $\beta_0$, $\beta_1$ mają nieco inną wartość co jest spowodowane czynnikiem błędu `eps`, który występuje w danych.
+
+    (f) Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the `legend()` command to create an appropriate legend.
+
+    ```R
+    > abline(lm.fit, lwd=1, col ="blue")
+    > abline(a=-1, b=0.5, lwd=1, col="red")
+    > legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
+    +        col=c('blue','red'), lty = c(1, 1))
+    ```
+
+    ![](img/03_13f.png)
+
+    (g) Now fit a polynomial regression model that predicts `y` using `x` and $x^2$. Is there evidence that the quadratic term improves the model fit? Explain your answer.
+
+    ```R
+    > lm.fit2 = lm(y~x+I(x^2))
+    > summary(lm.fit2)
+
+    Call:
+    lm(formula = y ~ x + I(x^2))
+
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -0.98252 -0.31270 -0.06441  0.29014  1.13500 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) -0.97164    0.05883 -16.517  < 2e-16 ***
+    x            0.50858    0.05399   9.420  2.4e-15 ***
+    I(x^2)      -0.05946    0.04238  -1.403    0.164    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 0.479 on 97 degrees of freedom
+    Multiple R-squared:  0.4779,	Adjusted R-squared:  0.4672 
+    F-statistic:  44.4 on 2 and 97 DF,  p-value: 2.038e-14
+    ```
+
+    > Brak poprawy, statystyka F ma mniejszą wartość, $p$-value prze członie kwadratowym jest większe od 0.05 co oznacza, że nie jest to potrzebne w modelu.
+
+    (h) Repeat (a)-(f) after modifying the data generation process in such a way that there is _less_ noise in the data. The model $Y=-1+0.5 X+\epsilon$ should remain the same. You can do this by decreasing the variance of the normal distribution used to generate the error term $\epsilon$ in (b). Describe your results.
+
+    ```R
+    > set.seed(1)
+    > x <- rnorm(100, mean=0, sd=1)
+    > eps <- rnorm(100, mean=0, sd=0.1)
+    > y = -1 +(0.5*x) + eps
+    > lm.fit3 <- lm(y~x)
+    > summary(lm.fit3)
+    
+    Call:
+    lm(formula = y ~ x)
+
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -0.18768 -0.06138 -0.01395  0.05394  0.23462 
+
+    Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) -1.003769   0.009699  -103.5   <2e-16 ***
+    x            0.499894   0.010773    46.4   <2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 0.09628 on 98 degrees of freedom
+    Multiple R-squared:  0.9565,	Adjusted R-squared:  0.956 
+    F-statistic:  2153 on 1 and 98 DF,  p-value: < 2.2e-16
+
+    > plot(x, y)
+    > abline(lm.fit3, lwd=1, col ="blue")
+    > abline(a=-1, b=0.5, lwd=1, col="red")
+    > legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
+    +        col=c('blue','red'), lty = c(1, 1))
+    ```
+
+    ![](img/03_13h.png)
+
+    > Punkt są mniej rozrzucone dzięki czemu model regresji jest lepiej dopasowany.
+
+    (i) Repeat (a)-(f) after modifying the data generation process in such a way that there is _more_ noise in the data. The model $Y=-1+0.5 X+\epsilon$ should remain the same. You can do this by increasing the variance of the normal distribution used to generate the error term $\epsilon$ in (b). Describe your results.
+
+    ```R
+    > set.seed(1)
+    > x <- rnorm(100, mean=0, sd=1)
+    > eps <- rnorm(100, mean=0, sd=1)
+    > y = -1 +(0.5*x) + eps
+    > lm.fit4 <- lm(y~x)
+    > summary(lm.fit4)
+
+    Call:
+    lm(formula = y ~ x)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -1.8768 -0.6138 -0.1395  0.5394  2.3462 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) -1.03769    0.09699 -10.699  < 2e-16 ***
+    x            0.49894    0.10773   4.632 1.12e-05 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 0.9628 on 98 degrees of freedom
+    Multiple R-squared:  0.1796,	Adjusted R-squared:  0.1712 
+    F-statistic: 21.45 on 1 and 98 DF,  p-value: 1.117e-05
+
+    > plot(x, y)
+    > abline(lm.fit4, lwd=1, col ="blue")
+    > abline(a=-1, b=0.5, lwd=1, col="red")
+    > legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
+    +        col=c('blue','red'), lty = c(1, 1))
+    ```
+
+    ![](img/03_13i.png)
+
+    > Punkt są bardziej rozrzucone przez co model regresji jest gorzej dopasowany.
+
+    (j) What are the confidence intervals for $\beta_0$ and $\beta_1$ based on the original data set, the noisier data set, and the less noisy data set? Comment on your results.
+
+    ```R
+    > confint(lm.fit)
+
+                     2.5 %     97.5 %
+    (Intercept) -1.1150804 -0.9226122
+    x            0.3925794  0.6063602
+
+    > confint(lm.fit3)
+
+                     2.5 %     97.5 %
+    (Intercept) -1.0230161 -0.9845224
+    x            0.4785159  0.5212720
+
+    > confint(lm.fit4)
+
+                     2.5 %     97.5 %
+    (Intercept) -1.2301607 -0.8452245
+    x            0.2851588  0.7127204
+    ```
+
+    > Oczywistością jest, że przedziały są węższe w lepiej dopasowanym modelu.
