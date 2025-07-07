@@ -919,3 +919,116 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     ```
 
     > Oczywistością jest, że przedziały są węższe w lepiej dopasowanym modelu.
+
+14. This problem focuses on the collinearity problem.
+
+    (a) Perform the following commands in `R`:
+
+    ```R
+    > set.seed(1)
+    > x1 <- runif(100)
+    > x2 <- 0.5 * x1 + rnorm(100) / 10
+    > y <- 2 + 2 * x1 + 0.3 * x2 + rnorm(100)
+    ```
+
+    The last line corresponds to creating a linear model in which `y` is a function of `x1` and `x2`. Write out the form of the linear model. What are the regression coefficients?
+
+    > $$Y = 2 + 2x_1 + 0.3x_2 + \epsilon, \text{ gdzie } \epsilon ~ N(0,1)$$
+
+    > $$\Beta_0 = 2, \beta_1 = 2, \beta_2 = 0.3$$
+
+    (b) What is the correlation between `x1` and `x2`? Create a scatterplot displaying the relationship between the variables.
+
+    ```R
+    > cor(x1, x2)
+
+    [1] 0.8351212
+
+    > plot(x1, x2)
+    ```
+
+    ![](img/03_14b.png)
+
+    (c) Using this data, fit a least squares regression to predict `y` using `x1` and `x2`. Describe the results obtained. What are $\hat{\beta}_0, \hat{\beta}_1$, and $\hat{\beta}_2$? How do these relate to the true $\beta_0, \beta_1$, and $\beta_2$? Can you reject the null hypothesis $H_0 : \beta_1=0$ ? How about the null hypothesis $H_0 : \beta_2=0$?
+
+    ```R
+    > lm.fit <- lm(y~x1+x2)
+    > summary(lm.fit)
+
+    Call:
+    lm(formula = y ~ x1 + x2)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -2.8311 -0.7273 -0.0537  0.6338  2.3359 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)   2.1305     0.2319   9.188 7.61e-15 ***
+    x1            1.4396     0.7212   1.996   0.0487 *  
+    x2            1.0097     1.1337   0.891   0.3754    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 1.056 on 97 degrees of freedom
+    Multiple R-squared:  0.2088,	Adjusted R-squared:  0.1925 
+    F-statistic:  12.8 on 2 and 97 DF,  p-value: 1.164e-05
+    ```
+
+    > $\hat{\beta}_0 = 2.13, \hat{\beta}_1 = 1.43, \hat{\beta}_2 = 1.01$, współczynniki z dopasowania regresji odbiegają od tych z modelu linowego. $p$-value dla $\hat{\beta}_2$ jest większe od 0.05 więc ta zmienna nie powinna być w modelu regresji.
+
+    (d) Now fit a least squares regression to predict `y` using only `x1`. Comment on your results. Can you reject the null hypothesis $H_0 : \beta_1=0$?
+
+    ```R
+    > lm.fit2 <- lm(y~x1)
+    > summary(lm.fit2)
+
+    Call:
+    lm(formula = y ~ x1)
+
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -2.89495 -0.66874 -0.07785  0.59221  2.45560 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)   2.1124     0.2307   9.155 8.27e-15 ***
+    x1            1.9759     0.3963   4.986 2.66e-06 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 1.055 on 98 degrees of freedom
+    Multiple R-squared:  0.2024,	Adjusted R-squared:  0.1942 
+    F-statistic: 24.86 on 1 and 98 DF,  p-value: 2.661e-06
+    ```
+
+    > * Można odrzucić hipotezę ponieważ $p$-value jest bliskie zera
+    > * Statystyka $R^2$ jest podobna do poprzedniego przypadku ale statystyka F jest teraz większa.
+ 
+    (e) Now fit a least squares regression to predict `y` using only `x2`. Comment on your results. Can you reject the null hypothesis $H_0 : \beta_1=0$?
+
+    ```R
+    > lm.fit3 <- lm(y~x2)
+    > summary(lm.fit3)
+
+    Call:
+    lm(formula = y ~ x2)
+
+    Residuals:
+         Min       1Q   Median       3Q      Max 
+    -2.62687 -0.75156 -0.03598  0.72383  2.44890 
+
+    Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)   2.3899     0.1949   12.26  < 2e-16 ***
+    x2            2.8996     0.6330    4.58 1.37e-05 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 1.072 on 98 degrees of freedom
+    Multiple R-squared:  0.1763,	Adjusted R-squared:  0.1679 
+    F-statistic: 20.98 on 1 and 98 DF,  p-value: 1.366e-05
+    ```
+
+    > * Można odrzucić hipotezę ponieważ $p$-value jest bliskie zera
+    > * Statystyka $R^2$ jest niższa niż w poprzednich przypadkach. Statystyka F jest teraz pomiędzy.
