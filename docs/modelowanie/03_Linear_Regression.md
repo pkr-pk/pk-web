@@ -729,7 +729,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) Using the `rnorm()` function, create a vector, `eps`, containing 100 observations drawn from a $N(0,0.25)$ distribution—a normal distribution with mean zero and variance 0.25 .
     
     ```R
-    > eps <- rnorm(100, mean=0, sd=0.25)
+    > eps <- rnorm(100, mean=0, sd=0.5)
     ```
 
     (c) Using `x` and `eps`, generate a vector `y` according to the model
@@ -741,7 +741,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     What is the length of the vector `y`? What are the values of $\beta_0$ and $\beta_1$ in this linear model?
 
     ```R
-    > y = -1 +(0.5*x) + eps
+    > y = -1 + (0.5 * x) + eps
     ```
 
     > Długość wektora to 100. $\beta_0 = -1$, $\beta_1 = 0.5$
