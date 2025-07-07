@@ -1032,3 +1032,68 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     > * Można odrzucić hipotezę ponieważ $p$-value jest bliskie zera
     > * Statystyka $R^2$ jest niższa niż w poprzednich przypadkach. Statystyka F jest teraz pomiędzy.
+
+    (f) Do the results obtained in (c)-(e) contradict each other? Explain your answer.
+
+    Nie, wyniki w modelach (c)-(e) nie przeczą sobie i mogą być wyjaśnione na podstawie kolinearności. Kiedy dwie zmienne w modelu są ze sobą związane liniowo wpływ jednej z nich na zmienną objaśnianą może być zaburzony przez drugą ze zmiennych. Kolinearność zwiększa również błąd standardowy, z modeli wynika, że błąd `x1+x2` jest większy niż błąd dla `x` lub `x2`.
+
+    (g) Now suppose we obtain one additional observation, which was unfortunately mismeasured.
+
+    ```R
+    > x1 <- c(x1, 0.1)
+    > x2 <- c(x2, 0.8)
+    > y <- c(y, 6)
+    ```
+
+    Re-fit the linear models from (c) to (e) using this new data. What effect does this new observation have on the each of the models? In each model, is this observation an outlier? A high-leverage point? Both? Explain your answers.
+
+    ```R
+    > par(mfrow=c(2,2))
+    > lm.fit <- lm(y~x1+x2)
+    > plot(lm.fit)
+    > rstudent(lm.fit)[which(rstudent(lm.fit)>3)]
+
+    named numeric(0)
+
+    > hatvalues(lm.fit)[order(hatvalues(lm.fit), decreasing = T)][1]
+
+          101 
+    0.4147284 
+    ```
+
+    ![](img/03_14g1.png)
+
+    > W tym modelu nowy punkt (101) jest punktem wpływowym ale nie jest obserwacją odstającą.
+
+    ```R
+    > lm.fit2 <- lm(y~x1)
+    > plot(lm.fit2)
+    > rstudent(lm.fit2)[which(rstudent(lm.fit2)>3)]
+
+         101 
+    3.438405
+
+    > hatvalues(lm.fit2)[order(hatvalues(lm.fit2), decreasing = T)][1]
+
+            27 
+    0.04437352
+    ```
+
+    ![](img/03_14g2.png)
+
+    > W tym modelu nowy punkt (101) jest punktem odstającym ale nie jest punktem wpływowym. Punkt 27 jest wpływowy.
+
+    ```R
+    > lm.fit3 <- lm(y~x2)
+    > plot(lm.fit3)
+    > rstudent(lm.fit3)[which(rstudent(lm.fit3)>3)]
+
+    named numeric(0)
+
+    > hatvalues(lm.fit3)[order(hatvalues(lm.fit3), decreasing = T)][1]
+
+          101 
+    0.1013106
+    ```
+
+    > W tym modelu nowy punkt (101) jest punktem wpływowym ale nie jest obserwacją odstającą.
