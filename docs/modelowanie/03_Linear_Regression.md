@@ -1313,3 +1313,5 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
       X3: 1.04651002433602e-12 
      r-squared: 0.420200256563415
     ```
+
+    > Dla niektórych modeli zmienna $X^3$ jest statystycznie istotna więc istnieje dowód na to, że dane nie są liniowo zależne.
