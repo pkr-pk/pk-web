@@ -935,7 +935,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     > $$Y = 2 + 2x_1 + 0.3x_2 + \epsilon, \text{ gdzie } \epsilon ~ N(0,1)$$
 
-    > $$\Beta_0 = 2, \beta_1 = 2, \beta_2 = 0.3$$
+    > $$\beta_0 = 2, \beta_1 = 2, \beta_2 = 0.3$$
 
     (b) What is the correlation between `x1` and `x2`? Create a scatterplot displaying the relationship between the variables.
 
