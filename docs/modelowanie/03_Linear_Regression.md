@@ -782,10 +782,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (f) Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the `legend()` command to create an appropriate legend.
 
     ```R
-    > abline(lm.fit, lwd=1, col ="blue")
-    > abline(a=-1, b=0.5, lwd=1, col="red")
-    > legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
-    +        col=c('blue','red'), lty = c(1, 1))
+    abline(lm.fit, lwd=1, col ="blue")
+    abline(a=-1, b=0.5, lwd=1, col="red")
+    legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
+           col=c('blue','red'), lty = c(1, 1))
     ```
 
     ![](img/03_13f.png)
@@ -1097,3 +1097,219 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     ```
 
     > W tym modelu nowy punkt (101) jest punktem wpływowym ale nie jest obserwacją odstającą.
+
+15. This problem involves the `Boston` data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+    
+    (a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
+
+    ```R
+    > library(MASS)
+    > head(Boston)
+
+         crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat medv
+    1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98 24.0
+    2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14 21.6
+    3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8 392.83  4.03 34.7
+    4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7 394.63  2.94 33.4
+    5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33 36.2
+    6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21 28.7
+    ```
+    ```R
+    columns = colnames(Boston)
+    columns = columns[-1]
+    for (x in columns) {
+       lm = lm(paste("crim", "~", x), data=Boston)
+       print(paste(x, "p-value:", summary(lm)$coefficients[2,4]))
+       print(paste(x, "r-squared:", summary(lm)$r.squared))
+    }
+    ```
+    ```R
+    [1] "zn p-value: 5.50647210767933e-06"
+    [1] "zn r-squared: 0.0401879080321103"
+    [1] "indus p-value: 1.45034893302753e-21"
+    [1] "indus r-squared: 0.165310070430752"
+    [1] "chas p-value: 0.209434501535197"
+    [1] "chas r-squared: 0.00312386896330565"
+    [1] "nox p-value: 3.75173926035643e-23"
+    [1] "nox r-squared: 0.177217181792693"
+    [1] "rm p-value: 6.34670298468762e-07"
+    [1] "rm r-squared: 0.0480691167160835"
+    [1] "age p-value: 2.85486935024409e-16"
+    [1] "age r-squared: 0.124421451758947"
+    [1] "dis p-value: 8.51994876692585e-19"
+    [1] "dis r-squared: 0.144149374925399"
+    [1] "rad p-value: 2.69384439818529e-56"
+    [1] "rad r-squared: 0.391256686749989"
+    [1] "tax p-value: 2.35712683525654e-47"
+    [1] "tax r-squared: 0.339614243378812"
+    [1] "ptratio p-value: 2.94292244735982e-11"
+    [1] "ptratio r-squared: 0.0840684389437367"
+    [1] "black p-value: 2.48727397377375e-19"
+    [1] "black r-squared: 0.148274239424131"
+    [1] "lstat p-value: 2.65427723147331e-27"
+    [1] "lstat r-squared: 0.207590932534335"
+    [1] "medv p-value: 1.17398708219441e-19"
+    [1] "medv r-squared: 0.150780469049757"
+    ```
+
+    > Tylko dla zmiennej `chas` $p$-value jest powyżej 0.05 dlatego na tej podstawie nie można zbudować modelu liniowego.
+    >
+    > Wszystkie modele są słabo dopasowane o czym mówią niskie wartości statystyki $R^2$.
+
+    ```R
+    lm.fit = lm(crim~rad, data=Boston)
+    plot(Boston$crim, Boston$rad)
+    abline(lm.fit, col="blue", lwd=3)
+    ```
+
+    ![](img/03_15a.png)
+
+    > Dla najlepiej dopasowanego modelu dostajemy bezsensowną linię. Patrząc na wykresy `crim` od innych zmiennych nie widać zależności liniowej w żadnym modelu.
+
+    (b) Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis $H_0 : \beta_j=0$?
+
+    ```R
+    > lm.fit2 = lm(crim ~ ., data=Boston)
+    > summary(lm.fit2)
+
+    Call:
+    lm(formula = crim ~ ., data = Boston)
+
+    Residuals:
+    Min     1Q Median     3Q    Max 
+    -9.924 -2.120 -0.353  1.019 75.051 
+
+    Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)  17.033228   7.234903   2.354 0.018949 *  
+    zn            0.044855   0.018734   2.394 0.017025 *  
+    indus        -0.063855   0.083407  -0.766 0.444294    
+    chas         -0.749134   1.180147  -0.635 0.525867    
+    nox         -10.313535   5.275536  -1.955 0.051152 .  
+    rm            0.430131   0.612830   0.702 0.483089    
+    age           0.001452   0.017925   0.081 0.935488    
+    dis          -0.987176   0.281817  -3.503 0.000502 ***
+    rad           0.588209   0.088049   6.680 6.46e-11 ***
+    tax          -0.003780   0.005156  -0.733 0.463793    
+    ptratio      -0.271081   0.186450  -1.454 0.146611    
+    black        -0.007538   0.003673  -2.052 0.040702 *  
+    lstat         0.126211   0.075725   1.667 0.096208 .  
+    medv         -0.198887   0.060516  -3.287 0.001087 ** 
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 6.439 on 492 degrees of freedom
+    Multiple R-squared:  0.454,	Adjusted R-squared:  0.4396 
+    F-statistic: 31.47 on 13 and 492 DF,  p-value: < 2.2e-16
+    ```
+
+    > `indus`, `chas`, `nox`, `rm`, `age`, `tax`, `ptratio`, `lstat` ponieważ $p$-value jest większe od 0.05
+    
+    (c) How do your results from (a) compare to your results from (b)? Create a plot displaying the univariate regression coefficients from (a) on the $x$-axis, and the multiple regression coefficients from (b) on the $y$-axis. That is, each predictor is displayed as a single point in the plot. Its coefficient in a simple linear regression model is shown on the $x$-axis, and its coefficient estimate in the multiple linear regression model is shown on the $y$-axis.
+
+    ```R
+    simple_coefs = c()
+    multip_coefs = c()
+    for (x in columns) {
+      lm = lm(paste("crim", "~", x), data=Boston)
+      simple_coefs = c(simple_coefs, summary(lm)$coefficients[2,1])
+      multip_coefs = c(multip_coefs, summary(lm.fit2)$coefficients[-1,1][x])
+    }
+    plot(simple_coefs, multip_coefs, xlab="Simple regression coeffs", 
+         ylab="Multiple regression coeffs")
+    ```
+    
+    ![](img/03_15c.png)
+
+    (d) Is there evidence of non-linear association between any of the predictors and the response? To answer this question, for each predictor $X$, fit a model of the form
+
+    $$Y=\beta_0+\beta_1 X+\beta_2 X^2+\beta_3 X^3+\epsilon$$
+
+    ```R
+    columns2 = columns[-3] # usunięcie zmiennej char bo powodowała error:
+                           # Error in poly(chas, 3) : 'degree' must be less 
+                           # than number of unique points
+    for (x in columns2) {
+      lm = lm(paste("crim", "~", "poly(", x, ", 3)"), data=Boston)
+      cat(paste(x, "\n p-values:\n", 
+                " X1:", summary(lm)$coefficients[2,4], "\n",
+                " X2:", summary(lm)$coefficients[3,4], "\n",
+                " X3:", summary(lm)$coefficients[4,4], "\n",
+                "r-squared:", summary(lm)$r.squared), "\n")
+    }
+    ```
+
+    ```R
+    zn 
+     p-values:
+      X1: 4.69780623880835e-06 
+      X2: 0.00442050690870266 
+      X3: 0.229538620491036 
+     r-squared: 0.0582419742225835 
+    indus 
+     p-values:
+      X1: 8.85424265543168e-24 
+      X2: 0.00108605713680064 
+      X3: 1.19640469153329e-12 
+     r-squared: 0.259657857919566 
+    nox 
+     p-values:
+      X1: 2.45749078247428e-26 
+      X2: 7.73675464939014e-05 
+      X3: 6.96111003427078e-16 
+     r-squared: 0.296977895628736 
+    rm 
+     p-values:
+      X1: 5.12804838748881e-07 
+      X2: 0.00150854548563958 
+      X3: 0.508575109404836 
+     r-squared: 0.0677860611687858 
+    age 
+     p-values:
+      X1: 4.87880300225129e-17 
+      X2: 2.29115552484839e-06 
+      X3: 0.00667991535096615 
+     r-squared: 0.174230993586574
+    dis 
+     p-values:
+      X1: 1.25324918497524e-21 
+      X2: 7.86976668301443e-14 
+      X3: 1.08883202821446e-08 
+     r-squared: 0.277824773086737 
+    rad 
+     p-values:
+      X1: 1.05321131813677e-56 
+      X2: 0.00912055797292549 
+      X3: 0.482313774035658 
+     r-squared: 0.400036872024224 
+    tax 
+     p-values:
+      X1: 6.97631356496829e-49 
+      X2: 3.66534762329245e-06 
+      X3: 0.243850681055568 
+     r-squared: 0.368882079662959 
+    ptratio 
+     p-values:
+      X1: 1.56548404181827e-11 
+      X2: 0.00240546785935045 
+      X3: 0.00630051363404616 
+     r-squared: 0.113781577446988 
+    black 
+     p-values:
+      X1: 2.73008174791169e-19 
+      X2: 0.456604413926253 
+      X3: 0.543617181726903 
+     r-squared: 0.149839828802207
+    lstat 
+     p-values:
+      X1: 1.67807172578567e-27 
+      X2: 0.0378041809094279 
+      X3: 0.12989058725197 
+     r-squared: 0.217932432422256 
+    medv 
+     p-values:
+      X1: 4.93081829258389e-27 
+      X2: 2.92857691192993e-35 
+      X3: 1.04651002433602e-12 
+     r-squared: 0.420200256563415
+    ```
