@@ -1116,40 +1116,41 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     ```
     ```R
     columns = colnames(Boston)
-    columns = columns[-1]
+    columns = columns[-1] # usunięcie zmiennej crim
+
+    p_values = c()
+    r_squared = c()
     for (x in columns) {
-       lm = lm(paste("crim", "~", x), data=Boston)
-       print(paste(x, "p-value:", summary(lm)$coefficients[2,4]))
-       print(paste(x, "r-squared:", summary(lm)$r.squared))
+      lm = lm(paste("crim", "~", x), data=Boston)
+      p_values = c(p_values, summary(lm)$coefficients[2,4])
+      r_squared = c(r_squared, summary(lm)$r.squared)
     }
+    
+    results = data.frame(row.names = columns)
+    results$p_values = p_values
+    results$r_squared = r_squared
+    print(results)
     ```
     ```R
-    [1] "zn p-value: 5.50647210767933e-06"
-    [1] "zn r-squared: 0.0401879080321103"
-    [1] "indus p-value: 1.45034893302753e-21"
-    [1] "indus r-squared: 0.165310070430752"
-    [1] "chas p-value: 0.209434501535197"
-    [1] "chas r-squared: 0.00312386896330565"
-    [1] "nox p-value: 3.75173926035643e-23"
-    [1] "nox r-squared: 0.177217181792693"
-    [1] "rm p-value: 6.34670298468762e-07"
-    [1] "rm r-squared: 0.0480691167160835"
-    [1] "age p-value: 2.85486935024409e-16"
-    [1] "age r-squared: 0.124421451758947"
-    [1] "dis p-value: 8.51994876692585e-19"
-    [1] "dis r-squared: 0.144149374925399"
-    [1] "rad p-value: 2.69384439818529e-56"
-    [1] "rad r-squared: 0.391256686749989"
-    [1] "tax p-value: 2.35712683525654e-47"
-    [1] "tax r-squared: 0.339614243378812"
-    [1] "ptratio p-value: 2.94292244735982e-11"
-    [1] "ptratio r-squared: 0.0840684389437367"
-    [1] "black p-value: 2.48727397377375e-19"
-    [1] "black r-squared: 0.148274239424131"
-    [1] "lstat p-value: 2.65427723147331e-27"
-    [1] "lstat r-squared: 0.207590932534335"
-    [1] "medv p-value: 1.17398708219441e-19"
-    [1] "medv r-squared: 0.150780469049757"
+                p_values   r_squared
+    zn      5.506472e-06 0.040187908
+    indus   1.450349e-21 0.165310070
+    chas    2.094345e-01 0.003123869
+    nox     3.751739e-23 0.177217182
+    rm      6.346703e-07 0.048069117
+    age     2.854869e-16 0.124421452
+    dis     8.519949e-19 0.144149375
+    rad     2.693844e-56 0.391256687
+    tax     2.357127e-47 0.339614243
+    ptratio 2.942922e-11 0.084068439
+    black   2.487274e-19 0.148274239
+    lstat   2.654277e-27 0.207590933
+    medv    1.173987e-19 0.150780469
+
+    > print(results[results$p_values > 0.05, ])
+    
+          p_values   r_squared
+    chas 0.2094345 0.003123869
     ```
 
     > Tylko dla zmiennej `chas` $p$-value jest powyżej 0.05 dlatego na tej podstawie nie można zbudować modelu liniowego.
@@ -1229,89 +1230,47 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     columns2 = columns[-3] # usunięcie zmiennej char bo powodowała error:
                            # Error in poly(chas, 3) : 'degree' must be less 
                            # than number of unique points
+    x1_p_values = c()
+    x2_p_values = c()
+    x3_p_values = c()
     for (x in columns2) {
       lm = lm(paste("crim", "~", "poly(", x, ", 3)"), data=Boston)
-      cat(paste(x, "\n p-values:\n", 
-                " X1:", summary(lm)$coefficients[2,4], "\n",
-                " X2:", summary(lm)$coefficients[3,4], "\n",
-                " X3:", summary(lm)$coefficients[4,4], "\n",
-                "r-squared:", summary(lm)$r.squared), "\n")
+      x1_p_values = c(x1_p_values, summary(lm)$coefficients[2,4])
+      x2_p_values = c(x2_p_values, summary(lm)$coefficients[3,4])
+      x3_p_values = c(x3_p_values, summary(lm)$coefficients[4,4])
     }
+
+    results = data.frame(row.names = columns2)
+    results$x1_p_values = x1_p_values
+    results$x2_p_values = x2_p_values
+    results$x3_p_values = x3_p_values
+    print(results)
     ```
 
     ```R
-    zn 
-     p-values:
-      X1: 4.69780623880835e-06 
-      X2: 0.00442050690870266 
-      X3: 0.229538620491036 
-     r-squared: 0.0582419742225835 
-    indus 
-     p-values:
-      X1: 8.85424265543168e-24 
-      X2: 0.00108605713680064 
-      X3: 1.19640469153329e-12 
-     r-squared: 0.259657857919566 
-    nox 
-     p-values:
-      X1: 2.45749078247428e-26 
-      X2: 7.73675464939014e-05 
-      X3: 6.96111003427078e-16 
-     r-squared: 0.296977895628736 
-    rm 
-     p-values:
-      X1: 5.12804838748881e-07 
-      X2: 0.00150854548563958 
-      X3: 0.508575109404836 
-     r-squared: 0.0677860611687858 
-    age 
-     p-values:
-      X1: 4.87880300225129e-17 
-      X2: 2.29115552484839e-06 
-      X3: 0.00667991535096615 
-     r-squared: 0.174230993586574
-    dis 
-     p-values:
-      X1: 1.25324918497524e-21 
-      X2: 7.86976668301443e-14 
-      X3: 1.08883202821446e-08 
-     r-squared: 0.277824773086737 
-    rad 
-     p-values:
-      X1: 1.05321131813677e-56 
-      X2: 0.00912055797292549 
-      X3: 0.482313774035658 
-     r-squared: 0.400036872024224 
-    tax 
-     p-values:
-      X1: 6.97631356496829e-49 
-      X2: 3.66534762329245e-06 
-      X3: 0.243850681055568 
-     r-squared: 0.368882079662959 
-    ptratio 
-     p-values:
-      X1: 1.56548404181827e-11 
-      X2: 0.00240546785935045 
-      X3: 0.00630051363404616 
-     r-squared: 0.113781577446988 
-    black 
-     p-values:
-      X1: 2.73008174791169e-19 
-      X2: 0.456604413926253 
-      X3: 0.543617181726903 
-     r-squared: 0.149839828802207
-    lstat 
-     p-values:
-      X1: 1.67807172578567e-27 
-      X2: 0.0378041809094279 
-      X3: 0.12989058725197 
-     r-squared: 0.217932432422256 
-    medv 
-     p-values:
-      X1: 4.93081829258389e-27 
-      X2: 2.92857691192993e-35 
-      X3: 1.04651002433602e-12 
-     r-squared: 0.420200256563415
+             x1_p_values  x2_p_values  x3_p_values
+    zn      4.697806e-06 4.420507e-03 2.295386e-01
+    indus   8.854243e-24 1.086057e-03 1.196405e-12
+    nox     2.457491e-26 7.736755e-05 6.961110e-16
+    rm      5.128048e-07 1.508545e-03 5.085751e-01
+    age     4.878803e-17 2.291156e-06 6.679915e-03
+    dis     1.253249e-21 7.869767e-14 1.088832e-08
+    rad     1.053211e-56 9.120558e-03 4.823138e-01
+    tax     6.976314e-49 3.665348e-06 2.438507e-01
+    ptratio 1.565484e-11 2.405468e-03 6.300514e-03
+    black   2.730082e-19 4.566044e-01 5.436172e-01
+    lstat   1.678072e-27 3.780418e-02 1.298906e-01
+    medv    4.930818e-27 2.928577e-35 1.046510e-12
+
+    > print(results[results$x3_p_vlues < 0.05, ])
+
+              x1_p_vlues   x2_p_vlues   x3_p_vlues
+    indus   8.854243e-24 1.086057e-03 1.196405e-12
+    nox     2.457491e-26 7.736755e-05 6.961110e-16
+    age     4.878803e-17 2.291156e-06 6.679915e-03
+    dis     1.253249e-21 7.869767e-14 1.088832e-08
+    ptratio 1.565484e-11 2.405468e-03 6.300514e-03
+    medv    4.930818e-27 2.928577e-35 1.046510e-12
     ```
 
     > Dla niektórych modeli zmienna $X^3$ jest statystycznie istotna więc istnieje dowód na to, że dane nie są liniowo zależne.
