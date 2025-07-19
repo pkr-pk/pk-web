@@ -132,3 +132,91 @@ nav_order: 3
     > $$\ln\left(\frac{0.5}{1-0.5}\right) =-6+0.05 X_1 + 1\cdot 3.5$$
     >
     >$$X_1 = 50$$
+
+7. Suppose that we wish to predict whether a given stock will issue a dividend this year ("Yes" or "No") based on $X$, last year's percent profit. We examine a large number of companies and discover that the mean value of $X$ for companies that issued a dividend was $\bar{X}=10$, while the mean for those that didn't was $\bar{X}=0$. In addition, the variance of $X$ for these two sets of companies was $\hat{\sigma}^2=36$. Finally, $80 \%$ of companies issued dividends. Assuming that $X$ follows a normal distribution, predict the probability that a company will issue a dividend this year given that its percentage profit was $X=4$ last year.
+
+    _Hint: Recall that the density function for a normal random variable is $f(x)=\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-(x-\mu)^2 / 2 \sigma^2}$. You will need to use Bayes' theorem._
+
+    Korzystając z twierdzenia Bayesa dostajemy:
+
+    $$p_k(x)=\frac{\pi_k \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{1}{2 \sigma^2}\left(x-\mu_k\right)^2\right)}{\sum_{l=1}^K \pi_l \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{1}{2 \sigma^2}\left(x-\mu_l\right)^2\right)}$$
+
+    W przypadku z zadania:
+
+    $$p_{yes}(4)=\frac{\pi_{yes} \exp \left(-\frac{1}{2 \sigma^2}\left(x-\mu_{yes}\right)^2\right)}{\sum_{l\in[yes, no]}^K \pi_l \exp \left(-\frac{1}{2 \sigma^2}\left(x-\mu_l\right)^2\right)}$$
+
+    $$\pi_{yes} = 0.8$$
+
+    $$\pi_{no} = 0.2$$
+
+    $$p_{yes}(4)=\frac{0.8 \exp \left(-\frac{1}{2 \cdot 36}\left(4-10\right)^2\right)}{0.8 \exp \left(-\frac{1}{2 \cdot 36}\left(4-10\right)^2\right) + 0.2 \exp \left(-\frac{1}{2 \cdot 36}\left(4-0\right)^2\right)}$$
+
+    $$p_{yes}(4)=\frac{0.8 \exp \left(-0.5\right)}{0.8 \exp \left(-0.5\right) + 0.2 \exp \left(-\frac{2}{9}\right)}$$
+
+    $$p_{yes}(4)\approx 0.75$$
+
+8. Suppose that we take a data set, divide it into equally-sized training and test sets, and then try out two different classification procedures. First we use logistic regression and get an error rate of 20% on the
+training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K = 1$) and get an average error rate (averaged over both test and training data sets) of 18%. Based on these results, which method should we prefer to use for classification of new observations? Why?
+
+    KNN z $K=1$ będzie dopasowany do danych treningowych idealnie tzn. błąd będzie wynosił 0. Oznacza to, że błąd na zbiorze testowym będzie wynosił średnio 36%. Wyboru modelu dokonujemy na podstawie zbioru testowego na którym mniejszy błąd ma regresja logistyczna (30%) i ten model powinien zostać wybrany.
+
+9. This problem has to do with odds.
+    
+    (a) On average, what fraction of people with an odds of 0.37 of defaulting on their credit card payment will in fact default?
+
+    Odds jest zdefiniowany jako: $p(x)/(1-p(x))$.
+
+    $$0.37 = \frac{p(x)}{1 - p(x)}$$
+
+    $$p(x) = 0.27$$
+    
+    (b) Suppose that an individual has a 16% chance of defaulting on her credit card payment. What are the odds that she will default?
+
+    $$odds = \frac{0.16}{1 - 0.16} = 0.19$$
+
+10. Equation 4.32 derived an expression for $\log \left(\frac{\text{Pr}(Y=k \mid X=x)}{\text{Pr}(Y=K \mid X=x)}\right)$ in the setting where $p>1$, so that the mean for the $k$th class, $\mu_k$, is a $p$-dimensional vector, and the shared covariance $\boldsymbol{\Sigma}$ is a $p \times p$ matrix. However, in the setting with $p=1$, (4.32) takes a simpler form, since the means $\mu_1, \ldots, \mu_K$ and the variance $\sigma^2$ are scalars. In this simpler setting, repeat the calculation in (4.32), and provide expressions for $a_k$ and $b_{k j}$ in terms of $\pi_k, \pi_K, \mu_k, \mu_K$, and $\sigma^2$.
+
+    $$\log\left(\frac{\text{Pr}(Y=k|X=x)}{\text{Pr}(Y=K|X=x)}\right) = \log\left(\frac{\pi_k f_k(x)}{\pi_K f_K(x)}\right) =$$
+    
+    $$ = \log\left(\frac{\pi_k \exp(-1/2((x-\mu_k)/\sigma)^2)}{\pi_K \exp(-1/2((x-\mu_K)/\sigma)^2)}\right) =$$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2} \left(\frac{x-\mu_k}{\sigma}\right)^2 + \frac{1}{2} \left(\frac{x-\mu_K}{\sigma}\right)^2 =$$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2\sigma^2} (x-\mu_k)^2 + \frac{1}{2\sigma^2} (x-\mu_K)^2 = $$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2\sigma^2} \left((x-\mu_k)^2 - (x-\mu_K)^2\right) = $$
+    
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2\sigma^2} \left(x^2-2x\mu_k+\mu_k^2 - x^2 + 2x\mu_K - \mu_K^2\right) = $$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2\sigma^2} \left(2x(\mu_K - \mu_k) + \mu_k^2 -\mu_K^2\right) = $$
+ 
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{\mu_k^2 -\mu_K^2}{2\sigma^2} + x\frac{(\mu_k - \mu_K)}{\sigma^2} = $$
+
+    $$ = a_k + b_kx$$
+
+11. Work out the detailed forms of $a_k, b_{k j}$, and $b_{kjl}$ in (4.33). Your answer should involve $\pi_k, \pi_K, \mu_k, \mu_K, \boldsymbol{\Sigma}_k$, and $\boldsymbol{\Sigma}_K$.
+
+    $$\log\left(\frac{\text{Pr}(Y=k|X=x)}{\text{Pr}(Y=K|X=x)}\right) = \log\left(\frac{\pi_k f_k(x)}{\pi_K f_K(x)}\right) =$$
+    
+    $$ = \log\left(\frac{\pi_k \exp(-\frac{1}{2}(x-\mu_k)^T\boldsymbol{\Sigma}_k^{-1}(x-\mu_k))}{\pi_K \exp(-\frac{1}{2}(x-\mu_K)^T\boldsymbol{\Sigma}_K^{-1}(x-\mu_K))}\right) =$$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) -\frac{1}{2}(x-\mu_k)^T\boldsymbol{\Sigma}_k^{-1}(x-\mu_k) + \frac{1}{2}(x-\mu_K)^T\boldsymbol{\Sigma}_K^{-1}(x-\mu_K) =$$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) -\frac{1}{2}(x^T-\mu_k^T)\boldsymbol{\Sigma}_k^{-1}(x-\mu_k) + \frac{1}{2}(x^T-\mu_K^T)\boldsymbol{\Sigma}_K^{-1}(x-\mu_K) = $$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}(x-\mu_k)-\mu_k^T\boldsymbol{\Sigma}_k^{-1}(x-\mu_k)] $$
+    
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}(x-\mu_K)-\mu_K^T\boldsymbol{\Sigma}_K^{-1}(x-\mu_K)] =$$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x- x^T \boldsymbol{\Sigma}_k^{-1}\mu_k-\mu_k^T\boldsymbol{\Sigma}_k^{-1}x-\mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k] + $$
+    
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x- x^T \boldsymbol{\Sigma}_K^{-1}\mu_K-\mu_K^T\boldsymbol{\Sigma}_K^{-1}x-\mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K] =$$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x - \mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k - x^T \boldsymbol{\Sigma}_k^{-1}\mu_k-x^T \boldsymbol{\Sigma}_k^{-1}\mu_k] + $$
+    
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x - \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K-x^T \boldsymbol{\Sigma}_K^{-1}\mu_K] = $$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x - \mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k] + x^T \boldsymbol{\Sigma}_k^{-1}\mu_k$$
+    
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x - \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K] - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K = $$
+
