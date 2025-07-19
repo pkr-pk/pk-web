@@ -208,15 +208,36 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     
     $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}(x-\mu_K)-\mu_K^T\boldsymbol{\Sigma}_K^{-1}(x-\mu_K)] =$$
 
-    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x- x^T \boldsymbol{\Sigma}_k^{-1}\mu_k-\mu_k^T\boldsymbol{\Sigma}_k^{-1}x-\mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k] + $$
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x- x^T \boldsymbol{\Sigma}_k^{-1}\mu_k-\mu_k^T\boldsymbol{\Sigma}_k^{-1}x+\mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k] + $$
     
-    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x- x^T \boldsymbol{\Sigma}_K^{-1}\mu_K-\mu_K^T\boldsymbol{\Sigma}_K^{-1}x-\mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K] =$$
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x- x^T \boldsymbol{\Sigma}_K^{-1}\mu_K-\mu_K^T\boldsymbol{\Sigma}_K^{-1}x+\mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K] =$$
 
-    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x - \mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k - x^T \boldsymbol{\Sigma}_k^{-1}\mu_k-x^T \boldsymbol{\Sigma}_k^{-1}\mu_k] + $$
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x + \mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k - x^T \boldsymbol{\Sigma}_k^{-1}\mu_k-x^T \boldsymbol{\Sigma}_k^{-1}\mu_k] + $$
     
-    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x - \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K-x^T \boldsymbol{\Sigma}_K^{-1}\mu_K] = $$
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x + \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K-x^T \boldsymbol{\Sigma}_K^{-1}\mu_K] = $$
 
-    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x - \mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k] + x^T \boldsymbol{\Sigma}_k^{-1}\mu_k$$
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}[x^T \boldsymbol{\Sigma}_k^{-1}x + \mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k] + x^T \boldsymbol{\Sigma}_k^{-1}\mu_k$$
     
-    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x - \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K] - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K = $$
+    $$ + \frac{1}{2}[x^T \boldsymbol{\Sigma}_K^{-1}x + \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K] - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K = $$
 
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}\mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k + \frac{1}{2} \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K + $$
+
+    $$ + x^T \boldsymbol{\Sigma}_k^{-1}\mu_k - x^T \boldsymbol{\Sigma}_K^{-1}\mu_K - $$
+    
+    $$ -\frac{1}{2} x^T \boldsymbol{\Sigma}_k^{-1}x + \frac{1}{2}x^T \boldsymbol{\Sigma}_K^{-1}x   = $$
+
+    $$ = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}\mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k + \frac{1}{2} \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K + $$
+
+    $$ + x^T (\boldsymbol{\Sigma}_k^{-1}\mu_k - \boldsymbol{\Sigma}_K^{-1}\mu_K) + $$
+    
+    $$ + x^T \frac{1}{2}(\boldsymbol{\Sigma}_K^{-1} + \boldsymbol{\Sigma}_k^{-1})x   = $$
+
+    $$= a_k + \sum\limits_{j=1}^pb_{kj}x_j + \sum\limits_{j=1}^p\sum\limits_{l=1}^p c_{kjl}x_jx_l$$
+
+    gdzie:
+
+    $a_k = \log\left(\frac{\pi_k}{\pi_K}\right) - \frac{1}{2}\mu_k^T\boldsymbol{\Sigma}_k^{-1}\mu_k + \frac{1}{2} \mu_K^T\boldsymbol{\Sigma}_K^{-1}\mu_K$
+
+    $b_{kj}$ jest $j$-tym elementem wektora $\boldsymbol{\Sigma}_k^{-1}\mu_k - \boldsymbol{\Sigma}_K^{-1}\mu_K$
+
+    $c_{kjl}$ jest elementem macierzy $\frac{1}{2}(\boldsymbol{\Sigma}_K^{-1} + \boldsymbol{\Sigma}_k^{-1})$ z $j$-tego wiersza i $l$-tej kolumny
