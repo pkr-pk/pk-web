@@ -278,7 +278,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     >
     > Dokładnych wartości parametrów nie jesteśmy w stanie określić.
 
-    (d) Now suppose that you and your friend fit the same two models on a different data set. This time, your friend gets the coefficient estimates $\hat{\alpha}_{\text {orange} 0}=1.2, \hat{\alpha}_{\text {orange} 1}=-2, \hat{\alpha}_{\text {apple} 0}=3, \hat{\alpha}_{\text {apple} 1}= 0.6$. What are the coefficient estimates in your model?
+    (d) Now suppose that you and your friend fit the same two models on a different data set. This time, your friend gets the coefficient estimates $\hat{\alpha}_{\text {orange} 0}=1.2$, $\hat{\alpha}_{\text {orange} 1}=-2$, $\hat{\alpha}_{\text {apple} 0}=3$, $\hat{\alpha}_{\text {apple} 1}= 0.6$. What are the coefficient estimates in your model?
 
     > $\hat{\beta}_0 = 1.2 - 3 = -1.8$
     >
