@@ -241,3 +241,49 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     $b_{kj}$ jest $j$-tym elementem wektora $\boldsymbol{\Sigma}_k^{-1}\mu_k - \boldsymbol{\Sigma}_K^{-1}\mu_K$
 
     $c_{kjl}$ jest elementem macierzy $\frac{1}{2}(\boldsymbol{\Sigma}_K^{-1} + \boldsymbol{\Sigma}_k^{-1})$ z $j$-tego wiersza i $l$-tej kolumny
+
+12. Suppose that you wish to classify an observation $X \in \mathbb{R}$ into `apples` and `oranges`. You fit a logistic regression model and find that
+
+    $$
+    \widehat{\operatorname{Pr}}(Y=\text { orange } \mid X=x)=\frac{\exp \left(\hat{\beta}_0+\hat{\beta}_1 x\right)}{1+\exp \left(\hat{\beta}_0+\hat{\beta}_1 x\right)} .
+    $$
+
+
+    Your friend fits a logistic regression model to the same data using the _softmax_ formulation in (4.13), and finds that
+
+    $$
+    \begin{aligned}
+    & \widehat{\operatorname{Pr}}(Y=\text { orange } \mid X=x)= \\
+    & = \frac{\exp \left(\hat{\alpha}_{\text {orange} 0}+\hat{\alpha}_{\text {orange} 1} x\right)}{\exp \left(\hat{\alpha}_{\text {orange} 0}+\hat{\alpha}_{\text {orange} 1} x\right)+\exp \left(\hat{\alpha}_{\text {apple} 0}+\hat{\alpha}_{\text {apple} 1} x\right)} .
+    \end{aligned}
+    $$
+
+    (a) What is the log odds of `orange` versus `apple` in your model?
+
+
+    > $$\log\left(\frac{\widehat{\operatorname{Pr}}(Y=\text { orange } \mid X=x)}{1-\widehat{\operatorname{Pr}}(Y=\text { orange } \mid X=x)}\right) = \hat\beta_0 + \hat\beta_1x$$
+
+    (b) What is the log odds of `orange` versus `apple` in your friend's model?
+
+    > $$
+    \begin{aligned}
+    & \log\left(\frac{\widehat{\operatorname{Pr}}(Y=\text { orange } \mid X=x)}{\widehat{\operatorname{Pr}}(Y=\text { apple } \mid X=x)}\right) = \\
+    & = (\hat\alpha_{orange0} - \hat\alpha_{apple0}) + (\hat\alpha_{orange1} - \hat\alpha_{apple1})x
+    \end{aligned}
+    $$
+
+    (c) Suppose that in your model, $\hat{\beta}_0=2$ and $\hat{\beta}_1=-1$. What are the coefficient estimates in your friend's model? Be as specific as possible.
+
+    > Można tylko stwierdzić, że $\hat\alpha_{orange0} - \hat\alpha_{apple0} = 2$ i $\hat\alpha_{orange1} - \hat\alpha_{apple1} = -1$
+    >
+    > Dokładnych wartości parametrów nie jesteśmy w stanie określić.
+
+    (d) Now suppose that you and your friend fit the same two models on a different data set. This time, your friend gets the coefficient estimates $\hat{\alpha}_{\text {orange} 0}=1.2, \hat{\alpha}_{\text {orange} 1}=-2, \hat{\alpha}_{\text {apple} 0}=3, \hat{\alpha}_{\text {apple} 1}= 0.6$. What are the coefficient estimates in your model?
+
+    > $\hat{\beta}_0 = 1.2 - 3 = -1.8$
+    >
+    > $\hat{\beta}_1 = -2 - 0.6 = -2.6$
+
+    (e) Finally, suppose you apply both models from (d) to a data set with 2 000 test observations. What fraction of the time do you expect the predicted class labels from your model to agree with those from your friend’s model? Explain your answer.
+
+    > Modele są takie same tylko z różną parametryzacją więc wyniki powinny być identyczne.
