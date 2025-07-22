@@ -438,7 +438,6 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     ```R
     > library(MASS)
-    > train <- (Year < 2009)
     > fit.lda <- lda(Direction ~ Lag2, data = Weekly[train,])
     > fit.lda.pred <- predict(fit.lda, Weekly[!train,], type = "response")$class
     > t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
@@ -473,6 +472,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     (g) Repeat (d) using KNN with K = 1.
 
     ```R
+    > library(class)
     > fit <- knn(
     +   Weekly[train, "Lag2", drop = FALSE],
     +   Weekly[!train, "Lag2", drop = FALSE],
