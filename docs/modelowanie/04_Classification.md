@@ -287,3 +287,211 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     (e) Finally, suppose you apply both models from (d) to a data set with 2 000 test observations. What fraction of the time do you expect the predicted class labels from your model to agree with those from your friend’s model? Explain your answer.
 
     > Modele są takie same tylko z różną parametryzacją więc wyniki powinny być identyczne.
+
+13. This question should be answered using the `Weekly` data set, which is part of the `ISLR2` package. This data is similar in nature to the `Smarket` data from this chapter’s lab, except that it contains 1,089 weekly returns for 21 years, from the beginning of 1990 to the end of 2010.
+
+    (a) Produce some numerical and graphical summaries of the `Weekly` data. Do there appear to be any patterns?
+
+    ```R
+    > library(ISLR)
+    > summary(Weekly)
+
+         Year           Lag1               Lag2               Lag3               Lag4         
+    Min.   :1990   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950  
+    1st Qu.:1995   1st Qu.: -1.1540   1st Qu.: -1.1540   1st Qu.: -1.1580   1st Qu.: -1.1580  
+    Median :2000   Median :  0.2410   Median :  0.2410   Median :  0.2410   Median :  0.2380  
+    Mean   :2000   Mean   :  0.1506   Mean   :  0.1511   Mean   :  0.1472   Mean   :  0.1458  
+    3rd Qu.:2005   3rd Qu.:  1.4050   3rd Qu.:  1.4090   3rd Qu.:  1.4090   3rd Qu.:  1.4090  
+    Max.   :2010   Max.   : 12.0260   Max.   : 12.0260   Max.   : 12.0260   Max.   : 12.0260  
+        Lag5              Volume            Today          Direction 
+    Min.   :-18.1950   Min.   :0.08747   Min.   :-18.1950   Down:484  
+    1st Qu.: -1.1660   1st Qu.:0.33202   1st Qu.: -1.1540   Up  :605  
+    Median :  0.2340   Median :1.00268   Median :  0.2410             
+    Mean   :  0.1399   Mean   :1.57462   Mean   :  0.1499             
+    3rd Qu.:  1.4050   3rd Qu.:2.05373   3rd Qu.:  1.4050             
+    Max.   : 12.0260   Max.   :9.32821   Max.   : 12.0260
+
+    > pairs(Weekly[,1:8])
+    ```
+
+    ![](img/04_13a.png)
+
+    ```R
+    > cor(Weekly[,1:8])
+                  Year         Lag1        Lag2        Lag3         Lag4
+    Year    1.00000000 -0.032289274 -0.03339001 -0.03000649 -0.031127923
+    Lag1   -0.03228927  1.000000000 -0.07485305  0.05863568 -0.071273876
+    Lag2   -0.03339001 -0.074853051  1.00000000 -0.07572091  0.058381535
+    Lag3   -0.03000649  0.058635682 -0.07572091  1.00000000 -0.075395865
+    Lag4   -0.03112792 -0.071273876  0.05838153 -0.07539587  1.000000000
+    Lag5   -0.03051910 -0.008183096 -0.07249948  0.06065717 -0.075675027
+    Volume  0.84194162 -0.064951313 -0.08551314 -0.06928771 -0.061074617
+    Today  -0.03245989 -0.075031842  0.05916672 -0.07124364 -0.007825873
+                   Lag5      Volume        Today
+    Year   -0.030519101  0.84194162 -0.032459894
+    Lag1   -0.008183096 -0.06495131 -0.075031842
+    Lag2   -0.072499482 -0.08551314  0.059166717
+    Lag3    0.060657175 -0.06928771 -0.071243639
+    Lag4   -0.075675027 -0.06107462 -0.007825873
+    Lag5    1.000000000 -0.05851741  0.011012698
+    Volume -0.058517414  1.00000000 -0.033077783
+    Today   0.011012698 -0.03307778  1.000000000
+    ```
+
+    > `Volume` jest silnie dodatnio skorelowane z `Year`, reszta zmiennych jest bardzo słabo z sobą skorelowana, nie widać tutaj żadnych zależności.
+
+    (b) Use the full data set to perform a logistic regression with `Direction` as the response and the five lag variables plus `Volume` as predictors. Use the summary function to print the results. Do any of the predictors appear to be statistically significant? If so, which ones?
+
+    ```R
+    > fit.log <- glm(Direction ~ . - Year - Today, data = Weekly,
+    +   family = binomial)
+    > summary(fit.log)
+
+    Call:
+    glm(formula = Direction ~ . - Year - Today, family = binomial, 
+        data = Weekly)
+
+    Coefficients:
+                Estimate Std. Error z value Pr(>|z|)   
+    (Intercept)  0.26686    0.08593   3.106   0.0019 **
+    Lag1        -0.04127    0.02641  -1.563   0.1181   
+    Lag2         0.05844    0.02686   2.175   0.0296 * 
+    Lag3        -0.01606    0.02666  -0.602   0.5469   
+    Lag4        -0.02779    0.02646  -1.050   0.2937   
+    Lag5        -0.01447    0.02638  -0.549   0.5833   
+    Volume      -0.02274    0.03690  -0.616   0.5377   
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    (Dispersion parameter for binomial family taken to be 1)
+
+        Null deviance: 1496.2  on 1088  degrees of freedom
+    Residual deviance: 1486.4  on 1082  degrees of freedom
+    AIC: 1500.4
+
+    Number of Fisher Scoring iterations: 4
+    ```
+
+    > Tylko `Lag2` jest istotne statystycznie o czym mówi p-value < 0.05.
+
+    (c) Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.
+
+    ```R
+    > fit.log.probs <- predict(fit.log , type = "response")
+    > attach(Weekly)
+    > contrasts(Direction)
+
+        Up
+    Down  0
+    Up    1
+
+    > fit.log.pred <- rep("Down", 1089)
+    > fit.log.pred[fit.log.probs > .5] = "Up"
+    > table(fit.log.pred, Direction)
+
+                Direction
+    fit.log.pred Down  Up
+            Down   54  48
+            Up    430 557
+
+    > (54 + 557) / 1089
+
+    [1] 0.5610652
+
+    > 557 / (430 + 557)
+
+    [1] 0.5643364
+
+    > 54 / (54 + 48)
+
+    [1] 0.5294118
+    ```
+
+    > Elementy na przekątnej macierzy wskazują poprawne predykcje, elementy poza przekątną wskazują niepoprawne predykcje. W tym przypadku model ogólnie wykonał poprawnie 56.11% predykcji. Bardziej szczegółowo wykonał poprawnie 56.43% predykcji `Up` i 52.94% predykcji `Down`.
+
+    (d) Now fit the logistic regression model using a training data period from 1990 to 2008, with Lag2 as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is, the data from 2009 and 2010).
+
+    ```R
+    > train <- (Year < 2009)
+    > fit.log_2 <- glm(Direction ~ Lag2, data = Weekly[train,],
+    +                  family = binomial)
+    > fit.log_2.probs <- predict(fit.log_2, Weekly[!train,], type = "response")
+    > dim(Weekly[!train,])
+
+    [1] 104   9
+
+    > fit.log_2.pred <- rep("Down", 104)
+    > fit.log_2.pred[fit.log_2.probs > .5] = "Up"
+    > t <- table(fit.log_2.pred, Weekly[!train, ]$Direction)
+    > t
+                
+    fit.log_2.pred Down Up
+            Down    9  5
+            Up     34 56
+
+    > sum(diag(t)) / sum(t)
+
+    [1] 0.625
+    ```
+    
+    (e) Repeat (d) using LDA.
+
+    ```R
+    > library(MASS)
+    > train <- (Year < 2009)
+    > fit.lda <- lda(Direction ~ Lag2, data = Weekly[train,])
+    > fit.lda.pred <- predict(fit.lda, Weekly[!train,], type = "response")$class
+    > t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
+    > t
+                
+    fit.lda.pred Down Up
+            Down    9  5
+            Up     34 56
+
+    > sum(diag(t)) / sum(t)
+
+    [1] 0.625
+    ```
+    
+    (f) Repeat (d) using QDA.
+
+    ```R
+    > fit.qda <- qda(Direction ~ Lag2, data = Weekly[train,])
+    > fit.qda.pred <- predict(fit.qda, Weekly[!train,], type = "response")$class
+    > t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
+    > t
+                
+    fit.qda.pred Down Up
+            Down    0  0
+            Up     43 61
+
+    > sum(diag(t)) / sum(t)
+
+    [1] 0.5865385
+    ```
+    
+    (g) Repeat (d) using KNN with K = 1.
+
+    ```R
+    > fit <- knn(
+    +   Weekly[train, "Lag2", drop = FALSE],
+    +   Weekly[!train, "Lag2", drop = FALSE],
+    +   Weekly$Direction[train]
+    + )
+    > t <- table(fit, Weekly[!train, ]$Direction)
+    > t
+        
+    fit    Down Up
+    Down   21 30
+    Up     22 31
+
+    > sum(diag(t)) / sum(t)
+    
+    [1] 0.5
+    ```
+
+    (h) Repeat (d) using naive Bayes.
+
+    (i) Which of these methods appears to provide the best results on this data?
+    
+    (j) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you should also experiment with values for K in the KNN classifier.
