@@ -142,11 +142,12 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (a) Use the `lm()` function to perform a simple linear regression with `mpg` as the response and `horsepower` as the predictor. Use the `summary()` function to print the results. Comment on the output.
 
     ```R
-    > library(ISLR)
-    > data(Auto)
-    > mpg_pwr = lm(mpg ~ horsepower, data = Auto)
-    > summary(mpg_pwr)
-
+    library(ISLR)
+    data(Auto)
+    mpg_pwr = lm(mpg ~ horsepower, data = Auto)
+    summary(mpg_pwr)
+    ```
+    ```R
     Call:
     lm(formula = mpg ~ horsepower, data = Auto)
 
@@ -183,15 +184,19 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     iv. What is the predicted `mpg` associated with a `horsepower` of 98? What are the associated 95 % confidence and prediction intervals?
 
     ```R
-    > predict(mpg_pwr, data.frame(horsepower=c(98)), interval='prediction')
+    predict(mpg_pwr, data.frame(horsepower=c(98)), interval='prediction')
+    ```
 
+    ```R
            fit     lwr      upr
     1 24.46708 14.8094 34.12476
     ```
 
     ```R
-    > predict(mpg_pwr, data.frame(horsepower=c(98)), interval='confidence')
-    
+    predict(mpg_pwr, data.frame(horsepower=c(98)), interval='confidence')
+    ```
+
+    ```R
            fit      lwr      upr
     1 24.46708 23.97308 24.96108
     ```
@@ -199,8 +204,9 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) Plot the response and the predictor. Use the `abline()` function to display the least squares regression line.
 
     ```R
-    > plot(mpg~horsepower,main= "Scatter plot of mpg vs. horsepower", data=Auto)
-    > abline(mpg_pwr, lwd =3, col ="red")
+    plot(mpg~horsepower,main= "Scatter plot of mpg vs. horsepower", 
+         data=Auto)
+    abline(mpg_pwr, lwd =3, col ="red")
     ```
 
     ![](img/03_8b.png)
@@ -208,8 +214,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (c) Use the `plot()` function to produce diagnostic plots of the least squares regression fit. Comment on any problems you see with the fit.
 
     ```R
-    > par(mfrow=c(2,2))
-    > plot(mpg_pwr)
+    par(mfrow=c(2,2))
+    plot(mpg_pwr)
     ```
 
     ![](img/03_8c.png)
@@ -218,8 +224,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     * Residuals v leverage - wskazuje na pewne obserwacje z dużym wpływem na model.
     * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy: 
     ```R
-    > rstudent(mpg_pwr)[which(rstudent(mpg_pwr)>3)]
+    rstudent(mpg_pwr)[which(rstudent(mpg_pwr)>3)]
+    ```
 
+    ```R
          323      330 
     3.508709 3.149671 
     ```
@@ -229,10 +237,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (a) Produce a scatterplot matrix which includes all of the variables in the data set.
 
     ```R
-    > library(ISLR)
-    > data(Auto)
-    > Auto <- Auto[,1:8] # usuwam kolumnę name z danych
-    > pairs(Auto)
+    library(ISLR)
+    data(Auto)
+    Auto <- Auto[,1:8] # usuwam kolumnę name z danych
+    pairs(Auto)
     ```
 
     ![](img/03_9a.png)
@@ -240,8 +248,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) Compute the matrix of correlations between the variables using the function `cor()`. You will need to exclude the `name` variable, which is qualitative.
 
     ```R
-    > cor(Auto)
+    cor(Auto)
+    ```
 
+    ```R
                         mpg  cylinders displacement horsepower     weight acceleration
     mpg           1.0000000 -0.7776175   -0.8051269 -0.7784268 -0.8322442    0.4233285
     cylinders    -0.7776175  1.0000000    0.9508233  0.8429834  0.8975273   -0.5046834
@@ -265,9 +275,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (c) Use the `lm()` function to perform a multiple linear regression with `mpg` as the response and all other variables except `name` as the predictors. Use the `summary()` function to print the results. Comment on the output.
 
     ```R
-    > mpg_all = lm(mpg ~ .,data=Auto)
-    > summary(mpg_all)
+    mpg_all = lm(mpg ~ .,data=Auto)
+    summary(mpg_all)
+    ```
 
+    ```R
     Call:
     lm(formula = mpg ~ ., data = Auto)
 
@@ -310,8 +322,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (d) Use the `plot()` function to produce diagnostic plots of the linear regression fit. Comment on any problems you see with the fit. Do the residual plots suggest any unusually large outliers? Does the leverage plot identify any observations with unusually high leverage?
 
     ```R
-    > par(mfrow=c(2,2))
-    > plot(mpg_all)
+    par(mfrow=c(2,2))
+    plot(mpg_all)
     ```
 
     ![](img/03_9d.png)
@@ -321,8 +333,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy:
 
     ```R
-    > rstudent(mpg_all)[which(rstudent(mpg_all)>3)]
+    rstudent(mpg_all)[which(rstudent(mpg_all)>3)]
+    ```
 
+    ```R
          245      323      326      327 
     3.390068 4.029537 3.494823 3.690246 
     ```
@@ -330,10 +344,12 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (e) Use the `*` and `:` symbols to fit linear regression models with interaction effects. Do any interactions appear to be statistically significant?
 
     ```R
-    > mpg_interaction = lm(mpg ~ . + year:cylinders + acceleration:horsepower 
+    mpg_interaction = lm(mpg ~ . + year:cylinders + acceleration:horsepower 
                            + weight:displacement,data=Auto)
-    > summary(mpg_interaction)
+    summary(mpg_interaction)
+    ```
 
+    ```R
     Call:
     lm(formula = mpg ~ . + year:cylinders + acceleration:horsepower + 
         weight:displacement, data = Auto)
@@ -368,10 +384,12 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (f) Try a few different transformations of the variables, such as $\log(X)$, $\sqrt{X}$, $X^2$. Comment on your findings.
 
     ```R
-    > mpg_ope = lm(mpg ~ . + log(weight) + log(acceleration) + sqrt(displacement) 
+    mpg_ope = lm(mpg ~ . + log(weight) + log(acceleration) + sqrt(displacement) 
                    + I(cylinders^2), data=Auto)
-    > summary(mpg_ope)
+    summary(mpg_ope)
+    ```
 
+    ```R
     Call:
     lm(formula = mpg ~ . + log(weight) + log(acceleration) + sqrt(displacement) + 
         I(cylinders^2), data = Auto)
@@ -409,10 +427,12 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (a) Fit a multiple regression model to predict `Sales` using `Price`, `Urban`, and `US`.
 
     ```R
-    > library(ISLR)
-    > carseats_lm = lm(Sales~Price+Urban+US,data=Carseats)
-    > summary(carseats_lm)
+    library(ISLR)
+    carseats_lm = lm(Sales~Price+Urban+US,data=Carseats)
+    summary(carseats_lm)
+    ```
 
+    ```R
     Call:
     lm(formula = Sales ~ Price + Urban + US, data = Carseats)
 
@@ -444,14 +464,20 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (c) Write out the model in equation form, being careful to handle the qualitative variables properly.
 
     ```R
-    > contrasts(Carseats$Urban)
+    contrasts(Carseats$Urban)
+    ```
 
+    ```R
         Yes
     No    0
     Yes   1
+    ```
 
-    > contrasts(Carseats$US)
+    ```R
+    contrasts(Carseats$US)
+    ```
 
+    ```R
         Yes
     No    0
     Yes   1
@@ -467,9 +493,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (d) For which of the predictors can you reject the null hypothesis $H_0: \beta_j = 0$?
 
     ```R
-    > carseats_all = lm(Sales~.,data=Carseats)
-    > summary(carseats_all)
+    carseats_all = lm(Sales~.,data=Carseats)
+    summary(carseats_all)
+    ```
 
+    ```R
     Call:
     lm(formula = Sales ~ ., data = Carseats)
 
@@ -504,9 +532,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (e) On the basis of your response to the previous question, fit a smaller model that only uses the predictors for which there is evidence of association with the outcome.
 
     ```R
-    > carseats_lm2 = lm(Sales~.-Education-Urban-US-Population,data=Carseats)
-    > summary(carseats_lm2)
+    carseats_lm2 = lm(Sales~.-Education-Urban-US-Population,data=Carseats)
+    summary(carseats_lm2)
+    ```
 
+    ```R
     Call:
     lm(formula = Sales ~ . - Education - Urban - US - Population, 
         data = Carseats)
@@ -540,7 +570,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (g) Using the model from (e), obtain 95 % confidence intervals for the coefficient(s).
     
     ```R
-    > confint(carseats_lm2)
+    confint(carseats_lm2)
+    ```
+
+    ```R
                           2.5 %      97.5 %
     (Intercept)      4.48236820  6.46808427
     CompPrice        0.08446498  0.10067795
@@ -564,8 +597,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > * Residuals v leverage - wskazuje, że jakaś obserwacja ma duży wpływ na model.
 
     ```R
-    > hatvalues(carseats_lm2)[order(hatvalues(carseats_lm2), decreasing = T)][1]
+    hatvalues(carseats_lm2)[order(hatvalues(carseats_lm2), decreasing = T)][1]
+    ```
 
+    ```R
            311 
     0.06154635
     ```
@@ -573,8 +608,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające.
 
     ```R
-    > rstudent(carseats_lm2)[which(rstudent(carseats_lm2)>3)]
+    rstudent(carseats_lm2)[which(rstudent(carseats_lm2)>3)]
+    ```
 
+    ```R
         358 
     3.34075 
     ```
@@ -582,20 +619,22 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 11. In this problem we will investigate the t-statistic for the null hypothesis $H_0 : \beta = 0$ in simple linear regression without an intercept. To begin, we generate a predictor `x` and a response `y` as follows.
 
     ```R
-    > set.seed(1)
-    > x <- rnorm(100)
-    > y <- 2 * x + rnorm(100)
+    set.seed(1)
+    x <- rnorm(100)
+    y <- 2 * x + rnorm(100)
     ```
 
     (a) Perform a simple linear regression of `y` onto `x`, _without_ an intercept. Report the coefficient estimate $\hat{\beta}$, the standard error of this coefficient estimate, and the $t$-statistic and $p$-value associated with the null hypothesis $H_0 : \beta = 0$. Comment on these results. (You can perform regression without an intercept using the command `lm(y~x+0)`.)
 
     ```R
-    > set.seed(1)
-    > x <- rnorm(100)
-    > y <- 2 * x + rnorm(100)
-    > lm.fit <- lm(y~x+0)
-    > summary(lm.fit)
+    set.seed(1)
+    x <- rnorm(100)
+    y <- 2 * x + rnorm(100)
+    lm.fit <- lm(y~x+0)
+    summary(lm.fit)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x + 0)
 
@@ -617,9 +656,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) Now perform a simple linear regression of `x` onto `y` _without_ an intercept, and report the coeﬀicient estimate, its standard error, and the corresponding $t$-statistic and $p$-values associated with the null hypothesis $H_0 : \beta = 0$. Comment on these results.
 
     ```R
-    > lm.fit2 = lm(x~y+0)
-    > summary(lm.fit2)
+    lm.fit2 = lm(x~y+0)
+    summary(lm.fit2)
+    ```
 
+    ```R
     Call:
     lm(formula = x ~ y + 0)
 
@@ -661,11 +702,13 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > $$t = \frac{(\sqrt{n-1})\sum_{i=1}^n x_iy_i}{\sqrt{\left(\sum_{i'=1}^n x_{i'}^2\right)\left(\sum_{i=1}^n y_{i}^2\right) - \left(\sum_{i=1}^n x_{i}y_{i'}\right)^2}}$$
 
     ```R
-    > numerator = sqrt(length(x)-1)*sum(x*y)
-    > denumerator = sqrt(sum(x^2)*sum(y^2) - sum(x*y)^2)
-    > t_statistic = numerator/denumerator
-    > t_statistic
+    numerator = sqrt(length(x)-1)*sum(x*y)
+    denumerator = sqrt(sum(x^2)*sum(y^2) - sum(x*y)^2)
+    t_statistic = numerator/denumerator
+    t_statistic
+    ```
 
+    ```R
     [1] 18.72593
     ```
 
@@ -678,14 +721,20 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (f) In `R`, show that when regression is performed _with_ an intercept, the $t$-statistic for $H_0 : \beta_1 = 0$ is the same for the regression of `y` onto `x` as it is for the regression of `x` onto `y`.
 
     ```R
-    > lm.fit3 = lm(y~x)
-    > summary(lm.fit3)$coefficients[2,3]
+    lm.fit3 = lm(y~x)
+    summary(lm.fit3)$coefficients[2,3]
+    ```
 
+    ```R
     [1] 18.5556
+    ```
 
-    > lm.fit4 = lm(x~y)
-    > summary(lm.fit4)$coefficients[2,3]
+    ```R
+    lm.fit4 = lm(x~y)
+    summary(lm.fit4)$coefficients[2,3]
+    ```
 
+    ```R
     [1] 18.5556
     ```
 
@@ -702,9 +751,9 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) Generate an example in `R` with $n = 100$ observations in which the coefficient estimate for the regression of $X$ onto $Y$ is different from the coefficient estimate for the regression of $Y$ onto $X$.
 
     ```R
-    > set.seed(1)
-    > x <- rnorm(100)
-    > y <- 2 * x + rnorm(100)
+    set.seed(1)
+    x <- rnorm(100)
+    y <- 2 * x + rnorm(100)
     ```
     
     (c) Generate an example in `R` with $n = 100$ observations in which the coefficient estimate for the regression of $X$ onto $Y$ is the same as the coefficient estimate for the regression of $Y$ onto $X$.
@@ -722,14 +771,14 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (a) Using the `rnorm()` function, create a vector, `x`, containing 100 observations drawn from a $N(0,1)$ distribution. This represents a feature, $X$.
 
     ```R
-    > set.seed(1)
-    > x <- rnorm(100, mean=0, sd=1)
+    set.seed(1)
+    x <- rnorm(100, mean=0, sd=1)
     ```
 
     (b) Using the `rnorm()` function, create a vector, `eps`, containing 100 observations drawn from a $N(0,0.25)$ distribution—a normal distribution with mean zero and variance 0.25 .
     
     ```R
-    > eps <- rnorm(100, mean=0, sd=0.5)
+    eps <- rnorm(100, mean=0, sd=0.5)
     ```
 
     (c) Using `x` and `eps`, generate a vector `y` according to the model
@@ -741,7 +790,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     What is the length of the vector `y`? What are the values of $\beta_0$ and $\beta_1$ in this linear model?
 
     ```R
-    > y = -1 + (0.5 * x) + eps
+    y = -1 + (0.5 * x) + eps
     ```
 
     > Długość wektora to 100. $\beta_0 = -1$, $\beta_1 = 0.5$
@@ -755,9 +804,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (e) Fit a least squares linear model to predict `y` using `x`. Comment on the model obtained. How do $\hat{\beta}_0$ and $\hat{\beta}_1$ compare to $\beta_0$ and $\beta_1$?
 
     ```R
-    > lm.fit <- lm(y~x)
-    > summary(lm.fit)
+    lm.fit <- lm(y~x)
+    summary(lm.fit)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x)
 
@@ -793,9 +844,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (g) Now fit a polynomial regression model that predicts `y` using `x` and $x^2$. Is there evidence that the quadratic term improves the model fit? Explain your answer.
 
     ```R
-    > lm.fit2 = lm(y~x+I(x^2))
-    > summary(lm.fit2)
+    lm.fit2 = lm(y~x+I(x^2))
+    summary(lm.fit2)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x + I(x^2))
 
@@ -821,13 +874,15 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (h) Repeat (a)-(f) after modifying the data generation process in such a way that there is _less_ noise in the data. The model $Y=-1+0.5 X+\epsilon$ should remain the same. You can do this by decreasing the variance of the normal distribution used to generate the error term $\epsilon$ in (b). Describe your results.
 
     ```R
-    > set.seed(1)
-    > x <- rnorm(100, mean=0, sd=1)
-    > eps <- rnorm(100, mean=0, sd=0.1)
-    > y = -1 +(0.5*x) + eps
-    > lm.fit3 <- lm(y~x)
-    > summary(lm.fit3)
-    
+    set.seed(1)
+    x <- rnorm(100, mean=0, sd=1)
+    eps <- rnorm(100, mean=0, sd=0.1)
+    y = -1 +(0.5*x) + eps
+    lm.fit3 <- lm(y~x)
+    summary(lm.fit3)
+    ```
+
+    ```R
     Call:
     lm(formula = y ~ x)
 
@@ -845,12 +900,14 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     Residual standard error: 0.09628 on 98 degrees of freedom
     Multiple R-squared:  0.9565,	Adjusted R-squared:  0.956 
     F-statistic:  2153 on 1 and 98 DF,  p-value: < 2.2e-16
+    ```
 
-    > plot(x, y)
-    > abline(lm.fit3, lwd=1, col ="blue")
-    > abline(a=-1, b=0.5, lwd=1, col="red")
-    > legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
-    +        col=c('blue','red'), lty = c(1, 1))
+    ```R
+    plot(x, y)
+    abline(lm.fit3, lwd=1, col ="blue")
+    abline(a=-1, b=0.5, lwd=1, col="red")
+    legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
+           col=c('blue','red'), lty = c(1, 1))
     ```
 
     ![](img/03_13h.png)
@@ -860,13 +917,15 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (i) Repeat (a)-(f) after modifying the data generation process in such a way that there is _more_ noise in the data. The model $Y=-1+0.5 X+\epsilon$ should remain the same. You can do this by increasing the variance of the normal distribution used to generate the error term $\epsilon$ in (b). Describe your results.
 
     ```R
-    > set.seed(1)
-    > x <- rnorm(100, mean=0, sd=1)
-    > eps <- rnorm(100, mean=0, sd=1)
-    > y = -1 +(0.5*x) + eps
-    > lm.fit4 <- lm(y~x)
-    > summary(lm.fit4)
+    set.seed(1)
+    x <- rnorm(100, mean=0, sd=1)
+    eps <- rnorm(100, mean=0, sd=1)
+    y = -1 +(0.5*x) + eps
+    lm.fit4 <- lm(y~x)
+    summary(lm.fit4)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x)
 
@@ -884,12 +943,14 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     Residual standard error: 0.9628 on 98 degrees of freedom
     Multiple R-squared:  0.1796,	Adjusted R-squared:  0.1712 
     F-statistic: 21.45 on 1 and 98 DF,  p-value: 1.117e-05
+    ```
 
-    > plot(x, y)
-    > abline(lm.fit4, lwd=1, col ="blue")
-    > abline(a=-1, b=0.5, lwd=1, col="red")
-    > legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
-    +        col=c('blue','red'), lty = c(1, 1))
+    ```R
+    plot(x, y)
+    abline(lm.fit4, lwd=1, col ="blue")
+    abline(a=-1, b=0.5, lwd=1, col="red")
+    legend('bottomright', legend=c('Least Squares Line', 'Population Line'),
+           col=c('blue','red'), lty = c(1, 1))
     ```
 
     ![](img/03_13i.png)
@@ -899,20 +960,30 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (j) What are the confidence intervals for $\beta_0$ and $\beta_1$ based on the original data set, the noisier data set, and the less noisy data set? Comment on your results.
 
     ```R
-    > confint(lm.fit)
+    confint(lm.fit)
+    ```
 
+    ```R
                      2.5 %     97.5 %
     (Intercept) -1.1150804 -0.9226122
     x            0.3925794  0.6063602
+    ```
 
-    > confint(lm.fit3)
+    ```R
+    confint(lm.fit3)
+    ```
 
+    ```R
                      2.5 %     97.5 %
     (Intercept) -1.0230161 -0.9845224
     x            0.4785159  0.5212720
+    ```
 
-    > confint(lm.fit4)
+    ```R
+    confint(lm.fit4)
+    ```
 
+    ```R
                      2.5 %     97.5 %
     (Intercept) -1.2301607 -0.8452245
     x            0.2851588  0.7127204
@@ -925,10 +996,10 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (a) Perform the following commands in `R`:
 
     ```R
-    > set.seed(1)
-    > x1 <- runif(100)
-    > x2 <- 0.5 * x1 + rnorm(100) / 10
-    > y <- 2 + 2 * x1 + 0.3 * x2 + rnorm(100)
+    set.seed(1)
+    x1 <- runif(100)
+    x2 <- 0.5 * x1 + rnorm(100) / 10
+    y <- 2 + 2 * x1 + 0.3 * x2 + rnorm(100)
     ```
 
     The last line corresponds to creating a linear model in which `y` is a function of `x1` and `x2`. Write out the form of the linear model. What are the regression coefficients?
@@ -940,11 +1011,15 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) What is the correlation between `x1` and `x2`? Create a scatterplot displaying the relationship between the variables.
 
     ```R
-    > cor(x1, x2)
+    cor(x1, x2)
+    ```
 
+    ```R
     [1] 0.8351212
+    ```
 
-    > plot(x1, x2)
+    ```R
+    plot(x1, x2)
     ```
 
     ![](img/03_14b.png)
@@ -952,9 +1027,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (c) Using this data, fit a least squares regression to predict `y` using `x1` and `x2`. Describe the results obtained. What are $\hat{\beta}_0, \hat{\beta}_1$, and $\hat{\beta}_2$? How do these relate to the true $\beta_0, \beta_1$, and $\beta_2$? Can you reject the null hypothesis $H_0 : \beta_1=0$ ? How about the null hypothesis $H_0 : \beta_2=0$?
 
     ```R
-    > lm.fit <- lm(y~x1+x2)
-    > summary(lm.fit)
+    lm.fit <- lm(y~x1+x2)
+    summary(lm.fit)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x1 + x2)
 
@@ -980,9 +1057,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (d) Now fit a least squares regression to predict `y` using only `x1`. Comment on your results. Can you reject the null hypothesis $H_0 : \beta_1=0$?
 
     ```R
-    > lm.fit2 <- lm(y~x1)
-    > summary(lm.fit2)
+    lm.fit2 <- lm(y~x1)
+    summary(lm.fit2)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x1)
 
@@ -1008,9 +1087,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (e) Now fit a least squares regression to predict `y` using only `x2`. Comment on your results. Can you reject the null hypothesis $H_0 : \beta_1=0$?
 
     ```R
-    > lm.fit3 <- lm(y~x2)
-    > summary(lm.fit3)
+    lm.fit3 <- lm(y~x2)
+    summary(lm.fit3)
+    ```
 
+    ```R
     Call:
     lm(formula = y ~ x2)
 
@@ -1040,23 +1121,29 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (g) Now suppose we obtain one additional observation, which was unfortunately mismeasured.
 
     ```R
-    > x1 <- c(x1, 0.1)
-    > x2 <- c(x2, 0.8)
-    > y <- c(y, 6)
+    x1 <- c(x1, 0.1)
+    x2 <- c(x2, 0.8)
+    y <- c(y, 6)
     ```
 
     Re-fit the linear models from (c) to (e) using this new data. What effect does this new observation have on the each of the models? In each model, is this observation an outlier? A high-leverage point? Both? Explain your answers.
 
     ```R
-    > par(mfrow=c(2,2))
-    > lm.fit <- lm(y~x1+x2)
-    > plot(lm.fit)
-    > rstudent(lm.fit)[which(rstudent(lm.fit)>3)]
+    par(mfrow=c(2,2))
+    lm.fit <- lm(y~x1+x2)
+    plot(lm.fit)
+    rstudent(lm.fit)[which(rstudent(lm.fit)>3)]
+    ```
 
+    ```R
     named numeric(0)
+    ```
 
-    > hatvalues(lm.fit)[order(hatvalues(lm.fit), decreasing = T)][1]
+    ```R
+    hatvalues(lm.fit)[order(hatvalues(lm.fit), decreasing = T)][1]
+    ```
 
+    ```R
           101 
     0.4147284 
     ```
@@ -1066,15 +1153,21 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > W tym modelu nowy punkt (101) jest punktem wpływowym ale nie jest obserwacją odstającą.
 
     ```R
-    > lm.fit2 <- lm(y~x1)
-    > plot(lm.fit2)
-    > rstudent(lm.fit2)[which(rstudent(lm.fit2)>3)]
+    lm.fit2 <- lm(y~x1)
+    plot(lm.fit2)
+    rstudent(lm.fit2)[which(rstudent(lm.fit2)>3)]
+    ```
 
+    ```R
          101 
     3.438405
+    ```
 
-    > hatvalues(lm.fit2)[order(hatvalues(lm.fit2), decreasing = T)][1]
+    ```R
+    hatvalues(lm.fit2)[order(hatvalues(lm.fit2), decreasing = T)][1]
+    ```
 
+    ```R
             27 
     0.04437352
     ```
@@ -1084,14 +1177,20 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     > W tym modelu nowy punkt (101) jest punktem odstającym ale nie jest punktem wpływowym. Punkt 27 jest wpływowy.
 
     ```R
-    > lm.fit3 <- lm(y~x2)
-    > plot(lm.fit3)
-    > rstudent(lm.fit3)[which(rstudent(lm.fit3)>3)]
+    lm.fit3 <- lm(y~x2)
+    plot(lm.fit3)
+    rstudent(lm.fit3)[which(rstudent(lm.fit3)>3)]
+    ```
 
+    ```R
     named numeric(0)
+    ```
 
-    > hatvalues(lm.fit3)[order(hatvalues(lm.fit3), decreasing = T)][1]
+    ```R
+    hatvalues(lm.fit3)[order(hatvalues(lm.fit3), decreasing = T)][1]
+    ```
 
+    ```R
           101 
     0.1013106
     ```
@@ -1103,9 +1202,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (a) For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response? Create some plots to back up your assertions.
 
     ```R
-    > library(MASS)
-    > head(Boston)
+    library(MASS)
+    head(Boston)
+    ```
 
+    ```R
          crim zn indus chas   nox    rm  age    dis rad tax ptratio  black lstat medv
     1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3 396.90  4.98 24.0
     2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8 396.90  9.14 21.6
@@ -1114,6 +1215,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7 396.90  5.33 36.2
     6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7 394.12  5.21 28.7
     ```
+
     ```R
     columns = colnames(Boston)
     columns = columns[-1] # usunięcie zmiennej crim
@@ -1131,6 +1233,7 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     results$r_squared = r_squared
     print(results)
     ```
+
     ```R
                 p_values   r_squared
     zn      5.506472e-06 0.040187908
@@ -1146,9 +1249,13 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     black   2.487274e-19 0.148274239
     lstat   2.654277e-27 0.207590933
     medv    1.173987e-19 0.150780469
+    ```
 
-    > print(results[results$p_values > 0.05, ])
-    
+    ```R
+    print(results[results$p_values > 0.05, ])
+    ```
+
+    ```R
           p_values   r_squared
     chas 0.2094345 0.003123869
     ```
@@ -1170,9 +1277,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (b) Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis $H_0 : \beta_j=0$?
 
     ```R
-    > lm.fit2 = lm(crim ~ ., data=Boston)
-    > summary(lm.fit2)
+    lm.fit2 = lm(crim ~ ., data=Boston)
+    summary(lm.fit2)
+    ```
 
+    ```R
     Call:
     lm(formula = crim ~ ., data = Boston)
 
@@ -1262,8 +1371,11 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     lstat   1.678072e-27 3.780418e-02 1.298906e-01
     medv    4.930818e-27 2.928577e-35 1.046510e-12
 
-    > print(results[results$x3_p_vlues < 0.05, ])
-
+    ```R
+    print(results[results$x3_p_vlues < 0.05, ])
+    ```
+    
+    ```R
               x1_p_vlues   x2_p_vlues   x3_p_vlues
     indus   8.854243e-24 1.086057e-03 1.196405e-12
     nox     2.457491e-26 7.736755e-05 6.961110e-16
