@@ -296,8 +296,8 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     library(ISLR)
     summary(Weekly)
     ```
-    ```
 
+    ```R
          Year           Lag1               Lag2               Lag3               Lag4         
     Min.   :1990   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950  
     1st Qu.:1995   1st Qu.: -1.1540   1st Qu.: -1.1540   1st Qu.: -1.1580   1st Qu.: -1.1580  
@@ -313,6 +313,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     3rd Qu.:  1.4050   3rd Qu.:2.05373   3rd Qu.:  1.4050             
     Max.   : 12.0260   Max.   :9.32821   Max.   : 12.0260
     ```
+
     ```R
     pairs(Weekly[,1:8])
     ```
@@ -322,7 +323,8 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     ```R
     cor(Weekly[,1:8])
     ```
-    ```
+
+    ```R
                   Year         Lag1        Lag2        Lag3         Lag4
     Year    1.00000000 -0.032289274 -0.03339001 -0.03000649 -0.031127923
     Lag1   -0.03228927  1.000000000 -0.07485305  0.05863568 -0.071273876
@@ -352,8 +354,8 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
                    family = binomial)
     summary(fit.log)
     ```
-    ```
 
+    ```R
     Call:
     glm(formula = Direction ~ . - Year - Today, family = binomial, 
         data = Weekly)
@@ -388,16 +390,19 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     attach(Weekly)
     contrasts(Direction)
     ```
-    ```
+
+    ```R
         Up
     Down  0
     Up    1
     ```
+
     ```R
     fit.log.pred <- rep("Down", 1089)
     fit.log.pred[fit.log.probs > .5] = "Up"
     table(fit.log.pred, Direction)
     ```
+
     ```R
                 Direction
     fit.log.pred Down  Up
@@ -429,24 +434,29 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
                                type = "response")
     dim(Weekly[!train,])
     ```
-    ```
+
+    ```R
     [1] 104   9
     ```
+
     ```R
     fit.log_2.pred <- rep("Down", 104)
     fit.log_2.pred[fit.log_2.probs > .5] = "Up"
     t <- table(fit.log_2.pred, Weekly[!train, ]$Direction)
     t
     ```
-    ```         
+
+    ```R     
     fit.log_2.pred Down Up
             Down    9  5
             Up     34 56
     ```
+
     ```R
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.625
     ```
     
@@ -459,15 +469,18 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
     t
     ```
-    ```         
+
+    ```R      
     fit.lda.pred Down Up
             Down    9  5
             Up     34 56
     ```
+
     ```R
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.625
     ```
     
@@ -479,15 +492,18 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
     t
     ```
-    ```           
+
+    ```R           
     fit.qda.pred Down Up
             Down    0  0
             Up     43 61
     ```
+
     ```R
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.5865385
     ```
     
@@ -503,15 +519,18 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(fit, Weekly[!train, ]$Direction)
     t
     ```
-    ``` 
+
+    ```R
     fit    Down Up
     Down   21 30
     Up     22 31
     ```
+
     ```R
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.5
     ```
 
@@ -524,15 +543,18 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(pred, Weekly[!train, ]$Direction)
     t
     ```
-    ``` 
+
+    ```R 
     pred   Down Up
     Down      0  0
     Up       43 61
     ```
+
     ```R
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.5865385
     ```
 
@@ -549,9 +571,11 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.5384615
     ```
+
     ```R
     # QDA
     fit.qda <- qda(Direction ~ Lag2 + Volume + Lag2:Volume, data = Weekly[train,])
@@ -559,9 +583,11 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.4711538
     ```
+
     ```R
     # Naive Bayes - funkcja nie przyjmuje interakcji
     fit <- naiveBayes(Direction ~ Lag2 + Volume, data = Weekly[train, ])
@@ -569,9 +595,11 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(pred, Weekly[!train, ]$Direction)
     sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.4519231
     ```
+
     ```R
     # KNN
     set.seed(1)
@@ -607,8 +635,8 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     pairs(Auto_2)
     cor(Auto_2)
     ```
-    ```
 
+    ```R
                   cylinders displacement horsepower     weight acceleration
     cylinders     1.0000000    0.9508233  0.8429834  0.8975273   -0.5046834
     displacement  0.9508233    1.0000000  0.8972570  0.9329944   -0.5438005
@@ -651,14 +679,71 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     t <- table(fit.lda.pred, Auto_2[!train, ]$mpg01)
     1 - sum(diag(t)) / sum(t)
     ```
-    ```
+
+    ```R
     [1] 0.09895833
     ```
 
     (e) Perform QDA on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
 
+    ```R
+    fit.qda <- qda(mpg01 ~ cylinders + displacement + weight,
+                   data = Auto_2[train,])
+    fit.qda.pred <- predict(fit.qda, Auto_2[!train,], type = "response")$class
+    t <- table(fit.qda.pred, Auto_2[!train, ]$mpg01)
+    1 - sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.08854167
+    ```
+
     (f) Perform logistic regression on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
+
+    ```R
+    fit.log <- glm(mpg01 ~ cylinders + displacement + weight, 
+                   data = Auto_2[train, ], family = binomial)
+    fit.log.pred <- predict(fit.log, Auto_2[!train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Auto_2[!train, ]$mpg01)
+    1 - sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.1041667
+    ```
     
     (g) Perform naive Bayes on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
+
+    ```R
+    library(e1071)
+    fit.bayes <- naiveBayes(mpg01 ~ cylinders + displacement + weight,
+                            data = Auto_2[train, ])
+    fit.bayes.pred <- predict(fit.bayes, Auto_2[!train, ], type = "class")
+    t <- table(fit.bayes.pred, Auto_2[!train, ]$mpg01)
+    1- sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.08333333
+    ```
     
     (h) Perform KNN on the training data, with several values of K, in order to predict `mpg01`. Use only the variables that seemed most associated with `mpg01` in (b). What test errors do you obtain? Which value of K seems to perform the best on this data set?
+
+    ```R
+    library(class)
+    set.seed(1)
+    res <- sapply(1:50, function(k) {
+    fit <- knn(
+        Auto_2[train, 2:4, drop = FALSE],
+        Auto_2[!train, 2:4, drop = FALSE],
+        Auto_2$mpg01[train],
+        k = k
+    )
+    t <- table(fit, Auto_2[!train, ]$mpg01)
+    1 - sum(diag(t)) / sum(t)
+    })
+
+    plot(1:50, res, type = "o", xlab = "k", ylab = "Fraction incorrect")
+    ```
+
+    ![](img/04_14h.png)
