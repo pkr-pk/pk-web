@@ -173,26 +173,28 @@ nav_order: 1
 
     (a) Use the `read.csv()` function to read the data into R. Call the loaded data `college`. Make sure that you have the directory set to the correct location for the data.
     ```R
-    > college <- read.csv("College.csv")
+    college <- read.csv("College.csv")
     ```
 
     (b) Look at the data using the `View()` function. You should notice that the first column is just the name of each university. We don’t really want R to treat this as data. However, it may be handy to have these names for later. Try the following commands:
     ```R
-    > rownames (college) <- college[, 1]
-    > View(college)
+    rownames (college) <- college[, 1]
+    View(college)
     ```
     You should see that there is now a `row.names` column with the name of each university recorded. This means that R has given each row a name corresponding to the appropriate university. R will not try to perform calculations on the row names. However, we still need to eliminate the first column in the data where the names are stored. Try
     ```R
-    > college <- college[, -1]
-    > View(college)
+    college <- college[, -1]
+    View(college)
     ```
     Now you should see that the first data column is `Private`. Note that another column labeled `row.names` now appears before the `Private` column. However, this is not a data column but rather the name that R is giving to each row.
 
     (c) i. Use the `summary()` function to produce a numerical summary of the variables in the data set.
     ```R
-    > college$Private <- as.factor(college$Private)
-    > summary(college)
+    college$Private <- as.factor(college$Private)
+    summary(college)
+    ```
 
+    ```R
     Private               Apps           Accept          Enroll       Top10perc    
     No :212            Min.   :   81   Min.   :   72   Min.   :  35   Min.   : 1.00  
     Yes:565            1st Qu.:  776   1st Qu.:  604   1st Qu.: 242   1st Qu.:15.00  
@@ -229,7 +231,7 @@ nav_order: 1
     ii. Use the `pairs()` function to produce a scatterplot matrix of the first ten columns or variables of the data. Recall that you can reference the first ten columns of a matrix A using `A[,1:10]`.
 
     ```R
-    > pairs(college[,1:5])
+    pairs(college[,1:5])
     ```
 
     ![](img/02_8ci.png)
@@ -242,32 +244,41 @@ nav_order: 1
     
     iv. Create a new qualitative variable, called `Elite`, by binning the `Top10perc` variable. We are going to divide universities into two groups based on whether or not the proportion of students coming from the top 10 % of their high school classes exceeds 50 %.
     ```R
-    > Elite <- rep("No" , nrow(college))
-    > Elite[college$ Top10perc > 50] <- "Yes"
-    > Elite <- as.factor(Elite)
-    > college <- data.frame(college , Elite)
+    Elite <- rep("No" , nrow(college))
+    Elite[college$ Top10perc > 50] <- "Yes"
+    Elite <- as.factor(Elite)
+    college <- data.frame(college , Elite)
     ```
 
     Use the `summary()` function to see how many elite universities there are. Now use the `plot()` function to produce side-by-side boxplots of `Outstate` versus `Elite`.
 
     ```R
-    > summary(elite)
+    summary(elite)
+    ```
 
+    ```R
     Elite 
     No :699  
     Yes: 78
+    ```
 
-    > plot(college$Elite, college$Outstate, xlab="Elite", ylab="Outstate")
+    ```R
+    plot(college$Elite, college$Outstate, xlab="Elite", ylab="Outstate")
     ```
     ![](img/02_8civ.png)
     
     v. Use the `hist()` function to produce some histograms with differing numbers of bins for a few of the quantitative variables. You may find the command `par(mfrow = c(2, 2))` useful: it will divide the print window into four regions so that four plots can be made simultaneously. Modifying the arguments to this function will divide the screen in other ways.
     ```R
-    > par(mfrow=c(2,2))
-    > hist(college$Apps, xlim=c(0,25000), xlab = "Applications", main = "Apps using default bin sizes")
-    > hist(college$Apps, xlim=c(0,25000), breaks=25, xlab = "Applications", main = "Apps using smaller bin sizes")
-    > hist(college$Top10perc, breaks=25, xlab = "Pct. new students from top 10% of H.S. class", main="Top10Perc")
-    > hist(college$Outstate, xlab="Out-of-state tuition",ylab="Amount",main="Outstate")
+    par(mfrow=c(2,2))
+    hist(college$Apps, xlim=c(0,25000), xlab = "Applications", 
+         main = "Apps using default bin sizes")
+    hist(college$Apps, xlim=c(0,25000), breaks=25, xlab = "Applications",
+         main = "Apps using smaller bin sizes")
+    hist(college$Top10perc, breaks=25, 
+         xlab = "Pct. new students from top 10% of H.S. class", 
+         main="Top10Perc")
+    hist(college$Outstate, xlab="Out-of-state tuition",
+         ylab="Amount", main="Outstate")
     ```
     ![](img/02_8cv.png)
 
@@ -275,8 +286,9 @@ nav_order: 1
 
 9. This exercise involves the `Auto` data set studied in the lab. Make sure that the missing values have been removed from the data.
     ```R
-    > auto <- read.table("Auto.data", header = T, na.strings = "?", stringsAsFactors = T)
-    > auto <- na.omit(auto)
+    auto <- read.table("Auto.data", header = T, 
+                         na.strings = "?", stringsAsFactors = T)
+    auto <- na.omit(auto)
     ```
 
     (a) Which of the predictors are quantitative, and which are qualitative?
@@ -287,8 +299,10 @@ nav_order: 1
     (b) What is the range of each quantitative predictor? You can answer this using the `range()` function.
 
     ```R
-    > sapply(auto[,1:7], range)
-      
+    sapply(auto[,1:7], range)
+    ```
+
+    ```R
           mpg cylinders displacement horsepower weight acceleration year
     [1,]  9.0         3           68         46   1613          8.0   70
     [2,] 46.6         8          455        230   5140         24.8   82
@@ -297,13 +311,19 @@ nav_order: 1
     (c) What is the mean and standard deviation of each quantitative predictor?
 
     ```R
-    > sapply(auto[,1:7], mean)
+    sapply(auto[,1:7], mean)
+    ```
 
+    ```R
           mpg    cylinders displacement   horsepower       weight acceleration      year
     23.445918     5.471939   194.411990   104.469388  2977.584184    15.541327 75.979592
+    ```
+    
+    ```R
+    sapply(auto[,1:7], sd)
+    ```
 
-    > sapply(auto[,1:7], sd)
-
+    ```R
          mpg     cylinders displacement   horsepower       weight acceleration      year
     7.805007      1.705783   104.644004    38.491160   849.402560     2.758864  3.683737 
     ```
@@ -311,20 +331,30 @@ nav_order: 1
     (d) Now remove the 10th through 85th observations. What is the range, mean, and standard deviation of each predictor in the subset of the data that remains?
 
     ```R
-    > auto_d <- auto[-c(10:84),]
-    > sapply(auto_d[,1:7], range)
+    auto_d <- auto[-c(10:84),]
+    sapply(auto_d[,1:7], range)
+    ```
 
+    ```R
           mpg cylinders displacement horsepower weight acceleration year
     [1,] 11.0         3           68         46   1649          8.5   70
     [2,] 46.6         8          455        230   4997         24.8   82
+    ```
 
-    > sapply(auto_d[,1:7], mean)
-
+    ```R
+    sapply(auto_d[,1:7], mean)
+    ```
+    
+    ```R
           mpg    cylinders displacement   horsepower       weight acceleration         year 
     24.368454     5.381703   187.753943   100.955836  2939.643533    15.718297    77.132492
+    ```
 
-    > sapply(auto_d[,1:7], sd)
+    ```R
+    sapply(auto_d[,1:7], sd)
+    ```
 
+    ```R
          mpg    cylinders displacement   horsepower       weight acceleration         year 
     7.880898     1.658135    99.939488    35.895567   812.649629     2.693813     3.110026 
     ```
@@ -347,15 +377,15 @@ nav_order: 1
 
     (a) To begin, load in the `Boston` data set. The `Boston` data set is part of the `ISLR2` library.
     ```R
-    > library(ISLR2)
+    library(ISLR2)
     ```
     Now the data set is contained in the object Boston.
     ```R
-    > Boston
+    Boston
     ```
     Read about the data set:
     ```R
-    > ?Boston
+    ?Boston
     ```    
     How many rows are in this data set? How many columns? What do the rows and columns represent?
 
@@ -366,7 +396,7 @@ nav_order: 1
     (b) Make some pairwise scatterplots of the predictors (columns) in this data set. Describe your findings.
 
     ```R
-    > pairs(~crim + age + nox + medv + rm, data = Boston)
+    pairs(~crim + age + nox + medv + rm, data = Boston)
     ```
 
     ![](img/02_10b.png)
@@ -377,7 +407,7 @@ nav_order: 1
     (c) Are any of the predictors associated with per capita crime rate? If so, explain the relationship.
 
     ```R
-    > pairs(~crim + medv + dis + nox, data = Boston)
+    pairs(~crim + medv + dis + nox, data = Boston)
     ```
 
     ![](img/02_10c.png)
@@ -387,40 +417,70 @@ nav_order: 1
     (d) Do any of the census tracts of Boston appear to have particularly high crime rates? Tax rates? Pupil-teacher ratios? Comment on the range of each predictor.
 
     ```R
-    > sapply(Boston[,c("crim", "tax", "ptratio")], mean)
+    sapply(Boston[,c("crim", "tax", "ptratio")], mean)
+    ```
 
+    ```R
         crim        tax    ptratio 
     3.613524 408.237154  18.455534
+    ```
 
-    > sapply(Boston[,c("crim", "tax", "ptratio")], sd)
+    ```R
+    sapply(Boston[,c("crim", "tax", "ptratio")], sd)
+    ```
 
+    ```R
         crim        tax    ptratio 
     8.601545 168.537116   2.164946 
+    ```
 
-    > sapply(Boston[,c("crim", "tax", "ptratio")], range)
+    ```R
+    sapply(Boston[,c("crim", "tax", "ptratio")], range)
+    ```
 
+    ```R
              crim tax ptratio
     [1,]  0.00632 187    12.6
     [2,] 88.97620 711    22.0
+    ```
 
-    > dim(Boston[which(Boston$crim > mean(Boston$crim) + 2*sd(Boston$crim)),])
+    ```R
+    dim(Boston[which(Boston$crim > mean(Boston$crim) + 2*sd(Boston$crim)),])
+    ```
 
+    ```R
     [1] 16 13
+    ```
 
-    > dim(Boston[which(Boston$tax > mean(Boston$tax) + 2*sd(Boston$tax)),])
+    ```R
+    dim(Boston[which(Boston$tax > mean(Boston$tax) + 2*sd(Boston$tax)),])
+    ```
 
+    ```R
     [1]  0 13
+    ```
 
-    > dim(Boston[which(Boston$tax < mean(Boston$tax) - 2*sd(Boston$tax)),])
-    
+    ```R
+    dim(Boston[which(Boston$tax < mean(Boston$tax) - 2*sd(Boston$tax)),])
+    ```
+
+    ```R
     [1]  0 13
+    ```
 
-    > dim(Boston[which(Boston$ptratio > mean(Boston$ptratio) + 2*sd(Boston$ptratio)),])
+    ```R
+    dim(Boston[which(Boston$ptratio > mean(Boston$ptratio) + 2*sd(Boston$ptratio)),])
+    ```
 
+    ```R
     [1]  0 13
+    ```
 
-    > dim(Boston[which(Boston$ptratio < mean(Boston$ptratio) - 2*sd(Boston$ptratio)),])
+    ```R
+    dim(Boston[which(Boston$ptratio < mean(Boston$ptratio) - 2*sd(Boston$ptratio)),])
+    ```
 
+    ```R
     [1] 16 13
     ```
 
@@ -431,38 +491,56 @@ nav_order: 1
     (e) How many of the census tracts in this data set bound the Charles river?
 
     ```R
-    > sum(Boston$chas==1)
+    sum(Boston$chas==1)
+    ```
 
+    ```R
     [1] 35
     ```
     
     (f) What is the median pupil-teacher ratio among the towns in this data set?
 
     ```R
-    > median(Boston$ptratio)
-    
+    median(Boston$ptratio)
+    ```
+
+    ```R
     [1] 19.05
     ```
     
     (g) Which census tract of Boston has lowest median value of owner-occupied homes? What are the values of the other predictors for that census tract, and how do those values compare to the overall ranges for those predictors? Comment on your findings.
 
     ```R
-    > which(Boston$medv == min(Boston$medv))
+    which(Boston$medv == min(Boston$medv))
+    ```
 
+    ```R
     [1] 399 406
+    ```
 
-    > Boston[399,]
+    ```R
+    Boston[399,]
+    ```
 
+    ```R
              crim  zn indus chas   nox    rm   age     dis rad tax ptratio lstat medv
     399   38.3518   0  18.1    0 0.693 5.453   100  1.4896  24 666    20.2 30.59    5
+    ```
 
-    > Boston[406,]
+    ```R
+    Boston[406,]
+    ```
 
+    ```R
             crim   zn indus chas   nox    rm   age     dis rad tax ptratio lstat medv
     406  67.9208    0  18.1    0 0.693 5.683   100  1.4254  24 666    20.2 22.98    5
+    ```
 
-    > sapply(Boston, range)
+    ```R
+    sapply(Boston, range)
+    ```
 
+    ```R
              crim  zn indus chas   nox    rm   age     dis rad tax ptratio lstat medv
     [1,]  0.00632   0  0.46    0 0.385 3.561   2.9  1.1296   1 187    12.6  1.73    5
     [2,] 88.97620 100 27.74    1 0.871 8.780 100.0 12.1265  24 711    22.0 37.97   50
@@ -473,16 +551,26 @@ nav_order: 1
     (h) In this data set, how many of the census tracts average more than seven rooms per dwelling? More than eight rooms per dwelling? Comment on the census tracts that average more than eight rooms per dwelling.
 
     ```R
-    > sum(Boston$rm > 7)
+    sum(Boston$rm > 7)
+    ```
 
+    ```R
     [1] 64
+    ```
 
-    > sum(Boston$rm > 8)
+    ```R
+    sum(Boston$rm > 8)
+    ```
 
+    ```R
     [1] 13
+    ```
 
-    > sapply(subset(Boston, rm > 8), range)
-
+    ```R
+    sapply(subset(Boston, rm > 8), range)
+    ```
+    
+    ```R
             crim zn indus chas    nox    rm  age    dis rad tax ptratio lstat medv
     [1,] 0.02009  0  2.68    0 0.4161 8.034  8.4 1.8010   2 224    13.0  2.47 21.9
     [2,] 3.47428 95 19.58    1 0.7180 8.780 93.9 8.9067  24 666    20.2  7.44 50.0
