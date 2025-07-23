@@ -286,8 +286,8 @@ nav_order: 1
 
 9. This exercise involves the `Auto` data set studied in the lab. Make sure that the missing values have been removed from the data.
     ```R
-    auto <- read.table("Auto.data", header = T, 
-                         na.strings = "?", stringsAsFactors = T)
+    auto <- read.table("Auto.data", header = T, na.strings = "?",
+                       stringsAsFactors = T)
     auto <- na.omit(auto)
     ```
 
@@ -569,7 +569,7 @@ nav_order: 1
     ```R
     sapply(subset(Boston, rm > 8), range)
     ```
-    
+
     ```R
             crim zn indus chas    nox    rm  age    dis rad tax ptratio lstat medv
     [1,] 0.02009  0  2.68    0 0.4161 8.034  8.4 1.8010   2 224    13.0  2.47 21.9

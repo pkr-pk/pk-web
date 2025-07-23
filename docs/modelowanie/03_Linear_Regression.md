@@ -222,7 +222,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
 
     * Residuals vs Fitted - widać pewną zależność w kształcie litery U co mówi o tym, że dane nie są liniowe.
     * Residuals v leverage - wskazuje na pewne obserwacje z dużym wpływem na model.
-    * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy: 
+    * Scale-Location - wskazuje, że mogą występować pewne obserwacje odstające. Można je znaleźć używając komendy:
+
     ```R
     rstudent(mpg_pwr)[which(rstudent(mpg_pwr)>3)]
     ```
@@ -344,15 +345,15 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (e) Use the `*` and `:` symbols to fit linear regression models with interaction effects. Do any interactions appear to be statistically significant?
 
     ```R
-    mpg_interaction = lm(mpg ~ . + year:cylinders + acceleration:horsepower 
-                           + weight:displacement,data=Auto)
+    mpg_interaction = lm(mpg ~ . + year:cylinders + acceleration:horsepower +
+                         weight:displacement,data=Auto)
     summary(mpg_interaction)
     ```
 
     ```R
     Call:
     lm(formula = mpg ~ . + year:cylinders + acceleration:horsepower + 
-        weight:displacement, data = Auto)
+       weight:displacement, data = Auto)
 
     Residuals:
         Min      1Q  Median      3Q     Max 
@@ -384,8 +385,8 @@ simplicity, you may assume that $\bar{x} = \bar{y} = 0$.
     (f) Try a few different transformations of the variables, such as $\log(X)$, $\sqrt{X}$, $X^2$. Comment on your findings.
 
     ```R
-    mpg_ope = lm(mpg ~ . + log(weight) + log(acceleration) + sqrt(displacement) 
-                   + I(cylinders^2), data=Auto)
+    mpg_ope = lm(mpg ~ . + log(weight) + log(acceleration) +
+                 sqrt(displacement) + I(cylinders^2), data=Auto)
     summary(mpg_ope)
     ```
 
