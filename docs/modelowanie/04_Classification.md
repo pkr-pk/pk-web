@@ -377,7 +377,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     (c) Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.
 
     ```R
-    > fit.log.probs <- predict(fit.log , type = "response")
+    > fit.log.probs <- predict(fit.log, type = "response")
     > attach(Weekly)
     > contrasts(Direction)
 
@@ -492,6 +492,67 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     (h) Repeat (d) using naive Bayes.
 
+    ```R
+    > library(e1071)
+    > fit.bayes <- naiveBayes(Direction ~ Lag2, data = Weekly[train, ])
+    > pred <- predict(fit.bayes, Weekly[!train, ], type = "class")
+    > t <- table(pred, Weekly[!train, ]$Direction)
+    > t
+        
+    pred   Down Up
+    Down      0  0
+    Up       43 61
+
+    > sum(diag(t)) / sum(t)
+
+    [1] 0.5865385
+    ```
+
     (i) Which of these methods appears to provide the best results on this data?
+
+    > Najlepiej działają: regresja logistyczna i LDA. Obie metody klasyfikują najpoprawniej.
     
     (j) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you should also experiment with values for K in the KNN classifier.
+
+    ```R
+    # LDA
+    fit.lda <- lda(Direction ~ Lag2 + Volume + Lag2:Volume, data = Weekly[train,])
+    fit.lda.pred <- predict(fit.lda, Weekly[!train,], type = "response")$class
+    t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
+    sum(diag(t)) / sum(t)
+
+    [1] 0.5384615
+
+    # QDA
+    fit.qda <- qda(Direction ~ Lag2 + Volume + Lag2:Volume, data = Weekly[train,])
+    fit.qda.pred <- predict(fit.qda, Weekly[!train,], type = "response")$class
+    t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
+    sum(diag(t)) / sum(t)
+
+    [1] 0.4711538
+
+    # Naive Bayes - funkcja nie przyjmuje interakcji
+    fit <- naiveBayes(Direction ~ Lag2 + Volume, data = Weekly[train, ])
+    pred <- predict(fit, Weekly[!train, ], type = "class")
+    t <- table(pred, Weekly[!train, ]$Direction)
+    sum(diag(t)) / sum(t)
+
+    [1] 0.4519231
+
+    # KNN
+    set.seed(1)
+    res <- sapply(1:50, function(k) {
+    fit <- knn(
+        Weekly[train, 2:4, drop = FALSE],
+        Weekly[!train, 2:4, drop = FALSE],
+        Weekly$Direction[train],
+        k = k
+    )
+    t <- table(fit, Weekly[!train, ]$Direction)
+    sum(diag(t)) / sum(t)
+    })
+
+    plot(1:50, res, type = "o", xlab = "k", ylab = "Fraction correct")
+    ```
+
+    ![](img/04_13i.png)
