@@ -293,8 +293,10 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     (a) Produce some numerical and graphical summaries of the `Weekly` data. Do there appear to be any patterns?
 
     ```R
-    > library(ISLR)
-    > summary(Weekly)
+    library(ISLR)
+    summary(Weekly)
+    ```
+    ```
 
          Year           Lag1               Lag2               Lag3               Lag4         
     Min.   :1990   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950   Min.   :-18.1950  
@@ -310,14 +312,17 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     Mean   :  0.1399   Mean   :1.57462   Mean   :  0.1499             
     3rd Qu.:  1.4050   3rd Qu.:2.05373   3rd Qu.:  1.4050             
     Max.   : 12.0260   Max.   :9.32821   Max.   : 12.0260
-
-    > pairs(Weekly[,1:8])
+    ```
+    ```R
+    pairs(Weekly[,1:8])
     ```
 
     ![](img/04_13a.png)
 
     ```R
-    > cor(Weekly[,1:8])
+    cor(Weekly[,1:8])
+    ```
+    ```
                   Year         Lag1        Lag2        Lag3         Lag4
     Year    1.00000000 -0.032289274 -0.03339001 -0.03000649 -0.031127923
     Lag1   -0.03228927  1.000000000 -0.07485305  0.05863568 -0.071273876
@@ -343,9 +348,11 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     (b) Use the full data set to perform a logistic regression with `Direction` as the response and the five lag variables plus `Volume` as predictors. Use the summary function to print the results. Do any of the predictors appear to be statistically significant? If so, which ones?
 
     ```R
-    > fit.log <- glm(Direction ~ . - Year - Today, data = Weekly,
-    +   family = binomial)
-    > summary(fit.log)
+    fit.log <- glm(Direction ~ . - Year - Today, data = Weekly,
+                   family = binomial)
+    summary(fit.log)
+    ```
+    ```
 
     Call:
     glm(formula = Direction ~ . - Year - Today, family = binomial, 
@@ -377,18 +384,21 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     (c) Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.
 
     ```R
-    > fit.log.probs <- predict(fit.log, type = "response")
-    > attach(Weekly)
-    > contrasts(Direction)
-
+    fit.log.probs <- predict(fit.log, type = "response")
+    attach(Weekly)
+    contrasts(Direction)
+    ```
+    ```
         Up
     Down  0
     Up    1
-
-    > fit.log.pred <- rep("Down", 1089)
-    > fit.log.pred[fit.log.probs > .5] = "Up"
-    > table(fit.log.pred, Direction)
-
+    ```
+    ```R
+    fit.log.pred <- rep("Down", 1089)
+    fit.log.pred[fit.log.probs > .5] = "Up"
+    table(fit.log.pred, Direction)
+    ```
+    ```R
                 Direction
     fit.log.pred Down  Up
             Down   54  48
@@ -409,102 +419,120 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     > Elementy na przekątnej macierzy wskazują poprawne predykcje, elementy poza przekątną wskazują niepoprawne predykcje. W tym przypadku model ogólnie wykonał poprawnie 56.11% predykcji. Bardziej szczegółowo wykonał poprawnie 56.43% predykcji `Up` i 52.94% predykcji `Down`.
 
-    (d) Now fit the logistic regression model using a training data period from 1990 to 2008, with Lag2 as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is, the data from 2009 and 2010).
+    (d) Now fit the logistic regression model using a training data period from 1990 to 2008, with `Lag2` as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is, the data from 2009 and 2010).
 
     ```R
-    > train <- (Year < 2009)
-    > fit.log_2 <- glm(Direction ~ Lag2, data = Weekly[train,],
-    +                  family = binomial)
-    > fit.log_2.probs <- predict(fit.log_2, Weekly[!train,], type = "response")
-    > dim(Weekly[!train,])
-
+    train <- (Year < 2009)
+    fit.log_2 <- glm(Direction ~ Lag2, data = Weekly[train,],
+                     family = binomial)
+    fit.log_2.probs <- predict(fit.log_2, Weekly[!train,], 
+                               type = "response")
+    dim(Weekly[!train,])
+    ```
+    ```
     [1] 104   9
-
-    > fit.log_2.pred <- rep("Down", 104)
-    > fit.log_2.pred[fit.log_2.probs > .5] = "Up"
-    > t <- table(fit.log_2.pred, Weekly[!train, ]$Direction)
-    > t
-                
+    ```
+    ```R
+    fit.log_2.pred <- rep("Down", 104)
+    fit.log_2.pred[fit.log_2.probs > .5] = "Up"
+    t <- table(fit.log_2.pred, Weekly[!train, ]$Direction)
+    t
+    ```
+    ```         
     fit.log_2.pred Down Up
             Down    9  5
             Up     34 56
-
-    > sum(diag(t)) / sum(t)
-
+    ```
+    ```R
+    sum(diag(t)) / sum(t)
+    ```
+    ```
     [1] 0.625
     ```
     
     (e) Repeat (d) using LDA.
 
     ```R
-    > library(MASS)
-    > fit.lda <- lda(Direction ~ Lag2, data = Weekly[train,])
-    > fit.lda.pred <- predict(fit.lda, Weekly[!train,], type = "response")$class
-    > t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
-    > t
-                
+    library(MASS)
+    fit.lda <- lda(Direction ~ Lag2, data = Weekly[train,])
+    fit.lda.pred <- predict(fit.lda, Weekly[!train,], type = "response")$class
+    t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
+    t
+    ```
+    ```         
     fit.lda.pred Down Up
             Down    9  5
             Up     34 56
-
-    > sum(diag(t)) / sum(t)
-
+    ```
+    ```R
+    sum(diag(t)) / sum(t)
+    ```
+    ```
     [1] 0.625
     ```
     
     (f) Repeat (d) using QDA.
 
     ```R
-    > fit.qda <- qda(Direction ~ Lag2, data = Weekly[train,])
-    > fit.qda.pred <- predict(fit.qda, Weekly[!train,], type = "response")$class
-    > t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
-    > t
-                
+    fit.qda <- qda(Direction ~ Lag2, data = Weekly[train,])
+    fit.qda.pred <- predict(fit.qda, Weekly[!train,], type = "response")$class
+    t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
+    t
+    ```
+    ```           
     fit.qda.pred Down Up
             Down    0  0
             Up     43 61
-
-    > sum(diag(t)) / sum(t)
-
+    ```
+    ```R
+    sum(diag(t)) / sum(t)
+    ```
+    ```
     [1] 0.5865385
     ```
     
-    (g) Repeat (d) using KNN with K = 1.
+    (g) Repeat (d) using KNN with $K = 1$.
 
     ```R
-    > library(class)
-    > fit <- knn(
-    +   Weekly[train, "Lag2", drop = FALSE],
-    +   Weekly[!train, "Lag2", drop = FALSE],
-    +   Weekly$Direction[train]
-    + )
-    > t <- table(fit, Weekly[!train, ]$Direction)
-    > t
-        
+    library(class)
+    fit <- knn(
+        Weekly[train, "Lag2", drop = FALSE],
+        Weekly[!train, "Lag2", drop = FALSE],
+        Weekly$Direction[train]
+        )
+    t <- table(fit, Weekly[!train, ]$Direction)
+    t
+    ```
+    ``` 
     fit    Down Up
     Down   21 30
     Up     22 31
-
-    > sum(diag(t)) / sum(t)
-    
+    ```
+    ```R
+    sum(diag(t)) / sum(t)
+    ```
+    ```
     [1] 0.5
     ```
 
     (h) Repeat (d) using naive Bayes.
 
     ```R
-    > library(e1071)
-    > fit.bayes <- naiveBayes(Direction ~ Lag2, data = Weekly[train, ])
-    > pred <- predict(fit.bayes, Weekly[!train, ], type = "class")
-    > t <- table(pred, Weekly[!train, ]$Direction)
-    > t
-        
+    library(e1071)
+    fit.bayes <- naiveBayes(Direction ~ Lag2, data = Weekly[train, ])
+    pred <- predict(fit.bayes, Weekly[!train, ], type = "class")
+    t <- table(pred, Weekly[!train, ]$Direction)
+    t
+    ```
+    ``` 
     pred   Down Up
     Down      0  0
     Up       43 61
-
-    > sum(diag(t)) / sum(t)
-
+    ```
+    ```R
+    sum(diag(t)) / sum(t)
+    ```
+    ```
     [1] 0.5865385
     ```
 
@@ -520,25 +548,31 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     fit.lda.pred <- predict(fit.lda, Weekly[!train,], type = "response")$class
     t <- table(fit.lda.pred, Weekly[!train, ]$Direction)
     sum(diag(t)) / sum(t)
-
+    ```
+    ```
     [1] 0.5384615
-
+    ```
+    ```R
     # QDA
     fit.qda <- qda(Direction ~ Lag2 + Volume + Lag2:Volume, data = Weekly[train,])
     fit.qda.pred <- predict(fit.qda, Weekly[!train,], type = "response")$class
     t <- table(fit.qda.pred, Weekly[!train, ]$Direction)
     sum(diag(t)) / sum(t)
-
+    ```
+    ```
     [1] 0.4711538
-
+    ```
+    ```R
     # Naive Bayes - funkcja nie przyjmuje interakcji
     fit <- naiveBayes(Direction ~ Lag2 + Volume, data = Weekly[train, ])
     pred <- predict(fit, Weekly[!train, ], type = "class")
     t <- table(pred, Weekly[!train, ]$Direction)
     sum(diag(t)) / sum(t)
-
+    ```
+    ```
     [1] 0.4519231
-
+    ```
+    ```R
     # KNN
     set.seed(1)
     res <- sapply(1:50, function(k) {
@@ -556,3 +590,75 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     ```
 
     ![](img/04_13i.png)
+
+14. In this problem, you will develop a model to predict whether a given car gets high or low gas mileage based on the `Auto` data set.
+
+    (a) Create a binary variable, `mpg01`, that contains a 1 if `mpg` contains a value above its median, and a 0 if `mpg` contains a value below its median. You can compute the median using the `median()` function. Note you may find it helpful to use the `data.frame()` function to create a single data set containing both `mpg01` and the other `Auto` variables.
+
+    ```R
+    library(ISLR2)
+    mpg01_ind <- data.frame("mpg01" = Auto$mpg > median(Auto$mpg))
+    Auto_2 <- cbind(Auto[, c(-1, -9)], data.frame("mpg01" = mpg01_ind))
+    ```
+
+    (b) Explore the data graphically in order to investigate the association between `mpg01` and the other features. Which of the other features seem most likely to be useful in predicting `mpg01`? Scatterplots and boxplots may be useful tools to answer this question. Describe your findings.
+
+    ```R
+    pairs(Auto_2)
+    cor(Auto_2)
+    ```
+    ```
+
+                  cylinders displacement horsepower     weight acceleration
+    cylinders     1.0000000    0.9508233  0.8429834  0.8975273   -0.5046834
+    displacement  0.9508233    1.0000000  0.8972570  0.9329944   -0.5438005
+    horsepower    0.8429834    0.8972570  1.0000000  0.8645377   -0.6891955
+    weight        0.8975273    0.9329944  0.8645377  1.0000000   -0.4168392
+    acceleration -0.5046834   -0.5438005 -0.6891955 -0.4168392    1.0000000
+    year         -0.3456474   -0.3698552 -0.4163615 -0.3091199    0.2903161
+    origin       -0.5689316   -0.6145351 -0.4551715 -0.5850054    0.2127458
+    mpg01        -0.7591939   -0.7534766 -0.6670526 -0.7577566    0.3468215
+                       year     origin      mpg01
+    cylinders    -0.3456474 -0.5689316 -0.7591939
+    displacement -0.3698552 -0.6145351 -0.7534766
+    horsepower   -0.4163615 -0.4551715 -0.6670526
+    weight       -0.3091199 -0.5850054 -0.7577566
+    acceleration  0.2903161  0.2127458  0.3468215
+    year          1.0000000  0.1815277  0.4299042
+    origin        0.1815277  1.0000000  0.5136984
+    mpg01         0.4299042  0.5136984  1.0000000
+    ```
+
+    ![](img/04_14b.png)
+
+    > Istnieje silna korelacja między zmienną `mpg01` i zmiennymi: `cylinders`, `displacement`, `weight`. 
+
+    (c) Split the data into a training set and a test set.
+
+    ```R
+    set.seed(1)
+    train <- sample(Auto_2$mpg01, nrow(Auto_2) * 2 / 3)
+    ```
+
+    (d) Perform LDA on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
+
+    ```R
+    library(MASS)
+    attach(Auto_2)
+    fit.lda <- lda(mpg01 ~ cylinders + displacement + weight,
+                   data = Auto_2[train,])
+    fit.lda.pred <- predict(fit.lda, Auto_2[!train,], type = "response")$class
+    t <- table(fit.lda.pred, Auto_2[!train, ]$mpg01)
+    1 - sum(diag(t)) / sum(t)
+    ```
+    ```
+    [1] 0.09895833
+    ```
+
+    (e) Perform QDA on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
+
+    (f) Perform logistic regression on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
+    
+    (g) Perform naive Bayes on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
+    
+    (h) Perform KNN on the training data, with several values of K, in order to predict `mpg01`. Use only the variables that seemed most associated with `mpg01` in (b). What test errors do you obtain? Which value of K seems to perform the best on this data set?
