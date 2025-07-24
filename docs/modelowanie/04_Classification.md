@@ -1059,14 +1059,14 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     set.seed(1)
     res <- sapply(1:50, function(k) {
-    fit <- knn(
-        Boston_2[train, 2:4, drop = FALSE],
-        Boston_2[!train, 2:4, drop = FALSE],
+      fit <- knn(
+        Boston_2[train, c("nox", "rad"), drop = FALSE],
+        Boston_2[!train, c("nox", "rad"), drop = FALSE],
         Boston_2$hcrim[train],
         k = k
     )
-    t <- table(fit, Boston_2[!train, ]$hcrim)
-    sum(diag(t)) / sum(t)
+      t <- table(fit, Boston_2[!train, ]$hcrim)
+      sum(diag(t)) / sum(t)
     })
 
     which.max(res)
@@ -1075,7 +1075,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     ```R
     [1] 1
-    [1] 0.9618321
+    [1] 0.9580153
     ```
 
-    > Ostatecznie najlepiej klasyfikuje model KNN z $K=1$.
+    > Ostatecznie najlepiej klasyfikuje model KNN z $K=1$ ale ze zmniejszoną liczbą zmiennych: `nox`, `rad`.
