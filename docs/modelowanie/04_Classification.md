@@ -562,7 +562,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     > Najlepiej działają: regresja logistyczna i LDA. Obie metody klasyfikują najpoprawniej.
     
-    (j) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you should also experiment with values for K in the KNN classifier.
+    (j) Experiment with different combinations of predictors, including possible transformations and interactions, for each of the methods. Report the variables, method, and associated confusion matrix that appears to provide the best results on the held out data. Note that you should also experiment with values for $K$ in the KNN classifier.
 
     ```R
     # LDA
@@ -727,7 +727,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     [1] 0.08333333
     ```
     
-    (h) Perform KNN on the training data, with several values of K, in order to predict `mpg01`. Use only the variables that seemed most associated with `mpg01` in (b). What test errors do you obtain? Which value of K seems to perform the best on this data set?
+    (h) Perform KNN on the training data, with several values of $K$, in order to predict `mpg01`. Use only the variables that seemed most associated with `mpg01` in (b). What test errors do you obtain? Which value of $K$ seems to perform the best on this data set?
 
     ```R
     library(class)
@@ -747,3 +747,92 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     ```
 
     ![](img/04_14h.png)
+
+15. This problem involves writing functions.
+
+    (a) Write a function, `Power()`, that prints out the result of raising 2 to the 3rd power. In other words, your function should compute $2^3$ and print out the results.
+
+    _Hint: Recall that `x^a` raises `x` to the power `a`. Use the `print()` function to output the result._
+
+    ```R
+    Power <- function() print(2^3)
+    ```
+
+    (b) Create a new function, `Power2()`, that allows you to pass _any_ two numbers, `x` and `a`, and prints out the value of `x^a`. You can do this by beginning your function with the line
+
+    ```R
+    > Power2 <- function(x, a) {
+    ```
+
+    You should be able to call your function by entering, for instance,
+    
+    ```R
+    > Power2(3, 8)
+    ```
+    
+    on the command line. This should output the value of $3^8$, namely, 6,561.
+
+    ```R
+    Power2 <- function(x, a) {
+      print(x^a)
+    }
+    Power2(3,8)
+    ```
+
+    ```R
+    [1] 6561
+    ```
+
+    (c) Using the `Power2()` function that you just wrote, compute $10^3$, $8^{17}$, and $131^3$.
+
+    ```R
+    > Power2(10,3)
+    [1] 1000
+    > Power2(8,17)
+    [1] 2.2518e+15
+    > Power2(131,3)
+    [1] 2248091
+    ```
+
+    (d) Now create a new function, `Power3()`, that actually _returns_ the result `x^a` as an `R` object, rather than simply printing it to the screen. That is, if you store the value `x^a` in an object called `result` within your function, then you can simply `return()` this result, using the following line:
+
+    ```R
+    return(result)
+    ```
+
+    The line above should be the last line in your function, before the `}` symbol.
+
+    ```R
+    Power3 <- function(x, a) {
+      result <- x^a
+      return(result)
+    }
+    ```
+
+    (e) Now using the `Power3()` function, create a plot of $f (x) = x^2$. The $x$-axis should display a range of integers from 1 to 10, and the $y$-axis should display $x^2$. Label the axes appropriately, and use an appropriate title for the figure. Consider displaying either the $x$-axis, the $y$-axis, or both on the log-scale. You can do this by using `log = "x"`, `log = "y"`, or `log = "xy"` as arguments to the `plot()` function.
+
+    ```R
+    plot(1:10, Power3(1:10, 2),
+         xlab = "x",
+         ylab = expression(paste("x"^"2")),
+         log = "xy"
+    )
+    ```
+
+    (f) Create a function, `PlotPower()`, that allows you to create a plot of `x` against `x^a` for a fixed `a` and for a range of values of `x`. For instance, if you call
+
+    ```R
+    > PlotPower(1:10 , 3)
+    ```
+
+    then a plot should be created with an $x$-axis taking on values $1$, $2$, . . . ,$10$, and a $y$-axis taking on values $1^3$, $2^3$, . . . ,$10^3$.
+
+    ```R
+    PlotPower <- function(x, a) {
+      plot(x, Power3(x, a),
+           xlab = "x",
+           ylab = substitute("x"^a, list(a = a)),
+           log = "xy"
+      )
+    }
+    ```
