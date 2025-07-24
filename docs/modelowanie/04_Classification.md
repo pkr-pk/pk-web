@@ -836,3 +836,246 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
       )
     }
     ```
+
+16. Using the `Boston` data set, fit classification models in order to predict whether a given census tract has a crime rate above or below the median. Explore logistic regression, LDA, naive Bayes, and KNN models using various subsets of the predictors. Describe your findings.
+
+    _Hint: You will have to create the response variable yourself, using the variables that are contained in the `Boston` data set._
+
+    ```R
+    library(ISLR2)
+    library(MASS)
+    library(e1071)
+    library(class)
+    attach(Boston)
+    hcrim_ind <- data.frame("hcrim" = Boston$crim > median(Boston$crim))
+    Boston_2 <- cbind(Boston[, -1], data.frame("hcrim" = hcrim_ind))
+
+    set.seed(1)
+    train <- sample(Boston_2$hcrim, nrow(Boston_2) * 2 / 3)
+
+    cor(Boston_2)
+
+    # Logistic Regression
+
+    fit.log <- glm(hcrim ~ ., data = Boston_2[train, ], family = binomial)
+    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.9007634
+    ```
+
+    ```R
+    summary(fit.log)
+    ```
+
+    ```R
+    Call:
+    glm(formula = hcrim ~ ., family = binomial, data = Boston_2[train, 
+        ])
+
+    Coefficients:
+                Estimate Std. Error z value Pr(>|z|)    
+    (Intercept) -11.241360  13.196360  -0.852  0.39430    
+    zn           -0.132952   0.065654  -2.025  0.04286 *  
+    indus        -0.063790   0.081037  -0.787  0.43118    
+    chas          0.738854   1.099682   0.672  0.50166    
+    nox          49.969089  12.052130   4.146 3.38e-05 ***
+    rm           -1.027092   1.328245  -0.773  0.43936    
+    age           0.038082   0.020456   1.862  0.06265 .  
+    dis           0.676314   0.415199   1.629  0.10334    
+    rad           0.727380   0.242918   2.994  0.00275 ** 
+    tax          -0.004902   0.005278  -0.929  0.35304    
+    ptratio       0.580104   0.251369   2.308  0.02101 *  
+    black        -0.082943   0.031055  -2.671  0.00756 ** 
+    lstat        -0.016402   0.085840  -0.191  0.84847    
+    medv          0.259412   0.132911   1.952  0.05097 .  
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    (Dispersion parameter for binomial family taken to be 1)
+
+        Null deviance: 338.19  on 243  degrees of freedom
+    Residual deviance:  88.76  on 230  degrees of freedom
+    AIC: 116.76
+
+    Number of Fisher Scoring iterations: 9
+    ```
+
+    > Usunę zmienne dla których $p$-value jest za wysokie
+
+    ```R
+    fit.log <- glm(hcrim ~ zn + nox + age + rad + ptratio + black + medv, data = Boston_2[train, ], family = binomial)
+    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.8664122
+    ```
+
+    ```R
+    summary(fit.log)
+    ```
+
+    ```R
+    Call:
+    glm(formula = hcrim ~ zn + nox + age + rad + ptratio + black + 
+        medv, family = binomial, data = Boston_2[train, ])
+
+    Coefficients:
+                Estimate Std. Error z value Pr(>|z|)    
+    (Intercept) -4.92352   10.16471  -0.484 0.628121    
+    zn          -0.08096    0.04544  -1.782 0.074786 .  
+    nox         27.90504    6.49764   4.295 1.75e-05 ***
+    age          0.01496    0.01282   1.168 0.242916    
+    rad          0.64605    0.18003   3.589 0.000332 ***
+    ptratio      0.42044    0.19446   2.162 0.030606 *  
+    black       -0.06563    0.02463  -2.665 0.007701 ** 
+    medv         0.14621    0.05588   2.616 0.008892 ** 
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    (Dispersion parameter for binomial family taken to be 1)
+
+        Null deviance: 338.190  on 243  degrees of freedom
+    Residual deviance:  97.204  on 236  degrees of freedom
+    AIC: 113.2
+
+    Number of Fisher Scoring iterations: 9
+    ```
+
+    > Jeszcze raz to samo
+
+    ```R
+    fit.log <- glm(hcrim ~ zn + nox + rad + ptratio + black + medv, data = Boston_2[train, ], family = binomial)
+    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.8740458
+    ```
+
+    > Jak na razie model zawierający wszystkie zmienne jest najlepszy, zostawię w modelu zmienne, które mają najwyższą korelację.
+
+    ```R
+    cor(Boston_2)
+    ```
+
+    ```R
+                     zn       indus         chas         nox          rm         age
+    zn       1.00000000 -0.53382819 -0.042696719 -0.51660371  0.31199059 -0.56953734
+    indus   -0.53382819  1.00000000  0.062938027  0.76365145 -0.39167585  0.64477851
+    chas    -0.04269672  0.06293803  1.000000000  0.09120281  0.09125123  0.08651777
+    nox     -0.51660371  0.76365145  0.091202807  1.00000000 -0.30218819  0.73147010
+    rm       0.31199059 -0.39167585  0.091251225 -0.30218819  1.00000000 -0.24026493
+    age     -0.56953734  0.64477851  0.086517774  0.73147010 -0.24026493  1.00000000
+    dis      0.66440822 -0.70802699 -0.099175780 -0.76923011  0.20524621 -0.74788054
+    rad     -0.31194783  0.59512927 -0.007368241  0.61144056 -0.20984667  0.45602245
+    tax     -0.31456332  0.72076018 -0.035586518  0.66802320 -0.29204783  0.50645559
+    ptratio -0.39167855  0.38324756 -0.121515174  0.18893268 -0.35550149  0.26151501
+    black    0.17552032 -0.35697654  0.048788485 -0.38005064  0.12806864 -0.27353398
+    lstat   -0.41299457  0.60379972 -0.053929298  0.59087892 -0.61380827  0.60233853
+    medv     0.36044534 -0.48372516  0.175260177 -0.42732077  0.69535995 -0.37695457
+    hcrim   -0.43615103  0.60326017  0.070096774  0.72323480 -0.15637178  0.61393992
+                    dis          rad         tax    ptratio       black      lstat
+    zn       0.66440822 -0.311947826 -0.31456332 -0.3916785  0.17552032 -0.4129946
+    indus   -0.70802699  0.595129275  0.72076018  0.3832476 -0.35697654  0.6037997
+    chas    -0.09917578 -0.007368241 -0.03558652 -0.1215152  0.04878848 -0.0539293
+    nox     -0.76923011  0.611440563  0.66802320  0.1889327 -0.38005064  0.5908789
+    rm       0.20524621 -0.209846668 -0.29204783 -0.3555015  0.12806864 -0.6138083
+    age     -0.74788054  0.456022452  0.50645559  0.2615150 -0.27353398  0.6023385
+    dis      1.00000000 -0.494587930 -0.53443158 -0.2324705  0.29151167 -0.4969958
+    rad     -0.49458793  1.000000000  0.91022819  0.4647412 -0.44441282  0.4886763
+    tax     -0.53443158  0.910228189  1.00000000  0.4608530 -0.44180801  0.5439934
+    ptratio -0.23247054  0.464741179  0.46085304  1.0000000 -0.17738330  0.3740443
+    black    0.29151167 -0.444412816 -0.44180801 -0.1773833  1.00000000 -0.3660869
+    lstat   -0.49699583  0.488676335  0.54399341  0.3740443 -0.36608690  1.0000000
+    medv     0.24992873 -0.381626231 -0.46853593 -0.5077867  0.33346082 -0.7376627
+    hcrim   -0.61634164  0.619786249  0.60874128  0.2535684 -0.35121093  0.4532627
+                medv       hcrim
+    zn       0.3604453 -0.43615103
+    indus   -0.4837252  0.60326017
+    chas     0.1752602  0.07009677
+    nox     -0.4273208  0.72323480
+    rm       0.6953599 -0.15637178
+    age     -0.3769546  0.61393992
+    dis      0.2499287 -0.61634164
+    rad     -0.3816262  0.61978625
+    tax     -0.4685359  0.60874128
+    ptratio -0.5077867  0.25356836
+    black    0.3334608 -0.35121093
+    lstat   -0.7376627  0.45326273
+    medv     1.0000000 -0.26301673
+    hcrim   -0.2630167  1.00000000
+    ```
+
+    ```R
+    fit.log <- glm(hcrim ~ nox + rad, data = Boston_2[train, ], family = binomial)
+    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.8587786
+    ```
+
+    > Brak poprawy względem modelu zawierającego wszystkie zmienne.
+
+    ```R
+    # LDA
+
+    fit.lda <- lda(hcrim ~ ., data = Boston_2[train,])
+    fit.lda.pred <- predict(fit.lda, Boston_2[!train,], type = "response")$class
+    t <- table(fit.lda.pred, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.851145
+    ```
+
+    ```R
+    # Naive Bayes
+
+    fit.bayes <- naiveBayes(hcrim ~ ., data = Boston_2[train, ])
+    fit.bayes.pred <- predict(fit.bayes, Boston_2[!train, ], type = "class")
+    t <- table(fit.bayes.pred, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.8358779
+    ```
+
+    ```R
+    # KNN
+
+    set.seed(1)
+    res <- sapply(1:50, function(k) {
+    fit <- knn(
+        Boston_2[train, 2:4, drop = FALSE],
+        Boston_2[!train, 2:4, drop = FALSE],
+        Boston_2$hcrim[train],
+        k = k
+    )
+    t <- table(fit, Boston_2[!train, ]$hcrim)
+    sum(diag(t)) / sum(t)
+    })
+
+    which.max(res)
+    res[which.max(res)]
+    ```
+
+    ```R
+    [1] 1
+    [1] 0.9618321
+    ```
+
+    > Ostatecznie najlepiej klasyfikuje model KNN z $K=1$.
