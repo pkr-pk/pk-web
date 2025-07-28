@@ -116,3 +116,9 @@ nav_order: 3
     ```
 
     Comment on the results obtained.
+
+    ```R
+    [1] 0.6339
+    ```
+
+    > Zgodnie z oczekiwaniem prawdopodobieństwo jest bliskie 0.63.
