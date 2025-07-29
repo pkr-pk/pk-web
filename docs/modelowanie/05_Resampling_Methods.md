@@ -122,3 +122,19 @@ nav_order: 3
     ```
 
     > Zgodnie z oczekiwaniem prawdopodobieństwo jest bliskie 0.63.
+
+3. We now review $k$-fold cross-validation.
+    
+    (a) Explain how $k$-fold cross-validation is implemented.
+
+    > W walidacji $k$-fold zbiór danych treningowych jest losowo dzielony na $k$ grup o jednakowym rozmiarze. Pierwsza grupa jest traktowana jako zbiór testowy, model jest dopasowywany do pozostałych $k-1$ grup, są to zbiory treningowe. MSE jest obliczane używając zbioru testowego. Procedura jest powtarzana $k$ razy, za każdym podejściem zbiór testowy i zbiory treningowe są inne. Ostatecznie obliczany jest średni MSE i jest to wynik końcowy procedury.
+
+    (b) What are the advantages and disadvantages of $k$-fold cross-validation relative to:
+    
+    i. The validation set approach?
+
+    > W tym przypadku trenujemy model na małej porcji danych, ponieważ musimy podzielić dane na zbiór treningowy i testowy. Może to powodować zawyżenie test error rate. Metoda jest też czuła na to które dane znajdą się w zbiorze treningowym i testowym. Zaletą jest niski koszt obliczeniowy dzięki czemu zyskujemy na szybkości.
+    
+    ii. LOOCV?
+
+    > W tym przypadku trenujemy model na $n-1$ obserwacjach, kolejne modele są jednak trenowane na bardzo podobnych zbiorach bo za każdym razem usuwamy tylko jedną obserwację. W rezultacie LOOCV może mieć wysoką wariancję, kolejną wadą jest też wysoki koszt obliczeniowy.
