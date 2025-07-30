@@ -665,7 +665,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     ```R
     set.seed(1)
-    train <- sample(Auto_2$mpg01, nrow(Auto_2) * 2 / 3)
+    train <- sample(nrow(Auto_2), nrow(Auto_2) * 2 / 3)
     ```
 
     (d) Perform LDA on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
@@ -675,13 +675,13 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     attach(Auto_2)
     fit.lda <- lda(mpg01 ~ cylinders + displacement + weight,
                    data = Auto_2[train,])
-    fit.lda.pred <- predict(fit.lda, Auto_2[!train,], type = "response")$class
-    t <- table(fit.lda.pred, Auto_2[!train, ]$mpg01)
+    fit.lda.pred <- predict(fit.lda, Auto_2[-train,], type = "response")$class
+    t <- table(fit.lda.pred, Auto_2[-train, ]$mpg01)
     1 - sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.09895833
+    [1] 0.1068702
     ```
 
     (e) Perform QDA on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
@@ -689,13 +689,13 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     ```R
     fit.qda <- qda(mpg01 ~ cylinders + displacement + weight,
                    data = Auto_2[train,])
-    fit.qda.pred <- predict(fit.qda, Auto_2[!train,], type = "response")$class
-    t <- table(fit.qda.pred, Auto_2[!train, ]$mpg01)
+    fit.qda.pred <- predict(fit.qda, Auto_2[-train,], type = "response")$class
+    t <- table(fit.qda.pred, Auto_2[-train, ]$mpg01)
     1 - sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.08854167
+    [1] 0.09923664
     ```
 
     (f) Perform logistic regression on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
@@ -703,13 +703,13 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     ```R
     fit.log <- glm(mpg01 ~ cylinders + displacement + weight, 
                    data = Auto_2[train, ], family = binomial)
-    fit.log.pred <- predict(fit.log, Auto_2[!train, ], type = "response") > 0.5
-    t <- table(fit.log.pred, Auto_2[!train, ]$mpg01)
+    fit.log.pred <- predict(fit.log, Auto_2[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Auto_2[-train, ]$mpg01)
     1 - sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.1041667
+    [1] 0.1145038
     ```
     
     (g) Perform naive Bayes on the training data in order to predict `mpg01` using the variables that seemed most associated with `mpg01` in (b). What is the test error of the model obtained?
@@ -718,28 +718,27 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     library(e1071)
     fit.bayes <- naiveBayes(mpg01 ~ cylinders + displacement + weight,
                             data = Auto_2[train, ])
-    fit.bayes.pred <- predict(fit.bayes, Auto_2[!train, ], type = "class")
-    t <- table(fit.bayes.pred, Auto_2[!train, ]$mpg01)
+    fit.bayes.pred <- predict(fit.bayes, Auto_2[-train, ], type = "class")
+    t <- table(fit.bayes.pred, Auto_2[-train, ]$mpg01)
     1- sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.08333333
+    [1] 0.09923664
     ```
     
     (h) Perform KNN on the training data, with several values of $K$, in order to predict `mpg01`. Use only the variables that seemed most associated with `mpg01` in (b). What test errors do you obtain? Which value of $K$ seems to perform the best on this data set?
 
     ```R
     library(class)
-    set.seed(1)
     res <- sapply(1:50, function(k) {
     fit <- knn(
         Auto_2[train, 2:4, drop = FALSE],
-        Auto_2[!train, 2:4, drop = FALSE],
+        Auto_2[-train, 2:4, drop = FALSE],
         Auto_2$mpg01[train],
         k = k
     )
-    t <- table(fit, Auto_2[!train, ]$mpg01)
+    t <- table(fit, Auto_2[-train, ]$mpg01)
     1 - sum(diag(t)) / sum(t)
     })
 
@@ -851,20 +850,18 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     Boston_2 <- cbind(Boston[, -1], data.frame("hcrim" = hcrim_ind))
 
     set.seed(1)
-    train <- sample(Boston_2$hcrim, nrow(Boston_2) * 2 / 3)
-
-    cor(Boston_2)
+    train <- sample(nrow(Boston_2), nrow(Boston_2) * 2 / 3)
 
     # Logistic Regression
 
     fit.log <- glm(hcrim ~ ., data = Boston_2[train, ], family = binomial)
-    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
-    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    fit.log.pred <- predict(fit.log, Boston_2[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[-train, ]$hcrim)
     sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.9007634
+    [1] 0.8934911
     ```
 
     ```R
@@ -877,29 +874,29 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
         ])
 
     Coefficients:
-                Estimate Std. Error z value Pr(>|z|)    
-    (Intercept) -11.241360  13.196360  -0.852  0.39430    
-    zn           -0.132952   0.065654  -2.025  0.04286 *  
-    indus        -0.063790   0.081037  -0.787  0.43118    
-    chas          0.738854   1.099682   0.672  0.50166    
-    nox          49.969089  12.052130   4.146 3.38e-05 ***
-    rm           -1.027092   1.328245  -0.773  0.43936    
-    age           0.038082   0.020456   1.862  0.06265 .  
-    dis           0.676314   0.415199   1.629  0.10334    
-    rad           0.727380   0.242918   2.994  0.00275 ** 
-    tax          -0.004902   0.005278  -0.929  0.35304    
-    ptratio       0.580104   0.251369   2.308  0.02101 *  
-    black        -0.082943   0.031055  -2.671  0.00756 ** 
-    lstat        -0.016402   0.085840  -0.191  0.84847    
-    medv          0.259412   0.132911   1.952  0.05097 .  
+                  Estimate Std. Error z value Pr(>|z|)    
+    (Intercept) -41.102896   8.235788  -4.991 6.01e-07 ***
+    zn           -0.097831   0.046507  -2.104 0.035418 *  
+    indus        -0.065145   0.059410  -1.097 0.272845    
+    chas          0.255958   0.809541   0.316 0.751868    
+    nox          55.531358  10.386451   5.347 8.97e-08 ***
+    rm           -0.729283   0.938617  -0.777 0.437173    
+    age           0.022038   0.014381   1.532 0.125420    
+    dis           1.116906   0.312413   3.575 0.000350 ***
+    rad           0.680671   0.196508   3.464 0.000533 ***
+    tax          -0.005462   0.003226  -1.693 0.090489 .  
+    ptratio       0.335403   0.163873   2.047 0.040686 *  
+    black        -0.010103   0.005428  -1.861 0.062684 .  
+    lstat         0.126713   0.060729   2.087 0.036930 *  
+    medv          0.237806   0.093429   2.545 0.010918 *  
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
     (Dispersion parameter for binomial family taken to be 1)
 
-        Null deviance: 338.19  on 243  degrees of freedom
-    Residual deviance:  88.76  on 230  degrees of freedom
-    AIC: 116.76
+        Null deviance: 467.04  on 336  degrees of freedom
+    Residual deviance: 131.91  on 323  degrees of freedom
+    AIC: 159.91
 
     Number of Fisher Scoring iterations: 9
     ```
@@ -907,14 +904,15 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     > Usunę zmienne dla których $p$-value jest za wysokie
 
     ```R
-    fit.log <- glm(hcrim ~ zn + nox + age + rad + ptratio + black + medv, data = Boston_2[train, ], family = binomial)
-    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
-    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    fit.log <- glm(hcrim ~ zn + nox + dis + rad + tax + ptratio + black +
+                   lstat + medv, data = Boston_2[train, ], family = binomial)
+    fit.log.pred <- predict(fit.log, Boston_2[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[-train, ]$hcrim)
     sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.8664122
+    [1] 0.8698225
     ```
 
     ```R
@@ -923,42 +921,32 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     ```R
     Call:
-    glm(formula = hcrim ~ zn + nox + age + rad + ptratio + black + 
-        medv, family = binomial, data = Boston_2[train, ])
+    glm(formula = hcrim ~ zn + nox + dis + rad + tax + ptratio + 
+        black + lstat + medv, family = binomial, data = Boston_2[train, 
+        ])
 
     Coefficients:
-                Estimate Std. Error z value Pr(>|z|)    
-    (Intercept) -4.92352   10.16471  -0.484 0.628121    
-    zn          -0.08096    0.04544  -1.782 0.074786 .  
-    nox         27.90504    6.49764   4.295 1.75e-05 ***
-    age          0.01496    0.01282   1.168 0.242916    
-    rad          0.64605    0.18003   3.589 0.000332 ***
-    ptratio      0.42044    0.19446   2.162 0.030606 *  
-    black       -0.06563    0.02463  -2.665 0.007701 ** 
-    medv         0.14621    0.05588   2.616 0.008892 ** 
+                  Estimate Std. Error z value Pr(>|z|)    
+    (Intercept) -38.372956   7.524892  -5.099 3.41e-07 ***
+    zn           -0.099362   0.042410  -2.343  0.01914 *  
+    nox          49.956044   8.616373   5.798 6.72e-09 ***
+    dis           0.924759   0.287264   3.219  0.00129 ** 
+    rad           0.738887   0.178274   4.145 3.40e-05 ***
+    tax          -0.006690   0.002895  -2.311  0.02085 *  
+    ptratio       0.277096   0.139538   1.986  0.04705 *  
+    black        -0.009730   0.005274  -1.845  0.06504 .  
+    lstat         0.131937   0.055537   2.376  0.01752 *  
+    medv          0.164220   0.050523   3.250  0.00115 ** 
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
     (Dispersion parameter for binomial family taken to be 1)
 
-        Null deviance: 338.190  on 243  degrees of freedom
-    Residual deviance:  97.204  on 236  degrees of freedom
-    AIC: 113.2
+        Null deviance: 467.04  on 336  degrees of freedom
+    Residual deviance: 136.04  on 327  degrees of freedom
+    AIC: 156.04
 
     Number of Fisher Scoring iterations: 9
-    ```
-
-    > Jeszcze raz to samo
-
-    ```R
-    fit.log <- glm(hcrim ~ zn + nox + rad + ptratio + black + medv, data = Boston_2[train, ], family = binomial)
-    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
-    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
-    sum(diag(t)) / sum(t)
-    ```
-
-    ```R
-    [1] 0.8740458
     ```
 
     > Jak na razie model zawierający wszystkie zmienne jest najlepszy, zostawię w modelu zmienne, które mają najwyższą korelację.
@@ -1017,13 +1005,13 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     ```R
     fit.log <- glm(hcrim ~ nox + rad, data = Boston_2[train, ], family = binomial)
-    fit.log.pred <- predict(fit.log, Boston_2[!train, ], type = "response") > 0.5
-    t <- table(fit.log.pred, Boston_2[!train, ]$hcrim)
+    fit.log.pred <- predict(fit.log, Boston_2[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Boston_2[-train, ]$hcrim)
     sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.8587786
+    [1] 0.8579882
     ```
 
     > Brak poprawy względem modelu zawierającego wszystkie zmienne.
@@ -1032,26 +1020,26 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     # LDA
 
     fit.lda <- lda(hcrim ~ ., data = Boston_2[train,])
-    fit.lda.pred <- predict(fit.lda, Boston_2[!train,], type = "response")$class
-    t <- table(fit.lda.pred, Boston_2[!train, ]$hcrim)
+    fit.lda.pred <- predict(fit.lda, Boston_2[-train,], type = "response")$class
+    t <- table(fit.lda.pred, Boston_2[-train, ]$hcrim)
     sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.851145
+    [1] 0.8402367
     ```
 
     ```R
     # Naive Bayes
 
     fit.bayes <- naiveBayes(hcrim ~ ., data = Boston_2[train, ])
-    fit.bayes.pred <- predict(fit.bayes, Boston_2[!train, ], type = "class")
-    t <- table(fit.bayes.pred, Boston_2[!train, ]$hcrim)
+    fit.bayes.pred <- predict(fit.bayes, Boston_2[-train, ], type = "class")
+    t <- table(fit.bayes.pred, Boston_2[-train, ]$hcrim)
     sum(diag(t)) / sum(t)
     ```
 
     ```R
-    [1] 0.8358779
+    [1] 0.8047337
     ```
 
     ```R
@@ -1061,11 +1049,11 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
     res <- sapply(1:50, function(k) {
       fit <- knn(
         Boston_2[train, c("nox", "rad"), drop = FALSE],
-        Boston_2[!train, c("nox", "rad"), drop = FALSE],
+        Boston_2[-train, c("nox", "rad"), drop = FALSE],
         Boston_2$hcrim[train],
         k = k
     )
-      t <- table(fit, Boston_2[!train, ]$hcrim)
+      t <- table(fit, Boston_2[-train, ]$hcrim)
       sum(diag(t)) / sum(t)
     })
 
@@ -1075,7 +1063,7 @@ training data and 30% on the test data. Next we use 1-nearest neighbors (i.e. $K
 
     ```R
     [1] 1
-    [1] 0.9580153
+    [1] 0.9704142
     ```
 
     > Ostatecznie najlepiej klasyfikuje model KNN z $K=1$ ale ze zmniejszoną liczbą zmiennych: `nox`, `rad`.
