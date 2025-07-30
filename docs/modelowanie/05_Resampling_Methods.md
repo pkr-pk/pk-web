@@ -320,4 +320,85 @@ nav_order: 3
     
     (d) Comment on the estimated standard errors obtained using the `glm()` function and using your bootstrap function.
 
-    >  Odchylenia standardowe w obu metodach są podobne $4.985\cdot10^{6}$ - $4.866284\cdot10^{6}$ dla `income`. $2.274\cdot10^{4}$ - $2.298949\cdot10^{4}$ dla `balance`
+    >  Odchylenia standardowe w obu metodach są podobne $4.985\cdot10^{6}$ - $4.866284\cdot10^{6}$ dla `income`. $2.274\cdot10^{4}$ - $2.298949\cdot10^{4}$ dla `balance`. Dla jednej zmiennej bootstrap daje mniejszy błąd a dla drugiej większy więc w tym przypadku lepiej użyć tradycyjnej metody.
+
+7. In Sections 5.3.2 and 5.3.3, we saw that the `cv.glm()` function can be used in order to compute the LOOCV test error estimate. Alternatively, one could compute those quantities using just the `glm()` and `predict.glm()` functions, and a for loop. You will now take this approach in order to compute the LOOCV error for a simple logistic regression model on the `Weekly` data set. Recall that in the context of classification problems, the LOOCV error is given in (5.4).
+
+    (a) Fit a logistic regression model that predicts `Direction` using `Lag1` and `Lag2`.
+
+    ```R
+    library(ISLR2)
+    fit.log <- glm(Direction ~ Lag1 + Lag2, data = Weekly, family = "binomial")
+    fit.log.pred <- predict(fit.log, Weekly, type = "response") > 0.5
+    t <- table(fit.log.pred, Weekly$Direction)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.5555556
+    ```
+    
+    (b) Fit a logistic regression model that predicts `Direction` using `Lag1` and `Lag2` _using all but the first observation._
+
+    ```R
+    fit.log <- glm(Direction ~ Lag1 + Lag2, data = Weekly[-1, ], family = "binomial")
+    fit.log.pred <- predict(fit.log, Weekly[-1, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Weekly[-1, ]$Direction)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.5569853
+    ```
+    
+    (c) Use the model from (b) to predict the `direction` of the first observation. You can do this by predicting that the first observation will go up if $P($`Direction = "Up"`|`Lag1`, `Lag2`$) > 0.5$. Was this observation correctly classified?
+
+    ```R
+    pred <- predict(fit.log, Weekly[1,], type="response")
+    if(pred > 0.5) "Up" else "Down"
+    ```
+
+    ```R
+    [1] "Up"
+    ```
+
+    ```R
+    Weekly$Direction[1]
+    ```
+
+    ```R
+    [1] Down
+    ```
+
+    > Obserwacja nie została zakwalifikowana poprawnie.
+
+    (d) Write a for loop from $i = 1$ to $i = n$, where $n$ is the number of observations in the data set, that performs each of the following steps:
+    
+    i. Fit a logistic regression model using all but the $i$th observation to predict `Direction` using `Lag1` and `Lag2`.
+    
+    ii. Compute the posterior probability of the market moving up for the $i$th observation.
+    
+    iii. Use the posterior probability for the $i$th observation in order to predict whether or not the market moves up.
+    
+    iv. Determine whether or not an error was made in predicting the `direction` for the $i$th observation. If an error was made, then indicate this as a $1$, and otherwise indicate it as a $0$.
+
+    ```R
+    err <- numeric(nrow(Weekly))
+    for (i in 1:nrow(Weekly)) {
+      fit.log <- glm(Direction ~ Lag1 + Lag2, data = Weekly[-i, ], family = "binomial")
+      p <- predict(fit.log, Weekly[i, ], type="response") > 0.5
+      err[i] <- ifelse(p, "Down", "Up") == Weekly$Direction[i]
+    }
+    ```
+    
+    (e) Take the average of the $n$ numbers obtained in (d)iv in order to obtain the LOOCV estimate for the test error. Comment on the results.
+
+    ```R
+    mean(err)
+    ```
+    
+    ```R
+    [1] 0.4499541
+    ```
+
+    > Model klasyfikuje obserwacje poprawnie w 55% przypadków, nieznacznie lepiej od zgadywania.
