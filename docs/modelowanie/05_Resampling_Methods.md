@@ -177,7 +177,7 @@ nav_order: 3
     train <- sample(nrow(Default), nrow(Default) / 2)
 
     fit.log <- glm(default ~ income + balance, data = Default[train, ],
-                family = binomial)
+                   family = binomial)
     fit.log.pred <- predict(fit.log, Default[-train, ], type = "response") > 0.5
     t <- table(fit.log.pred, Default[-train, ]$default)
     sum(diag(t)) / sum(t)
@@ -188,8 +188,72 @@ nav_order: 3
     ```
     
     (c) Repeat the process in (b) three times, using three different splits of the observations into a training set and a validation set. Comment on the results obtained.
+
+    ```R
+    set.seed(12)
+    train <- sample(nrow(Default), nrow(Default) / 2)
+
+    fit.log <- glm(default ~ income + balance, data = Default[train, ],
+                   family = binomial)
+    fit.log.pred <- predict(fit.log, Default[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Default[-train, ]$default)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.973
+    ```
+
+    ```R
+    set.seed(123)
+    train <- sample(nrow(Default), nrow(Default) / 2)
+
+    fit.log <- glm(default ~ income + balance, data = Default[train, ],
+                   family = binomial)
+    fit.log.pred <- predict(fit.log, Default[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Default[-train, ]$default)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.9724
+    ```
+
+    ```R
+    set.seed(1234)
+    train <- sample(nrow(Default), nrow(Default) / 2)
+
+    fit.log <- glm(default ~ income + balance, data = Default[train, ],
+                   family = binomial)
+    fit.log.pred <- predict(fit.log, Default[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Default[-train, ]$default)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.9748
+    ```
+
+    > Wynik za każdym razem się zmienia bo zależy od wyboru zbioru treningowego i testowego.
     
     (d) Now consider a logistic regression model that predicts the probability of `default` using `income`, `balance`, and a dummy variable for `student`. Estimate the test error for this model using the validation set approach. Comment on whether or not including a dummy variable for `student` leads to a reduction in the test error rate.
+
+    ```R
+    set.seed(1)
+    train <- sample(nrow(Default), nrow(Default) / 2)
+
+    fit.log <- glm(default ~ income + balance + student, data = Default[train, ],
+                   family = binomial)
+    fit.log.pred <- predict(fit.log, Default[-train, ], type = "response") > 0.5
+    t <- table(fit.log.pred, Default[-train, ]$default)
+    sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.974
+    ```
+
+    > Można powtórzyć dopasowanie kilka razy dla różnych ziaren ale wprowadzenie dodatkowej zmiennej do modelu nie powoduje widocznej poprawy.
 
 6. We continue to consider the use of a logistic regression model to predict the probability of `default` using `income` and `balance` on the `Default` data set. In particular, we will now compute estimates for the standard errors of the `income` and `balance` logistic regression coefficients in two different ways: (1) using the bootstrap, and (2) using the standard formula for computing the standard errors in the `glm()` function. Do not forget to set a random seed before beginning your analysis.
 
