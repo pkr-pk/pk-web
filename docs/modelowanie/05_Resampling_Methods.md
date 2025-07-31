@@ -417,7 +417,7 @@ nav_order: 3
 
     > $n = 100$ - liczebność próbki
     >
-    > $p = 1$ - liczba zmiennych objaśniających
+    > $p = 2$ - liczba zmiennych objaśniających
     >
     > $Y = -2X^2+ X + \epsilon$
     
