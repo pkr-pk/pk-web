@@ -351,7 +351,7 @@ nav_order: 3
     [1] 0.5569853
     ```
     
-    (c) Use the model from (b) to predict the `direction` of the first observation. You can do this by predicting that the first observation will go up if $P($`Direction = "Up"`|`Lag1`, `Lag2`$) > 0.5$. Was this observation correctly classified?
+    (c) Use the model from (b) to predict the `direction` of the first observation. You can do this by predicting that the first observation will go up if $P($`Direction = "Up"`$|$`Lag1`, `Lag2`$) > 0.5$. Was this observation correctly classified?
 
     ```R
     pred <- predict(fit.log, Weekly[1,], type="response")
