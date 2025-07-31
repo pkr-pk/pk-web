@@ -408,9 +408,9 @@ nav_order: 3
     (a) Generate a simulated data set as follows:
 
     ```R
-    > set.seed (1)
-    > x <- rnorm (100)
-    > y <- x - 2 * x^2 + rnorm (100)
+    > set.seed(1)
+    > x <- rnorm(100)
+    > y <- x - 2 * x^2 + rnorm(100)
     ```
 
     In this data set, what is $n$ and what is $p$? Write out the model used to generate the data in equation form.
