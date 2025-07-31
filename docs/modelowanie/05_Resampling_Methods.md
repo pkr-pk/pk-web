@@ -516,3 +516,163 @@ nav_order: 3
     ```
 
     > Na podstawie $p$-value widać, że istotne statystycznie są współczynniki $\beta_0$, $\beta_1$ i $\beta_2$
+
+9. We will now consider the `Boston` housing data set, from the `ISLR2` library.
+    
+    (a) Based on this data set, provide an estimate for the population mean of `medv`. Call this estimate $\hat{\mu}$.
+
+    ```R
+    mean(medv)
+    ```
+
+    ```R
+    [1] 22.53281
+    ```
+    
+    (b) Provide an estimate of the standard error of $\hat{\mu}$. Interpret this result.
+
+    _Hint: We can compute the standard error of the sample mean by dividing the sample standard deviation by the square root of the number of observations._
+
+    ```R
+    sd(medv) / sqrt(length(medv))
+    ```
+
+    ```R
+    [1] 0.4088611
+    ```
+    
+    (c) Now estimate the standard error of $\hat{\mu}$ using the bootstrap. How does this compare to your answer from (b)?
+
+    ```R
+    library(boot)
+    boot.fn = function(data, index) {
+      x <- data$medv[index]
+      mean(x)
+    }
+    set.seed(1)
+    bs <- boot(Boston, boot.fn, 10000)
+    bs 
+    ```
+
+    ```R
+    ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+    Call:
+    boot(data = Boston, statistic = boot.fn, R = 10000)
+
+
+    Bootstrap Statistics :
+        original       bias    std. error
+    t1* 22.53281 -0.002350771   0.4069546
+    ```
+
+    > Błąd oszacowania średniej metodą bootstrap jest bardzo bliski do błedu obliczonego na podstawie danych.
+
+    (d) Based on your bootstrap estimate from (c), provide a 95% confidence interval for the mean of `medv`. Compare it to the results obtained using `t.test(Boston$medv)`.
+    
+    _Hint: You can approximate a 95% confidence interval using the formula $[\hat{\mu}− 2\text{SE}(\hat{\mu}),\hat{\mu} + 2\text{SE}(\hat{\mu})]$._
+
+    ```R
+    mu <- bs$t0
+    se <- sd(bs$t)
+    c(mu - 2 * se, mu + 2 * se)
+    ```
+
+    ```R
+    [1] 21.72232 23.34329
+    ```
+
+    ```R
+    t.test(medv)
+    ```
+
+    ```R
+            One Sample t-test
+
+    data:  medv
+    t = 55.111, df = 505, p-value < 2.2e-16
+    alternative hypothesis: true mean is not equal to 0
+    95 percent confidence interval:
+     21.72953 23.33608
+    sample estimates:
+    mean of x 
+     22.53281
+    ```
+
+    > Przedział z bootstrap jest bliski przedziałowi obliczonemu na podstawie próbki.
+    
+    (e) Based on this data set, provide an estimate, $\hat{\mu}_{med}$, for the median value of `medv` in the population.
+
+    ```R
+    median(medv)
+    ```
+
+    ```R
+    [1] 21.2
+    ```
+    
+    (f) We now would like to estimate the standard error of $\hat{\mu}_{med}$. Unfortunately, there is no simple formula for computing the standard error of the median. Instead, estimate the standard error of the median using the bootstrap. Comment on your findings.
+
+    ```R
+    boot.fn = function(data, index) {
+      x <- data$medv[index]
+      median(x)
+    }
+    set.seed(1)
+    bs <- boot(Boston, boot.fn, 10000)
+    bs
+    ```
+
+    ```R
+        ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+    Call:
+    boot(data = Boston, statistic = boot.fn, R = 10000)
+
+
+    Bootstrap Statistics :
+        original    bias    std. error
+    t1*     21.2 -0.014705   0.3780355
+    ```
+
+    > Błąd jest niski w stosunku do estymowanej wartości.
+
+    (g) Based on this data set, provide an estimate for the tenth percentile of `medv` in Boston census tracts. Call this quantity $\hat{\mu}_{0.1}$. (You can use the `quantile()` function.)
+
+    ```R
+    quantile(medv, 0.1)
+    ```
+
+    ```R
+      10% 
+    12.75 
+    ```
+    
+    (h) Use the bootstrap to estimate the standard error of $\hat{\mu}_{0.1}$. Comment on your findings.
+
+    ```R
+    boot.fn = function(data, index){
+      x <- data$medv[index]
+      quantile(x, 0.1)
+    }
+    set.seed(1)
+    bs <- boot(Boston, boot.fn, 10000)
+    bs
+    ```
+
+    ```R
+    ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+    Call:
+    boot(data = Boston, statistic = boot.fn, R = 10000)
+
+
+    Bootstrap Statistics :
+        original   bias    std. error
+    t1*    12.75 0.007625   0.5014507
+    ```
+
+    > Błąd jest niski w stosunku do estymowanej wartości.
