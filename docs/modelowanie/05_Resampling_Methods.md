@@ -402,3 +402,117 @@ nav_order: 3
     ```
 
     > Model klasyfikuje obserwacje poprawnie w 55% przypadków, nieznacznie lepiej od zgadywania.
+
+8. We will now perform cross-validation on a simulated data set.
+    
+    (a) Generate a simulated data set as follows:
+
+    ```R
+    > set.seed (1)
+    > x <- rnorm (100)
+    > y <- x - 2 * x^2 + rnorm (100)
+    ```
+
+    In this data set, what is $n$ and what is $p$? Write out the model used to generate the data in equation form.
+
+    > $n = 100$ - liczebność próbki
+    >
+    > $p = 1$ - liczba zmiennych objaśniających
+    >
+    > $Y = -2X^2+ X + \epsilon$
+    
+    (b) Create a scatterplot of $X$ against $Y$. Comment on what you find.
+    
+    ![](img/05_8b.png)
+
+    > Zależność nie jest liniowa, jest kwadratowa.
+
+    (c) Set a random seed, and then compute the LOOCV errors that result from fitting the following four models using least squares:
+
+    i. $Y = \beta_0 + \beta_1X + \epsilon$
+    
+    ii. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \epsilon$
+    
+    iii. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \beta_3X^3 + \epsilon$
+    
+    iv. $Y = \beta_0 + \beta_1X + \beta_2X^2 + \beta_3X^3 + \beta_4X^4 + \epsilon$
+    
+    Note you may find it helpful to use the `data.frame()` function to create a single data set containing both $X$ and $Y$.
+
+    ```R
+    library(boot)
+    cv.error <- rep(0, 4)
+    data = data.frame(x, y)
+    for (i in 1:4) {
+      glm.fit <- glm(y ~ poly(x, i), data = data)
+      cv.error[i] <- cv.glm(data, glm.fit)$delta[1]
+    }
+    cv.error
+    ```
+
+    ```R
+    [1] 7.2881616 0.9374236 0.9566218 0.9539049
+    ```
+    
+    (d) Repeat (c) using another random seed, and report your results. Are your results the same as what you got in (c)? Why?
+
+    ```R
+    set.seed(123)
+    x <- rnorm(100)
+    y <- x - 2 * x^2 + rnorm(100)
+
+    cv.error <- rep(0, 4)
+    data_2 = data.frame(x, y)
+    for (i in 1:4) {
+      glm.fit <- glm(y ~ poly(x, i), data = data_2)
+      cv.error[i] <- cv.glm(data_2, glm.fit)$delta[1]
+    }
+    cv.error
+    ```
+
+    ```R
+    [1] 6.9752118 0.9664678 1.0000174 0.9993215
+    ```
+
+    > Wyniki nieznacznie się różnią co jest spowodowane wylosowaniem innego błędu $\epsilon$.
+    
+    (e) Which of the models in (c) had the smallest LOOCV error? Is this what you expected? Explain your answer.
+
+    > Najmniejszy błąd jest dla modelu drugiego, jest to spodziewane ponieważ zależność w danych jest kwadratowa.
+    
+    (f) Comment on the statistical significance of the coefficient estimates that results from fitting each of the models in (c) using least squares. Do these results agree with the conclusions drawn based on the cross-validation results?
+
+    ```R
+    for (i in 1:4) printCoefmat(coef(summary(glm(y ~ poly(x, i), data = data))))
+    ```
+
+    ```R
+                Estimate Std. Error t value  Pr(>|t|)    
+    (Intercept) -1.68329    0.25484 -6.6053 2.066e-09 ***
+    poly(x, i)   4.32330    2.54839  1.6965   0.09297 .  
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+                  Estimate Std. Error t value  Pr(>|t|)    
+    (Intercept)  -1.683288   0.097044 -17.346 < 2.2e-16 ***
+    poly(x, i)1   4.323302   0.970442   4.455 2.249e-05 ***
+    poly(x, i)2 -23.347133   0.970442 -24.058 < 2.2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+                  Estimate Std. Error  t value  Pr(>|t|)    
+    (Intercept)  -1.683288   0.097501 -17.2643 < 2.2e-16 ***
+    poly(x, i)1   4.323302   0.975012   4.4341  2.46e-05 ***
+    poly(x, i)2 -23.347133   0.975012 -23.9455 < 2.2e-16 ***
+    poly(x, i)3   0.297132   0.975012   0.3047    0.7612    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+                  Estimate Std. Error  t value  Pr(>|t|)    
+    (Intercept)  -1.683288   0.097424 -17.2780 < 2.2e-16 ***
+    poly(x, i)1   4.323302   0.974239   4.4376 2.449e-05 ***
+    poly(x, i)2 -23.347133   0.974239 -23.9645 < 2.2e-16 ***
+    poly(x, i)3   0.297132   0.974239   0.3050    0.7610    
+    poly(x, i)4   1.045830   0.974239   1.0735    0.2858    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    ```
+
+    > Na podstawie $p$-value widać, że istotne statystycznie są współczynniki $\beta_0$, $\beta_1$ i $\beta_2$
