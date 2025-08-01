@@ -162,3 +162,19 @@ We will now show that a function of the form
     ```
 
     ![](img/07_3.png)
+
+4. Suppose we fit a curve with basis functions $b_1(X) = I(0 \le X \le 2) - (X-1)I(1 \le X \le 2)$, $b_2(X) = (X-3)I(3 \le X \le 4) + I(4 < X \le 5)$. We fit the linear regression model
+    $$ Y = \beta_0 + \beta_1 b_1(X) + \beta_2 b_2(X) + \epsilon, $$
+
+    and obtain coefficient estimates $\hat{\beta}_0 = 1$, $\hat{\beta}_1 = 1$, $\hat{\beta}_2 = 3$. Sketch the estimated curve between $X = -2$ and $X = 6$. Note the intercepts, slopes, and other relevant information.
+
+    ```R
+    x <- seq(-2, 6, length.out = 1000)
+    b1 <- function(x) I(0 <= x & x <= 2) - (x - 1) * I(1 <= x & x <= 2)
+    b2 <- function(x) (x - 3) * I(3 <= x & x <= 4) + I(4 < x & x <= 5)
+    f <- function(x) 1 + 1 * b1(x) + 3 * b2(x)
+    plot(x, f(x), type = "l")
+    grid()
+    ```
+
+    ![](img/07_4.png)
