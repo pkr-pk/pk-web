@@ -147,3 +147,18 @@ We will now show that a function of the form
     > Ponieważ $\lambda = 0$ to drugi człon znika.
     >
     > W tym przypadku trzeba zminimalizować pierwszy człon, w tym celu można użyć funkcji wielomianowej, stąd $\hat{g}$ jest funkcją wielomianową stopnia co najwyżej $n-1$, która będzie przechodzić przez wszystkie punkty.
+
+3. Suppose we fit a curve with basis functions $b_1(X) = X$, $b_2(X) = (X-1)^2I(X \ge 1)$. (Note that $I(X \ge 1)$ equals 1 for $X \ge 1$ and 0 otherwise.) We fit the linear regression model
+
+    $$ Y = \beta_0 + \beta_1 b_1(X) + \beta_2 b_2(X) + \epsilon, $$
+
+    and obtain coefficient estimates $\hat{\beta}_0 = 1$, $\hat{\beta}_1 = 1$, $\hat{\beta}_2 = -2$. Sketch the estimated curve between $X = -2$ and $X = 2$. Note the intercepts, slopes, and other relevant information.
+
+    ```R
+    x <- seq(-2, 2, length.out = 1000)
+    f <- function(x) 1 + x + -2 * (x - 1)^2 * I(x >= 1)
+    plot(x, f(x), type = "l")
+    grid()
+    ```
+
+    ![](img/07_3.png)
