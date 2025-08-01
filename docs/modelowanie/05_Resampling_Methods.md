@@ -2,7 +2,7 @@
 layout: math
 title: 05 Resampling Methods
 parent: Modelowanie
-nav_order: 3
+nav_order: 4
 ---
 
 # Resampling Methods
