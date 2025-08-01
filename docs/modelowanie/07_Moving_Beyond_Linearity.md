@@ -85,11 +85,7 @@ We will now show that a function of the form
     > $$f'_1(x) = \beta_1 + 2\beta_2x + 3\beta_3x^2$$
     > 
     > $$f'_2(x) = b_2 + 2c_2x + 3d_2x^2$$
-    > 
-    > $$f'_1(\xi) = \beta_1 + 2\beta_2\xi + 3\beta_3\xi^2$$
-    > 
-    > $$f'_2(\xi) = b_2 + 2c_2\xi + 3d_2\xi^2$$
-    > 
+    >
     > $$f'_2(\xi) = (\beta_1 + 3\beta_4\xi^2) + 2(\beta_2 - 3\beta_4\xi)\xi + 3(\beta_3 + \beta_4)\xi^2$$
     > 
     > $$f'_2(\xi) = \beta_1 + 3\beta_4\xi^2 + 2\beta_2\xi - 6\beta_4\xi^2 + 3\beta_3\xi^2 + 3\beta_4\xi^2$$
