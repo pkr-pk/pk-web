@@ -7,8 +7,7 @@ nav_order: 6
 
 # Moving Beyond Linearity
 
-1. It was mentioned in the chapter that a cubic regression spline with one knot at $\xi$ can be obtained using a basis of the form $x$, $x^2$, $x^3$, $(x − \xi)^3_+$, where $(x− \xi)^3_+ = (x - \xi)^3$ if $x > \xi$ and equals 0 otherwise.
-We will now show that a function of the form 
+1. It was mentioned in the chapter that a cubic regression spline with one knot at $\xi$ can be obtained using a basis of the form $x$, $x^2$, $x^3$, $(x − \xi)^3_+ = (x - \xi)^3$ if $x > \xi$ and equals 0 otherwise. We will now show that a function of the form 
 
     $$f(x) = \beta_0 + \beta_1x + \beta_2x^2 + \beta_3x^3 + \beta_4(x − \xi)^3_+$$
 
@@ -94,7 +93,7 @@ We will now show that a function of the form
     > 
     > $$f'_2(\xi) = \beta_1 + 2\beta_2\xi + 3\beta_3\xi^2 = f'_1(\xi)$$
 
-    (e) Show that $f''_1(\xi) = f''_2(\xi)$. That is, $f''(x)$ is continuous at $\xi$.
+    (e) Show that $f_1''(\xi) = f_2''(\xi)$. That is, $f\'\'(x)$ is continuous at $\xi$.
 
     > $$f''_1(x) = 2\beta_2 + 6\beta_3x$$
     > 
@@ -200,3 +199,9 @@ We will now show that a function of the form
     (c) For $\lambda = 0$, will $\hat{g}_1$ or $\hat{g}_2$ have the smaller training and test RSS?
 
     > RSS będzie taki sam dla obu funkcji, bo drugi człon wynosi 0.
+
+6. In this exercise, you will further analyze the `Wage` data set considered throughout this chapter.
+
+    (a) Perform polynomial regression to predict `wage` using `age`. Use cross-validation to select the optimal degree d for the polynomial. What degree was chosen, and how does this compare to the results of hypothesis testing using ANOVA? Make a plot of the resulting polynomial fit to the data.
+
+    (b) Fit a step function to predict `wage` using `age`, and perform cross-validation to choose the optimal number of cuts. Make a plot of the fit obtained.
