@@ -189,10 +189,13 @@ We will now show that a function of the form
     
     where $g^{(m)}$ represents the $m$th derivative of $g$.
 
-
     (a) As $\lambda \to \infty$, will $\hat{g}_1$ or $\hat{g}_2$ have the smaller training RSS?
 
+    > $\hat{g}_2$ jest bardziej elastyczne dlatego, że korzysta z pochodnej wyższego rzędu, dlatego będzie miało mniejsze RSS na zbiorze treningowym.
+
     (b) As $\lambda \to \infty$, will $\hat{g}_1$ or $\hat{g}_2$ have the smaller test RSS?
+
+    > Nie można tego stwierdzić bez zbioru testowego.
 
     (c) For $\lambda = 0$, will $\hat{g}_1$ or $\hat{g}_2$ have the smaller training and test RSS?
 
