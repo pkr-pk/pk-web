@@ -278,7 +278,7 @@ nav_order: 6
     Model 3: wage ~ poly(age, 3)
     Model 4: wage ~ poly(age, 4)
     Model 5: wage ~ poly(age, 5)
-    Res.Df     RSS Df Sum of Sq        F    Pr(>F)    
+      Res.Df     RSS Df Sum of Sq        F    Pr(>F)    
     1   2998 5022216                                    
     2   2997 4793430  1    228786 143.5931 < 2.2e-16 ***
     3   2996 4777674  1     15756   9.8888  0.001679 ** 
@@ -349,3 +349,81 @@ nav_order: 6
     ```
 
     ![](img/07_6b1.png)
+
+7. The `Wage` data set contains a number of other features not explored in this chapter, such as marital status (`maritl`), job class (`jobclass`), and others. Explore the relationships between some of these other predictors and `wage`, and use non-linear fitting techniques in order to fit flexible models to the data. Create plots of the results obtained, and write a summary of your findings.
+
+    ```R
+    library(ISLR2)
+    attach(Wage)
+
+    plot(year, wage)
+    ```
+
+    ![](img/07_70.png)
+
+    ```
+    plot(age, wage)
+    ```
+
+    ![](img/07_71.png)
+
+    ```
+    plot(maritl, wage)
+    ```
+
+    ![](img/07_72.png)
+
+    ```R
+    plot(jobclass, wage)
+    ```
+
+    ![](img/07_73.png)
+
+    ```R
+    plot(education, wage)
+    ```
+
+    ![](img/07_74.png)
+
+    > Jak widać zbiór danych `Wage` zawiera zmienne ilościowe i jakościowe. Ponadto zmienne ilościowe nie są liniowe, więc dobrym wyborem do modelowania są modele GAM.
+
+    ```R
+    library(gam)
+    fit0 <- gam(wage ~ s(year, 4) + s(age, 5) + education, data = Wage)
+    fit2 <- gam(wage ~ s(year, 4) + s(age, 5) + education + maritl, data = Wage)
+    fit1 <- gam(wage ~ s(year, 4) + s(age, 5) + education + jobclass,
+                data = Wage)
+    fit3 <- gam(wage ~ s(year, 4) + s(age, 5) + education + jobclass + maritl, 
+                data = Wage)
+    anova(fit0, fit1, fit2, fit3)
+    ```
+
+    ```R
+    Analysis of Deviance Table
+
+    Model 1: wage ~ s(year, 4) + s(age, 5) + education
+    Model 2: wage ~ s(year, 4) + s(age, 5) + education + jobclass
+    Model 3: wage ~ s(year, 4) + s(age, 5) + education + maritl
+    Model 4: wage ~ s(year, 4) + s(age, 5) + education + jobclass + maritl
+      Resid. Df Resid. Dev Df Deviance  Pr(>Chi)    
+    1      2986    3689770                          
+    2      2985    3677553  1    12218 0.0014286 ** 
+    3      2982    3595688  3    81865 1.071e-14 ***
+    4      2981    3581781  1    13907 0.0006687 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    ```
+
+    > Model z największą liczbą zmiennych nadal jest istotny statystycznie.
+
+    ```R
+    par(mfrow = c(2, 3))
+    plot(fit3, se = TRUE, col = "blue")
+    ```
+
+    ![](img/07_75.png)
+
+    > Wynik pokazuje, że pensja rośnie wraz z każdym kolejnym rokiem kiedy weźmiemy ustalone wartości pozostałych zmiennych. W przypadku wieku pensja jest najwyższa dla ludzi w wieku ok. 42 lat. Wyższa edukacja pozwala na uzyskanie wyższych zarobków. Praca w usługach jest lepiej płatna. Zarobki osób po ślubie są wyższe, dla wdowców i osób w separacji widzimy szeroki zakres błędu standardowego.
+
+
+
