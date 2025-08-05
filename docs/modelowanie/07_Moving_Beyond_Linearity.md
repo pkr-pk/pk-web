@@ -204,4 +204,148 @@ nav_order: 6
 
     (a) Perform polynomial regression to predict `wage` using `age`. Use cross-validation to select the optimal degree d for the polynomial. What degree was chosen, and how does this compare to the results of hypothesis testing using ANOVA? Make a plot of the resulting polynomial fit to the data.
 
+    ```R
+    library(ISLR2)
+    library(boot)
+    attach(Wage)
+
+    cv.error <- rep(0, 10)
+    for (i in 1:10) {
+    glm.fit <- glm(wage ~ poly(age, i), data = Wage)
+    cv.error[i] <- cv.glm(Wage, glm.fit, K = 10)$delta[1]
+    }
+    cv.error
+    ```
+
+    ```R
+    [1] 1676.826 1600.763 1598.399 1595.651 1594.977 1596.061 1594.298
+    [8] 1598.134 1593.913 1595.950
+    ```
+
+    ```R
+    plot(cv.error, type="b", xlab="Degree", ylab="CV Error")
+    ```
+
+    ![](img/07_6a.png)
+
+    > Nie widać poprawy modelu powyżej wielomianu 4 stopnia.
+
+    ```R
+    glm.fit = glm(wage ~ poly(age, 5), data = Wage)
+    summary(glm.fit)
+    ```
+
+    ```R
+    Call:
+    glm(formula = wage ~ poly(age, 5), data = Wage)
+
+    Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)    111.7036     0.7288 153.278  < 2e-16 ***
+    poly(age, 5)1  447.0679    39.9161  11.200  < 2e-16 ***
+    poly(age, 5)2 -478.3158    39.9161 -11.983  < 2e-16 ***
+    poly(age, 5)3  125.5217    39.9161   3.145  0.00168 ** 
+    poly(age, 5)4  -77.9112    39.9161  -1.952  0.05105 .  
+    poly(age, 5)5  -35.8129    39.9161  -0.897  0.36968    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    (Dispersion parameter for gaussian family taken to be 1593.294)
+
+        Null deviance: 5222086  on 2999  degrees of freedom
+    Residual deviance: 4770322  on 2994  degrees of freedom
+    AIC: 30642
+
+    Number of Fisher Scoring iterations: 2
+    ```
+
+    > Na podstawie $p$-value 5 stopień wielomianu nie jest istotny statystycznie.
+
+    ```R
+    fit1 <- lm(wage ~ poly(age, 1), data = Wage)
+    fit2 <- lm(wage ~ poly(age, 2), data = Wage)
+    fit3 <- lm(wage ~ poly(age, 3), data = Wage)
+    fit4 <- lm(wage ~ poly(age, 4), data = Wage)
+    fit5 <- lm(wage ~ poly(age, 5), data = Wage)
+    anova(fit1, fit2, fit3, fit4, fit5)
+    ```
+
+    ```R
+    Analysis of Variance Table
+
+    Model 1: wage ~ poly(age, 1)
+    Model 2: wage ~ poly(age, 2)
+    Model 3: wage ~ poly(age, 3)
+    Model 4: wage ~ poly(age, 4)
+    Model 5: wage ~ poly(age, 5)
+    Res.Df     RSS Df Sum of Sq        F    Pr(>F)    
+    1   2998 5022216                                    
+    2   2997 4793430  1    228786 143.5931 < 2.2e-16 ***
+    3   2996 4777674  1     15756   9.8888  0.001679 ** 
+    4   2995 4771604  1      6070   3.8098  0.051046 .  
+    5   2994 4770322  1      1283   0.8050  0.369682    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    ```
+
+    > Na podstawie $p$-value można stwierdzić, że model z wielomianem 5 stopnia nie jest istotny statystycznie. Ostatecznie trzeba wybrać model z wielomianem 4 stopnia.
+
+    ```R
+    agelims <- range(age)
+    age.grid <- seq(from = agelims[1], to = agelims[2])
+    preds <- predict(fit4, newdata = list(age = age.grid ), se = TRUE )
+    se.bands <- cbind(preds$fit + 2 * preds$se.fit,
+                      preds$fit - 2 * preds$se.fit)
+
+    plot(age, wage, xlim = agelims, cex = .5, col = "darkgrey")
+    title("Degree -4 Polynomial")
+    lines(age.grid, preds$fit, lwd = 2, col = "blue")
+    matlines(age.grid, se.bands, lwd = 1, col = "blue", lty = 3)
+    ```
+
+    ![](img/07_6a1.png)
+
     (b) Fit a step function to predict `wage` using `age`, and perform cross-validation to choose the optimal number of cuts. Make a plot of the fit obtained.
+
+    ```R
+    Wage_2 <- Wage
+    attach(Wage_2)
+
+    set.seed(1)
+    cv.error = rep(0,9)
+    for (i in 2:10) {
+      Wage_2$age.cut = cut(age, i)
+      step.fit = glm(wage ~ age.cut, data = Wage_2)
+      cv.error[i-1] = cv.glm(Wage_2, step.fit, K=10)$delta[1]
+    }
+    cv.error
+    ```
+
+    ```R
+    [1] 1734.489 1684.271 1635.552 1632.080 1623.415 1614.996 1601.318
+    [8] 1613.954 1606.331
+    ```
+
+    ```R
+    plot(2:10, cv.error, type="b", xlab="Index", ylab="CV Error")
+    ```
+
+    ![](img/07_6b.png)
+
+    > Najmniejszy błąd dla 8 podziałów.
+
+    ```R
+    attach(Wage)
+    step.fit <- glm(wage ~ cut(age, 8), data = Wage)
+
+    preds <- predict(step.fit, newdata = list(age = age.grid), se = TRUE)
+    se.bands <- cbind(preds$fit + 2 * preds$se.fit,
+                      preds$fit - 2 * preds$se.fit)
+
+    plot(age, wage, xlim = agelims, cex = .5, col = "darkgrey")
+    title("Step function using 8 cuts")
+    lines(age.grid, preds$fit, lwd = 2, col = "blue")
+    matlines(age.grid, se.bands, lwd = 1, col = "blue", lty = 3)
+    ```
+
+    ![](img/07_6b1.png)
