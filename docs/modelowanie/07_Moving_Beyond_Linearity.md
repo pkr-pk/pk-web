@@ -425,5 +425,75 @@ nav_order: 6
 
     > Wynik pokazuje, że pensja rośnie wraz z każdym kolejnym rokiem kiedy weźmiemy ustalone wartości pozostałych zmiennych. W przypadku wieku pensja jest najwyższa dla ludzi w wieku ok. 42 lat. Wyższa edukacja pozwala na uzyskanie wyższych zarobków. Praca w usługach jest lepiej płatna. Zarobki osób po ślubie są wyższe, dla wdowców i osób w separacji widzimy szeroki zakres błędu standardowego.
 
+8. Fit some of the non-linear models investigated in this chapter to the `Auto` data set. Is there evidence for non-linear relationships in this data set? Create some informative plots to justify your answer.
+
+    ```R
+    library(ISLR2)
+    attach(Auto)
+
+    pairs(Auto[1:7])
+    ```
+
+    ![](img/07_81.png)
+
+    > Widać nieliniową zależność między zmiennymi `mpg`, `displacement`/`horsepower`/`weight`. Dopasuję model wielomianowy do zmiennych `mpg` i `horsepower`.
+
+    ```R
+    fit.1 = lm(mpg ~ poly(horsepower, 1), data = Auto)
+    fit.2 = lm(mpg ~ poly(horsepower, 2), data = Auto)
+    fit.3 = lm(mpg ~ poly(horsepower, 3), data = Auto)
+    fit.4 = lm(mpg ~ poly(horsepower, 4), data = Auto)
+    fit.5 = lm(mpg ~ poly(horsepower, 5), data = Auto)
+    fit.6 = lm(mpg ~ poly(horsepower, 6), data = Auto)
+
+    anova(fit.1, fit.2, fit.3, fit.4, fit.5, fit.6)
+    ```
+
+    ```R
+    Analysis of Variance Table
+
+    Model 1: mpg ~ poly(horsepower, 1)
+    Model 2: mpg ~ poly(horsepower, 2)
+    Model 3: mpg ~ poly(horsepower, 3)
+    Model 4: mpg ~ poly(horsepower, 4)
+    Model 5: mpg ~ poly(horsepower, 5)
+    Model 6: mpg ~ poly(horsepower, 6)
+      Res.Df    RSS Df Sum of Sq        F    Pr(>F)    
+    1    390 9385.9                                    
+    2    389 7442.0  1   1943.89 104.6659 < 2.2e-16 ***
+    3    388 7426.4  1     15.59   0.8396  0.360083    
+    4    387 7399.5  1     26.91   1.4491  0.229410    
+    5    386 7223.4  1    176.15   9.4846  0.002221 ** 
+    6    385 7150.3  1     73.04   3.9326  0.048068 *  
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    ```
+
+    > Z ANOVY wynika, że odpowiedni będzie model kwadratowy.
+
+    ```R
+    summary(fit.2)
+    ```
+
+    ```R
+    Call:
+    lm(formula = mpg ~ poly(horsepower, 2), data = Auto)
+
+    Residuals:
+        Min       1Q   Median       3Q      Max 
+    -14.7135  -2.5943  -0.0859   2.2868  15.8961 
+
+    Coefficients:
+                          Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)            23.4459     0.2209  106.13   <2e-16 ***
+    poly(horsepower, 2)1 -120.1377     4.3739  -27.47   <2e-16 ***
+    poly(horsepower, 2)2   44.0895     4.3739   10.08   <2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 4.374 on 389 degrees of freedom
+    Multiple R-squared:  0.6876,	Adjusted R-squared:  0.686 
+    F-statistic:   428 on 2 and 389 DF,  p-value: < 2.2e-16
+    ```
 
 
