@@ -496,4 +496,201 @@ nav_order: 6
     F-statistic:   428 on 2 and 389 DF,  p-value: < 2.2e-16
     ```
 
+9. This question uses the variables `dis` (the weighted mean of distances to five Boston employment centers) and `nox` (nitrogen oxides concentration in parts per 10 million) from the `Boston` data. We will treat `dis` as the predictor and `nox` as the response.
 
+    (a) Use the `poly()` function to fit a cubic polynomial regression to predict `nox` using `dis`. Report the regression output, and plot the resulting data and polynomial fits.
+
+    ```R
+    library(ISLR2)
+    attach(Boston)
+
+    fit <- glm(nox ~ poly(dis, 3), data = Boston)
+    summary(fit)
+    ```
+
+    ```R
+    Call:
+    glm(formula = nox ~ poly(dis, 3), data = Boston)
+
+    Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)    0.554695   0.002759 201.021  < 2e-16 ***
+    poly(dis, 3)1 -2.003096   0.062071 -32.271  < 2e-16 ***
+    poly(dis, 3)2  0.856330   0.062071  13.796  < 2e-16 ***
+    poly(dis, 3)3 -0.318049   0.062071  -5.124 4.27e-07 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    (Dispersion parameter for gaussian family taken to be 0.003852802)
+
+        Null deviance: 6.7810  on 505  degrees of freedom
+    Residual deviance: 1.9341  on 502  degrees of freedom
+    AIC: -1370.9
+
+    Number of Fisher Scoring iterations: 2
+    ```
+
+    ```R
+    lims <- range(dis)
+    grid <- seq(from = lims[1], to = lims[2], 0.1)
+    preds <- predict(fit, newdata = list(dis = grid), se = TRUE)
+    se.bands <- cbind(preds$fit + 2 * preds$se.fit,
+                      preds$fit - 2 * preds$se.fit)
+
+    plot(dis, nox, xlim = lims, cex = .5, col = "darkgrey")
+    title("Degree -3 Polynomial")
+    lines(grid, preds$fit, lwd = 2, col = "blue")
+    matlines(grid, se.bands, lwd = 1, col = "blue", lty = 3)
+    ```
+
+    ![](img/07_9a.png)
+    
+    (b) Plot the polynomial fits for a range of different polynomial degrees (say, from 1 to 10), and report the associated residual sum of squares.
+
+    ```R
+    plot(dis, nox, xlim = lims, cex = .5, col = "darkgrey")
+    title("Polynomial fits from degree 1-10.")
+    colours = rainbow(10)
+    rss = rep(0,10)
+
+    set.seed(1)
+    for (i in 1:10){
+      fit <- glm(nox ~ poly(dis, i), data = Boston)
+      preds <- predict(fit, newdata = list(dis = grid), se = TRUE)
+      lines(grid, preds$fit, lwd = 1.5, col = colours[i])
+      rss[i] = sum((nox - predict(fit, newdata = list(dis = dis)))^2)
+    }
+
+    legend(x=10, y=0.85,legend=1:10, col= colours[1:10],lwd=2)
+
+    rss
+    ```
+
+    ```R
+    [1] 2.768563 2.035262 1.934107 1.932981 1.915290 1.878257 1.849484 1.835630
+    [9] 1.833331 1.832171
+    ```
+
+    ![](img/07_9b.png)
+    
+    (c) Perform cross-validation or another approach to select the optimal degree for the polynomial, and explain your results.
+
+    ```R
+    library(boot)
+
+    set.seed(1)
+    cv.error <- rep(0, 10)
+    for (i in 1:10) {
+      fit <- glm(nox ~ poly(dis, i), data = Boston)
+      cv.error[i] <- cv.glm(Boston, fit, K = 10)$delta[1]
+    }
+
+    which.min(cv.error)
+    ```
+
+    ```R
+    [1] 4
+    ```
+    
+    (d) Use the `bs()` function to fit a regression spline to predict `nox` using `dis`. Report the output for the fit using four degrees of freedom. How did you choose the knots? Plot the resulting fit.
+
+    ```R
+    library(splines)
+    fit <- glm(nox ~ bs(dis, df = 4), data = Boston)
+    summary(fit)
+    ```
+
+    ```R
+    Call:
+    glm(formula = nox ~ bs(dis, df = 4), data = Boston)
+
+    Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)       0.73447    0.01460  50.306  < 2e-16 ***
+    bs(dis, df = 4)1 -0.05810    0.02186  -2.658  0.00812 ** 
+    bs(dis, df = 4)2 -0.46356    0.02366 -19.596  < 2e-16 ***
+    bs(dis, df = 4)3 -0.19979    0.04311  -4.634 4.58e-06 ***
+    bs(dis, df = 4)4 -0.38881    0.04551  -8.544  < 2e-16 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    (Dispersion parameter for gaussian family taken to be 0.003837874)
+
+        Null deviance: 6.7810  on 505  degrees of freedom
+    Residual deviance: 1.9228  on 501  degrees of freedom
+    AIC: -1371.9
+
+    Number of Fisher Scoring iterations: 2
+    ```
+
+    > Wszystkie stopnie swobody są istotne statystycznie na podstawie $p$-value.
+
+    ```R
+    attr(bs(Boston$dis, df = 4), "knots")
+    ```
+    
+    ```R
+    [1] 3.20745
+    ```
+
+    > Węzły wybierane są automatycznie na podstawie kwantyli.
+
+    ```R
+    preds <- predict(fit, newdata = list(dis = grid), se = TRUE)
+    se.bands <- cbind(preds$fit + 2 * preds$se.fit,
+                      preds$fit - 2 * preds$se.fit)
+
+    plot(dis, nox, xlim = lims, cex = .5, col = "darkgrey")
+    title("Regression spline")
+    lines(grid, preds$fit, lwd = 2, col = "blue")
+    matlines(grid, se.bands, lwd = 1, col = "blue", lty = 3)
+    ```
+
+    ![](img/07_9d.png)
+    
+    (e) Now fit a regression spline for a range of degrees of freedom, and plot the resulting fits and report the resulting RSS. Describe the results obtained.
+
+    ```R
+    plot(dis, nox, xlim = lims, cex = .5, col = "darkgrey")
+    title("Splines fits from degree 1-10.")
+    colours = rainbow(10)
+    rss = rep(0,10)
+
+    set.seed(1)
+    for (i in 1:10){
+      fit <- glm(nox ~ bs(dis, df = i), data = Boston)
+      preds <- predict(fit, newdata = list(dis = grid), se = TRUE)
+      lines(grid, preds$fit, lwd = 1.5, col = colours[i])
+      rss[i] = sum((nox - predict(fit, newdata = list(dis = dis)))^2)
+    }
+
+    legend(x=10, y=0.85,legend=1:10, col= colours[1:10],lwd=2)
+
+    rss
+    ```
+
+    ```R
+    [1] 1.934107 1.934107 1.934107 1.922775 1.840173 1.833966 1.829884 1.816995
+    [9] 1.825653 1.792535
+    ```
+
+    ![](img/07_9e.png)
+
+    > RSS są niższe niż w przypadku modeli wielomianowych. Widać, że modele z większą liczbą stopni swobody są przetrenowane.
+    
+    (f) Perform cross-validation or another approach in order to select the best degrees of freedom for a regression spline on this data. Describe your results.
+
+    ```R
+    set.seed(1)
+    cv.error <- rep(0, 10)
+    for (i in 1:10) {
+      fit <- glm(nox ~ bs(dis, df = i), data = Boston)
+      cv.error[i] <- cv.glm(Boston, fit, K = 10)$delta[1]
+    }
+
+    which.min(cv.error)
+    ```
+
+    ```R
+    [1] 10
+    ```
