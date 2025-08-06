@@ -661,10 +661,10 @@ nav_order: 6
       fit <- glm(nox ~ bs(dis, df = i), data = Boston)
       preds <- predict(fit, newdata = list(dis = grid), se = TRUE)
       lines(grid, preds$fit, lwd = 1.5, col = colours[i])
-      rss[i] = sum((nox - predict(fit, newdata = list(dis = dis)))^2)
+      rss[i] <- sum((nox - predict(fit, newdata = list(dis = dis)))^2)
     }
 
-    legend(x=10, y=0.85,legend=1:10, col= colours[1:10],lwd=2)
+    legend(x = 10, y = 0.85, legend = 1:10, col = colours[1:10], lwd = 2)
 
     rss
     ```
@@ -694,3 +694,119 @@ nav_order: 6
     ```R
     [1] 10
     ```
+
+10. This question relates to the `College` data set.
+    
+    (a) Split the data into a training set and a test set. Using out-of-state tuition as the response and the other variables as the predictors, perform forward stepwise selection on the training set in order to identify a satisfactory model that uses just a subset of the predictors.
+
+    ```R
+    library(ISLR2)
+    library(leaps)
+    attach(College)
+
+    train <- sample(nrow(College), nrow(College) * 4 / 5)
+
+    fit.fwd <- regsubsets(Outstate~., data = College[train, ], nvmax=17,
+                          method="forward")
+
+    plot(summary(fit.fwd)$bic, type = "b")
+
+    which.min(summary(fit.fwd)$bic)
+    ```
+
+    ```R
+    [1] 12
+    ```
+
+    ![](img/07_10a.png)
+
+    > Najlepszy jest model zawierający 12 zmiennych ale powyżejsz 6 nie ma już znaczącej poprawy. Dla ułatwienia wybieram model z 6 zmiennymi.
+
+    ```R
+    coef(fit.fwd, id = 6)
+    ```
+
+    ```R
+      (Intercept)    PrivateYes    Room.Board           PhD   perc.alumni 
+    -3423.9571808  2793.7915223     0.9366486    35.4629229    45.2581015 
+       Expend     Grad.Rate 
+    0.2148418    32.1605523 
+    ```
+
+    (b) Fit a GAM on the training data, using out-of-state tuition as the response and the features selected in the previous step as the predictors. Plot the results, and explain your findings.
+
+    ```R
+    library(gam)
+    fit <- gam(Outstate ~ Private + s(Room.Board, 4) + s(PhD, 4) + 
+               s(perc.alumni, 2) + s(Expend, 4) + s(Grad.Rate, 5),
+               data=College[train, ])
+
+    par(mfrow = c(2, 3))
+    plot(fit, col = "blue", se = TRUE)
+    ```
+
+    ![](img/07_10b.png)
+    
+    (c) Evaluate the model obtained on the test set, and explain the results obtained.
+
+    ```R
+    preds = predict(fit, newdata = College[-train, ])
+    # r suared
+    1 - mean((College[-train, ]$Outstate - preds)^2) / 
+      mean((College[-train, ]$Outstate - mean(College[-train, ]$Outstate))^2)
+    ```
+
+    ```R
+    [1] 0.8057576
+    ```
+
+    > Na podstawie $R^2$ model jest dobry.
+    
+    (d) For which variables, if any, is there evidence of a non-linear relationship with the response?
+
+    ```R
+    summary(fit)
+    ```
+
+    ```R
+    Call: gam(formula = Outstate ~ Private + s(Room.Board, 4) + s(PhD, 
+        4) + s(perc.alumni, 2) + s(Expend, 4) + s(Grad.Rate, 5), 
+        data = College[train, ])
+    Deviance Residuals:
+         Min       1Q   Median       3Q      Max 
+    -7319.03 -1141.45    21.32  1274.46  7642.76 
+
+    (Dispersion Parameter for gaussian family taken to be 3484410)
+
+        Null Deviance: 9851839741 on 620 degrees of freedom
+    Residual Deviance: 2090645450 on 599.9998 degrees of freedom
+    AIC: 11139.58 
+
+    Number of Local Scoring Iterations: NA 
+
+    Anova for Parametric Effects
+                       Df     Sum Sq    Mean Sq F value    Pr(>F)    
+    Private             1 2490518062 2490518062 714.760 < 2.2e-16 ***
+    s(Room.Board, 4)    1 1838285948 1838285948 527.574 < 2.2e-16 ***
+    s(PhD, 4)           1  591148840  591148840 169.655 < 2.2e-16 ***
+    s(perc.alumni, 2)   1  386891415  386891415 111.035 < 2.2e-16 ***
+    s(Expend, 4)        1  855784793  855784793 245.604 < 2.2e-16 ***
+    s(Grad.Rate, 5)     1  135641164  135641164  38.928  8.31e-10 ***
+    Residuals         600 2090645450    3484410                      
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Anova for Nonparametric Effects
+                      Npar Df Npar F   Pr(F)    
+    (Intercept)                                 
+    Private                                     
+    s(Room.Board, 4)        3  2.824 0.03806 *  
+    s(PhD, 4)               3  1.900 0.12837    
+    s(perc.alumni, 2)       1  0.831 0.36223    
+    s(Expend, 4)            3 39.302 < 2e-16 ***
+    s(Grad.Rate, 5)         4  2.130 0.07568 .  
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    ```
+
+    > Nieliniowość jest istotna statystycznie dla zmiennych `Room.Board` i `Expend`.
