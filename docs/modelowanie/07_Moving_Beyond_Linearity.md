@@ -751,7 +751,7 @@ nav_order: 6
 
     ```R
     preds = predict(fit, newdata = College[-train, ])
-    # r suared
+    # r-squared
     1 - mean((College[-train, ]$Outstate - preds)^2) / 
       mean((College[-train, ]$Outstate - mean(College[-train, ]$Outstate))^2)
     ```
