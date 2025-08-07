@@ -810,3 +810,108 @@ nav_order: 6
     ```
 
     > Nieliniowość jest istotna statystycznie dla zmiennych `Room.Board` i `Expend`.
+
+11. In Section 7.7, it was mentioned that GAMs are generally fit using a _backfitting_ approach. The idea behind backfitting is actually quite simple. We will now explore backfitting in the context of multiple linear regression. 
+
+    Suppose that we would like to perform multiple linear regression, but we do not have software to do so. Instead, we only have software to perform simple linear regression. Therefore, we take the following iterative approach: we repeatedly hold all but one coeﬀicient estimate fixed at its current value, and update only that coeﬀicient estimate using a simple linear regression. The process is continued until _convergence_—that is, until the coeﬀicient estimates stop changing. 
+    
+    We now try this out on a toy example.
+    
+    (a) Generate a response $Y$ and two predictors $X_1$ and $X_2$, with $n = 100$.
+
+    ```R
+    set.seed(42)
+    x1 <- rnorm(100)
+    x2 <- rnorm(100)
+    y <- 2 + 0.2 * x1 + 4 * x2 + rnorm(100)
+    ```
+
+    (b) Initialize $\hat{\beta}_1$ to take on a value of your choice. It does not matter what value you choose.
+
+    ```R
+    beta1 <- 20
+    ```
+    
+    (c) Keeping $\hat{\beta}_1$  fixed, fit the model
+    
+    $$\hat{Y} - \hat{\beta}_1 X_1 = \beta_0 + \beta_2 X_2 + \epsilon$$
+
+    You can do this as follows:
+
+    ```R
+    > a <- y - beta1 * x1
+    > beta2 <- lm(a ~ x2)$coef[2]
+    ```
+
+    ```R
+    a <- y - beta1 * x1
+    beta2 <- lm(a ~ x2)$coef[2]
+    ```
+    
+    (d) Keeping $\hat{\beta}_2$ fixed, fit the model
+    
+    $$\hat{Y} - \hat{\beta}_2 X_2 = \beta_0 + \beta_1 X_1 + \epsilon$$
+    
+    You can do this as follows:
+    
+    ```R
+    > a <- y - beta2 * x2
+    > beta1 <- lm(a∼ x1)$coef[2]
+    ```
+    
+    ```R
+    a <- y - beta2 * x2
+    beta1 <- lm(a ~ x1)$coef[2]
+    ```
+
+    (e) Write a for loop to repeat (c) and (d) 1,000 times. Report the estimates of $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\beta}_2$ at each iteration of the for loop. Create a plot in which each of these values is displayed, with $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\beta}_2$ each shown in a different color.
+
+    ```R
+    beta.df = data.frame("beta0" = rep(0, 1000), "beta1" = rep(0, 1000),
+                         "beta2" = rep(0, 1000))
+
+    beta1 <- 20
+    for (i in 1:1000){
+      a = y - beta1 * x1
+      model = lm(a ~ x2)
+      beta2 = model$coef[2]
+      beta.df$beta2[i]=  beta2
+      
+      a = y - beta2 * x2
+      model = lm(a ~ x1)
+      beta1 <- model$coef[2]
+      beta.df$beta1[i] = beta1
+      beta.df$beta0[i] = model$coef[1]
+    }
+
+    plot(1:1000, beta.df$beta2, ylim = range(-0.5:4.5), type = 'b', cex = 0.5,
+        col = "blue", xlab = "Iteration", ylab = "Value", log = "x")
+    title("Coefficients found by iterating.")
+    lines(1:1000, beta.df$beta1, col = "red", type = 'b', cex = 0.5)
+    lines(1:1000, beta.df$beta0, col = "green", type = 'b', cex = 0.5)
+    ```
+
+    ![](img/07_11e.png)
+
+    (f) Compare your answer in (e) to the results of simply performing multiple linear regression to predict $Y$ using $X_1$ and $X_2$. Use the `abline()` function to overlay those multiple linear regression coefficient estimates on the plot obtained in (e).
+
+    ```R
+    lm.fit = lm(y~ x1 + x2)
+    coef(lm.fit)[1]
+
+    plot(1:1000, beta.df$beta2, ylim = range(-0.5:4.5), type = 'b', cex = 0.5,
+         col = "blue", xlab = "Iteration", ylab = "Value", log = "x")
+    title("Coefficients found by standard method overlapped iteration.")
+    lines(1:1000, beta.df$beta1, col = "red", type = 'b', cex = 0.5)
+    lines(1:1000, beta.df$beta0, col = "green", type = 'b', cex = 0.5)
+
+    abline(h = coef(lm.fit)[1])
+    abline(h = coef(lm.fit)[2])
+    abline(h = coef(lm.fit)[3])
+    ```
+
+    ![](img/07_11f.png)
+    
+    (g) On this data set, how many backfitting iterations were required in order to obtain a “good” approximation to the multiple regression coeﬀicient estimates?
+
+    > W tym przypadku potrzebne były 3 iteracje.
