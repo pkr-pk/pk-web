@@ -813,7 +813,7 @@ nav_order: 6
 
 11. In Section 7.7, it was mentioned that GAMs are generally fit using a _backfitting_ approach. The idea behind backfitting is actually quite simple. We will now explore backfitting in the context of multiple linear regression. 
 
-    Suppose that we would like to perform multiple linear regression, but we do not have software to do so. Instead, we only have software to perform simple linear regression. Therefore, we take the following iterative approach: we repeatedly hold all but one coeﬀicient estimate fixed at its current value, and update only that coeﬀicient estimate using a simple linear regression. The process is continued until _convergence_—that is, until the coeﬀicient estimates stop changing. 
+    Suppose that we would like to perform multiple linear regression, but we do not have software to do so. Instead, we only have software to perform simple linear regression. Therefore, we take the following iterative approach: we repeatedly hold all but one coefficient estimate fixed at its current value, and update only that coefficient estimate using a simple linear regression. The process is continued until _convergence_—that is, until the coefficient estimates stop changing. 
     
     We now try this out on a toy example.
     
@@ -912,6 +912,37 @@ nav_order: 6
 
     ![](img/07_11f.png)
     
-    (g) On this data set, how many backfitting iterations were required in order to obtain a “good” approximation to the multiple regression coeﬀicient estimates?
+    (g) On this data set, how many backfitting iterations were required in order to obtain a “good” approximation to the multiple regression coefficient estimates?
 
     > W tym przypadku potrzebne były 3 iteracje.
+
+12. This problem is a continuation of the previous exercise. In a toy example with $p = 100$, show that one can approximate the multiple linear regression coefficient estimates by repeatedly performing simple linear regression in a backfitting procedure. How many backfitting iterations are required in order to obtain a “good” approximation to the multiple regression coefficient estimates? Create a plot to justify your answer.
+
+    ```R
+    set.seed(1)
+    p <- 100
+    n <- 1000
+
+    betas <- rnorm(p) * 5
+    x <- matrix(rnorm(n * p), ncol = p, nrow = n)
+    y <- 8 + (x %*% betas) + rnorm(n)
+
+    fit <- lm(y ~ x)
+
+    iter = 20
+    beta <- matrix(0, ncol = ncol(x), nrow = iter + 1)
+    for (i in 1:iter) {
+      for (k in 1:ncol(x)) {
+        residual <- y - (x[, -k] %*% beta[i, -k])
+        beta[i + 1, k] <- lm(residual ~ x[, k])$coef[2]
+      }
+    }
+
+    res <- beta[-1, ]
+    error <- rowMeans(sweep(res, 2, betas)^2)
+    plot(error, log = "x", type = "b")
+    ```
+
+    ![](img/07_12.png)
+
+    > Potrzeba 6 iteracji żeby osiągnąć dobrą estymację parametrów.
