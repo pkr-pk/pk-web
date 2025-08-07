@@ -885,7 +885,7 @@ nav_order: 6
     }
 
     plot(1:1000, beta.df$beta2, ylim = range(-0.5:4.5), type = 'b', cex = 0.5,
-        col = "blue", xlab = "Iteration", ylab = "Value", log = "x")
+         col = "blue", xlab = "Iteration", ylab = "Value", log = "x")
     title("Coefficients found by iterating.")
     lines(1:1000, beta.df$beta1, col = "red", type = 'b', cex = 0.5)
     lines(1:1000, beta.df$beta0, col = "green", type = 'b', cex = 0.5)
