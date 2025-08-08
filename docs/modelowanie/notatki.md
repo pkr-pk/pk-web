@@ -61,6 +61,12 @@ Główne punkty:
 
 * Estymacja ogona rozkładu: wyestymowany indeks ogona jest następnie używany do skonstruowania estymatora ogona Hilla, który pozwala szacować prawdopodobieństwa w ogonie rozkładu strat powyżej progu.
 
+Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowanieszkód ekstremalnych (tzn. zdarzeń rzadkich, ale potencjalnie o dużej wartości). Wubezpieczeniach majątkowych jego użycie pozwala na lepsze zarządzanie ryzykiem iwycenę produktów ubezpieczeniowych. Jako przykład można wskazać:
+
+* Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawieraumowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratamiwynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hillasłuży do oszacowania parametru grubości ogona rozkładu strat. Pozwala to naokreślenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
+
+* Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonychkatastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacowaćwartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. EstymatorHilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o danehistoryczne.
+
 ## Krzywa Lorenza i krzywa koncentracji
 
 Kluczowe różnice
@@ -84,3 +90,42 @@ Jak działa porównanie?
 * Ocena rozbieżności: różnica między krzywymi wskazuje na niedopasowanie modelu do ryzyka. Jeśli dla najmniej ryzykownych polis krzywa koncentracji leży powyżej krzywej Lorenza, oznacza to, że segment ten generuje większy udział w szkodach niż w zebranych składkach, co świadczy o ryzyku selekcji negatywnej (ang. adverse selection).
 
 * Miara ilościowa: jakość predyktora można skwantyfikować za pomocą wskaźnika ABC (Area Between Curves), czyli pola powierzchni między krzywą koncentracji a krzywą Lorenza. Mniejsza wartość ABC oznacza, że struktura cenowa modelu jest bliższa rzeczywistej strukturze ryzyka, co świadczy o wyższej jakości predyktora.
+
+## Wygładzanie wykładnicze
+
+Wygładzanie wykładnicze to jedna z metod prognozowania i analizy szeregów czasowych, która nadaje większą wagę nowszym obserwacjom, jednocześnie stopniowo zmniejszając wpływ starszych danych. Jest to technika używana do wygładzania fluktuacji w danych, co ułatwia identyfikację trendów i wzorców. Główne zastosowania:
+
+* Prognozowanie krótkoterminowe.
+* Wygładzanie danych – redukcja szumów w danych poprzez eliminowanie nagłych skoków i anomalii.
+* Modelowanie trendów i sezonowości – bardziej zaawansowane wersje, jak podwójne i potrójne wygładzanie wykładnicze (Holt-Winters), pozwalają uwzględniać trend i sezonowość w danych.
+
+Rodzaje wygładzania wykładniczego:
+
+* Proste wygładzanie wykładnicze – stosowane do danych bez wyraźnego trendu ani sezonowości.
+* Wygładzanie podwójne (Holt's method) – uwzględnia zarówno poziom, jak i trend.
+* Wygładzanie potrójne (Holt-Winters method) – dodatkowo uwzględnia sezonowość. Wygładzanie wykładnicze jest szczególnie cenione za swoją prostotę i skuteczność w prognozowaniu, zwłaszcza gdy dane wykazują krótkoterminowe fluktuacje.
+
+## Interakcja czynników ryzyka
+
+Interakcja w kontekście czynników ryzyka ubezpieczeniowego odnosi się do sytuacji, w której wpływ jednego czynnika ryzyka na prawdopodobieństwo wystąpienia szkody zależy od obecności innego czynnika ryzyka. Oznacza to, że efekty dwóch (lub więcej) zmiennych nie są jedynie sumą ich indywidualnych wpływów, ale mogą się wzmacniać lub osłabiać w zależności od ich wzajemnego oddziaływania. Różnica między interakcją a korelacją:
+
+* Korelacja mierzy stopień współzmienności dwóch zmiennych, czyli na ile ich wartości są statystycznie powiązane (np. wzrost jednej zmiennej towarzyszy wzrostowi drugiej).
+* Interakcja odnosi się do sposobu, w jaki jedna zmienna modyfikuje wpływ drugiej na określone zjawisko, np. ryzyko szkody. Może oznaczać, że efekt jednej zmiennej występuje tylko pod warunkiem obecności drugiej. 
+
+Korelacja sama w sobie nie oznacza interakcji – dwie zmienne mogą być silnie skorelowane, ale nie muszą wpływać na siebie nawzajem w sposób interakcyjny. Dlatego w analizie ryzyka ubezpieczeniowego ważne jest stosowanie modeli, które uwzględniają nie tylko współzależności, ale także potencjalne efekty interakcji między czynnikami.
+
+## Techniki statystyczne w wykrywaniu oszustw
+
+Techniki statystyczne, jak test chi-kwadrat i analiza regresji pomagają identyfikować podejrzane wzorce i anomalia w danych, co może świadczyć o nieuczciwych działaniach. Test chi-kwadrat pozwala na szybkie wykrycie nietypowych rozkładów lub zależności, podczas gdy analiza regresji umożliwia głębsze zrozumienie zmiennych wpływających na ryzyko oszustwa. Na przykład:
+
+* Zastosowanie testu chi-kwadrat: 
+    * Analiza liczby zgłaszanych roszczeń w określonych kategoriach (np.rodzaj szkody, czas zgłoszenia) w celu identyfikacji nietypowych wzorców.
+    * Porównanie rozkładu częstości zgłaszanych roszczeń w różnych segmentach klientów, aby wykryć nadreprezentację podejrzanych roszczeń.
+    * Sprawdzenie, czy występuje istotna statystycznie różnica między częstotliwością podejrzanych roszczeń a ogólną liczbą zgłoszeń.
+
+* Zastosowanie regresji:
+    * Ocena wpływu czynników, takich jak wiek zgłaszającego, liczba wcześniejszych roszczeń, miejsce zamieszkania, typ polisy na prawdopodobieństwo wystąpienia oszustwa.
+    * Budowa modeli predykcyjnych, które klasyfikują zgłoszenia jako podejrzane lub prawidłowe.
+    * Analiza reszt, aby identyfikować odstające obserwacje, które mogą sugerować nietypowe i potencjalnie oszukańcze zachowania.
+
+Techniki statystyczne są często stosowane w połączeniu z metodami eksploracji danych(data mining) i uczeniem maszynowym, co zwiększa skuteczność wykrywania oszustw.
