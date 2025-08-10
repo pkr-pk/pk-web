@@ -8,6 +8,7 @@ nav_order: 5
 # Modelowanie
 
 [Notatki z egzaminów](../modelowanie/notatki.html){:target="_blank"}
+
 [Notatki z książek](../modelowanie/notatki.html){:target="_blank"}
 
 {:style="counter-reset:step-counter 92"}
