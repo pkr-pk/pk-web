@@ -261,7 +261,7 @@ Ta właściwość jest niezwykle użyteczna w praktyce. Pozwala aktuariuszom na 
 
 ***
 
-## Bootstrap (Sekcja 3.7) 🔄
+## Bootstrap
 
 Bootstrap to metoda numeryczna, która pozwala ocenić dokładność estymatora (np. jego błąd standardowy lub przedział ufności), zwłaszcza gdy analityczne wzory są trudne lub niemożliwe do wyprowadzenia. Jest to technika oparta na symulacji komputerowej.
 
