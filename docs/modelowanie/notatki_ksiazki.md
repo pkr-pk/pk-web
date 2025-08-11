@@ -171,6 +171,7 @@ W sekcji wspomniano również o innych rozkładach wywodzących się z rozkładu
 ## Wybrane Rozkłady z Rodziny ED
 
 ### Rozkład Gamma
+
 * **Zastosowanie**: Często używany do modelowania dodatnich i prawostronnie skośnych zmiennych, takich jak **wartości (ciężkości) szkód**.
 * **Własność kluczowa**: Wariancja jest **kwadratową funkcją wartości średniej**: $Var[Y] = \frac{1}{\alpha}(E[Y])^2$. Oznacza to, że współczynnik zmienności pozostaje stały.
 * **Funkcja gęstości prawdopodobieństwa** ($Y \sim Gam(\alpha, \tau)$):
@@ -178,6 +179,7 @@ W sekcji wspomniano również o innych rozkładach wywodzących się z rozkładu
     $$f_{Y}(y)=\frac{y^{\alpha-1}\tau^{\alpha}\exp(-\tau y)}{\Gamma(\alpha)}$$
 
 ### Rozkład Odwrotny Gaussa (*Inverse Gaussian*)
+
 * **Zastosowanie**: Alternatywa dla rozkładu Gamma do modelowania dodatnich, prawostronnie skośnych danych.
 * **Własność kluczowa**: Wariancja jest **sześcienną funkcją wartości średniej**: $Var[Y] = \frac{1}{\alpha}(E[Y])^3$. Oznacza to, że jego "ogon" jest cięższy niż w rozkładzie Gamma, ale lżejszy niż w rozkładzie logarytmiczno-normalnym.
 * **Funkcja gęstości prawdopodobieństwa** ($Y \sim IGau(\mu, \alpha)$):
@@ -185,6 +187,7 @@ W sekcji wspomniano również o innych rozkładach wywodzących się z rozkładu
     $$f_{Y}(y)=\sqrt{\frac{\alpha}{2\pi y^{3}}}\exp\left(-\frac{\alpha(y-\mu)^{2}}{2y\mu^{2}}\right)$$
 
 ### Rozkład Dwumianowy (*Binomial*)
+
 * **Zastosowanie**: Opisuje liczbę "sukcesów" w $m$ niezależnych próbach. W ubezpieczeniach na życie używany do modelowania **liczby zgonów** w zamkniętej grupie.
 * **Własność kluczowa**: Charakteryzuje się **niedostateczną dyspersją (*underdispersion*)**, co oznacza, że jego wariancja jest mniejsza niż wartość średnia: $Var[Y] < E[Y]$.
 * **Funkcja masy prawdopodobieństwa** ($Y \sim Bin(m, q)$):
@@ -194,6 +197,7 @@ W sekcji wspomniano również o innych rozkładach wywodzących się z rozkładu
 * **Pokrewne rozkłady**: Rozkład Pascala (Ujemny Dwumianowy), który modeluje liczbę porażek przed osiągnięciem $m$ sukcesów, charakteryzuje się **nadmierną dyspersją (*overdispersion*)**.
 
 ### Rozkład Poissona (*Poisson*)
+
 * **Zastosowanie**: Jest to fundamentalny rozkład do modelowania **liczby (częstotliwości) szkód**. Powstaje jako graniczna forma rozkładu dwumianowego dla zdarzeń rzadkich.
 * **Własność kluczowa**: Charakteryzuje się **równą dyspersją (*equidispersion*)**, co oznacza, że jego wariancja jest równa wartości średniej: $Var[Y] = E[Y]$.
 * **Funkcja masy prawdopodobieństwa** ($Y \sim Poi(\lambda)$):
@@ -427,17 +431,21 @@ gdzie $z^{(r)}$ to wektor odpowiedzi roboczych, a $\tilde{W}^{(r)}$ to diagonaln
 ### Praktyczne Aspekty Specyfikacji Modelu
 
 #### Wybór Poziomu Bazowego dla Cech Kategorycznych
+
 Przy kodowaniu zmiennych kategorycznych kluczowy jest wybór **poziomu bazowego (referencyjnego)**. Wyraz wolny $\beta_0$ w modelu odzwierciedla efekt tego poziomu, a pozostałe współczynniki mierzą różnice względem niego. Poziom bazowy powinien być wybrany tak, aby nie był rzadko obserwowany. Wybór kategorii o małej liczebności może prowadzić do prawie osobliwej macierzy projektowej $X$ i w konsekwencji do **niestabilnych numerycznie estymatorów**.
 
 #### Współliniowość i Skorelowane Cechy
+
 * **Współliniowość (*Collinearity*)** występuje, gdy istnieje silna liniowa zależność między predyktorami.
 * **Dokładna współliniowość** (gdy jedna zmienna jest liniową kombinacją innych) sprawia, że macierz $X^T W X$ jest osobliwa i nieodwracalna, co uniemożliwia estymację modelu.
 * **Przybliżona współliniowość** prowadzi do dużych błędów standardowych estymowanych współczynników, co oznacza, że są one bardzo niedokładne. Do diagnozowania tego problemu można użyć miary **V Craméra**, zdefiniowanej jako:
 
     $$V = \sqrt{\frac{\chi^2/n}{\min(k_1-1, k_2-1)}}$$
+
     gdzie $\chi^2$ to statystyka chi-kwadrat dla testu niezależności.
 
 #### Problem Pominiętej Zmiennej (*Omitted Variable Bias*)
+
 Jeśli w modelu zostanie pominięty istotny czynnik ryzyka, który jest skorelowany z czynnikami uwzględnionymi w modelu, estymatory współczynników dla tych uwzględnionych czynników będą **obciążone (*biased*)**. Oznacza to, że oszacowany współczynnik $\hat{\beta}_j$ nie będzie odzwierciedlał prawdziwego, izolowanego wpływu cechy $x_j$, ale mieszankę jej wpływu oraz wpływu pominiętej zmiennej. Z tego powodu modele GLM są lepsze w identyfikowaniu korelacji niż w ustalaniu związków przyczynowo-skutkowych.
 
 ***
@@ -544,6 +552,7 @@ gdzie:
 Dzięki asymptotycznej normalności można konstruować przedziały ufności i testować hipotezy statystyczne.
 
 #### Przedziały Ufności Walda
+
 Przedział ufności na poziomie $1-\alpha$ dla pojedynczego współczynnika $\beta_j$ jest oparty na teście Walda i ma postać:
 
 $$[\hat{\beta}_j - z_{\alpha/2} \cdot SE(\hat{\beta}_j), \quad \hat{\beta}_j + z_{\alpha/2} \cdot SE(\hat{\beta}_j)]$$
@@ -551,9 +560,11 @@ $$[\hat{\beta}_j - z_{\alpha/2} \cdot SE(\hat{\beta}_j), \quad \hat{\beta}_j + z
 gdzie $SE(\hat{\beta}_j)$ to błąd standardowy estymatora, a $z_{\alpha/2}$ to kwantyl standardowego rozkładu normalnego. Przedział ten określa zakres wartości, w którym z zadanym prawdopodobieństwem znajduje się prawdziwa, nieznana wartość parametru $\beta_j$.
 
 #### Testowanie Hipotez
+
 1.  **Test Walda (dla pojedynczego współczynnika)**: Służy do testowania hipotezy, takiej jak $H_0: \beta_j = 0$. Statystyka testowa:
 
     $$z = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)}$$
+    
     ma w przybliżeniu standardowy rozkład normalny. Oprogramowanie statystyczne zazwyczaj podaje **wartość p (*p-value*)** dla tego testu, która informuje o istotności statystycznej danego predyktora.
 
 2.  **Test Ilorazu Wiarygodności (dla modeli zagnieżdżonych)**: Służy do porównywania dwóch modeli zagnieżdżonych (gdzie model prostszy jest szczególnym przypadkiem modelu bardziej złożonego). Statystyka testowa opiera się na różnicy w dewiancjach obu modeli:
@@ -657,7 +668,7 @@ M-estymacja to jeszcze szersza klasa metod estymacji, która obejmuje zarówno m
 * **Definicja**: Zamiast maksymalizować funkcję (np. log-wiarygodności), M-estymatory są definiowane jako rozwiązanie układu **równań estymacyjnych**:
 
     $$\frac{1}{n}\sum_{i=1}^{n} \psi_j(y_i, x_i, \beta) = 0 \quad \text{dla każdego } j=0, 1, ..., p$$
-    
+
     gdzie $\psi_j$ to z góry zdefiniowane funkcje estymacyjne. W przypadku metody największej wiarygodności, $\psi_j$ jest po prostu pochodną cząstkową funkcji log-wiarygodności.
 
 ### Pseudo-Największa Wiarygodność (PML)
