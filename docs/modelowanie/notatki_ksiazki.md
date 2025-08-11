@@ -470,6 +470,7 @@ gdzie $\tilde{\theta}_i$ i $\hat{\theta}_i$ to estymatory parametru kanonicznego
 * **Dewiancja Skalowana**: Dla rozkładów z nieznanym parametrem dyspersji $\phi$ (np. Gamma), używa się **dewiancji skalowanej**: $\tilde{D} = D/\phi$. Przybliżony rozkład tej statystyki to **rozkład chi-kwadrat** z liczbą stopni swobody równą $n - p - 1$ (liczba obserwacji minus liczba estymowanych parametrów):
 
     $$\tilde{D} \approx \chi^2_{n-p-1}$$
+    
     Pozwala to na formalne testowanie dopasowania modelu.
 
 **Ważne Ostrzeżenie: Przypadek Rozkładu Bernoulliego**
@@ -557,14 +558,14 @@ Przedział ufności na poziomie $1-\alpha$ dla pojedynczego współczynnika $\be
 
 $$[\hat{\beta}_j - z_{\alpha/2} \cdot SE(\hat{\beta}_j), \quad \hat{\beta}_j + z_{\alpha/2} \cdot SE(\hat{\beta}_j)]$$
 
-gdzie $SE(\hat{\beta}_j)$ to błąd standardowy estymatora, a $z_{\alpha/2}$ to kwantyl standardowego rozkładu normalnego. Przedział ten określa zakres wartości, w którym z zadanym prawdopodobieństwem znajduje się prawdziwa, nieznana wartość parametru $\beta_j$.
+gdzie $SE(\hat{\beta}_j)$ to błąd standardowy estymatora. Przedział ten określa zakres wartości, w którym z zadanym prawdopodobieństwem znajduje się prawdziwa, nieznana wartość parametru $\beta_j$.
 
 #### Testowanie Hipotez
 
 1.  **Test Walda (dla pojedynczego współczynnika)**: Służy do testowania hipotezy, takiej jak $H_0: \beta_j = 0$. Statystyka testowa:
 
     $$z = \frac{\hat{\beta}_j}{SE(\hat{\beta}_j)}$$
-    
+
     ma w przybliżeniu standardowy rozkład normalny. Oprogramowanie statystyczne zazwyczaj podaje **wartość p (*p-value*)** dla tego testu, która informuje o istotności statystycznej danego predyktora.
 
 2.  **Test Ilorazu Wiarygodności (dla modeli zagnieżdżonych)**: Służy do porównywania dwóch modeli zagnieżdżonych (gdzie model prostszy jest szczególnym przypadkiem modelu bardziej złożonego). Statystyka testowa opiera się na różnicy w dewiancjach obu modeli:
@@ -673,7 +674,7 @@ M-estymacja to jeszcze szersza klasa metod estymacji, która obejmuje zarówno m
 
 ### Pseudo-Największa Wiarygodność (PML)
 
-PML to szczególny rodzaj M-estymacji, w którym jedynym założeniem dotyczącym danych jest postać warunkowej wartości oczekiwanej $E[Y_i|x_i] = m(x_i, \beta)$.
+PML to szczególny rodzaj M-estymacji, w którym jedynym założeniem dotyczącym danych jest postać warunkowej wartości oczekiwanej $E[Y_i\mid x_i] = m(x_i, \beta)$.
 
 * **Metoda**: Parametry $\beta$ są estymowane poprzez maksymalizację "pseudo" funkcji wiarygodności, która jest wybierana ze względu na swoje dobre właściwości, nawet jeśli wiadomo, że nie jest to prawdziwy rozkład danych.
 * **Wynik**: Okazuje się, że aby estymatory PML były zgodne i asymptotycznie normalne, wybrana "pseudo" funkcja gęstości musi mieć strukturę bardzo podobną do tej z rodziny ED.
