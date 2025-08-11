@@ -174,26 +174,32 @@ W sekcji wspomniano również o innych rozkładach wywodzących się z rozkładu
 * **Zastosowanie**: Często używany do modelowania dodatnich i prawostronnie skośnych zmiennych, takich jak **wartości (ciężkości) szkód**.
 * **Własność kluczowa**: Wariancja jest **kwadratową funkcją wartości średniej**: $Var[Y] = \frac{1}{\alpha}(E[Y])^2$. Oznacza to, że współczynnik zmienności pozostaje stały.
 * **Funkcja gęstości prawdopodobieństwa** ($Y \sim Gam(\alpha, \tau)$):
+
     $$f_{Y}(y)=\frac{y^{\alpha-1}\tau^{\alpha}\exp(-\tau y)}{\Gamma(\alpha)}$$
 
 ### Rozkład Odwrotny Gaussa (*Inverse Gaussian*)
 * **Zastosowanie**: Alternatywa dla rozkładu Gamma do modelowania dodatnich, prawostronnie skośnych danych.
 * **Własność kluczowa**: Wariancja jest **sześcienną funkcją wartości średniej**: $Var[Y] = \frac{1}{\alpha}(E[Y])^3$. Oznacza to, że jego "ogon" jest cięższy niż w rozkładzie Gamma, ale lżejszy niż w rozkładzie logarytmiczno-normalnym.
 * **Funkcja gęstości prawdopodobieństwa** ($Y \sim IGau(\mu, \alpha)$):
+
     $$f_{Y}(y)=\sqrt{\frac{\alpha}{2\pi y^{3}}}\exp\left(-\frac{\alpha(y-\mu)^{2}}{2y\mu^{2}}\right)$$
 
 ### Rozkład Dwumianowy (*Binomial*)
 * **Zastosowanie**: Opisuje liczbę "sukcesów" w $m$ niezależnych próbach. W ubezpieczeniach na życie używany do modelowania **liczby zgonów** w zamkniętej grupie.
 * **Własność kluczowa**: Charakteryzuje się **niedostateczną dyspersją (*underdispersion*)**, co oznacza, że jego wariancja jest mniejsza niż wartość średnia: $Var[Y] < E[Y]$.
 * **Funkcja masy prawdopodobieństwa** ($Y \sim Bin(m, q)$):
+
     $$p_{Y}(y)=\binom{m}{y}q^{y}(1-q)^{m-y}$$
+
 * **Pokrewne rozkłady**: Rozkład Pascala (Ujemny Dwumianowy), który modeluje liczbę porażek przed osiągnięciem $m$ sukcesów, charakteryzuje się **nadmierną dyspersją (*overdispersion*)**.
 
 ### Rozkład Poissona (*Poisson*)
 * **Zastosowanie**: Jest to fundamentalny rozkład do modelowania **liczby (częstotliwości) szkód**. Powstaje jako graniczna forma rozkładu dwumianowego dla zdarzeń rzadkich.
 * **Własność kluczowa**: Charakteryzuje się **równą dyspersją (*equidispersion*)**, co oznacza, że jego wariancja jest równa wartości średniej: $Var[Y] = E[Y]$.
 * **Funkcja masy prawdopodobieństwa** ($Y \sim Poi(\lambda)$):
+
     $$p_{Y}(y)=\exp(-\lambda)\frac{\lambda^{y}}{y!}$$
+
 * **Ekspozycja na ryzyko**: W praktyce, średnia Poissona jest skalowana przez **ekspozycję na ryzyko** ($e$), np. długość okresu obserwacji. Model przyjmuje wtedy postać $Y \sim Poi(\lambda e)$.
 
 ***
@@ -205,8 +211,11 @@ W sekcji wspomniano również o innych rozkładach wywodzących się z rozkładu
 Momenty rozkładu z rodziny ED są ściśle powiązane z pochodnymi funkcji kumulanty $a(\theta)$.
 
 * **Wartość średnia** ($E[Y] = \mu$) jest równa pierwszej pochodnej funkcji $a(\theta)$:
+
     $$E[Y]=a^{\prime}(\theta)$$
+
 * **Wariancja** ($Var[Y]$) jest proporcjonalna do drugiej pochodnej funkcji $a(\theta)$:
+
     $$Var[Y]=\frac{\phi}{\nu}a^{\prime\prime}(\theta)$$
 
 Z tych relacji wynika kluczowe pojęcie **funkcji wariancji** $V(\mu)$, która opisuje, jak wariancja zależy od wartości średniej. Jest ona zdefiniowana jako druga pochodna funkcji kumulanty, wyrażona jako funkcja średniej $\mu$:
