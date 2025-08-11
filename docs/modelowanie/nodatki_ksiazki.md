@@ -60,12 +60,12 @@ Ta niedoskonałość prowadzi do dwóch rodzajów solidarności w portfelu. Moż
 
 $$Var[Y]=E[Var[Y\mid X,X^{+}]]+E[Var[E[Y\mid X,X^{+}]\mid X]]+Var[E[Y\mid X]]$$
 
-* **Solidarność losowa (zasada wzajemności)**: Pierwszy składnik, $E[Var[Y|X,X^{+}]]$, reprezentuje czystą losowość, której nie da się wyeliminować nawet przy doskonałej wiedzy o ryzyku. Jest to ryzyko pokrywane przez ubezpieczyciela zgodnie z zasadą wzajemności.
-* **Solidarność subsydiowana**: Drugi składnik, $E[Var[E[Y|X,X^{+}]|X]]$, wynika z faktu, że ubezpieczyciel nie zna ukrytych czynników $X^{+}$. Oznacza to, że w obrębie tej samej klasy ryzyka (określonej przez $X$) klienci o niższym "prawdziwym" ryzyku subsydiują składki tych o wyższym ryzyku. Mimo to, globalna równowaga jest zachowana, ponieważ zachodzi równość $E[E[Y|X,X^{+}]|X]=E[Y|X]$.
+* **Solidarność losowa (zasada wzajemności)**: Pierwszy składnik, $E[Var[Y\mid X,X^{+}]]$, reprezentuje czystą losowość, której nie da się wyeliminować nawet przy doskonałej wiedzy o ryzyku. Jest to ryzyko pokrywane przez ubezpieczyciela zgodnie z zasadą wzajemności.
+* **Solidarność subsydiowana**: Drugi składnik, $E[Var[E[Y\mid X,X^{+}]\mid X]]$, wynika z faktu, że ubezpieczyciel nie zna ukrytych czynników $X^{+}$. Oznacza to, że w obrębie tej samej klasy ryzyka (określonej przez $X$) klienci o niższym "prawdziwym" ryzyku subsydiują składki tych o wyższym ryzyku. Mimo to, globalna równowaga jest zachowana, ponieważ zachodzi równość $E[E[Y\mid X,X^{+}]\mid X]=E[Y\mid X]$.
 
 ### Wycena a Predykcja Strat
 
-Celem taryfikacji ubezpieczeniowej nie jest przewidywanie faktycznej straty $Y$ dla danego klienta, ale jak najdokładniejsze oszacowanie **prawdziwej składki czystej**, czyli warunkowej wartości oczekiwanej $\mu(X)=E[Y|X]$.
+Celem taryfikacji ubezpieczeniowej nie jest przewidywanie faktycznej straty $Y$ dla danego klienta, ale jak najdokładniejsze oszacowanie **prawdziwej składki czystej**, czyli warunkowej wartości oczekiwanej $\mu(X)=E[Y\mid X]$.
 
 ### Zmienne *A Priori* a *A Posteriori*
 
