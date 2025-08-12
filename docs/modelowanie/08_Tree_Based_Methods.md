@@ -24,3 +24,41 @@ nav_order: 7
     Model addytywny ma postać $f(X) = \sum\limits_{j=1}^p f_j (X_j)$, gdzie ostateczna prognoza jest sumą funkcji, z których każda zależy tylko od jednego predyktora.
     
     W przypadku boostingu z pniami (drzewami o głębokości 1), każde indywidualne drzewo $f^b(x)$ jest funkcją tylko jednej zmiennej (tej, która została użyta do podziału). Ostateczny model jest sumą wielu takich prostych drzew. Sumę tę można przegrupować tak, aby zsumować wszystkie funkcje zależne od $X_1$, wszystkie funkcje zależne od $X_2$ itd., co prowadzi bezpośrednio do addytywnej formy modelu.
+
+3. Consider the Gini index, classification error, and entropy in a simple classification setting with two classes. Create a single plot that displays each of these quantities as a function of $\hat{p}_{m1}$. The $x$-axis should display $\hat{p}_{m1}$, ranging from 0 to 1, and the $y$-axis should display the value of the Gini index, classification error, and entropy.
+
+    _Hint: In a setting with two classes, $\hat{p}_{m1} = 1 - \hat{p}_{m2}$. You could make this plot by hand, but it will be much easier to make in `R`._
+
+    Gini index:
+
+    $$G = \sum\limits_{k=1}^K \hat{p}_{mk} (1 - \hat{p}_{mk})$$
+
+    Entropy:
+
+    $$D = -\sum\limits_{k=1}^K \hat{p}_{mk} \log\hat{p}_{mk}$$
+ 
+
+    Classification error:
+
+    $$E = 1 - \sum\limits_{k=1}^K \max_k (\hat{p}_{mk})$$
+
+    ```R
+    p <- seq(0, 1, length.out = 100)
+    data <- data.frame(
+      x = p,
+      "G" = p * (1 - p) * 2,
+      "D" = -(p * log(p) + (1 - p) * log(1 - p)),
+      "E" = 1 - pmax(p, 1 - p),
+      check.names = FALSE
+    )
+
+    plot(data$x, data$G, type = "l", col = "red", xlab = expression(hat(p)[m1]),
+         ylab = "Values", ylim=c(0, 1))
+    lines(data$x, data$D, type = "l", col = "green")
+    lines(data$x, data$E, type = "l", col = "blue")
+
+    legend(0.7,1,legend=c("Gini Index", "Entropy", "Classification Error"),
+           col=c("red", "green", "blue"), lwd=c(1,1,1))
+    ```
+
+    ![](img/08_03.png)
