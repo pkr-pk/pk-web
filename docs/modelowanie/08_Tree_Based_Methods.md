@@ -74,3 +74,23 @@ nav_order: 7
     (b) Create a diagram similar to the left-hand panel of Figure 8.14, using the tree illustrated in the right-hand panel of the same figure. You should divide up the predictor space into the correct regions, and indicate the mean for each region.
 
     ![](img/08_04b.png)
+
+5. Suppose we produce ten bootstrapped samples from a data set containing red and green classes. We then apply a classification tree to each bootstrapped sample and, for a specific value of $X$, produce 10 estimates of $P(\text{Class is Red} \mid X)$:
+
+    $$0.1, 0.15, 0.2, 0.2, 0.55, 0.6, 0.6, 0.65, 0.7, \text{ and } 0.75.$$
+
+    There are two common ways to combine these results together into a single class prediction. One is the majority vote approach discussed in this chapter. The second approach is to classify based on the average probability. In this example, what is the final classification under each of these two approaches?
+
+    * Majority vote:
+        
+        Zliczenia $P(\text{Class is Red} \mid X) < 0.5 = 4$.
+    
+        Zliczenia $P(\text{Class is Red} \mid X) \ge 0.5 = 6$.
+
+        Klasyfikacja jako `Red`.
+
+    * Average probability:
+
+        $4.5 / 10 = 0.45$
+
+        Klasyfikacja jako `Green`.
