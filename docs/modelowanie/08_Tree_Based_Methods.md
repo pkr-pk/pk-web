@@ -62,3 +62,15 @@ nav_order: 7
     ```
 
     ![](img/08_03.png)
+
+4. This question relates to the plots in Figure 8.14.
+
+    ![](img/fig_8_14.jpg)
+
+    (a) Sketch the tree corresponding to the partition of the predictor space illustrated in the left-hand panel of Figure 8 14. The numbers inside the boxes indicate the mean of $Y$ within each region.
+
+    ![](img/08_04a.png)
+    
+    (b) Create a diagram similar to the left-hand panel of Figure 8.14, using the tree illustrated in the right-hand panel of the same figure. You should divide up the predictor space into the correct regions, and indicate the mean for each region.
+
+    ![](img/08_04b.png)
