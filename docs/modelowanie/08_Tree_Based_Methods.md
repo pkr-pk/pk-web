@@ -126,10 +126,10 @@ nav_order: 7
     
     Zamiast rozważać każde możliwe poddrzewo, metoda ta generuje sekwencję poddrzew w funkcji nieujemnego parametru dostrajania $\alpha$. Dla każdej wartości $\alpha$ znajduje się poddrzewo $T$, które minimalizuje następujące wyrażenie:
 
-    $$\sum_{m=1}^{|T|} \sum_{i: x_i \in R_m} (y_i - \hat{y}_{R_m})^2 + \alpha|T|$$
+    $$\sum_{m=1}^{\mid T \mid} \sum_{i: x_i \in R_m} (y_i - \hat{y}_{R_m})^2 + \alpha\mid T \mid$$
 
     * Pierwszy człon to suma kwadratów reszt (RSS), która mierzy dopasowanie do danych treningowych.
-    * Drugi człon, $\alpha|T|$, to **kara za złożoność**, gdzie $|T|$ jest liczbą liści (węzłów końcowych) w drzewie.
+    * Drugi człon, $\alpha\mid T \mid$, to **kara za złożoność**, gdzie $\mid T \mid$ jest liczbą liści (węzłów końcowych) w drzewie.
     * Parametr $\alpha$ kontroluje kompromis między dopasowaniem a złożonością. Gdy $\alpha = 0$, otrzymujemy oryginalne, duże drzewo. W miarę wzrostu $\alpha$, preferowane są mniejsze poddrzewa.
 
     **2. Wybór optymalnego parametru $\alpha$:**
