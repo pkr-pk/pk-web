@@ -94,3 +94,44 @@ nav_order: 7
         $4.5 / 10 = 0.45$
 
         Klasyfikacja jako `Green`.
+
+6. Provide a detailed explanation of the algorithm that is used to fit a regression tree.
+
+    ### I: Budowa drzewa za pomocą rekurencyjnego podziału binarnego
+
+    Celem tego kroku jest podzielenie przestrzeni predyktorów na zbiór odrębnych, niepokrywających się regionów o prostokątnym kształcie. Algorytm jest "odgórny" i "zachłanny" (top-down, greedy), co oznacza, że zaczyna od wszystkich danych w jednym regionie i na każdym kroku dokonuje najlepszego możliwego podziału.
+
+    **1. Kryterium podziału:**
+    
+    Głównym celem jest znalezienie regionów $R_1, R_2, ..., R_J$, które minimalizują sumę kwadratów reszt (RSS):
+        
+    $$RSS = \sum_{j=1}^{J} \sum_{i \in R_j} (y_i - \hat{y}_{R_j})^2$$
+
+    gdzie $\hat{y}_{R_j}$ to średnia wartość zmiennej odpowiedzi dla obserwacji treningowych w regionie $R_j$.
+
+    **2. Proces podziału:**
+    
+    * **Krok 1:** Algorytm zaczyna z wszystkimi obserwacjami w jednym regionie.
+    * **Krok 2:** Następnie rozważa wszystkie predyktory $X_1, X_2, ..., X_p$ i wszystkie możliwe punkty cięcia $s$ dla każdego z predyktorów. Wybierany jest ten predyktor $X_j$ i ten punkt cięcia $s$, które dzielą przestrzeń na dwa nowe regiony ($\{X\mid X_j < s\}$ i $\{X\mid X_j \ge s\}$) tak, aby uzyskać największą możliwą redukcję RSS.
+    * **Krok 3:** Proces jest powtarzany dla każdego z nowo utworzonych regionów.
+    * **Krok 4:** Działania te kontynuuje się do momentu spełnienia kryterium stopu, na przykład, gdy każdy region końcowy (liść) zawiera mniej niż pewną minimalną liczbę obserwacji.
+
+    W wyniku tego procesu powstaje duże, często przetrenowane (overfitted) drzewo, które dobrze radzi sobie z danymi treningowymi, ale prawdopodobnie słabo z danymi testowymi.
+
+    ### II: Przycinanie drzewa (pruning)
+
+    Aby uniknąć nadmiernego dopasowania, duże drzewo uzyskane w punkcie I jest przycinane w celu znalezienia mniejszego poddrzewa, które ma niższy błąd na danych testowych.
+
+    **1. Metoda: przycinanie według złożoności kosztu (cost complexity pruning)**
+    
+    Zamiast rozważać każde możliwe poddrzewo, metoda ta generuje sekwencję poddrzew w funkcji nieujemnego parametru dostrajania $\alpha$. Dla każdej wartości $\alpha$ znajduje się poddrzewo $T$, które minimalizuje następujące wyrażenie:
+
+    $$\sum_{m=1}^{|T|} \sum_{i: x_i \in R_m} (y_i - \hat{y}_{R_m})^2 + \alpha|T|$$
+
+    * Pierwszy człon to suma kwadratów reszt (RSS), która mierzy dopasowanie do danych treningowych.
+    * Drugi człon, $\alpha|T|$, to **kara za złożoność**, gdzie $|T|$ jest liczbą liści (węzłów końcowych) w drzewie.
+    * Parametr $\alpha$ kontroluje kompromis między dopasowaniem a złożonością. Gdy $\alpha = 0$, otrzymujemy oryginalne, duże drzewo. W miarę wzrostu $\alpha$, preferowane są mniejsze poddrzewa.
+
+    **2. Wybór optymalnego parametru $\alpha$:**
+    
+    Optymalna wartość parametru $\alpha$ jest wybierana za pomocą K-krotnej walidacji krzyżowej (K-fold cross-validation). Dla różnych wartości $\alpha$ obliczany jest średni błąd na zbiorach walidacyjnych, a następnie wybierane jest to $\alpha$, które minimalizuje ten błąd.
