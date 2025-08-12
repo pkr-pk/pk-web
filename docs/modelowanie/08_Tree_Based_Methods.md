@@ -25,9 +25,11 @@ nav_order: 7
     
     W przypadku boostingu z pniami (drzewami o głębokości 1), każde indywidualne drzewo $f^b(x)$ jest funkcją tylko jednej zmiennej (tej, która została użyta do podziału). Ostateczny model jest sumą wielu takich prostych drzew. Sumę tę można przegrupować tak, aby zsumować wszystkie funkcje zależne od $X_1$, wszystkie funkcje zależne od $X_2$ itd., co prowadzi bezpośrednio do addytywnej formy modelu.
 
-3. Consider the Gini index, classification error, and entropy in a simple classification setting with two classes. Create a single plot that displays each of these quantities as a function of $\hat{p}_{m1}$. The $x$-axis should display $\hat{p}_{m1}$, ranging from 0 to 1, and the $y$-axis should display the value of the Gini index, classification error, and entropy.
+3. Consider the Gini index, classification error, and entropy in a simple classification setting with two classes. Create a single plot that displays each of these quantities as a function of $\hat{p}_{m1}$. 
 
-    _Hint: In a setting with two classes, $\hat{p}_{m1} = 1 - \hat{p}_{m2}$. You could make this plot by hand, but it will be much easier to make in `R`._
+    The $x$-axis should display $\hat{p}_{m1}$, ranging from 0 to 1, and the $y$-axis should display the value of the Gini index, classification error, and entropy.
+
+    _Hint: In a setting with two classes, $\hat{p}_{m1} = 1 - \hat{p}_{m2}$ You could make this plot by hand, but it will be much easier to make in `R`._
 
     Gini index:
 
@@ -97,7 +99,7 @@ nav_order: 7
 
 6. Provide a detailed explanation of the algorithm that is used to fit a regression tree.
 
-    ### I: Budowa drzewa za pomocą rekurencyjnego podziału binarnego
+    **I: Budowa drzewa za pomocą rekurencyjnego podziału binarnego**
 
     Celem tego kroku jest podzielenie przestrzeni predyktorów na zbiór odrębnych, niepokrywających się regionów o prostokątnym kształcie. Algorytm jest "odgórny" i "zachłanny" (top-down, greedy), co oznacza, że zaczyna od wszystkich danych w jednym regionie i na każdym kroku dokonuje najlepszego możliwego podziału.
 
@@ -118,7 +120,7 @@ nav_order: 7
 
     W wyniku tego procesu powstaje duże, często przetrenowane (overfitted) drzewo, które dobrze radzi sobie z danymi treningowymi, ale prawdopodobnie słabo z danymi testowymi.
 
-    ### II: Przycinanie drzewa (pruning)
+    **II: Przycinanie drzewa (pruning)**
 
     Aby uniknąć nadmiernego dopasowania, duże drzewo uzyskane w punkcie I jest przycinane w celu znalezienia mniejszego poddrzewa, które ma niższy błąd na danych testowych.
 
