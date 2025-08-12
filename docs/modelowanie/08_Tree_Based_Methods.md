@@ -135,3 +135,42 @@ nav_order: 7
     **2. Wybór optymalnego parametru $\alpha$:**
     
     Optymalna wartość parametru $\alpha$ jest wybierana za pomocą K-krotnej walidacji krzyżowej (K-fold cross-validation). Dla różnych wartości $\alpha$ obliczany jest średni błąd na zbiorach walidacyjnych, a następnie wybierane jest to $\alpha$, które minimalizuje ten błąd.
+
+7. In the lab, we applied random forests to the `Boston` data using `mtry = 6` and using `ntree = 25` and `ntree = 500`. Create a plot displaying the test error resulting from random forests on this data set for a more comprehensive range of values for `mtry` and `ntree`. You can model your plot after Figure 8.10. Describe the results obtained.
+
+    ```R
+    library(ISLR2)
+    library(randomForest)
+    attach(Boston)
+
+    set.seed(1)
+    train <- sample(nrow(Boston), nrow(Boston) * 2 / 3)
+
+    p = 12
+    n = 700
+    fit_1 <- randomForest(x = Boston[train, -13], y = Boston[train, 13],
+                          xtest = Boston[-train, -13], ytest = Boston[-train, 13],
+                          mtry = p, ntree = n)
+
+    fit_2 <- randomForest(x = Boston[train, -13], y = Boston[train, 13],
+                          xtest = Boston[-train, -13], ytest = Boston[-train, 13],
+                          mtry = p / 2, ntree = n)
+
+    fit_3 <- randomForest(x = Boston[train, -13], y = Boston[train, 13],
+                          xtest = Boston[-train, -13], ytest = Boston[-train, 13],
+                          mtry = sqrt(p), ntree = n)
+
+    plot(1:n, fit_1$test$mse, type = "l", ylim = c(13, 30), col = "red", 
+         xlab = "Number of trees", ylab = "Test error")
+    lines(1:n, fit_2$test$mse, type = "l", col = "green")
+    lines(1:n, fit_3$test$mse, type = "l", col = "blue")
+
+    legend(450, 30, legend=c("m = p", "m = p/2", "m = sqrt(p)"), 
+           col=c("red", "green", "blue"), lwd=c(1,1,1))
+    ```
+
+    ![](img/08_07.png)
+
+    > Błąd dąży do pewnej w miarę stabilnej wartości wraz ze wzrostem liczby drzew.
+    >
+    > Błąd jest mniejszy jeżeli zmniejszymy $m$.
