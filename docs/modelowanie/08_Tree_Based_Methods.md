@@ -176,3 +176,145 @@ nav_order: 7
     > Błąd dąży do pewnej w miarę stabilnej wartości wraz ze wzrostem liczby drzew.
     >
     > Błąd jest mniejszy jeżeli zmniejszymy $m$.
+
+8. In the lab, a classification tree was applied to the `Carseats` data set after converting `Sales` into a qualitative response variable. Now we will seek to predict `Sales` using regression trees and related approaches, treating the response as a quantitative variable.
+    
+    (a) Split the data set into a training set and a test set.
+
+    ```R
+    library(ISLR2)
+    library(randomForest)
+    library(tree)
+    attach(Carseats)
+
+    set.seed(42)
+    train <- sample(nrow(Carseats), nrow(Carseats) * 2 / 3)
+    ```
+    
+    (b) Fit a regression tree to the training set. Plot the tree, and interpret the results. What test MSE do you obtain?
+
+    ```R
+    fit <- tree(Sales ~ ., data = Carseats[train, ])
+
+    plot(fit)
+    text(fit, pretty = 0, cex = 0.5)
+
+    yhat <- predict(fit, newdata = Carseats[-train, ])
+    test <- Carseats[-train, "Sales"]
+    mean((yhat - test)^2)
+    ```
+
+    ```R
+    [1] 4.945247
+    ```
+
+    ![](img/08_08b.png)
+
+    > Najważniejsze zmienne to `ShelveLoc` i `Price`.
+
+    (c) Use cross-validation in order to determine the optimal level of tree complexity. Does pruning the tree improve the test MSE?
+
+    ```R
+    cv <- cv.tree(fit)
+    plot(cv$size, cv$dev, type = "b")
+
+    prune <- prune.tree(fit, best = 4)
+
+    yhat <- predict(prune, newdata = Carseats[-train, ])
+    test <- Carseats[-train, "Sales"]
+
+    mean((yhat - test)^2)
+    ```
+
+    ```R
+    [1] 4.476256
+    ```
+
+    ![](img/08_08c.png)
+
+    > Z wykresu widać, że należy przyciąć drzewo do 12 końcowych węzłów i nieznacznie polepsza to MSE.
+    
+    (d) Use the bagging approach in order to analyze this data. What test MSE do you obtain? Use the `importance()` function to determine which variables are most important.
+
+    ```R
+    bag.fit = randomForest(Sales ~ ., data = Carseats[train, ], mtry = 10,
+                           importance = T)
+    importance(bag.fit)
+    ```
+
+    ```R
+                  %IncMSE IncNodePurity
+    CompPrice   34.442203    275.877646
+    Income      10.594604    118.555454
+    Advertising 21.112431    166.883279
+    Population   1.691055     84.322807
+    Price       67.336617    616.752513
+    ShelveLoc   72.275993    574.237721
+    Age         17.055485    178.235283
+    Education    4.934414     56.817835
+    Urban        2.294690      9.594651
+    US           2.908003      8.278551
+    ```
+
+    ```R
+    yhat <- predict(bag.fit, newdata = Carseats[-train, ])
+    test <- Carseats[-train, "Sales"]
+    mean((yhat - test)^2)
+    ```
+
+    ```R
+    [1] 2.098377
+    ```
+
+    > Najważniejsza jest zmienna `Price`. Bagging poprawił też poziom błędu MSE.
+    
+    (e) Use random forests to analyze this data. What test MSE do you obtain? Use the `importance()` function to determine which variables are most important. Describe the effect of $m$, the number of variables considered at each split, on the error rate obtained.
+    
+    ```R
+    bag.fit = randomForest(Sales ~ ., data = Carseats[train, ], mtry = 3,
+                           importance = T)
+    importance(bag.fit)
+    ```
+
+    ```R
+                  %IncMSE IncNodePurity
+    CompPrice   16.389686     206.08152
+    Income       5.675147     163.24324
+    Advertising 16.345509     208.15730
+    Population   2.711832     137.71273
+    Price       43.225770     467.82974
+    ShelveLoc   47.486572     459.10402
+    Age         13.857215     214.79994
+    Education    1.932250     102.18150
+    Urban        2.561229      20.06366
+    US           3.667538      30.08216
+    ```
+
+    ```R
+    yhat <- predict(bag.fit, newdata = Carseats[-train, ])
+    test <- Carseats[-train, "Sales"]
+    mean((yhat - test)^2)
+    ```
+
+    ```R
+    [1] 2.741097
+    ```
+
+    > Najważniejsza jest zmienna `Price`. Zmiana parametru $m$ pogarsza wartość błędu MSE.
+
+    (f) Now analyze the data using BART, and report your results.
+
+    ```R
+    bart.fit <- gbart(Carseats[train, 2:11], Carseats[train, 1], 
+                      x.test = Carseats[-train, 2:11])
+
+    yhat <- bart.fit$yhat.test.mean
+    test <- Carseats[-train, 1]
+    mean((test - yhat)^2)
+    ```
+
+    ```R
+    [1] 1.360843
+    ```
+
+    > Model BART pozwolił jeszcze bardziej zmniejszyć błąd MSE.
