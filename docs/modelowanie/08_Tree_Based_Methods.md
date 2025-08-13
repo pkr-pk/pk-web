@@ -232,7 +232,7 @@ nav_order: 7
 
     ![](img/08_08c.png)
 
-    > Z wykresu widać, że należy przyciąć drzewo do 12 końcowych węzłów i nieznacznie polepsza to MSE.
+    > Z wykresu widać, że należy przyciąć drzewo do rozmiaru 12, nieznacznie polepsza to MSE.
     
     (d) Use the bagging approach in order to analyze this data. What test MSE do you obtain? Use the `importance()` function to determine which variables are most important.
 
@@ -318,3 +318,140 @@ nav_order: 7
     ```
 
     > Model BART pozwolił jeszcze bardziej zmniejszyć błąd MSE.
+
+9. This problem involves the `OJ` data set which is part of the `ISLR2` package.
+    
+    (a) Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
+    
+    ```R
+    library(ISLR2)
+    library(randomForest)
+    library(tree)
+    library(BART)
+    attach(OJ)
+
+    set.seed(42)
+    train <- sample(nrow(OJ), 800)
+    ```
+
+    (b) Fit a tree to the training data, with `Purchase` as the response and the other variables as predictors. Use the `summary()` function to produce summary statistics about the tree, and describe the results obtained. What is the training error rate? How many terminal nodes does the tree have?
+
+    ```R
+    fit <- tree(Purchase ~ ., data = OJ[train, ])
+    summary(fit)
+    ```
+
+    ```R
+    Classification tree:
+    tree(formula = Purchase ~ ., data = OJ[train, ])
+    Variables actually used in tree construction:
+    [1] "LoyalCH"       "PriceDiff"     "ListPriceDiff"
+    Number of terminal nodes:  7 
+    Residual mean deviance:  0.7598 = 602.5 / 793 
+    Misclassification error rate: 0.155 = 124 / 800 
+    ```
+
+    > Błąd treningowy wynosi 0.155. Drzewo ma 7 węzłów końcowych. Dewiancja jest wysoka więc model nie jest dobry jakościowo.
+    
+    (c) Type in the name of the tree object in order to get a detailed text output. Pick one of the terminal nodes, and interpret the information displayed.
+
+    ```R
+    fit
+    ```
+
+    ```R
+    node), split, n, deviance, yval, (yprob)
+        * denotes terminal node
+
+    1) root 800 1081.00 CH ( 0.59250 0.40750 )  
+      2) LoyalCH < 0.445362 279  277.00 MM ( 0.19713 0.80287 )  
+        4) LoyalCH < 0.051325 64   10.30 MM ( 0.01562 0.98438 ) *
+        5) LoyalCH > 0.051325 215  242.40 MM ( 0.25116 0.74884 ) *
+      3) LoyalCH > 0.445362 521  515.30 CH ( 0.80422 0.19578 )  
+        6) LoyalCH < 0.740621 249  324.70 CH ( 0.64257 0.35743 )  
+          12) PriceDiff < -0.165 39   36.71 MM ( 0.17949 0.82051 ) *
+          13) PriceDiff > -0.165 210  245.60 CH ( 0.72857 0.27143 )  
+            26) ListPriceDiff < 0.135 34   45.23 MM ( 0.38235 0.61765 ) *
+            27) ListPriceDiff > 0.135 176  178.30 CH ( 0.79545 0.20455 ) *
+        7) LoyalCH > 0.740621 272  104.40 CH ( 0.95221 0.04779 )  
+          14) PriceDiff < -0.39 8   11.09 MM ( 0.50000 0.50000 ) *
+          15) PriceDiff > -0.39 264   78.51 CH ( 0.96591 0.03409 ) *
+    ```
+
+    > Węzeł nr 15 jest jednym z węzłów ostatnich, jest w nim 264 obserwacje. Jeżeli `LPriceDiff > -0.39` to ostateczna wartość w tym węźle jest klasyfikowana jako `CH`.
+    
+    (d) Create a plot of the tree, and interpret the results.
+
+    ![](img/08_09d.png)
+
+    > Najważniejsza jest zmienna `LoyalCH`.
+    
+    (e) Predict the response on the test data, and produce a confusion matrix comparing the test labels to the predicted test labels. What is the test error rate?
+
+    ```R
+    pred <- predict(fit, OJ[-train, ], type = "class")
+    t <- table(pred, OJ[-train, ]$Purchase)
+    1 - sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.2222222
+    ```
+
+    > Błąd jest większy niż na danych treningowych czyli zgodnie z oczekiwaniem
+
+    (f) Apply the `cv.tree()` function to the training set in order to determine the optimal tree size.
+
+    ```R
+    cv <- cv.tree(fit)
+    ```
+    
+    (g) Produce a plot with tree size on the $x$-axis and cross-validated classification error rate on the $y$-axis.
+
+    ```R
+    plot(cv$size, cv$dev, type = "b")
+    ```
+
+    ![](img/08_09f.png)
+    
+    (h) Which tree size corresponds to the lowest cross-validated classification error rate?
+
+    > Najmniejszy błąd jest dla drzewa o rozmiarze 5.
+    
+    (i) Produce a pruned tree corresponding to the optimal tree size obtained using cross-validation. If cross-validation does not lead to selection of a pruned tree, then create a pruned tree with five terminal nodes.
+
+    ```R
+    prune <- prune.tree(fit, best = 5)
+    ```
+    
+    (j) Compare the training error rates between the pruned and unpruned trees. Which is higher?
+
+    ```R
+    summary(prune)
+    ```
+
+    ```R
+    Classification tree:
+    snip.tree(tree = fit, nodes = c(5L, 12L))
+    Variables actually used in tree construction:
+    [1] "LoyalCH"   "PriceDiff"
+    Number of terminal nodes:  5 
+    Residual mean deviance:  0.7833 = 622.7 / 795 
+    Misclassification error rate: 0.1812 = 145 / 800
+    ```
+
+    > Błąd 0.1812 jest wyższy niż na danych nie przyciętych.
+    
+    (k) Compare the test error rates between the pruned and unpruned trees. Which is higher?
+
+    ```R
+    pred <- predict(prune, OJ[-train, ], type = "class")
+    t <- table(pred, OJ[-train, ]$Purchase)
+    1 - sum(diag(t)) / sum(t)
+    ```
+
+    ```R
+    [1] 0.2185185
+    ```
+
+    > Błąd na danych testowy jest nieznacznie niższy niż w przypadku modelu nie przyciętego.
