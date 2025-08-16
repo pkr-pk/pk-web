@@ -170,3 +170,13 @@ Ze względu na te przeciwstawne tendencje, stosowanie modelu Tweedie z stałym p
 Dendrogram to drzewiasta struktura, która przedstawia sposób łączenia obiektów w grupy (skupienia, klastry) na różnych poziomach podobieństwa. Poziome cięcie na określonej wysokości oznacza usunięcie połączeń powyżej tej wartości, co prowadzi do podziału obiektów na skupienia. Ich liczba zależy od wysokości, na której wykonano cięcie – im niżej, tym więcej mniejszych skupień, im wyżej, tym mniej większych.
 
 Wysokość połączenia odzwierciedla odległość (niepodobieństwo) między grupowanymi obiektami lub skupieniami. Im wyżej następuje połączenie, tym większe różnice między skupieniami. Pomaga to wybrać odpowiednią liczbę skupień oraz zrozumieć strukturę danych.
+
+## POT peaks over threshold
+
+Wybór odpowiedniego progu `u` jest kluczowy, ponieważ wiąże się z fundamentalnym kompromisem między **obciążeniem** (błędem systematycznym) a **wariancją** (niestabilnością) oszacowań parametrów.
+
+Konsekwencje niewłaściwego wyboru progu są następujące:
+* **Wybór zbyt wysokiego progu `u`**: Powoduje, że do analizy trafia bardzo mało obserwacji (nadwyżek ponad próg). Prowadzi to do oszacowań o dużej wariancji, co oznacza, że są one **niestabilne i mało precyzyjne**.
+* **Wybór zbyt niskiego progu `u`**: Skutkuje włączeniem do analizy obserwacji, które nie pochodzą z ekstremalnego ogona rozkładu. Dla tych danych założenie o uogólnionym rozkładzie Pareto (GPD) może nie być spełnione, co prowadzi do uzyskania **obciążonych, czyli systematycznie błędnych, oszacowań**.
+
+Celem jest znalezienie najniższego możliwego progu, powyżej którego model GPD staje się trafną aproksymacją zachowania danych w ogonie rozkładu.
