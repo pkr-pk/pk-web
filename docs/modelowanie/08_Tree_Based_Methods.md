@@ -455,3 +455,151 @@ nav_order: 7
     ```
 
     > Błąd na danych testowy jest nieznacznie niższy niż w przypadku modelu nie przyciętego.
+
+10. We now use boosting to predict `Salary` in the `Hitters` data set.
+
+    (a) Remove the observations for whom the salary information is unknown, and then log-transform the salaries.
+
+    ```R
+    library(ISLR2)
+    Hitters_2 <- Hitters
+    Hitters_2 <- Hitters_2[!is.na(Hitters_2$Salary), ]
+    Hitters_2$Salary <- log(Hitters_2$Salary)
+    attach(Hitters_2)
+    ```
+    
+    (b) Create a training set consisting of the first 200 observations, and a test set consisting of the remaining observations.
+
+    ```R
+    set.seed(2)
+    train <- sample(nrow(Hitters_2), 200)
+    ```
+    
+    (c) Perform boosting on the training set with 1,000 trees for a range of values of the shrinkage parameter $\lambda$. Produce a plot with different shrinkage values on the $x$-axis and the corresponding training set MSE on the $y$-axis.
+
+    ```R
+    library(gbm)
+
+    lambdas <- seq(0, 1, 0.1)
+    means <- c()
+
+    for (i in lambdas){
+      boost <- gbm(Salary ~ ., data = Hitters_2[train, ], distribution = "gaussian",
+                   n.trees = 1000, shrinkage = i)
+      yhat <- predict(boost, newdata = Hitters_2[train, ], n.trees = 1000)
+      means <- c(means, mean((yhat - Hitters_2[train, ]$Salary)^2))
+    }
+
+    plot(lambdas, means, type="b", xlab = expression(lambda), ylab = "Train MSE")
+    ```
+
+    ![](img/09_10c.png)
+    
+    (d) Produce a plot with different shrinkage values on the $x$-axis and the corresponding test set MSE on the $y$-axis.
+
+    ```R
+    lambdas <- seq(0, 1, 0.1)
+    means <- c()
+
+    for (i in lambdas){
+      boost <- gbm(Salary ~ ., data = Hitters_2[train, ], distribution = "gaussian",
+                  n.trees = 1000, shrinkage = i)
+      yhat <- predict(boost, newdata = Hitters_2[-train, ], n.trees = 1000)
+      means <- c(means, mean((yhat - Hitters_2[-train, ]$Salary)^2))
+    }
+
+    min(means)
+    lambdas[which.min(means)]
+
+    plot(lambdas, means, type="b", xlab=expression(lambda), ylab="Test MSE")
+    ```
+
+    ```R
+    [1] 0.2127571
+    [1] 0.2
+    ```
+
+    ![](img//09_10d.png)
+    
+    (e) Compare the test MSE of boosting to the test MSE that results from applying two of the regression approaches seen in Chapters 3 and 6.
+
+    ```R
+    # Multiple Linear Regression (Chapter 3)
+    lm.fit = lm(Salary ~ ., data = Hitters_2[train, ])
+    lm.preds = predict(lm.fit, newdata = Hitters_2[-train, ])
+    lm.mse = mean((lm.preds - Hitters_2[-train, ]$Salary)^2)
+    lm.mse
+    ```
+
+    ```R
+    [1] 0.5143062
+    ```
+
+    ```R
+    # Lasso model (Chapter 6)
+    library(glmnet)
+    x = model.matrix(Salary ~ ., data = Hitters_2[train, ])
+    test = model.matrix(Salary ~ ., data = Hitters_2[-train, ])
+    y = Hitters_2[train, ]$Salary
+    lasso.mod = glmnet(x, y, alpha = 1)
+
+    cv.out = cv.glmnet(x, y, alpha=1)
+    bestlam = cv.out$lambda.min
+    lasso.pred = predict(lasso.mod, s=bestlam, newx = test)
+    mean((lasso.pred - Hitters_2[-train, ]$Salary)^2)
+    ```
+
+    ```R
+    [1] 0.4742347
+    ```
+    
+    > Drzewo zbudowane metodą boosting ma w tym przypadku mniejszy błąd niż regresja liniowa i lasso.
+
+    (f) Which variables appear to be the most important predictors in the boosted model?
+
+    ```R
+    boost = gbm(Salary ~ ., data= Hitters_2[train, ], distribution = "gaussian",
+                n.trees = 1000, shrinkage = 0.2)
+    summary(boost)
+    ```
+
+    ```R
+                    var    rel.inf
+    CWalks       CWalks 11.5228111
+    CRuns         CRuns  9.2845927
+    CRBI           CRBI  9.1029165
+    PutOuts     PutOuts  7.2472499
+    CHits         CHits  6.6068264
+    HmRun         HmRun  5.8016634
+    Walks         Walks  5.7280674
+    AtBat         AtBat  5.6755620
+    Hits           Hits  5.6323046
+    Assists     Assists  5.4405301
+    CAtBat       CAtBat  4.9387237
+    Years         Years  4.8418310
+    CHmRun       CHmRun  4.7014300
+    Runs           Runs  4.5384478
+    RBI             RBI  4.5292375
+    Errors       Errors  2.6463223
+    Division   Division  0.8631037
+    NewLeague NewLeague  0.5374887
+    League       League  0.3608911
+    ```
+
+    > Najważniejsze zmienne w tym modelu to: `CWalks`, `CRuns`, `CRBI`.
+    
+    (g) Now apply bagging to the training set. What is the test set MSE for this approach?
+
+    ```R
+    library(randomForest)
+    bag = randomForest(Salary ~ ., data = Hitters_2[train, ], mtry = 19,
+                    importance = T)
+    pred = predict(bag, newdata = Hitters_2[-train, ])
+    mean((pred - Hitters_2[-train, ]$Salary)^2)
+    ```
+
+    ```R
+    [1] 0.1913495
+    ```
+
+    > Błąd mniejszy niż w przypadku boostingu.
