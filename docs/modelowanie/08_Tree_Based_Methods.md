@@ -607,7 +607,105 @@ nav_order: 7
 11. This question uses the `Caravan` data set.
 
     (a) Create a training set consisting of the first 1,000 observations, and a test set consisting of the remaining observations.
+
+    ```R
+    library(ISLR2)
+    library(gbm)
+
+    # funkcja gbm nie przyjmuje zmiennych w postaci no/yes
+    Caravan_2 <- Caravan
+    Caravan_2$Purchase_2 <- as.numeric(Caravan$Purchase == "Yes")
+
+    train.set <- Caravan_2[1:1000, ]
+    test.set <- Caravan_2[1001:5822, ]
+    ```
     
     (b) Fit a boosting model to the training set with `Purchase` as the response and the other variables as predictors. Use 1,000 trees, and a shrinkage value of 0.01. Which predictors appear to be the most important?
+
+    ```R
+    set.seed(5)
+    fit <- gbm(Purchase_2 ~ . - Purchase, data = train.set, n.trees = 1000,
+               shrinkage = 0.01)
+
+    head(summary(fit))
+    ```
+
+    ```R
+                  var   rel.inf
+    PPERSAUT PPERSAUT 14.635194
+    MKOOPKLA MKOOPKLA 10.807759
+    MOPLHOOG MOPLHOOG  6.462813
+    MBERMIDD MBERMIDD  6.361418
+    PBRAND     PBRAND  5.348285
+    MGODGE     MGODGE  4.148591
+    ```
     
     (c) Use the boosting model to predict the response on the test data. Predict that a person will make a purchase if the estimated probability of purchase is greater than 20%. Form a confusion matrix. What fraction of the people predicted to make a purchase do in fact make one? How does this compare with the results obtained from applying KNN or logistic regression to this data set?
+
+    ```R
+    p <- predict(fit, test.set, n.trees = 1000, type = "response")
+    preds <- rep("No", 4822)
+    preds[p > 0.20] = "Yes"
+    actual <- test.set$Purchase
+    table(actual, preds)
+
+    35 / (123+35)
+    ```
+
+    ```R
+          preds
+    actual   No  Yes
+       No  4410  123
+       Yes  254   35
+
+    [1] 0.221519
+    ```
+
+    ```R
+    # logistic regression
+    train.set <- Caravan[1:1000, ]
+    test.set <- Caravan[1001:5822, ]
+
+    fit <- glm(Purchase ~ ., data = train.set,
+              family = "binomial")
+
+    p <- predict(fit, test.set, type = "response")
+    preds <- rep("No", 4822)
+    preds[p > 0.20] = "Yes"
+    actual <- test.set$Purchase
+    table(actual, preds)
+
+    58 / (350 + 58)
+    ```
+
+    ```R
+          preds
+    actual   No  Yes
+       No  4183  350
+       Yes  231   58
+
+    [1] 0.1421569
+    ```
+
+    ```R
+    # KNN
+    library(class)
+    fit <- knn(train.set[, -86], test.set[, -86], train.set$Purchase)
+    table(actual, fit)
+
+    23 / (273 + 23)
+    ```
+
+    ```R
+            fit
+    actual   No  Yes
+       No  4260  273
+       Yes  266   23
+
+    [1] 0.0777027
+    ```
+
+    > Ostatecznie boosting model najlepiej przewiduje odpowiedź `Yes` ze wszystkich dopasowanych modeli.
+
+
+
