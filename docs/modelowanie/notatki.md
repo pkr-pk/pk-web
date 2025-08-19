@@ -47,6 +47,8 @@ $\hat{\theta}_i$ - estymata parametru kanonicznego dla i-tej obserwacji w analiz
 
 $a(\cdot)$ - funkcja kumulacyjna, która jest unikalna dla każdego rozkładu z wykładniczej rodziny rozkładów (ED family). Definiuje ona związek między parametrem kanonicznym a średnią rozkładu.
 
+---
+
 ## Metoda Hilla
 
 Metoda Hilla jest alternatywą dla modelowania opartego na uogólnionym rozkładzie Pareto (GPD), przeznaczoną specjalnie dla rozkładów ciężkoogonowych (należących do dziedziny przyciągania rozkładu Frécheta).
@@ -66,6 +68,8 @@ Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowa
 * Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawieraumowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratamiwynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hillasłuży do oszacowania parametru grubości ogona rozkładu strat. Pozwala to naokreślenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
 
 * Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonychkatastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacowaćwartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. EstymatorHilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o danehistoryczne.
+
+---
 
 ## Krzywa Lorenza i krzywa koncentracji
 
@@ -91,6 +95,8 @@ Jak działa porównanie?
 
 * Miara ilościowa: jakość predyktora można skwantyfikować za pomocą wskaźnika ABC (Area Between Curves), czyli pola powierzchni między krzywą koncentracji a krzywą Lorenza. Mniejsza wartość ABC oznacza, że struktura cenowa modelu jest bliższa rzeczywistej strukturze ryzyka, co świadczy o wyższej jakości predyktora.
 
+---
+
 ## Wygładzanie wykładnicze
 
 Wygładzanie wykładnicze to jedna z metod prognozowania i analizy szeregów czasowych, która nadaje większą wagę nowszym obserwacjom, jednocześnie stopniowo zmniejszając wpływ starszych danych. Jest to technika używana do wygładzania fluktuacji w danych, co ułatwia identyfikację trendów i wzorców. Główne zastosowania:
@@ -105,6 +111,8 @@ Rodzaje wygładzania wykładniczego:
 * Wygładzanie podwójne (Holt's method) – uwzględnia zarówno poziom, jak i trend.
 * Wygładzanie potrójne (Holt-Winters method) – dodatkowo uwzględnia sezonowość. Wygładzanie wykładnicze jest szczególnie cenione za swoją prostotę i skuteczność w prognozowaniu, zwłaszcza gdy dane wykazują krótkoterminowe fluktuacje.
 
+---
+
 ## Interakcja czynników ryzyka
 
 Interakcja w kontekście czynników ryzyka ubezpieczeniowego odnosi się do sytuacji, w której wpływ jednego czynnika ryzyka na prawdopodobieństwo wystąpienia szkody zależy od obecności innego czynnika ryzyka. Oznacza to, że efekty dwóch (lub więcej) zmiennych nie są jedynie sumą ich indywidualnych wpływów, ale mogą się wzmacniać lub osłabiać w zależności od ich wzajemnego oddziaływania. Różnica między interakcją a korelacją:
@@ -113,6 +121,8 @@ Interakcja w kontekście czynników ryzyka ubezpieczeniowego odnosi się do sytu
 * Interakcja odnosi się do sposobu, w jaki jedna zmienna modyfikuje wpływ drugiej na określone zjawisko, np. ryzyko szkody. Może oznaczać, że efekt jednej zmiennej występuje tylko pod warunkiem obecności drugiej. 
 
 Korelacja sama w sobie nie oznacza interakcji – dwie zmienne mogą być silnie skorelowane, ale nie muszą wpływać na siebie nawzajem w sposób interakcyjny. Dlatego w analizie ryzyka ubezpieczeniowego ważne jest stosowanie modeli, które uwzględniają nie tylko współzależności, ale także potencjalne efekty interakcji między czynnikami.
+
+---
 
 ## Techniki statystyczne w wykrywaniu oszustw
 
@@ -130,6 +140,8 @@ Techniki statystyczne, jak test chi-kwadrat i analiza regresji pomagają identyf
 
 Techniki statystyczne są często stosowane w połączeniu z metodami eksploracji danych(data mining) i uczeniem maszynowym, co zwiększa skuteczność wykrywania oszustw.
 
+---
+
 ## Rozkład Tweedie
 
 W modelach aktuarialnych opartych na rodzinie rozkładów Tweedie, parametr $\xi$ kontroluje zależność wariancji od wartości oczekiwanej, co bezpośrednio wpływa na heteroskedastyczność modelu. Związek ten opisuje równanie wariancji:
@@ -145,7 +157,6 @@ $\mu$ – wartość oczekiwana,
 $\xi$ – parametr kształtu (exponent parameter). Im większe $\xi$, tym silniejsza heteroskedastyczność, co oznacza, że wariancja bardziej zależy od wartości oczekiwanej.
 
 Rozkład Tweedie w ramach uogólnionych modeli liniowych (GLM) jest stosowany do modelowania łącznej kwoty roszczeń, która jest wypadkową zarówno ich liczby, jak i wysokości. Rozkłady te, dla parametru potęgowego (wykładnika) $\xi$ z przedziału (1, 2), odpowiadają złożonemu rozkładowi Poissona z sumami o rozkładzie Gamma.
-
 
 W tym podejściu:
 
@@ -165,11 +176,15 @@ Ograniczenie to często jest sprzeczne z rzeczywistymi obserwacjami w ubezpiecze
 
 Ze względu na te przeciwstawne tendencje, stosowanie modelu Tweedie z stałym parametrem dyspersji może prowadzić do zniekształcenia analizy.
 
+---
+
 ## Dendrogram
 
 Dendrogram to drzewiasta struktura, która przedstawia sposób łączenia obiektów w grupy (skupienia, klastry) na różnych poziomach podobieństwa. Poziome cięcie na określonej wysokości oznacza usunięcie połączeń powyżej tej wartości, co prowadzi do podziału obiektów na skupienia. Ich liczba zależy od wysokości, na której wykonano cięcie – im niżej, tym więcej mniejszych skupień, im wyżej, tym mniej większych.
 
 Wysokość połączenia odzwierciedla odległość (niepodobieństwo) między grupowanymi obiektami lub skupieniami. Im wyżej następuje połączenie, tym większe różnice między skupieniami. Pomaga to wybrać odpowiednią liczbę skupień oraz zrozumieć strukturę danych.
+
+---
 
 ## POT peaks over threshold
 
@@ -180,3 +195,86 @@ Konsekwencje niewłaściwego wyboru progu są następujące:
 * **Wybór zbyt niskiego progu `u`**: Skutkuje włączeniem do analizy obserwacji, które nie pochodzą z ekstremalnego ogona rozkładu. Dla tych danych założenie o uogólnionym rozkładzie Pareto (GPD) może nie być spełnione, co prowadzi do uzyskania **obciążonych, czyli systematycznie błędnych, oszacowań**.
 
 Celem jest znalezienie najniższego możliwego progu, powyżej którego model GPD staje się trafną aproksymacją zachowania danych w ogonie rozkładu.
+
+---
+
+## Dane cenzurowane i ucięte
+
+1. **Cenzurowanie z prawej strony** (ang. *right censored*) ma miejsce, gdy dla obserwacji osiągającej lub przekraczającej pewną wartość `u`, rejestruje się jedynie fakt, że wartość ta została osiągnięta, ale jej dokładna wielkość pozostaje nieznana. Obserwacje poniżej progu `u` są rejestrowane z ich dokładną wartością.
+
+2. **Okrojenie z lewej strony** (ang. *left truncated*) występuje, gdy obserwacje poniżej pewnego progu `d` w ogóle nie są rejestrowane. W przypadku okrojenia nie wiedzielibyśmy nawet o istnieniu szkód, których wartość nie przekroczyła jakiegoś progu.
+
+3. **Przykłady** Jednym z najczęstszych przykładów sytuacji, w której aktuariusz spotyka się z danymi cenzurowanymi z prawej strony, jest analiza szkód z polis ubezpieczeniowych, które posiadają limit odpowiedzialności (ang. policy limit).
+
+    W takiej sytuacji, jeśli rzeczywista wysokość szkody jest niższa od limitu, znamy jej dokładną wartość. Jednakże, jeśli szkoda przekracza limit, w danych ubezpieczyciela często zapisana jest jedynie kwota wypłaconego świadczenia, czyli wartość limitu. Oznacza to, że znamy tylko dolne ograniczenie rzeczywistej wysokości szkody (wiemy, że wyniosła co najmniej tyle, ile limit), ale jej dokładna wartość jest nieznana, czyli ocenzurowana.
+    
+    Innym przykładem są badania śmiertelności. Jeśli badanie kończy się, a niektóre osoby wciąż żyją, ich dokładny wiek śmierci jest nieznany – wiemy tylko, że nastąpi on w przyszłości. Ich obserwacja jest więc cenzurowana w momencie zakończenia badania.
+
+---
+
+## PDP Partial Dependence Plot
+
+Głównym problemem w interpretacji złożonych modeli jest trudność w zwizualizowaniu funkcji predykcyjnej, gdy zależy ona od więcej niż dwóch zmiennych (cech). Wykresy częściowej zależności (Partial Dependence Plots) rozwiązują ten problem, pokazując **marginalny wpływ** wybranego, małego podzbioru cech na wynik predykcji modelu.
+
+Koncepcja polega na uśrednieniu wpływu wszystkich pozostałych cech, co pozwala na wyizolowanie i graficzne przedstawienie zależności między analizowaną cechą a prognozą. Innymi słowy, wykres pokazuje, jak zmieniłaby się średnia predykcja modelu, gdybyśmy zmieniali wartość jednej cechy, zachowując jednocześnie rozkład pozostałych cech z całego zbioru danych.
+
+### Sposób Konstrukcji
+
+Konstrukcja wykresu PDP dla jednej wybranej cechy $x_S$ odbywa się poprzez następujące kroki, które stanowią estymację funkcji częściowej zależności na podstawie zbioru treningowego:
+
+1.  **Wybierz cechę**, której wpływ chcesz zbadać (np. wiek kierowcy).
+2.  **Wybierz konkretną wartość** dla tej cechy (np. wiek = 30 lat).
+3.  Dla **każdej obserwacji** w zbiorze danych:
+    * Zastąp oryginalną wartość wybranej cechy ustaloną wartością (np. dla każdego kierowcy w zbiorze ustaw wiek na 30 lat).
+    * Pozostaw wartości wszystkich pozostałych cech bez zmian.
+4.  Dla każdej tak zmodyfikowanej obserwacji **wygeneruj predykcję** za pomocą modelu.
+5.  **Uśrednij wszystkie uzyskane predykcje**. Wynik to pojedynczy punkt na wykresie częściowej zależności dla wartości "wiek = 30 lat".
+6.  **Powtórz kroki 2-5** dla całego zakresu interesujących wartości wybranej cechy (np. dla wieku od 18 do 90 lat), aby uzyskać pełny wykres.
+
+W ten sposób wykres pokazuje, jak zmienia się średnia predykcja modelu w zależności od wartości jednej cechy, po uśrednieniu efektów wszystkich innych zmiennych.
+
+---
+
+## Model ARMA
+
+Reszty (ang. *residuals*) poprawnie zidentyfikowanego modelu ARMA powinny posiadać cechy **białego szumu** (ang. *white noise*). Oznacza to, że reszty powinny być **nieskorelowane w czasie** i mieć **stałą wariancję**.
+
+Test Ljunga-Boxa jest używany do sprawdzania, czy w szeregu czasowym występuje autokorelacja, czyli zależność między wartościami tego szeregu w różnych momentach czasowych.
+
+---
+
+## DGLM - Double Generalized Linear Model
+
+Proces estymacji podwójnego uogólnionego modelu liniowego (DGLM) jest **procesem iteracyjnym**, który naprzemiennie dopasowuje model dla wartości średniej i model dla dyspersji, aż do osiągnięcia zbieżności. Modele te "współdziałają" ze sobą, wymieniając się informacjami na każdym etapie.
+
+### Kluczowe etapy procesu
+
+1. Dopasuj GLM dla wartości średniej, ze stałym $\phi$ dla wszystkich obserwacji.
+
+2. Oblicz wkład każdej obserwacji do dewiacji i oblicz kwadrat Pearsona lub dewiancję residuów $R_i^2$.
+
+3. Dopasuj GLM dla dyspersji, przyjmując jako zmienną objaśnianą kwadraty residuów $R_i^2$. Przyjmuje się rozkład Gamma i na tym etapie nie uwzględnia się wag. Dopasowane wartości stają się nowym parametrem dyspersji dla każdej obserwacji.
+
+4. Dopasuj GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji, uzyskany w poprzednim kroku).
+
+5. Oblicz kwadrat Pearsona lub dewiancję residuów $R_i^2$ i powtórz poprzednie kroki.
+
+### Współdziałanie modeli
+
+Model średniej i model dyspersji są ze sobą ściśle powiązane i wymieniają się informacjami w każdej iteracji:
+
+* **Model średniej dostarcza informacji modelowi dyspersji**: Poprzez obliczonie $R_i^2$, model średniej informuje model dyspersji, które obserwacje są bardziej zmienne.
+* **Model dyspersji dostarcza informacji modelowi średniej**: Poprzez oszacowane, indywidualne parametry dyspersji ($\phi_i$), model dyspersji informuje model średniej, jaką wagę nadać każdej obserwacji. Obserwacjom o wyższej zmienności (większej dyspersji) przypisuje się mniejszą wagę w procesie estymacji modelu dla wartości średniej, co pozwala na ignorowanie szumu i wychwytywanie sygnału.
+
+### Ograniczenie standardowego modelu Tweedie GLM
+
+Podwójny uogólniony model liniowy (DGLM) jest szczególnie istotny w modelowaniu z wykorzystaniem regresji Tweedie’ego, ponieważ standardowy model Tweedie GLM narzuca **nierealistyczne ograniczenie** dotyczące wpływu czynników ryzyka na częstość i wysokość szkód.
+
+W standardowym modelu GLM parametr dyspersji $\phi$ musi być **stały** dla wszystkich obserwacji. W przypadku rozkładu Tweedie, który jest modelem złożonym Poissona-Gamma, parametr dyspersji $\phi$ zależy zarówno od parametrów rozkładu częstości szkód (Poisson), jak i rozkładu wysokości pojedynczej szkody (Gamma).
+
+To założenie o stałości $\phi$ prowadzi do następującego, kluczowego ograniczenia:
+> Każdy czynnik ryzyka, który zwiększa oczekiwaną wysokość szkody, musi również zwiększać oczekiwaną częstość szkód (i odwrotnie). Wpływ danego czynnika na częstość i wysokość szkody **musi iść w tym samym kierunku**.
+
+Podwójny GLM (DGLM) rozwiązuje ten problem, ponieważ **pozwala, aby parametr dyspersji $\phi$ również zależał od zmiennych objaśniających**. Modelując dyspersję za pomocą osobnego zestawu predyktorów, DGLM uwalnia sztywną zależność między komponentami częstości i wysokości szkody. Dzięki temu model może prawidłowo odzwierciedlić sytuacje, w których dany czynnik ryzyka ma różny lub nawet przeciwstawny wpływ na częstość i wysokość szkód, co prowadzi do znacznie bardziej wiarygodnych wyników.
+
+
