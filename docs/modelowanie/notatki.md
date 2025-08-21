@@ -325,3 +325,43 @@ W diagnostyce uogólnionych modeli liniowych (GLM) stosowanie reszt Pearsona jes
 
 * **Zwykłe reszty**, definiowane jako $r_i = y_i - \hat{\mu}_i$, mają wadę polegającą na tym, że ich wariancja nie jest stała. W wielu rozkładach z rodziny ED, w tym w rozkładzie Poissona, wariancja zmiennej odpowiedzi zależy od jej wartości oczekiwanej ($Var(Y_i) = \mu_i$). To oznacza, że im większa jest przewidywana wartość $\hat{\mu}_i$, tym większej wariancji reszty surowej możemy się spodziewać. Utrudnia to ocenę, czy dana reszta jest "duża" – ta sama wartość reszty może być nieistotna dla obserwacji o dużej wariancji, a bardzo znacząca dla obserwacji o małej wariancji.
 * **Reszty Pearsona** rozwiązują ten problem poprzez standaryzację. Dzielą one zwykłą resztę przez oszacowane odchylenie standardowe zmiennej odpowiedzi ($\sqrt{Var(\hat{\mu}_i)}$). Dzięki temu skalowaniu, reszty Pearsona mają (przynajmniej w przybliżeniu) stałą wariancję, niezależną od wartości dopasowanej $\hat{\mu}_i$. Umożliwia to bezpośrednie porównywanie reszt dla różnych obserwacji i ułatwia identyfikację obserwacji odstających oraz sprawdzanie założeń modelowych, takich jak poprawność wybranej funkcji wariancji.
+
+---
+
+## Wytyczne w zakresie stosowania modeli
+
+### Walidacja modelu
+
+Walidacja modelu obejmuje ocenę, czy:
+
+* **Model jest dopasowany do zamierzonego celu pracy**. W tym kontekście aktuariusz powinien wziąć pod uwagę takie aspekty jak:
+    * Dostępność, jakość i poziom szczegółowości danych wejściowych wymaganych przez model.
+    * Adekwatność powiązań rozpoznanych w modelu.
+    * Zdolność modelu do generowania odpowiedniego zakresu wyników wokół oczekiwanych wartości.
+* **Model spełnia swoje specyfikacje**.
+* **Wyniki modelu (pełne lub częściowe) są powtarzalne**, a wszelkie ewentualne różnice dają się wyjaśnić.
+
+Standard wskazuje, że walidacja modelu **powinna być przeprowadzona przez osobę lub osoby, które nie tworzyły danego modelu**. Odstępstwo od tej zasady jest możliwe tylko wtedy, gdyby jej zastosowanie powodowało obciążenie niewspółmierne do ryzyka związanego z modelem. Dodatkowo, przy wykorzystywaniu wyników z konkretnego uruchomienia modelu, aktuariusz powinien rozważyć, czy walidacja nie powinna zostać przeprowadzona ponownie w całości lub w części.
+
+### Walidacja Danych
+
+Aktuariusz powinien podjąć uzasadnione kroki w celu sprawdzenia spójności, kompletności i dokładności wykorzystywanych danych. Możliwe działania obejmują między innymi:
+
+* **Uzgodnienie z dokumentami finansowymi**: Porównanie danych z zaudytowanymi sprawozdaniami finansowymi, zestawieniami obrotów i sald lub innymi odpowiednimi dokumentami, jeśli są dostępne.
+* **Testowanie racjonalności**: Porównanie danych z danymi zewnętrznymi lub niezależnymi w celu oceny ich racjonalności.
+* **Sprawdzenie spójności wewnętrznej**: Przetestowanie danych pod kątem ich wewnętrznej spójności oraz spójności z innymi istotnymi informacjami.
+* **Porównanie z danymi historycznymi**: Zestawienie danych z danymi za poprzedni okres lub okresy.
+
+Aktuariusz jest zobowiązany opisać podjęte kroki walidacyjne we wszystkich tworzonych raportach.
+
+### Postępowanie w Przypadku Braku Danych
+
+W przypadku stwierdzenia braków w danych (takich jak nieadekwatność, niespójność czy niekompletność), aktuariusz musi wziąć pod uwagę ich możliwy wpływ na wyniki pracy.
+
+1.  **Ocena istotności**: Jeżeli braki w danych prawdopodobnie nie będą miały istotnego wpływu na wyniki, nie muszą być dalej rozpatrywane.
+2.  **Postępowanie przy istotnych brakach**: Jeżeli aktuariusz nie jest w stanie w zadowalający sposób usunąć istotnych braków, powinien rozważyć jedną z poniższych opcji:
+    * **Odmówić lub przerwać świadczenie usług** zawodowych.
+    * **Współpracować ze zleceniodawcą** w celu modyfikacji zlecenia lub uzyskania dodatkowych, odpowiednich danych.
+    * **Wykonać usługi w najlepszy możliwy sposób**, jednocześnie ujawniając we wszystkich raportach informacje o brakach w danych oraz wskazując ich potencjalny wpływ na wyniki.
+
+---
