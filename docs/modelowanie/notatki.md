@@ -433,3 +433,13 @@ Jedną z reguł stosowanych do określenia, kiedy węzeł w drzewie regresyjnym 
 Głębokość węzła jest definiowana na podstawie jego "generacji" w strukturze drzewa. Węzeł główny (tzw. korzeń), od którego zaczyna się całe drzewo, ma głębokość zero. Jego bezpośredni potomkowie (węzły-dzieci) mają głębokość jeden, ich potomkowie — głębokość dwa, i tak dalej.
 
 Zastosowanie tej reguły polega na ustaleniu limitu, jak "głęboko" drzewo może się rozrastać. Kiedy dany węzeł osiągnie tę maksymalną, zdefiniowaną wcześniej głębokość, jest automatycznie uznawany za węzeł końcowy i nie podlega dalszym podziałom, nawet jeśli podział mógłby poprawić model. Na przykład, jeśli maksymalna głębokość zostanie ustalona na dwa, wszystkie węzły na tym poziomie (czyli w trzeciej "generacji") staną się liśćmi drzewa.
+
+## Szeregi czasowe
+
+**Wybrane właściwości finansowych szeregów czasowych (stylizowane fakty)**
+
+1. **Grube ogony**: Rozkład stóp zwrotu nie jest rozkładem normalnym. Charakteryzuje się tzw. "grubymi ogonami", co oznacza, że skrajne, bardzo wysokie lub bardzo niskie stopy zwrotu (gwałtowne wzrosty i spadki) występują znacznie częściej, niż przewidywałby to model oparty na rozkładzie normalnym. Jednocześnie obserwuje się wyższą koncentrację wyników wokół wartości średniej.
+
+2. **Grupowanie się zmienności**: Zmienność stóp zwrotu nie jest stała w czasie. Obserwuje się okresy, w których wahania cen są niewielkie (niska zmienność), po których następują okresy o dużej amplitudzie wahań (wysoka zmienność). Innymi słowy, "dużym zmianom towarzyszą kolejne duże zmiany, a małym – małe".
+
+3. **Brak autokorelacji stóp zwrotu, ale występowanie autokorelacji w wartościach bezwzględnych lub kwadratach stóp zwrotu**: Same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
