@@ -107,6 +107,36 @@ Jak działa porównanie?
 
 * Miara ilościowa: jakość predyktora można skwantyfikować za pomocą wskaźnika ABC (Area Between Curves), czyli pola powierzchni między krzywą koncentracji a krzywą Lorenza. Mniejsza wartość ABC oznacza, że struktura cenowa modelu jest bliższa rzeczywistej strukturze ryzyka, co świadczy o wyższej jakości predyktora.
 
+## Uporządkowana krzywa Lorenza
+
+Uporządkowana krzywa Lorenza to narzędzie graficzne służące do porównywania predykcyjnej mocy dwóch modeli taryfikacji składek ubezpieczeniowych, na przykład starego modelu z nowym. Pozwala ocenić, czy nowy model lepiej identyfikuje grupy ryzyka, które były niedokładnie wycenione w starym modelu, minimalizując w ten sposób ryzyko selekcji negatywnej.
+
+Uporządkowana krzywa Lorenza to wykres, który powstaje przez porównanie dwóch modeli predykcyjnych: starego ($\hat{\mu}_1$) i nowego ($\hat{\mu}_2$). Kluczowym elementem jest pojęcie **względności (relativity)**, czyli stosunku nowej składki do starej dla każdego klienta:
+
+$$R = \frac{\hat{\mu}_2(X)}{\hat{\mu}_1(X)}$$
+
+Niska wartość $R$ oznacza, że nowy model proponuje znacznie niższą składkę niż stary, co sugeruje, że dany klient przepłacał w dotychczasowej taryfie.
+
+Krzywa jest wykreślana w następujący sposób:
+1.  **Sortowanie:** Wszystkie polisy z portfela (zestawu walidacyjnego) są sortowane według rosnącej wartości wskaźnika względności $R$.
+2.  **Osie wykresu:** Wykres przedstawia punkty, których współrzędne to skumulowane udziały:
+    * **Oś X:** Udział sumy składek ze **starego modelu** ($\hat{\mu}_1$) dla polis o najniższej względności.
+    * **Oś Y:** Udział sumy **rzeczywistych szkód** (lub prawdziwej, choć nieobserwowalnej, składki technicznej $\mu(X)$) dla tej samej grupy polis.
+
+Każdy punkt $(x, y)$ na krzywej oznacza, że grupa polis stanowiąca $x\%$ sumy starych składek (tych, którym nowy model najbardziej obniża cenę) odpowiada za $y\%$ sumy wszystkich szkód.
+
+**Jak jest wykorzystywana w taryfikacji?**
+
+Uporządkowana krzywa Lorenza jest praktycznym narzędziem do oceny, czy nowy model taryfikacji ($\hat{\mu}_2$) przynosi poprawę w stosunku do starego modelu ($\hat{\mu}_1$).
+
+Główne zastosowanie polega na identyfikacji segmentów portfela, które są źle wycenione przez obecny model, co naraża ubezpieczyciela na **selekcję negatywną**.
+
+Interpretacja wykresu jest następująca:
+* Jeśli krzywa znajduje się **powyżej linii równości** (przekątnej 45 stopni), oznacza to, że dla danego segmentu polis udział w szkodach jest niższy niż udział w składkach pobieranych według starej taryfy.
+* Taka sytuacja wskazuje, że stary model **zawyżał składki** dla tej grupy klientów. Nowy model prawidłowo to identyfikuje, proponując im niższe ceny (co skutkuje niską wartością względności $R$).
+
+**Praktyczny wniosek:** Identyfikacja takiego segmentu jest kluczowa, ponieważ konkurenci z dokładniejszymi modelami mogliby zaoferować tym klientom niższe składki, "podbierając" ich z portfela. Ubezpieczyciel straciłby w ten sposób rentownych klientów. Uporządkowana krzywa Lorenza wizualizuje więc zdolność nowego modelu do lepszego dopasowania składek do rzeczywistego ryzyka i obrony portfela przed konkurencją.
+
 ---
 
 ## Wygładzanie wykładnicze
