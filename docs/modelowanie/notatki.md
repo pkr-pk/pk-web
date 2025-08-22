@@ -246,11 +246,9 @@ Celem jest znalezienie najniższego możliwego progu, powyżej którego model GP
 
 2. **Okrojenie z lewej strony** (ang. *left truncated*) występuje, gdy obserwacje poniżej pewnego progu `d` w ogóle nie są rejestrowane. W przypadku okrojenia nie wiedzielibyśmy nawet o istnieniu szkód, których wartość nie przekroczyła jakiegoś progu.
 
-3. **Przykłady** Jednym z najczęstszych przykładów sytuacji, w której aktuariusz spotyka się z danymi cenzurowanymi z prawej strony, jest analiza szkód z polis ubezpieczeniowych, które posiadają limit odpowiedzialności (ang. policy limit).
+3. **Przykład dla danych cenzurowanych** Jeśli obserwacja ubezpieczonego kończy się przed jego śmiercią, jedyne, co wiemy, to to, że zgon następuje w pewnym momencie po czasie ostatniej obserwacji. Inną częstą sytuacją jest limit polisy, w przypadku którego, jeśli rzeczywista strata przekracza limit, wiadomo jedynie, że limit został przekroczony.
 
-    W takiej sytuacji, jeśli rzeczywista wysokość szkody jest niższa od limitu, znamy jej dokładną wartość. Jednakże, jeśli szkoda przekracza limit, w danych ubezpieczyciela często zapisana jest jedynie kwota wypłaconego świadczenia, czyli wartość limitu. Oznacza to, że znamy tylko dolne ograniczenie rzeczywistej wysokości szkody (wiemy, że wyniosła co najmniej tyle, ile limit), ale jej dokładna wartość jest nieznana, czyli ocenzurowana.
-    
-    Innym przykładem są badania śmiertelności. Jeśli badanie kończy się, a niektóre osoby wciąż żyją, ich dokładny wiek śmierci jest nieznany – wiemy tylko, że nastąpi on w przyszłości. Ich obserwacja jest więc cenzurowana w momencie zakończenia badania.
+4. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet не będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
 
 ---
 
@@ -423,6 +421,46 @@ W przypadku stwierdzenia braków w danych (takich jak nieadekwatność, niespój
     * **Odmówić lub przerwać świadczenie usług** zawodowych.
     * **Współpracować ze zleceniodawcą** w celu modyfikacji zlecenia lub uzyskania dodatkowych, odpowiednich danych.
     * **Wykonać usługi w najlepszy możliwy sposób**, jednocześnie ujawniając we wszystkich raportach informacje o brakach w danych oraz wskazując ich potencjalny wpływ na wyniki.
+
+---
+
+## Drzewa
+
+### Na czym polega metoda *boosting* i czy można ją stosować do problemów regresji i klasyfikacji?
+
+**Boosting** (wzmacnianie) to metoda uczenia zespołowego (ang. *ensemble learning*), która polega na sekwencyjnym budowaniu modeli predykcyjnych, najczęściej drzew decyzyjnych. Każdy kolejny model jest trenowany w taki sposób, aby korygować błędy popełnione przez poprzednie modele. W przeciwieństwie do jednoczesnego budowania wielu niezależnych modeli (jak w metodzie *bagging*), *boosting* uczy się powoli, iteracyjnie poprawiając dopasowanie do danych.
+
+Proces ten wygląda następująco:
+1.  Rozpoczyna się od dopasowania prostego modelu do danych.
+2.  Następnie analizuje się błędy (rezydua) tego modelu.
+3.  Kolejny model jest budowany tak, aby przewidywać te błędy (rezydua).
+4.  Nowy model jest dodawany do zespołu, a prognozy są aktualizowane. Rezydua są ponownie obliczane na podstawie prognoz całego, zaktualizowanego zespołu.
+5.  Kroki 3 i 4 są powtarzane wielokrotnie, co pozwala na stopniowe udoskonalanie modelu w obszarach, w których jego dotychczasowe działanie było najsłabsze.
+
+Metoda **boosting może być stosowana zarówno do problemów regresji, jak i klasyfikacji**.
+
+### W jaki sposób metoda *boosting* różni się od metody *bagging* pod względem sposobu wykorzystania danych treningowych?
+
+Główna różnica między metodami *boosting* i *bagging* polega na sposobie budowania modeli i wykorzystania danych treningowych:
+
+* **Bagging (Bootstrap Aggregating):**
+    * **Niezależne i równoległe budowanie modeli:** Każde drzewo decyzyjne jest budowane niezależnie od pozostałych.
+    * **Próbkowanie bootstrapowe:** Każde drzewo jest trenowane na innej, losowej próbce danych treningowych, utworzonej przez losowanie ze zwracaniem (*bootstrap*). Oznacza to, że każda próbka treningowa jest nieco inna, ale pochodzi z tej samej oryginalnej puli danych.
+
+* **Boosting:**
+    * **Sekwencyjne i zależne budowanie modeli:** Drzewa są budowane jedno po drugim, a każde nowe drzewo jest tworzone z uwzględnieniem informacji o wynikach poprzednich drzew.
+    * **Brak próbkowania bootstrapowego:** *Boosting* nie polega na losowaniu próbek ze zwracaniem. Zamiast tego, każde drzewo jest trenowane na zmodyfikowanej wersji oryginalnego zbioru danych.
+
+---
+
+### Parametry dostrajania w metodzie *boosting*.
+
+1.  **Liczba drzew:** Jest to całkowita liczba drzew decyzyjnych, które zostaną sekwencyjnie zbudowane i włączone do modelu. W przeciwieństwie do *baggingu* i losowych lasów, zbyt duża liczba drzew w *boostingu* może prowadzić do przeuczenia (*overfittingu*), chociaż zjawisko to postępuje zazwyczaj powoli. Optymalną liczbę drzew często wybiera się przy użyciu walidacji krzyżowej.
+
+2.  **Współczynnik kurczenia ($\lambda$, ang. *shrinkage parameter* lub *learning rate*):** Jest to mała dodatnia liczba, która kontroluje tempo, w jakim *boosting* uczy się na błędach. Niższe wartości $\lambda$ (np. 0.01 lub 0.001) spowalniają proces uczenia, co zazwyczaj wymaga większej liczby drzew do osiągnięcia dobrych wyników.
+
+3.  **Głębokość interakcji (d, ang. *interaction depth*):** Określa maksymalną liczbę podziałów w każdym drzewie, co kontroluje złożoność pojedynczego "słabego ucznia". Często dobrze sprawdza się wartość `d = 1`, co oznacza, że każde drzewo jest tzw. pniem decyzyjnym (ang. *stump*) z jednym podziałem.
+
 
 ---
 
