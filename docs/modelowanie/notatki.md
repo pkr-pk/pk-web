@@ -248,7 +248,7 @@ Celem jest znalezienie najniższego możliwego progu, powyżej którego model GP
 
 3. **Przykład dla danych cenzurowanych** Jeśli obserwacja ubezpieczonego kończy się przed jego śmiercią, jedyne, co wiemy, to to, że zgon następuje w pewnym momencie po czasie ostatniej obserwacji. Inną częstą sytuacją jest limit polisy, w przypadku którego, jeśli rzeczywista strata przekracza limit, wiadomo jedynie, że limit został przekroczony.
 
-4. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet не będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
+4. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet nie będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
 
 ---
 
@@ -481,3 +481,27 @@ Zastosowanie tej reguły polega na ustaleniu limitu, jak "głęboko" drzewo moż
 2. **Grupowanie się zmienności**: Zmienność stóp zwrotu nie jest stała w czasie. Obserwuje się okresy, w których wahania cen są niewielkie (niska zmienność), po których następują okresy o dużej amplitudzie wahań (wysoka zmienność). Innymi słowy, "dużym zmianom towarzyszą kolejne duże zmiany, a małym – małe".
 
 3. **Brak autokorelacji stóp zwrotu, ale występowanie autokorelacji w wartościach bezwzględnych lub kwadratach stóp zwrotu**: Same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
+
+## Współczynnik V Cramera
+
+Współczynnik V Cramera jest miarą siły związku (asocjacji) między dwiema zmiennymi, opartą na statystyce chi-kwadrat Pearsona z tablicy kontyngencji.
+
+**Wartości i interpretacja**
+
+Współczynnik V Cramera przyjmuje wartości w przedziale od 0 do 1. Interpretacja jego wartości jest następująca:
+* **V = 0** oznacza całkowity brak zależności statystycznej (niezależność) między analizowanymi zmiennymi.
+* **V = 1** oznacza doskonałą zależność, gdzie znajomość wartości jednej zmiennej pozwala w pełni przewidzieć wartość drugiej.
+* **Wartości pośrednie** wskazują na siłę związku – im wyższa wartość, tym silniejsza zależność.
+
+Współczynnik ten jest tak znormalizowany, aby jego wartość była niezależna od liczby obserwacji oraz wymiarów tablicy kontyngencji. Oblicza się go za pomocą wzoru:
+$$V = \sqrt{\frac{\chi^2 / n}{\min(k_1 - 1, k_2 - 1)}}$$
+gdzie:
+* $\chi^2$ to statystyka chi-kwadrat Pearsona.
+* $n$ to całkowita liczba obserwacji.
+* $k_1$ i $k_2$ to odpowiednio liczba kategorii (poziomów) dla pierwszej i drugiej zmiennej.
+
+**Zastosowanie i rodzaje zmiennych**
+
+Współczynnik V Cramera jest szeroko stosowany do oceny korelacji między cechami, zwłaszcza gdy klasyczne miary, takie jak współczynnik korelacji Pearsona, nie są odpowiednie dla danych nieciągłych.
+
+Nie jest on ograniczony wyłącznie do zmiennych jakościowych (kategorycznych). Może być również stosowany do zmiennych ilościowych (ciągłych), jednak wymaga to ich uprzedniej **dyskretyzacji** (nazywanej również grupowaniem lub "bandingiem"). Proces ten polega na podzieleniu dziedziny zmiennej ciągłej na rozłączne przedziały, co w efekcie przekształca ją w zmienną kategoryczną. Po takiej transformacji współczynnik V Cramera oblicza się w standardowy sposób, jak dla zmiennych, które pierwotnie były jakościowe.
