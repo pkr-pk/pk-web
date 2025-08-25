@@ -75,11 +75,13 @@ Główne punkty:
 
 * Estymacja ogona rozkładu: wyestymowany indeks ogona jest następnie używany do skonstruowania estymatora ogona Hilla, który pozwala szacować prawdopodobieństwa w ogonie rozkładu strat powyżej progu.
 
-Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowanieszkód ekstremalnych (tzn. zdarzeń rzadkich, ale potencjalnie o dużej wartości). Wubezpieczeniach majątkowych jego użycie pozwala na lepsze zarządzanie ryzykiem iwycenę produktów ubezpieczeniowych. Jako przykład można wskazać:
+Estymator Hilla to narzędzie statystyczne służące do estymacji (szacowania) indeksu ogona rozkładu prawdopodobieństwa. Indeks ogona, oznaczany jako $\alpha$, jest miarą "ciężkości" ogona rozkładu. Rozkłady o ciężkich ogonach charakteryzują się tym, że prawdopodobieństwo wystąpienia wartości ekstremalnych (bardzo dużych lub bardzo małych) jest znacznie wyższe niż w przypadku rozkładów o lekkich ogonach, takich jak rozkład normalny.
 
-* Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawieraumowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratamiwynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hillasłuży do oszacowania parametru grubości ogona rozkładu strat. Pozwala to naokreślenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
+Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowanie szkód ekstremalnych (tzn. zdarzeń rzadkich, ale potencjalnie o dużej wartości). W ubezpieczeniach majątkowych jego użycie pozwala na lepsze zarządzanie ryzykiem i wycenę produktów ubezpieczeniowych. Jako przykład można wskazać:
 
-* Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonychkatastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacowaćwartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. EstymatorHilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o danehistoryczne.
+* Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawiera umowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratami wynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hilla służy do oszacowania parametru grubości ogona rozkładu strat. Pozwala to na określenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
+
+* Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonych katastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacować wartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. Estymator Hilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o dane historyczne.
 
 ---
 
