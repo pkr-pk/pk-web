@@ -533,3 +533,23 @@ Ograniczenia jądrowej estymacji funkcji gęstości:
 * Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
 * Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
 * Może niedokładnie odwzorować ogon rozkładu danych.
+
+## GARCH
+
+**Definicja procesu GARCH(p, q)**
+
+Niech $(Z_t)_{t \in \mathbb{Z}}$ będzie procesem typu **ścisły biały szum SWN(0, 1)**. Proces $(X_t)_{t \in \mathbb{Z}}$ jest procesem GARCH(p, q), jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)_{t \in \mathbb{Z}}$ o wartościach dodatnich spełnia równania:
+
+$X_t = \sigma_t Z_t$
+
+$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
+
+gdzie parametry spełniają warunki: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$. W tym modelu $\sigma_t^2$ jest warunkową wariancją procesu $X_t$.
+
+**Zastosowanie modeli GARCH**
+
+Modele klasy GARCH służą przede wszystkim do **modelowania i prognozowania zmienności** (ang. *volatility*) finansowych szeregów czasowych. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości danych finansowych, zwanych stylizowanymi faktami, których nie uwzględniają prostsze modele.
+
+* **Modelowanie klasteryzacji zmienności**: Jest to tendencja obserwowana w danych finansowych, gdzie okresy dużych wahań cen następują po sobie, a okresy spokoju również występują w seriach. Modele GARCH odwzorowują to zjawisko, pozwalając, aby dzisiejsza wariancja warunkowa ($\sigma_t^2$) zależała od wczorajszych kwadratów obserwacji ($X_{t-1}^2$) oraz od wczorajszej wariancji warunkowej ($\sigma_{t-1}^2$).
+* **Uchwycenie grubych ogonów (leptokurtozy)**: Nawet jeśli innowacje $(Z_t)$ w procesie GARCH pochodzą z rozkładu normalnego, stacjonarny rozkład samego procesu $(X_t)$ jest leptokurtyczny (ma "grubsze ogony" niż rozkład normalny), co jest zgodne z empirycznymi właściwościami stóp zwrotu z aktywów finansowych.
+* **Prognozowanie zmienności i szacowanie miar ryzyka**: Dopasowane modele GARCH pozwalają na prognozowanie przyszłej zmienności warunkowej. Prognozy te są kluczowym elementem w szacowaniu miar ryzyka, takich jak **Value-at-Risk (VaR)** i **Expected Shortfall (ES)**, w ujęciu warunkowym, czyli uwzględniającym najnowsze informacje rynkowe.
