@@ -463,6 +463,43 @@ Główna różnica między metodami *boosting* i *bagging* polega na sposobie bu
 
 3.  **Głębokość interakcji (d, ang. *interaction depth*):** Określa maksymalną liczbę podziałów w każdym drzewie, co kontroluje złożoność pojedynczego "słabego ucznia". Często dobrze sprawdza się wartość `d = 1`, co oznacza, że każde drzewo jest tzw. pniem decyzyjnym (ang. *stump*) z jednym podziałem.
 
+---
+
+## Statystyczne metody uczenia zespołowego (Ensemble Statistical Learning)
+
+**Idea statystycznych metod uczenia zespołowego (Ensemble Statistical Learning)**
+
+Metody uczenia zespołowego to podejścia, które **łączą wiele prostych modeli, zwanych "słabymi uczniami" (weak learners), w celu uzyskania jednego, potężnego modelu predykcyjnego**. Zamiast polegać na jednym, skomplikowanym modelu, metody te agregują predykcje z wielu prostszych modeli. Głównym celem jest **zmniejszenie wariancji** i poprawa dokładności predykcyjnej w porównaniu do pojedynczego modelu. Poprzez uśrednienie wyników z wielu modeli zbudowanych na różnych próbkach danych, ogólny wynik staje się bardziej stabilny i mniej podatny na specyfikę pojedynczego zbioru treningowego.
+
+**Metody zespołowe wykorzystujące drzewa (Tree Ensemble Methods)**
+
+* **Bagging** (agregacja bootstrapowa).
+* **Lasy losowe** (Random Forests).
+* **Boosting**.
+* **Bayesowskie addytywne drzewa regresyjne** (Bayesian Additive Regression Trees, BART).
+
+**Opis Bagging**
+
+**Bagging**, czyli agregacja bootstrapowa (ang. *bootstrap aggregation*), to ogólna procedura mająca na celu zmniejszenie wariancji w metodach uczenia statystycznego, szczególnie skuteczna w przypadku drzew decyzyjnych, które charakteryzują się wysoką wariancją.
+
+Mechanizm działania opiera się na idei, że uśrednianie zbioru obserwacji redukuje wariancję. Ponieważ zazwyczaj nie mamy dostępu do wielu niezależnych zbiorów treningowych, Bagging tworzy je sztucznie za pomocą techniki **bootstrapu**, czyli losowania ze zwracaniem z oryginalnego zbioru danych.
+
+**Proces składa się z następujących kroków:**
+1.  **Tworzenie zbiorów bootstrapowych:** Z oryginalnego zbioru treningowego o `n` obserwacjach tworzy się `B` nowych zbiorów treningowych, każdy o rozmiarze `n`, poprzez losowanie ze zwracaniem. Każdy z tych zbiorów jest nieco inny.
+2.  **Budowanie modeli:** Na każdym z `B` "bootstrapowych" zbiorów danych budowane jest osobne, **głębokie i nieprzycinane drzewo decyzyjne**. Każde z tych drzew ma niską obciążalność (bias), ale wysoką wariancję.
+3.  **Agregacja predykcji:** Aby uzyskać ostateczną predykcję dla nowej obserwacji, wyniki z `B` drzew są łączone:
+    * W przypadku **regresji** (odpowiedź ilościowa), predykcje są uśredniane.
+    * W przypadku **klasyfikacji** (odpowiedź jakościowa), ostateczna predykcja jest wynikiem **głosowania większościowego** – wybierana jest klasa najczęściej wskazywana przez poszczególne drzewa.
+
+**Zalety i wady**
+
+Główną zaletą metody Bagging jest **znacząca poprawa dokładności predykcyjnej** w porównaniu do pojedynczego drzewa, dzięki redukcji wariancji. Użycie dużej liczby drzew `B` nie prowadzi do przeuczenia (overfittingu).
+
+Podstawową wadą jest **utrata interpretoalności**. Zamiast jednego, łatwego do zwizualizowania drzewa, otrzymujemy setki lub tysiące drzew, których nie da się przedstawić w prostej, graficznej formie.
+
+**Estymacja błędu Out-of-Bag (OOB)**
+
+Bagging oferuje efektywny sposób estymacji błędu testowego bez konieczności stosowania walidacji krzyżowej. Każde drzewo jest budowane na około 2/3 unikalnych obserwacji z oryginalnego zbioru. Pozostała 1/3 obserwacji, niewykorzystana do budowy danego drzewa, to tzw. obserwacje **Out-of-Bag (OOB)**. Dla każdej obserwacji w zbiorze treningowym można uzyskać predykcję OOB, uśredniając wyniki tylko z tych drzew, dla których była ona obserwacją OOB. Błąd OOB, obliczony na podstawie tych predykcji, jest wiarygodnym estymatorem błędu testowego.
 
 ---
 
@@ -474,6 +511,8 @@ Głębokość węzła jest definiowana na podstawie jego "generacji" w strukturz
 
 Zastosowanie tej reguły polega na ustaleniu limitu, jak "głęboko" drzewo może się rozrastać. Kiedy dany węzeł osiągnie tę maksymalną, zdefiniowaną wcześniej głębokość, jest automatycznie uznawany za węzeł końcowy i nie podlega dalszym podziałom, nawet jeśli podział mógłby poprawić model. Na przykład, jeśli maksymalna głębokość zostanie ustalona na dwa, wszystkie węzły na tym poziomie (czyli w trzeciej "generacji") staną się liśćmi drzewa.
 
+---
+
 ## Szeregi czasowe
 
 **Wybrane właściwości finansowych szeregów czasowych (stylizowane fakty)**
@@ -483,6 +522,8 @@ Zastosowanie tej reguły polega na ustaleniu limitu, jak "głęboko" drzewo moż
 2. **Grupowanie się zmienności**: Zmienność stóp zwrotu nie jest stała w czasie. Obserwuje się okresy, w których wahania cen są niewielkie (niska zmienność), po których następują okresy o dużej amplitudzie wahań (wysoka zmienność). Innymi słowy, "dużym zmianom towarzyszą kolejne duże zmiany, a małym – małe".
 
 3. **Brak autokorelacji stóp zwrotu, ale występowanie autokorelacji w wartościach bezwzględnych lub kwadratach stóp zwrotu**: Same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
+
+---
 
 ## Współczynnik V Cramera
 
@@ -508,6 +549,8 @@ Współczynnik V Cramera jest szeroko stosowany do oceny korelacji między cecha
 
 Nie jest on ograniczony wyłącznie do zmiennych jakościowych (kategorycznych). Może być również stosowany do zmiennych ilościowych (ciągłych), jednak wymaga to ich uprzedniej **dyskretyzacji** (nazywanej również grupowaniem lub "bandingiem"). Proces ten polega na podzieleniu dziedziny zmiennej ciągłej na rozłączne przedziały, co w efekcie przekształca ją w zmienną kategoryczną. Po takiej transformacji współczynnik V Cramera oblicza się w standardowy sposób, jak dla zmiennych, które pierwotnie były jakościowe.
 
+---
+
 ## Gini indeks
 
 Indeks Giniego jest miarą **zanieczyszczenia** (ang. *impurity*) lub niejednorodności w zbiorze danych. W kontekście drzew decyzyjnych służy jako kryterium do oceny, jak "dobry" jest potencjalny podział węzła na węzły potomne.
@@ -519,6 +562,8 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
     * $G = 0.5$ oznacza **maksymalne zanieczyszczenie** – obserwacje rozkładają się po równo między dwie klasy (np. 50% "Tak", 50% "Nie").
 2.  **Ocena podziału:** Dla każdej potencjalnej zmiennej, według której można dokonać podziału, algorytm oblicza średni ważony indeks Giniego dla węzłów potomnych, które by w wyniku tego podziału powstały.
 3.  **Wybór najlepszego podziału:** Wybierany jest taki podział (czyli taka zmienna), który prowadzi do **najniższej wartości średniego ważonego indeksu Giniego**. Oznacza to, że ten podział najlepiej separuje klasy i tworzy najczystsze możliwe podgrupy.
+
+---
 
 ## Estymacja jądrowa
 
@@ -533,6 +578,8 @@ Ograniczenia jądrowej estymacji funkcji gęstości:
 * Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
 * Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
 * Może niedokładnie odwzorować ogon rozkładu danych.
+
+---
 
 ## GARCH
 
