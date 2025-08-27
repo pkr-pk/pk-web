@@ -600,3 +600,14 @@ Modele klasy GARCH służą przede wszystkim do **modelowania i prognozowania zm
 * **Modelowanie klasteryzacji zmienności**: Jest to tendencja obserwowana w danych finansowych, gdzie okresy dużych wahań cen następują po sobie, a okresy spokoju również występują w seriach. Modele GARCH odwzorowują to zjawisko, pozwalając, aby dzisiejsza wariancja warunkowa ($\sigma_t^2$) zależała od wczorajszych kwadratów obserwacji ($X_{t-1}^2$) oraz od wczorajszej wariancji warunkowej ($\sigma_{t-1}^2$).
 * **Uchwycenie grubych ogonów (leptokurtozy)**: Nawet jeśli innowacje $(Z_t)$ w procesie GARCH pochodzą z rozkładu normalnego, stacjonarny rozkład samego procesu $(X_t)$ jest leptokurtyczny (ma "grubsze ogony" niż rozkład normalny), co jest zgodne z empirycznymi właściwościami stóp zwrotu z aktywów finansowych.
 * **Prognozowanie zmienności i szacowanie miar ryzyka**: Dopasowane modele GARCH pozwalają na prognozowanie przyszłej zmienności warunkowej. Prognozy te są kluczowym elementem w szacowaniu miar ryzyka, takich jak **Value-at-Risk (VaR)** i **Expected Shortfall (ES)**, w ujęciu warunkowym, czyli uwzględniającym najnowsze informacje rynkowe.
+
+## Reszty dwiancyjne 
+
+Reszty dewiancyjne są często preferowaną formą w Uogólnionych Modelach Liniowych (GLM), ponieważ w przeciwieństwie do innych typów reszt, **uwzględniają one kształt rozkładu zmiennej odpowiedzi, w tym jego skośność**. Jest to kluczowe w zastosowaniach aktuarialnych, gdzie rozkłady rzadko są symetryczne.
+
+Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
+
+* **Lepsze dopasowanie do założeń GLM:** W przeciwieństwie do reszt Pearsona, które wywodzą się z modeli liniowych, reszty dewiancyjne są bezpośrednio powiązane z funkcją wiarygodności przyjętego rozkładu z rodziny wykładniczej, co czyni je bardziej odpowiednimi dla struktury GLM.
+* **Wykrywanie obserwacji słabo dopasowanych:** Pozwalają zidentyfikować te obserwacje, które w największym stopniu przyczyniają się do wzrostu dewiancji, a więc wskazują na miejsca, w których model niedostatecznie dobrze dopasowuje się do danych.
+* **Korekta na heteroskedastyczność:** Podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
+* **Lepsza interpretacja dla danych dyskretnych:** Chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
