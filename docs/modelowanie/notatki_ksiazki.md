@@ -679,3 +679,27 @@ PML to szczególny rodzaj M-estymacji, w którym jedynym założeniem dotyczący
 * **Metoda**: Parametry $\beta$ są estymowane poprzez maksymalizację "pseudo" funkcji wiarygodności, która jest wybierana ze względu na swoje dobre właściwości, nawet jeśli wiadomo, że nie jest to prawdziwy rozkład danych.
 * **Wynik**: Okazuje się, że aby estymatory PML były zgodne i asymptotycznie normalne, wybrana "pseudo" funkcja gęstości musi mieć strukturę bardzo podobną do tej z rodziny ED.
 * **Wniosek praktyczny**: Użycie funkcji wiarygodności dla rozkładu **Poissona** lub **Gamma** jako "pseudo" funkcji wiarygodności prowadzi do uzyskania zgodnych estymatorów parametrów $\beta$ **niezależnie od prawdziwego rozkładu danych**, pod warunkiem, że funkcja wartości oczekiwanej została poprawnie zdefiniowana.
+
+# Effective Statistical Learning Methods for Actuaries I
+
+## **Rozdział 9: Modele Wartości Ekstremalnych**
+
+### **9.1 Wprowadzenie**
+
+Podobnie jak w innych dziedzinach wrażliwych na obserwacje ekstremalne, na przykład w hydrologii i klimatologii, standardowe techniki statystyczne zawodzą przy analizie dużych szkód znajdujących się daleko w ogonie rozkładu ciężkości szkód. Dzieje się tak, ponieważ aktuariusz chce wnioskować o ekstremalnym zachowaniu rozkładów szkód, czyli w obszarze próby, w którym jest bardzo mało punktów danych, jeśli w ogóle.
+
+Teoria Wartości Ekstremalnych (w skrócie **EVT**), wraz z modelem „nadwyżek ponad próg” oraz Uogólnionym Rozkładem Pareto, oferuje zunifikowane podejście do modelowania ogona rozkładu szkód. Metoda ta nie opiera się wyłącznie na dostępnych danych, ale zawiera probabilistyczny argument dotyczący zachowania ekstremalnych wartości z próby, co pozwala na ekstrapolację poza zakres danych, czyli w obszary, w których w ogóle nie ma obserwacji.
+
+Omówmy krótko typowe sytuacje, w których aktuariusze zajmują się wartościami ekstremalnymi. W ubezpieczeniach odpowiedzialności cywilnej aktuariusze często napotykają trudności podczas analizy ciężkości szkód, ponieważ:
+
+* występuje ograniczona liczba obserwacji, jako że tylko polisy, z których zgłoszono szkody, dostarczają informacji o ich kosztach.
+* likwidacja szkody może trwać długo, przez co ostateczny koszt szkody jest w tym okresie nieznany firmie.
+* kwoty wypłacane przez firmę w dużej mierze zależą od cech charakterystycznych strony trzeciej, które są nieznane w momencie obliczania składki.
+
+Co więcej, kilka dużych szkód w portfelu często stanowi znaczną część świadczeń ubezpieczeniowych wypłacanych przez firmę. Te ekstremalne zdarzenia są zatem przedmiotem szczególnego zainteresowania aktuariuszy. Stanowią one również materiał statystyczny do:
+
+* wyceny umów reasekuracyjnych, takich jak traktaty **reasekuracji nadwyżki szkody** (w ramach których reasekurator musi zapłacić za nadwyżkę szkody ponad ustalony próg, zwany franszyzą redukcyjną).
+* szacowania wysokich kwantyli (nazywanych również **Wartością Narażoną na Ryzyko** w zarządzaniu ryzykiem finansowym).
+* wyznaczania **prawdopodobnej szkody maksymalnej** (w skrócie PML), która ma być używana jako robocza górna granica wielkości szkody w obliczaniu miar ryzyka.
+
+Gdy głównym przedmiotem zainteresowania jest ogon rozkładu ciężkości szkód, kluczowe jest posiadanie dobrego modelu dla największych szkód. Rozkłady, które zapewniają dobre ogólne dopasowanie, takie jak rozkłady z rodziny wykładniczej (ED), mogą być szczególnie nieodpowiednie do modelowania ogonów. Teoria Wartości Ekstremalnych (EVT) koncentruje się właśnie na ogonach, opierając się na solidnych podstawach teoretycznych. Zasada leżąca u podstaw EVT polega na przeprowadzeniu analizy w oparciu o tę część próby, która niesie informację o zachowaniu ekstremalnym, czyli wyłącznie na największych wartościach z próby. W tym rozdziale przypomniano podstawy EVT, przydatne w zastosowaniach aktuarialnych.
