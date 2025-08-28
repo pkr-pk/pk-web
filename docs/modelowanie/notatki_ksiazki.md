@@ -1,10 +1,3 @@
----
-layout: math
-title: Notatki z książek
-parent: Modelowanie
-nav_order: 100
----
-
 ## Wprowadzenie do Klasyfikacji Ryzyka
 
 Działalność ubezpieczeniowa polega na sprzedaży obietnic pokrycia przyszłych strat w zamian za składkę płaconą z góry. Ponieważ ostateczny koszt usługi nie jest znany w momencie sprzedaży polisy, ubezpieczyciele opierają się na danych historycznych i modelach aktuarialnych, aby ustalić cenę. Centralnym elementem tej ceny jest **składka czysta** (*pure premium*), czyli najlepsze oszacowanie (wartość oczekiwana) przyszłych zobowiązań.
