@@ -611,3 +611,37 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 * **Wykrywanie obserwacji słabo dopasowanych:** Pozwalają zidentyfikować te obserwacje, które w największym stopniu przyczyniają się do wzrostu dewiancji, a więc wskazują na miejsca, w których model niedostatecznie dobrze dopasowuje się do danych.
 * **Korekta na heteroskedastyczność:** Podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
 * **Lepsza interpretacja dla danych dyskretnych:** Chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
+
+## Redukcjia wariancji w metodzie Monte Carlo
+
+**Próbkowanie ważone (Importance Sampling - IS)** to technika redukcji wariancji w metodzie Monte Carlo, która polega na zastąpieniu oryginalnego rozkładu prawdopodobieństwa innym, który koncentruje większe prawdopodobieństwo w regionach o największym znaczeniu dla estymowanej wartości. Celem jest zwiększenie wydajności symulacji, zwłaszcza przy szacowaniu prawdopodobieństw zdarzeń rzadkich lub wartości w ogonach rozkładu.
+
+---
+## Kluczowe założenia
+
+Podstawowym problemem w prostej metodzie Monte Carlo jest jej niska wydajność, gdy wiele generowanych prób losowych nie trafia w interesujący nas obszar. Próbkowanie ważone rozwiązuje ten problem poprzez zmianę gęstości prawdopodobieństwa, z której losowane są próby, z oryginalnej $f_X(x)$ na nową gęstość $f̃_X(x)$.
+
+Aby wynik pozostał nieobciążony, każda wylosowana próba musi zostać skorygowana przez pomnożenie jej przez **iloraz wiarygodności (likelihood ratio)**, dany wzorem $f_X(x) / f̃_X(x)$.
+
+---
+## Estymator i redukcja wariancji
+
+Wartość oczekiwaną $E(X)$ można przedstawić jako:
+$$E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f̃_X(x)}\right) f̃_X(x)dx = E\left(\tilde{X} \frac{f_X(\tilde{X})}{f̃_X(\tilde{X})}\right)$$
+gdzie $\tilde{X}$ jest zmienną losową o gęstości $f̃_X(x)$.
+
+**Estymator próbkowania ważonego** dla $n$ symulacji ma postać:
+$$\hat{\mu}_{In} = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f̃_X(\tilde{X}_i)}$$
+Estymator ten jest nieobciążony, a jego wariancja jest mniejsza niż wariancja standardowego estymatora Monte Carlo, jeśli nowa gęstość $f̃_X(x)$ jest dobrana tak, aby iloraz wiarygodności był mały tam, gdzie wartość $x^2 f_X(x)$ jest duża.
+
+---
+## Przykład zastosowania: Przechylanie wykładnicze
+
+Popularną techniką wyboru nowej gęstości dla rozkładów o lekkich ogonach jest **przechylanie wykładnicze (exponential twisting)**, które jest zastosowaniem transformaty Esschera. Nowa gęstość jest definiowana jako:
+$$f̃_X(x) = \frac{e^{\theta x} f_X(x)}{E(e^{\theta X})}$$
+Parametr $\theta$ dobiera się tak, aby przesunąć wartość oczekiwaną nowego rozkładu w kierunku interesującego nas obszaru (np. estymowanego kwantyla).
+
+W dokumencie zilustrowano to na przykładzie szacowania kwantyla VaR dla zmiennej o rozkładzie gamma. Mimo że wstępne założenie co do wartości VaR było niedokładne, zastosowanie próbkowania ważonego z przechylaniem wykładniczym znacząco zwiększyło szybkość zbieżności i dokładność estymacji w porównaniu do prostej metody Monte Carlo (Rysunek 9.2 w dokumencie).
+
+### Ograniczenia
+Technika przechylania wykładniczego nie ma zastosowania dla rozkładów o ciężkich ogonach (np. Pareto), ponieważ ich funkcja generująca momenty nie istnieje dla dodatnich argumentów. W takich przypadkach stosuje się inne metody, np. przechylanie funkcji hazardu.
