@@ -698,7 +698,7 @@ Wynikiem działania algorytmu jest **dendrogram** – struktura przypominająca 
 * **Wysokość**, na której dwa klastry są łączone, reprezentuje stopień ich odmienności. Im niżej następuje połączenie, tym bardziej podobne są obserwacje.
 * Aby uzyskać określoną liczbę klastrów, można "przeciąć" dendrogram na odpowiedniej wysokości. Liczba linii dendrogramu przeciętych przez tę poziomą linię cięcia odpowiada liczbie uzyskanych klastrów.
 
-## Metody walidacyjne
+## Walidacja krzyżowa
 
 **Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
 
@@ -716,12 +716,14 @@ K-krotna walidacja krzyżowa (k-fold CV) to procedura służąca do oszacowania 
 3.  **Obliczenie ostatecznego wyniku**: Po przeprowadzeniu *k* iteracji uzyskuje się *k* różnych estymacji błędu testowego ($MSE_1, MSE_2, ..., MSE_k$). Ostateczną estymacją błędu w metodzie k-krotnej walidacji krzyżowej jest średnia z tych wartości:
     $$CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k} MSE_i$$
 
+---
 **Podaj na czym polega walidacja za pomocą metody LOOCV (Leave-one-out cross-validation).**
 
 Walidacja krzyżowa z pominięciem jednej obserwacji (Leave-one-out cross-validation, LOOCV) to intensywna obliczeniowo, ale czasami użyteczna metoda szacowania błędu testowego modelu statystycznego. Jest to szczególny przypadek k-krotnej walidacji krzyżowej, w którym liczba podzbiorów (k) jest równa liczbie obserwacji (n) w zbiorze danych.
 
 Proces polega na wielokrotnym dopasowywaniu modelu, gdzie za każdym razem jedna obserwacja jest wykluczana ze zbioru uczącego i używana do walidacji.
 
+---
 **Jakie są zalety i wady k-krotnej walidacji krzyżowej w porównaniu z:**
 * **i. podejściem wykorzystującym jedynie jeden zbiór walidacyjny,**
 * **ii. metodą LOOCV.**
