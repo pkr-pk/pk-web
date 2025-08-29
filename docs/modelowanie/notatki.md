@@ -617,14 +617,14 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 **Próbkowanie ważone (Importance Sampling - IS)** to technika redukcji wariancji w metodzie Monte Carlo, która polega na zastąpieniu oryginalnego rozkładu prawdopodobieństwa innym, który koncentruje większe prawdopodobieństwo w regionach o największym znaczeniu dla estymowanej wartości. Celem jest zwiększenie wydajności symulacji, zwłaszcza przy szacowaniu prawdopodobieństw zdarzeń rzadkich lub wartości w ogonach rozkładu.
 
 ---
-## Kluczowe założenia
+**Kluczowe założenia**
 
 Podstawowym problemem w prostej metodzie Monte Carlo jest jej niska wydajność, gdy wiele generowanych prób losowych nie trafia w interesujący nas obszar. Próbkowanie ważone rozwiązuje ten problem poprzez zmianę gęstości prawdopodobieństwa, z której losowane są próby, z oryginalnej $f_X(x)$ na nową gęstość $f̃_X(x)$.
 
 Aby wynik pozostał nieobciążony, każda wylosowana próba musi zostać skorygowana przez pomnożenie jej przez **iloraz wiarygodności (likelihood ratio)**, dany wzorem $f_X(x) / f̃_X(x)$.
 
 ---
-## Estymator i redukcja wariancji
+**Estymator i redukcja wariancji**
 
 Wartość oczekiwaną $E(X)$ można przedstawić jako:
 $$E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f̃_X(x)}\right) f̃_X(x)dx = E\left(\tilde{X} \frac{f_X(\tilde{X})}{f̃_X(\tilde{X})}\right)$$
@@ -635,7 +635,7 @@ $$\hat{\mu}_{In} = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)
 Estymator ten jest nieobciążony, a jego wariancja jest mniejsza niż wariancja standardowego estymatora Monte Carlo, jeśli nowa gęstość $f̃_X(x)$ jest dobrana tak, aby iloraz wiarygodności był mały tam, gdzie wartość $x^2 f_X(x)$ jest duża.
 
 ---
-## Przykład zastosowania: Przechylanie wykładnicze
+**Przykład zastosowania: Przechylanie wykładnicze**
 
 Popularną techniką wyboru nowej gęstości dla rozkładów o lekkich ogonach jest **przechylanie wykładnicze (exponential twisting)**, które jest zastosowaniem transformaty Esschera. Nowa gęstość jest definiowana jako:
 $$f̃_X(x) = \frac{e^{\theta x} f_X(x)}{E(e^{\theta X})}$$
@@ -643,5 +643,57 @@ Parametr $\theta$ dobiera się tak, aby przesunąć wartość oczekiwaną nowego
 
 W dokumencie zilustrowano to na przykładzie szacowania kwantyla VaR dla zmiennej o rozkładzie gamma. Mimo że wstępne założenie co do wartości VaR było niedokładne, zastosowanie próbkowania ważonego z przechylaniem wykładniczym znacząco zwiększyło szybkość zbieżności i dokładność estymacji w porównaniu do prostej metody Monte Carlo (Rysunek 9.2 w dokumencie).
 
-### Ograniczenia
+**Ograniczenia**
 Technika przechylania wykładniczego nie ma zastosowania dla rozkładów o ciężkich ogonach (np. Pareto), ponieważ ich funkcja generująca momenty nie istnieje dla dodatnich argumentów. W takich przypadkach stosuje się inne metody, np. przechylanie funkcji hazardu.
+
+## Algorytm aglomeracyjny
+
+Grupowanie hierarchiczne to metoda analizy skupień, która buduje hierarchię klastrów. Podejście aglomeracyjne, zwane również podejściem "oddolnym" (bottom-up), jest najpowszechniejszą metodą grupowania hierarchicznego.
+
+Proces ten tworzy wizualną reprezentację danych w postaci drzewa zwaną **dendrogramem**, który ilustruje, jak obserwacje są kolejno łączone w klastry.
+
+---
+**Algorytm grupowania aglomeracyjnego**
+
+Algorytm przebiega iteracyjnie, łącząc obserwacje i klastry krok po kroku, od pojedynczych punktów aż do jednego, dużego klastra obejmującego cały zbiór danych.
+
+**Krok 1: Inicjalizacja**
+
+Proces rozpoczyna się od zdefiniowania miary odmienności (najczęściej odległości euklidesowej) między każdą parą obserwacji w zbiorze danych. Na tym etapie każda z `n` obserwacji jest traktowana jako osobny, jednoelementowy klaster.
+
+---
+**Krok 2: Iteracyjne łączenie klastrów**
+
+Algorytm wykonuje `n-1` kroków, aby połączyć wszystkie obserwacje w jeden klaster. W każdej iteracji:
+1.  **Identyfikacja najbliższych klastrów**: Algorytm identyfikuje dwa klastry, które są do siebie najbardziej podobne (najmniej odmienne).
+2.  **Fuzja (łączenie) klastrów**: Te dwa najbliższe klastry są łączone w jeden nowy klaster.
+3.  **Aktualizacja miar odmienności**: Obliczane są nowe miary odmienności między nowo powstałym klastrem a wszystkimi pozostałymi.
+
+Proces ten jest kontynuowany, aż wszystkie obserwacje zostaną połączone w jeden klaster.
+
+---
+**Kluczowe pojęcia w algorytmie**
+
+Aby algorytm mógł działać, należy zdefiniować dwie kluczowe miary:
+
+**1. Miara odmienności (Dissimilarity Measure)**
+Określa, jak "daleko" od siebie znajdują się dwie pojedyncze obserwacje. Najczęściej stosowaną miarą jest **odległość euklidesowa**, ale w zależności od zastosowania można użyć innych miar, takich jak **odległość oparta na korelacji**, która ocenia podobieństwo kształtów profili obserwacji, a nie ich wartości bezwzględnych.
+
+**2. Metoda łączenia (Linkage)**
+Ponieważ algorytm musi mierzyć odległość nie tylko między punktami, ale także między klastrami (które mogą zawierać wiele obserwacji), konieczne jest zdefiniowanie, w jaki sposób obliczana jest odmienność międzygrupowa. Służy do tego **metoda łączenia** (linkage). Główne typy to:
+
+* **Łączenie pełne (Complete Linkage)**: Odmienność między dwoma klastrami to odmienność między *najdalszymi* od siebie obserwacjami z tych klastrów.
+* **Łączenie pojedyncze (Single Linkage)**: Odmienność to odmienność między *najbliższymi* od siebie obserwacjami z tych klastrów.
+* **Łączenie średnie (Average Linkage)**: Odmienność to średnia wszystkich odmienności między parami obserwacji pochodzących z różnych klastrów.
+* **Łączenie oparte na centroidach (Centroid Linkage)**: Odmienność jest mierzona jako odległość między centroidami (średnimi wektorami) obu klastrów.
+
+Wybór metody łączenia ma znaczący wpływ na ostateczny kształt dendrogramu. Łączenie pełne i średnie zazwyczaj prowadzą do bardziej zrównoważonych klastrów.
+
+---
+**Wynik: Dendrogram**
+
+Wynikiem działania algorytmu jest **dendrogram** – struktura przypominająca drzewo, która wizualizuje proces łączenia.
+
+* **Liście** na dole dendrogramu reprezentują poszczególne obserwacje.
+* **Wysokość**, na której dwa klastry są łączone, reprezentuje stopień ich odmienności. Im niżej następuje połączenie, tym bardziej podobne są obserwacje.
+* Aby uzyskać określoną liczbę klastrów, można "przeciąć" dendrogram na odpowiedniej wysokości. Liczba linii dendrogramu przeciętych przez tę poziomą linię cięcia odpowiada liczbie uzyskanych klastrów.
