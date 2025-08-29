@@ -10,7 +10,7 @@ nav_order: 5
 [Notatki z egzaminów](../modelowanie/notatki.html){:target="_blank"}
 
 {:style="counter-reset:step-counter 88"}
-90. [rozwiązania](pdfs_modelowanie/Egzamin_089.pdf){:target="_blank"}
+89. [rozwiązania](pdfs_modelowanie/Egzamin_089.pdf){:target="_blank"}
 90. [rozwiązania](pdfs_modelowanie/Egzamin_090.pdf){:target="_blank"}
 91. [rozwiązania](pdfs_modelowanie/Egzamin_091.pdf){:target="_blank"}
 92. [rozwiązania](pdfs_modelowanie/Egzamin_092.pdf){:target="_blank"}
