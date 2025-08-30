@@ -61,30 +61,6 @@ Dlatego, aby dokonać właściwego wyboru, należy uwzględnić kompromis międz
 
 ---
 
-## Metoda Hilla
-
-Metoda Hilla jest alternatywą dla modelowania opartego na uogólnionym rozkładzie Pareto (GPD), przeznaczoną specjalnie dla rozkładów ciężkoogonowych (należących do dziedziny przyciągania rozkładu Frécheta).
-
-Główne punkty:
-
-* Cel metody: głównym celem Metody Hilla nie jest modelowanie całej dystrybucji nadwyżek ponad próg, lecz bezpośrednie oszacowanie indeksu ogona ($\alpha$). Indeks ten opisuje, jak szybko maleje prawdopodobieństwo w ogonie rozkładu.
-
-* Estymator Hilla: estymacja odbywa się za pomocą estymatora Hilla, który jest funkcją $k$ największych statystyk pozycyjnych z próby $n$ obserwacji.
-
-* Wykres Hilla: w praktyce, kluczowym narzędziem jest wykres Hilla, który przedstawia wartość estymowanego indeksu ogona w zależności od liczby użytych statystyk pozycyjnych ($k$). Analityk poszukuje na wykresie stabilnego regionu, który sugeruje właściwą wartość indeksu ogona. Interpretacja wykresu może być jednak trudna.
-
-* Estymacja ogona rozkładu: wyestymowany indeks ogona jest następnie używany do skonstruowania estymatora ogona Hilla, który pozwala szacować prawdopodobieństwa w ogonie rozkładu strat powyżej progu.
-
-Estymator Hilla to narzędzie statystyczne służące do estymacji (szacowania) indeksu ogona rozkładu prawdopodobieństwa. Indeks ogona, oznaczany jako $\alpha$, jest miarą "ciężkości" ogona rozkładu. Rozkłady o ciężkich ogonach charakteryzują się tym, że prawdopodobieństwo wystąpienia wartości ekstremalnych (bardzo dużych lub bardzo małych) jest znacznie wyższe niż w przypadku rozkładów o lekkich ogonach, takich jak rozkład normalny.
-
-Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowanie szkód ekstremalnych (tzn. zdarzeń rzadkich, ale potencjalnie o dużej wartości). W ubezpieczeniach majątkowych jego użycie pozwala na lepsze zarządzanie ryzykiem i wycenę produktów ubezpieczeniowych. Jako przykład można wskazać:
-
-* Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawiera umowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratami wynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hilla służy do oszacowania parametru grubości ogona rozkładu strat. Pozwala to na określenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
-
-* Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonych katastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacować wartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. Estymator Hilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o dane historyczne.
-
----
-
 ## Krzywa Lorenza i krzywa koncentracji
 
 Kluczowe różnice
@@ -315,6 +291,7 @@ Podwójny uogólniony model liniowy (DGLM) jest szczególnie istotny w modelowan
 W standardowym modelu GLM parametr dyspersji $\phi$ musi być **stały** dla wszystkich obserwacji. W przypadku rozkładu Tweedie, który jest modelem złożonym Poissona-Gamma, parametr dyspersji $\phi$ zależy zarówno od parametrów rozkładu częstości szkód (Poisson), jak i rozkładu wysokości pojedynczej szkody (Gamma).
 
 To założenie o stałości $\phi$ prowadzi do następującego, kluczowego ograniczenia:
+
 > Każdy czynnik ryzyka, który zwiększa oczekiwaną wysokość szkody, musi również zwiększać oczekiwaną częstość szkód (i odwrotnie). Wpływ danego czynnika na częstość i wysokość szkody **musi iść w tym samym kierunku**.
 
 Podwójny GLM (DGLM) rozwiązuje ten problem, ponieważ **pozwala, aby parametr dyspersji $\phi$ również zależał od zmiennych objaśniających**. Modelując dyspersję za pomocą osobnego zestawu predyktorów, DGLM uwalnia sztywną zależność między komponentami częstości i wysokości szkody. Dzięki temu model może prawidłowo odzwierciedlić sytuacje, w których dany czynnik ryzyka ma różny lub nawet przeciwstawny wpływ na częstość i wysokość szkód, co prowadzi do znacznie bardziej wiarygodnych wyników.
@@ -698,6 +675,16 @@ Wynikiem działania algorytmu jest **dendrogram** – struktura przypominająca 
 * **Wysokość**, na której dwa klastry są łączone, reprezentuje stopień ich odmienności. Im niżej następuje połączenie, tym bardziej podobne są obserwacje.
 * Aby uzyskać określoną liczbę klastrów, można "przeciąć" dendrogram na odpowiedniej wysokości. Liczba linii dendrogramu przeciętych przez tę poziomą linię cięcia odpowiada liczbie uzyskanych klastrów.
 
+
+
+
+
+
+
+
+
+
+
 ## Walidacja krzyżowa
 
 **Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
@@ -760,3 +747,30 @@ $$h(x_i, \xi_i) = (x_i - \xi_i)^3_+ = \begin{cases} (x_i - \xi_i)^3 & \text{jeś
 gdzie $\xi_i$ jest $i$-tym węzłem. Przykład:
 
 $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
+
+## Teoria wartości ekstremalnych
+
+**Krótko opisz podejście Hilla do modelowania ogonów rozkładów (m in. podaj założenia odnośnie rozkładów i przedstaw odpowiedni estymator).**
+
+Metoda Hilla jest podejściem stosowanym do modelowania i estymacji ogonów rozkładów prawdopodobieństwa, zwłaszcza tych o grubych ogonach (heavy-tailed). Służy do oszacowania parametru kształtu ogona, znanego jako indeks ogona.
+
+Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) badanego rozkładu dla dużych wartości $x$ zachowuje się jak funkcja potęgowa:
+
+$$\bar{F}(x) = x^{-\alpha}L(x)$$
+
+gdzie:
+* $\alpha > 0$ to **indeks ogona**, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
+* $L(x)$ jest funkcją **wolno zmienną**, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
+
+Estymator Hilla:
+
+$$\hat{\alpha}^{(H)}_{k,n} = \left( \frac{1}{k} \sum_{j=1}^{k} \ln X_{j,n} - \ln X_{k,n} \right)^{-1}$$
+
+gdzie:
+* $k$ to liczba największych obserwacji użytych do estymacji ($2 \le k \le n$).
+* $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
+
+---
+**Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jestwykorzystywany.**
+
+Aby wybrać optymalną wartość $k$, tworzy się tzw. **wykres Hilla**, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
