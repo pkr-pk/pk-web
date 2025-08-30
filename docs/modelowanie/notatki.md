@@ -735,3 +735,28 @@ Wybór *k* w walidacji krzyżowej to **kompromis między obciążeniem a warianc
 * **Podejście z jednym zbiorem walidacyjnym (odpowiednik k=2)** ma wysokie obciążenie, ale niską wariancję.
 
 K-krotna walidacja krzyżowa z wartościami **k=5 lub k=10** jest w praktyce złotym środkiem. Empirycznie wykazano, że takie wartości prowadzą do estymacji błędu testowego, które nie cechują się ani nadmiernie wysokim obciążeniem, ani bardzo wysoką wariancją.
+
+## Uogólnione modele addytywne (GAMs)
+
+**Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędziaktuariusza.**
+
+Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji: $Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon$. Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
+
+Dzięki GAM aktuariusze mogą:
+* Precyzyjnie modelować **nieliniowe zależności** i **interakcje** między zmiennymi, takimi jak wiek i płeć kierowcy czy dane geograficzne.
+* Analizować indywidualne dane dotyczące śmiertelności przy użyciu **regresji Poissona** bez konieczności wstępnego, subiektywnego grupowania danych.
+
+---
+**Podaj definicję funkcji sklejanej stopnia 3 (splajnu kubicznego).**
+
+Splajn sześcienny z $K$ węzłami można zamodelować jako:
+
+$$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + \dots + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i,$$
+
+dla odpowiedniego wyboru funkcji bazowych $b_1, b_2,...,b_{K+3}$. Najbardziej bezpośrednim sposobem reprezentacji splajnu sześciennego przy użyciu powyszej jest rozpoczęcie od bazy dla wielomianu sześciennego – mianowicie, $b_1(x_i) = x_i$, $b_2(x_i) = x_i^2$, i $b_3(x_i) = x_i^3$ a następnie dodanie jednej **potęgowej funkcji bazowej** na każdy węzeł. Potęgowa funkcja bazowa jest zdefiniowana jako:
+
+$$h(x_i, \xi_i) = (x_i - \xi_i)^3_+ = \begin{cases} (x_i - \xi_i)^3 & \text{jeśli } x_i > \xi_i \\ 0 & \text{w przeciwnym razie}, \end{cases}$$
+
+gdzie $\xi_i$ jest $i$-tym węzłem. Przykład:
+
+$$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
