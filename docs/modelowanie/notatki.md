@@ -775,4 +775,4 @@ gdzie:
 
 Aby wybrać optymalną wartość $k$, tworzy się tzw. **wykres Hilla**, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
 
-$\xi = 1/\alpha$, kiedy $\xi > 0$ mamy rozkład Frecheta z nieskończoną wriancją; kiedy $\xi = 0$ mamy rozkład Gumbela; kiedy $\xi < 0$ mamy rozkład Weibulla.
+$\xi = 1/\alpha$, kiedy $\xi > 0$ mamy rozkład Frecheta (kiedy $\xi > 0.5$ to rozkład Frecheta ma nieskończoną wriancją); kiedy $\xi = 0$ mamy rozkład Gumbela; kiedy $\xi < 0$ mamy rozkład Weibulla.
