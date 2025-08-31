@@ -253,14 +253,6 @@ W ten sposób wykres pokazuje, jak zmienia się średnia predykcja modelu w zale
 
 ---
 
-## Model ARMA
-
-Reszty (ang. *residuals*) poprawnie zidentyfikowanego modelu ARMA powinny posiadać cechy **białego szumu** (ang. *white noise*). Oznacza to, że reszty powinny być **nieskorelowane w czasie** i mieć **stałą wariancję**.
-
-Test Ljunga-Boxa jest używany do sprawdzania, czy w szeregu czasowym występuje autokorelacja, czyli zależność między wartościami tego szeregu w różnych momentach czasowych.
-
----
-
 ## DGLM - Double Generalized Linear Model
 
 Proces estymacji podwójnego uogólnionego modelu liniowego (DGLM) jest **procesem iteracyjnym**, który naprzemiennie dopasowuje model dla wartości średniej i model dla dyspersji, aż do osiągnięcia zbieżności. Modele te "współdziałają" ze sobą, wymieniając się informacjami na każdym etapie.
@@ -487,18 +479,6 @@ Jedną z reguł stosowanych do określenia, kiedy węzeł w drzewie regresyjnym 
 Głębokość węzła jest definiowana na podstawie jego "generacji" w strukturze drzewa. Węzeł główny (tzw. korzeń), od którego zaczyna się całe drzewo, ma głębokość zero. Jego bezpośredni potomkowie (węzły-dzieci) mają głębokość jeden, ich potomkowie — głębokość dwa, i tak dalej.
 
 Zastosowanie tej reguły polega na ustaleniu limitu, jak "głęboko" drzewo może się rozrastać. Kiedy dany węzeł osiągnie tę maksymalną, zdefiniowaną wcześniej głębokość, jest automatycznie uznawany za węzeł końcowy i nie podlega dalszym podziałom, nawet jeśli podział mógłby poprawić model. Na przykład, jeśli maksymalna głębokość zostanie ustalona na dwa, wszystkie węzły na tym poziomie (czyli w trzeciej "generacji") staną się liśćmi drzewa.
-
----
-
-## Szeregi czasowe
-
-**Wybrane właściwości finansowych szeregów czasowych (stylizowane fakty)**
-
-1. **Grube ogony**: Rozkład stóp zwrotu nie jest rozkładem normalnym. Charakteryzuje się tzw. "grubymi ogonami", co oznacza, że skrajne, bardzo wysokie lub bardzo niskie stopy zwrotu (gwałtowne wzrosty i spadki) występują znacznie częściej, niż przewidywałby to model oparty na rozkładzie normalnym. Jednocześnie obserwuje się wyższą koncentrację wyników wokół wartości średniej.
-
-2. **Grupowanie się zmienności**: Zmienność stóp zwrotu nie jest stała w czasie. Obserwuje się okresy, w których wahania cen są niewielkie (niska zmienność), po których następują okresy o dużej amplitudzie wahań (wysoka zmienność). Innymi słowy, "dużym zmianom towarzyszą kolejne duże zmiany, a małym – małe".
-
-3. **Brak autokorelacji stóp zwrotu, ale występowanie autokorelacji w wartościach bezwzględnych lub kwadratach stóp zwrotu**: Same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
 
 ---
 
@@ -776,3 +756,24 @@ gdzie:
 Aby wybrać optymalną wartość $k$, tworzy się tzw. **wykres Hilla**, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
 
 Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
+
+## Podstawy analizy szeregów czasowych
+
+**Wymień etapy statystycznej analizy szeregów czasowych danych $y_1, y_2,..., y_t$. Krótko opisz jeden z nich.**
+
+Etapy statystycznej analizy szeregów czasowych:
+* Analiza wstępna
+* Analiza w dziedzinie czasu
+* Dopasowanie modelu
+* Analiza reszt i porównanie modeli 
+
+Analiza wstępna:
+
+Jest to pierwszy etap, w którym dane są wizualizowane na wykresie w celu oceny, czy zastosowanie pojedynczego modelu stacjonarnego jest zasadne. Analiza wstępna obejmuje również rozważenie, czy konieczna jest wstępna obróbka danych, na przykład w celu usunięcia trendów lub sezonowości. Istotnym elementem tego etapu jest wybór odpowiedniej długości okna czasowego dla danych, co wiąże się z kompromisem między potrzebą korzystania z najbardziej aktualnych informacji a koniecznością posiadania wystarczająco dużej próbki do precyzyjnej estymacji statystycznej.
+
+---
+**Przedstaw sposób prognozowania szeregów czasowych za pomocą modeli ARMA. Podaj ogólne założenia i wskaż ideę.**
+
+Podstawowym założeniem jest to, że dane pochodzą z odwracalnego modelu ARMA, a innowacje (błędy) procesu mają własność różnicy martyngałowej. Oznacza to, że oczekiwana wartość przyszłej innowacji, biorąc pod uwagę historię procesu, jest równa zero.
+
+Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \mid \mathcal{F}_t)$ jako predyktora, gdzie $\mathcal{F}_t$ reprezentuje historię procesu do czasu $t$. Ten predyktor minimalizuje średniokwadratowy błąd prognozy. Prognozy oblicza się rekurencyjnie. Wartości losowe do czasu $t$ są traktowane jako "znane", a oczekiwane wartości przyszłych innowacji (dla $h \ge 1$) wynoszą zero. W praktyce, ponieważ pełna historia procesu nie jest znana, do obliczeń wykorzystuje się reszty z dopasowanego modelu. W miarę wydłużania horyzontu prognozy, przewidywana wartość zbiega do bezwarunkowej średniej procesu.
