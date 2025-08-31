@@ -218,15 +218,11 @@ Celem jest znalezienie najniższego możliwego progu, powyżej którego model GP
 
 ---
 
-## Dane cenzurowane i ucięte
+## Dane ucięte
 
-1. **Cenzurowanie z prawej strony** (ang. *right censored*) ma miejsce, gdy dla obserwacji osiągającej lub przekraczającej pewną wartość `u`, rejestruje się jedynie fakt, że wartość ta została osiągnięta, ale jej dokładna wielkość pozostaje nieznana. Obserwacje poniżej progu `u` są rejestrowane z ich dokładną wartością.
+1. **Okrojenie z lewej strony** (ang. *left truncated*) występuje, gdy obserwacje poniżej pewnego progu `d` w ogóle nie są rejestrowane. W przypadku okrojenia nie wiedzielibyśmy nawet o istnieniu szkód, których wartość nie przekroczyła jakiegoś progu.
 
-2. **Okrojenie z lewej strony** (ang. *left truncated*) występuje, gdy obserwacje poniżej pewnego progu `d` w ogóle nie są rejestrowane. W przypadku okrojenia nie wiedzielibyśmy nawet o istnieniu szkód, których wartość nie przekroczyła jakiegoś progu.
-
-3. **Przykład dla danych cenzurowanych** Jeśli obserwacja ubezpieczonego kończy się przed jego śmiercią, jedyne, co wiemy, to to, że zgon następuje w pewnym momencie po czasie ostatniej obserwacji. Inną częstą sytuacją jest limit polisy, w przypadku którego, jeśli rzeczywista strata przekracza limit, wiadomo jedynie, że limit został przekroczony.
-
-4. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet nie będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
+2. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet nie będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
 
 ---
 
@@ -777,3 +773,15 @@ Jest to pierwszy etap, w którym dane są wizualizowane na wykresie w celu oceny
 Podstawowym założeniem jest to, że dane pochodzą z odwracalnego modelu ARMA, a innowacje (błędy) procesu mają własność różnicy martyngałowej. Oznacza to, że oczekiwana wartość przyszłej innowacji, biorąc pod uwagę historię procesu, jest równa zero.
 
 Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \mid \mathcal{F}_t)$ jako predyktora, gdzie $\mathcal{F}_t$ reprezentuje historię procesu do czasu $t$. Ten predyktor minimalizuje średniokwadratowy błąd prognozy. Prognozy oblicza się rekurencyjnie. Wartości losowe do czasu $t$ są traktowane jako "znane", a oczekiwane wartości przyszłych innowacji (dla $h \ge 1$) wynoszą zero. W praktyce, ponieważ pełna historia procesu nie jest znana, do obliczeń wykorzystuje się reszty z dopasowanego modelu. W miarę wydłużania horyzontu prognozy, przewidywana wartość zbiega do bezwarunkowej średniej procesu.
+
+## Estymacja empiryczna danych cenzurowanych prawostronnie
+
+**Podaj definicję danych prawostronnie cenzurowanych (right censoring). Wskaż i omów co najmniej dwie sytuacje, w których aktuariusz analizuje tego typu dane.**
+
+Obserwacja cenzurowana prawostronnie w punkcie $u$, jeśli gdy jest równa lub większa od $u$, jest zapisywana jako równa 
+$u$, ale gdy jest poniżej $u$, jest zapisywana z jej obserwowaną wartością.
+
+W danych dotyczących roszczeń ubezpieczeniowych, obecność limitu polisy może prowadzić do prawostronnie cenzurowanych obserwacji. Gdy kwota szkody jest równa lub przekracza limit 
+$u$, świadczenia powyżej tej wartości nie są wypłacane, więc dokładna wartość zazwyczaj nie jest rejestrowana. Wiadomo jednak, że wystąpiła szkoda o wartości co najmniej $u$.
+
+Podczas przeprowadzania badania śmiertelności ludzi, jeśli osoba żyje w momencie zakończenia badania, nastąpiło cenzurowanie prawostronne. Wiek osoby w chwili śmierci nie jest znany, ale wiadomo, że jest on co najmniej tak duży jak wiek w momencie zakończenia badania.
