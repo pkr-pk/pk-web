@@ -444,16 +444,6 @@ Bagging oferuje efektywny sposób estymacji błędu testowego bez konieczności 
 
 ---
 
-## Drzewa regresyjne
-
-Jedną z reguł stosowanych do określenia, kiedy węzeł w drzewie regresyjnym staje się węzłem końcowym (liściem), jest **osiągnięcie przez niego z góry ustalonej, maksymalnej głębokości**.
-
-Głębokość węzła jest definiowana na podstawie jego "generacji" w strukturze drzewa. Węzeł główny (tzw. korzeń), od którego zaczyna się całe drzewo, ma głębokość zero. Jego bezpośredni potomkowie (węzły-dzieci) mają głębokość jeden, ich potomkowie — głębokość dwa, i tak dalej.
-
-Zastosowanie tej reguły polega na ustaleniu limitu, jak "głęboko" drzewo może się rozrastać. Kiedy dany węzeł osiągnie tę maksymalną, zdefiniowaną wcześniej głębokość, jest automatycznie uznawany za węzeł końcowy i nie podlega dalszym podziałom, nawet jeśli podział mógłby poprawić model. Na przykład, jeśli maksymalna głębokość zostanie ustalona na dwa, wszystkie węzły na tym poziomie (czyli w trzeciej "generacji") staną się liśćmi drzewa.
-
----
-
 ## Współczynnik V Cramera
 
 Współczynnik V Cramera jest miarą siły związku (asocjacji) między dwiema zmiennymi, opartą na statystyce chi-kwadrat Pearsona z tablicy kontyngencji.
@@ -833,3 +823,18 @@ $T = 2 \ln\left(\frac{L_1}{L_0}\right) = 2(\ln L_1 - \ln L_0),$
 gdzie $L_0$, $L_1$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
 
 Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat ($\chi^2$). Liczba stopni swobody tego rozkładu jest równa różnicy w liczbie wolnych (niezależnych) parametrów między modelem z hipotezy alternatywnej a modelem z hipotezy zerowej.
+
+## Drzewa regresyjne
+
+**Wskaż co najmniej cztery reguły określające, kiedy węzeł w drzewie regresyjnym jest przyjmowany za końcowy (jest uznawany za liść).**
+
+Węzeł jest uznawany za końcowy:
+* jeśli zawiera mniej niż z góry określoną liczbę obserwacji.
+* gdy jego głębokość (czyli odległość od korzenia drzewa) osiągnie ustalony limit.
+* jeśli w wyniku tego podziału co najmniej jeden z nowo powstałych węzłów potomnych (liści) zawierałby mniej niż z góry określoną liczbę obserwacji.
+* jeśli najlepszy możliwy podział tego węzła nie przynosi spadku dewiancji (miary błędu) o wartość większą niż ustalony próg.
+
+---
+**Na czym polega i w jakim celu stosuje się przycinanie drzewa regresyjnego?**
+
+Przycinanie polega budowaniu maksymalnie rozbudowanego drzewa, pozwalając mu rosnąć aż do momentu, gdy dalsze podziały nie są możliwe (np. w liściach zostaje zbyt mało obserwacji lub wszystkie mają tę samą wartość). Takie drzewo jest bardzo złożone i idealnie dopasowane do danych treningowych. Następnie, w sposób systematyczny, usuwa się (przycina) całe gałęzie drzewa, czyli węzły wraz z ich potomkami. Celem jest znalezienie optymalnego poddrzewa, które stanowi najlepszy kompromis między prostotą a dokładnością predykcji.
