@@ -484,22 +484,6 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
 
 ---
 
-## Estymacja jądrowa
-
-Zalety estymacji jądrowej funkcji gęstości:
-* Metoda nieparametryczna, nie wymaga założenia konkretnego rozkładu, co pozwala na bardziej ogólną analizę danych.
-* Za jej pomocą otrzymuje się gładką funkcję gęstości, która może lepiej odzwierciedlać rzeczywisty rozkład danych niż histogramy, szczególnie gdy dane są mało liczne lub mają skomplikowany rozkład.
-* Dzięki stałej wygładzania (szerokości jądra) można kontrolować stopień wygładzenia estymowanej gęstości. Większa wartość stałej prowadzi do bardziej wygładzonej funkcji gęstości, podczas gdy mniejsza bardziej precyzyjnie
-odwzorowuje dane.
-* Pozwala na porównywanie rozkładów różnych zestawów danych.
-
-Ograniczenia jądrowej estymacji funkcji gęstości:
-* Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
-* Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
-* Może niedokładnie odwzorować ogon rozkładu danych.
-
----
-
 ## GARCH
 
 **Definicja procesu GARCH(p, q)**
@@ -838,3 +822,19 @@ Węzeł jest uznawany za końcowy:
 **Na czym polega i w jakim celu stosuje się przycinanie drzewa regresyjnego?**
 
 Przycinanie polega budowaniu maksymalnie rozbudowanego drzewa, pozwalając mu rosnąć aż do momentu, gdy dalsze podziały nie są możliwe (np. w liściach zostaje zbyt mało obserwacji lub wszystkie mają tę samą wartość). Takie drzewo jest bardzo złożone i idealnie dopasowane do danych treningowych. Następnie, w sposób systematyczny, usuwa się (przycina) całe gałęzie drzewa, czyli węzły wraz z ich potomkami. Celem jest znalezienie optymalnego poddrzewa, które stanowi najlepszy kompromis między prostotą a dokładnością predykcji.
+
+## Jądrowe modele gęstości
+
+**Jakie są najważniejsze zalety i ograniczenia jądrowej estymacji funkcji gęstości w porównaniu z innymi technikami, takimi jak histogramy czy estymatory parametryczne?**
+
+Zalety estymacji jądrowej funkcji gęstości:
+* Metoda nieparametryczna, nie wymaga założenia konkretnego rozkładu, co pozwala na bardziej ogólną analizę danych.
+* Za jej pomocą otrzymuje się gładką funkcję gęstości, która może lepiej odzwierciedlać rzeczywisty rozkład danych niż histogramy, szczególnie gdy dane są mało liczne lub mają skomplikowany rozkład.
+* Dzięki stałej wygładzania (szerokości jądra) można kontrolować stopień wygładzenia estymowanej gęstości. Większa wartość stałej prowadzi do bardziej wygładzonej funkcji gęstości, podczas gdy mniejsza bardziej precyzyjnie
+odwzorowuje dane.
+* Pozwala na porównywanie rozkładów różnych zestawów danych.
+
+Ograniczenia jądrowej estymacji funkcji gęstości:
+* Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
+* Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
+* Może niedokładnie odwzorować ogon rozkładu danych.
