@@ -245,7 +245,7 @@ Proces estymacji podwójnego uogólnionego modelu liniowego (DGLM) jest **proces
 
 Model średniej i model dyspersji są ze sobą ściśle powiązane i wymieniają się informacjami w każdej iteracji:
 
-* **Model średniej dostarcza informacji modelowi dyspersji**: Poprzez obliczonie $R_i^2$, model średniej informuje model dyspersji, które obserwacje są bardziej zmienne.
+* **Model średniej dostarcza informacji modelowi dyspersji**: Poprzez obliczenie $R_i^2$, model średniej informuje model dyspersji, które obserwacje są bardziej zmienne.
 * **Model dyspersji dostarcza informacji modelowi średniej**: Poprzez oszacowane, indywidualne parametry dyspersji ($\phi_i$), model dyspersji informuje model średniej, jaką wagę nadać każdej obserwacji. Obserwacjom o wyższej zmienności (większej dyspersji) przypisuje się mniejszą wagę w procesie estymacji modelu dla wartości średniej, co pozwala na ignorowanie szumu i wychwytywanie sygnału.
 
 ### Ograniczenie standardowego modelu Tweedie GLM
@@ -348,7 +348,7 @@ Standard wskazuje, że walidacja modelu **powinna być przeprowadzona przez osob
 
 Aktuariusz powinien podjąć uzasadnione kroki w celu sprawdzenia spójności, kompletności i dokładności wykorzystywanych danych. Możliwe działania obejmują między innymi:
 
-* **Uzgodnienie z dokumentami finansowymi**: Porównanie danych z zaudytowanymi sprawozdaniami finansowymi, zestawieniami obrotów i sald lub innymi odpowiednimi dokumentami, jeśli są dostępne.
+* **Uzgodnienie z dokumentami finansowymi**: Porównanie danych z audytowymi sprawozdaniami finansowymi, zestawieniami obrotów i sald lub innymi odpowiednimi dokumentami, jeśli są dostępne.
 * **Testowanie racjonalności**: Porównanie danych z danymi zewnętrznymi lub niezależnymi w celu oceny ich racjonalności.
 * **Sprawdzenie spójności wewnętrznej**: Przetestowanie danych pod kątem ich wewnętrznej spójności oraz spójności z innymi istotnymi informacjami.
 * **Porównanie z danymi historycznymi**: Zestawienie danych z danymi za poprzedni okres lub okresy.
@@ -803,3 +803,33 @@ Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebi
 3.  **Predykcja**: Model generuje predykcję dla każdej tak zmodyfikowanej obserwacji.
 4.  **Uśrednianie**: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
 5.  **Wizualizacja**: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
+
+## Testowanie hipotez
+
+**Przedstaw ideę i konstrukcję testu ilorazu wiarygodności. Zapisz hipotezę zerową i alternatywną i wskaż czy różnią się one od hipotez (zerowej i alternatywnej) stawianych w testach zgodności (np. chi-kwadrat, Kołmogorowa-Smirnowa). Podaj postać statystyki testowej i jej rozkład.**
+
+Test ilorazu wiarygodności jest narzędziem statystycznym służącym do porównywania dwóch konkurencyjnych modeli (rozkładów prawdopodobieństwa) w celu określenia, który z nich lepiej pasuje do obserwowanych danych.
+
+Podstawowa idea polega na tym, że jeśli model bardziej złożony (hipoteza alternatywna) jest prawdziwy, to wymuszenie dopasowania prostszego modelu (hipoteza zerowa) powinno skutkować znacząco niższą wartością funkcji wiarygodności. 
+
+Hipotezy:
+
+$H_0$: Dane pochodzą z populacji o rozkładzie A (model prostszy).
+
+$H_1$: Dane pochodzą z populacji o rozkładzie B (model bardziej złożony).
+
+Kluczowym warunkiem jest, aby model w hipotezie zerowej był zagnieżdżony w modelu z hipotezy alternatywnej. Oznacza to, że model A można otrzymać z modelu B przez nałożenie ograniczeń na jego parametry (np. model wykładniczy jest szczególnym przypadkiem modelu gamma, gdy jeden z parametrów jest ustalony na 1).
+
+Hipotezy w teście ilorazu wiarygodności różnią się od tych w testach zgodności, takich jak test chi-kwadrat czy test Kołmogorowa-Smirnowa. Testy zgodności sprawdzają, czy dane pochodzą z jednego, konkretnego rozkładu:
+
+$H_0$: Dane pochodzą z populacji o danym rozkładzie.
+
+$H_1$: Dane nie pochodzą z populacji o danym rozkładzie.
+
+Statystyka testowa:
+
+$T = 2 \ln\left(\frac{L_1}{L_0}\right) = 2(\ln L_1 - \ln L_0),$
+
+gdzie $L_1$, $L_2$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
+
+Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat ($\chi^2$). Liczba stopni swobody tego rozkładu jest równa różnicy w liczbie wolnych (niezależnych) parametrów między modelem z hipotezy alternatywnej a modelem z hipotezy zerowej.
