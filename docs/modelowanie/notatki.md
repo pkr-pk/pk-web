@@ -225,30 +225,6 @@ Celem jest znalezienie najniższego możliwego progu, powyżej którego model GP
 2. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet nie będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
 
 ---
-
-## PDP Partial Dependence Plot
-
-Głównym problemem w interpretacji złożonych modeli jest trudność w zwizualizowaniu funkcji predykcyjnej, gdy zależy ona od więcej niż dwóch zmiennych (cech). Wykresy częściowej zależności (Partial Dependence Plots) rozwiązują ten problem, pokazując **marginalny wpływ** wybranego, małego podzbioru cech na wynik predykcji modelu.
-
-Koncepcja polega na uśrednieniu wpływu wszystkich pozostałych cech, co pozwala na wyizolowanie i graficzne przedstawienie zależności między analizowaną cechą a prognozą. Innymi słowy, wykres pokazuje, jak zmieniłaby się średnia predykcja modelu, gdybyśmy zmieniali wartość jednej cechy, zachowując jednocześnie rozkład pozostałych cech z całego zbioru danych.
-
-### Sposób Konstrukcji
-
-Konstrukcja wykresu PDP dla jednej wybranej cechy $x_S$ odbywa się poprzez następujące kroki, które stanowią estymację funkcji częściowej zależności na podstawie zbioru treningowego:
-
-1.  **Wybierz cechę**, której wpływ chcesz zbadać (np. wiek kierowcy).
-2.  **Wybierz konkretną wartość** dla tej cechy (np. wiek = 30 lat).
-3.  Dla **każdej obserwacji** w zbiorze danych:
-    * Zastąp oryginalną wartość wybranej cechy ustaloną wartością (np. dla każdego kierowcy w zbiorze ustaw wiek na 30 lat).
-    * Pozostaw wartości wszystkich pozostałych cech bez zmian.
-4.  Dla każdej tak zmodyfikowanej obserwacji **wygeneruj predykcję** za pomocą modelu.
-5.  **Uśrednij wszystkie uzyskane predykcje**. Wynik to pojedynczy punkt na wykresie częściowej zależności dla wartości "wiek = 30 lat".
-6.  **Powtórz kroki 2-5** dla całego zakresu interesujących wartości wybranej cechy (np. dla wieku od 18 do 90 lat), aby uzyskać pełny wykres.
-
-W ten sposób wykres pokazuje, jak zmienia się średnia predykcja modelu w zależności od wartości jednej cechy, po uśrednieniu efektów wszystkich innych zmiennych.
-
----
-
 ## DGLM - Double Generalized Linear Model
 
 Proces estymacji podwójnego uogólnionego modelu liniowego (DGLM) jest **procesem iteracyjnym**, który naprzemiennie dopasowuje model dla wartości średniej i model dla dyspersji, aż do osiągnięcia zbieżności. Modele te "współdziałają" ze sobą, wymieniając się informacjami na każdym etapie.
@@ -810,3 +786,20 @@ c) Aktuariusz powinien wykorzystując wyniki przebiegu modelu:
 znaczące różnice między poszczególnymi przebiegami modelu;
 * Rozumieć wszystkie działania zarządu lub reakcje zarządcze przyjęte w modelu. We wszystkich raportach aktuariusz powinien ujawnić takie zakładane działania zarządu lub reakcje zarządcze (ang. management actions) przyjęte w modelu oraz ich szeroko rozumiane implikacje.
 * Udokumentować, w stosownych przypadkach, ograniczenia, dane wejściowe, kluczowe założenia, cel zastosowania i wyniki modelu.
+
+## PDP Partial Dependence Plot
+
+**Przedstaw ideę i sposób konstrukcji wykresów PDP (Partial Dependence Plot).**
+
+Główną ideą wykresów PDP jest pokazanie, jak zmiana wartości jednej lub dwóch wybranych cech wpływa na średnią predykcję modelu, przy jednoczesnym uśrednieniu efektów wszystkich pozostałych cech. Innymi słowy, wykres PDP ilustruje **efekt krańcowy** (marginalny) wybranej cechy na prognozę modelu.
+
+Pozwala to na zrozumienie, czy zależność między cechą a predykcją jest liniowa, monotoniczna, czy bardziej złożona, co jest szczególnie przydatne w przypadku modeli takich jak lasy losowe czy sieci neuronowe.
+
+Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebiega w następujących krokach:
+1.  **Wybór siatki wartości**: Dla analizowanej cechy $x_S$ wybiera się zbiór interesujących wartości (tzw. siatkę), dla których będzie badany jej wpływ.
+2.  **Modyfikacja danych**: Dla każdej obserwacji w zbiorze danych (np. uczącym) i dla każdej wartości z siatki:
+    * Sztucznie ustawia się wartość cechy $x_S$ na daną wartość z siatki.
+    * Wartości wszystkich pozostałych cech ($x_{\bar{S}}$) pozostawia się bez zmian.
+3.  **Predykcja**: Model generuje predykcję dla każdej tak zmodyfikowanej obserwacji.
+4.  **Uśrednianie**: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
+5.  **Wizualizacja**: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
