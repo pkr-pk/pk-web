@@ -541,7 +541,7 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 * **Korekta na heteroskedastyczność:** Podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
 * **Lepsza interpretacja dla danych dyskretnych:** Chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
 
-## Redukcjia wariancji w metodzie Monte Carlo
+## Redukcja wariancji w metodzie Monte Carlo
 
 **Próbkowanie ważone (Importance Sampling - IS)** to technika redukcji wariancji w metodzie Monte Carlo, która polega na zastąpieniu oryginalnego rozkładu prawdopodobieństwa innym, który koncentruje większe prawdopodobieństwo w regionach o największym znaczeniu dla estymowanej wartości. Celem jest zwiększenie wydajności symulacji, zwłaszcza przy szacowaniu prawdopodobieństw zdarzeń rzadkich lub wartości w ogonach rozkładu.
 
