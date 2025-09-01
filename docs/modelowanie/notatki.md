@@ -830,6 +830,6 @@ Statystyka testowa:
 
 $T = 2 \ln\left(\frac{L_1}{L_0}\right) = 2(\ln L_1 - \ln L_0),$
 
-gdzie $L_1$, $L_2$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
+gdzie $L_0$, $L_1$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
 
 Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat ($\chi^2$). Liczba stopni swobody tego rozkładu jest równa różnicy w liczbie wolnych (niezależnych) parametrów między modelem z hipotezy alternatywnej a modelem z hipotezy zerowej.
