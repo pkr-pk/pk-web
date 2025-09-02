@@ -225,43 +225,6 @@ Celem jest znalezienie najniższego możliwego progu, powyżej którego model GP
 2. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet nie będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
 
 ---
-## DGLM - Double Generalized Linear Model
-
-Proces estymacji podwójnego uogólnionego modelu liniowego (DGLM) jest **procesem iteracyjnym**, który naprzemiennie dopasowuje model dla wartości średniej i model dla dyspersji, aż do osiągnięcia zbieżności. Modele te "współdziałają" ze sobą, wymieniając się informacjami na każdym etapie.
-
-### Kluczowe etapy procesu
-
-1. Dopasuj GLM dla wartości średniej, ze stałym $\phi$ dla wszystkich obserwacji.
-
-2. Oblicz wkład każdej obserwacji do dewiacji i oblicz kwadrat Pearsona lub dewiancję residuów $R_i^2$.
-
-3. Dopasuj GLM dla dyspersji, przyjmując jako zmienną objaśnianą kwadraty residuów $R_i^2$. Przyjmuje się rozkład Gamma i na tym etapie nie uwzględnia się wag. Dopasowane wartości stają się nowym parametrem dyspersji dla każdej obserwacji.
-
-4. Dopasuj GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji, uzyskany w poprzednim kroku).
-
-5. Oblicz kwadrat Pearsona lub dewiancję residuów $R_i^2$ i powtórz poprzednie kroki.
-
-### Współdziałanie modeli
-
-Model średniej i model dyspersji są ze sobą ściśle powiązane i wymieniają się informacjami w każdej iteracji:
-
-* **Model średniej dostarcza informacji modelowi dyspersji**: Poprzez obliczenie $R_i^2$, model średniej informuje model dyspersji, które obserwacje są bardziej zmienne.
-* **Model dyspersji dostarcza informacji modelowi średniej**: Poprzez oszacowane, indywidualne parametry dyspersji ($\phi_i$), model dyspersji informuje model średniej, jaką wagę nadać każdej obserwacji. Obserwacjom o wyższej zmienności (większej dyspersji) przypisuje się mniejszą wagę w procesie estymacji modelu dla wartości średniej, co pozwala na ignorowanie szumu i wychwytywanie sygnału.
-
-### Ograniczenie standardowego modelu Tweedie GLM
-
-Podwójny uogólniony model liniowy (DGLM) jest szczególnie istotny w modelowaniu z wykorzystaniem regresji Tweedie’ego, ponieważ standardowy model Tweedie GLM narzuca **nierealistyczne ograniczenie** dotyczące wpływu czynników ryzyka na częstość i wysokość szkód.
-
-W standardowym modelu GLM parametr dyspersji $\phi$ musi być **stały** dla wszystkich obserwacji. W przypadku rozkładu Tweedie, który jest modelem złożonym Poissona-Gamma, parametr dyspersji $\phi$ zależy zarówno od parametrów rozkładu częstości szkód (Poisson), jak i rozkładu wysokości pojedynczej szkody (Gamma).
-
-To założenie o stałości $\phi$ prowadzi do następującego, kluczowego ograniczenia:
-
-> Każdy czynnik ryzyka, który zwiększa oczekiwaną wysokość szkody, musi również zwiększać oczekiwaną częstość szkód (i odwrotnie). Wpływ danego czynnika na częstość i wysokość szkody **musi iść w tym samym kierunku**.
-
-Podwójny GLM (DGLM) rozwiązuje ten problem, ponieważ **pozwala, aby parametr dyspersji $\phi$ również zależał od zmiennych objaśniających**. Modelując dyspersję za pomocą osobnego zestawu predyktorów, DGLM uwalnia sztywną zależność między komponentami częstości i wysokości szkody. Dzięki temu model może prawidłowo odzwierciedlić sytuacje, w których dany czynnik ryzyka ma różny lub nawet przeciwstawny wpływ na częstość i wysokość szkód, co prowadzi do znacznie bardziej wiarygodnych wyników.
-
----
-
 ## Krzywa ROC
 
 ### Podniesienie progu
@@ -617,22 +580,22 @@ Wynikiem działania algorytmu jest **dendrogram** – struktura przypominająca 
 
 K-krotna walidacja krzyżowa (k-fold CV) to procedura służąca do oszacowania błędu testowego modelu statystycznego poprzez wielokrotne dzielenie danych na zbiory uczące i walidacyjne.
 
-**Proces K-krotnej walidacji krzyżowej**
+Proces K-krotnej walidacji krzyżowej:
 
-1. **Podział danych**: Dostępny zbiór obserwacji jest losowo dzielony na *k* grup (nazywanych też *zbiorami* lub *foldami*) o w przybliżeniu równej wielkości.
+1. Podział danych: Dostępny zbiór obserwacji jest losowo dzielony na $k$ grup (nazywanych też *zbiorami* lub *foldami*) o w przybliżeniu równej wielkości.
 
-2. **Iteracyjne trenowanie i walidacja**:
-    * Pierwsza grupa (zbiór 1) jest traktowana jako **zbiór walidacyjny**, a model jest trenowany na pozostałych *k-1* grupach (które łącznie tworzą zbiór uczący).
+2. Iteracyjne trenowanie i walidacja:
+    * Pierwsza grupa (zbiór 1) jest traktowana jako zbiór walidacyjny, a model jest trenowany na pozostałych $k-1$ grupach (które łącznie tworzą zbiór uczący).
     * Oblicza się błąd predykcji (np. błąd średniokwadratowy, MSE) dla obserwacji w zbiorze walidacyjnym.
-    * Proces ten jest powtarzany *k* razy, przy czym za każdym razem inna grupa pełni rolę zbioru walidacyjnego.
+    * Proces ten jest powtarzany $k$ razy, przy czym za każdym razem inna grupa pełni rolę zbioru walidacyjnego.
 
-3.  **Obliczenie ostatecznego wyniku**: Po przeprowadzeniu *k* iteracji uzyskuje się *k* różnych estymacji błędu testowego ($MSE_1, MSE_2, ..., MSE_k$). Ostateczną estymacją błędu w metodzie k-krotnej walidacji krzyżowej jest średnia z tych wartości:
+3.  Obliczenie ostatecznego wyniku: Po przeprowadzeniu $k$ iteracji uzyskuje się $k$ różnych estymacji błędu testowego ($MSE_1, MSE_2, ..., MSE_k$). Ostateczną estymacją błędu w metodzie k-krotnej walidacji krzyżowej jest średnia z tych wartości:
     $$CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k} MSE_i$$
 
 ---
 **Podaj na czym polega walidacja za pomocą metody LOOCV (Leave-one-out cross-validation).**
 
-Walidacja krzyżowa z pominięciem jednej obserwacji (Leave-one-out cross-validation, LOOCV) to intensywna obliczeniowo, ale czasami użyteczna metoda szacowania błędu testowego modelu statystycznego. Jest to szczególny przypadek k-krotnej walidacji krzyżowej, w którym liczba podzbiorów (k) jest równa liczbie obserwacji (n) w zbiorze danych.
+Walidacja krzyżowa z pominięciem jednej obserwacji (Leave-one-out cross-validation, LOOCV) to intensywna obliczeniowo, ale czasami użyteczna metoda szacowania błędu testowego modelu statystycznego. Jest to szczególny przypadek k-krotnej walidacji krzyżowej, w którym liczba podzbiorów $(k)$ jest równa liczbie obserwacji $(n)$ w zbiorze danych.
 
 Proces polega na wielokrotnym dopasowywaniu modelu, gdzie za każdym razem jedna obserwacja jest wykluczana ze zbioru uczącego i używana do walidacji.
 
@@ -643,11 +606,11 @@ Proces polega na wielokrotnym dopasowywaniu modelu, gdzie za każdym razem jedna
 
 **W odpowiedzi uwzględnij problem kompromisu między obciążeniem a wariancjąmodelu.**
 
-Wybór *k* w walidacji krzyżowej to **kompromis między obciążeniem a wariancją**.
-* **LOOCV (k=n)** ma niskie obciążenie, ale wysoką wariancję.
-* **Podejście z jednym zbiorem walidacyjnym (odpowiednik k=2)** ma wysokie obciążenie, ale niską wariancję.
+Wybór $k$ w walidacji krzyżowej to kompromis między obciążeniem a wariancją.
+* LOOCV $(k=n)$ ma niskie obciążenie, ale wysoką wariancję.
+* Podejście z jednym zbiorem walidacyjnym (odpowiednik $k=2$) ma wysokie obciążenie, ale niską wariancję.
 
-K-krotna walidacja krzyżowa z wartościami **k=5 lub k=10** jest w praktyce złotym środkiem. Empirycznie wykazano, że takie wartości prowadzą do estymacji błędu testowego, które nie cechują się ani nadmiernie wysokim obciążeniem, ani bardzo wysoką wariancją.
+K-krotna walidacja krzyżowa z wartościami $k=5$ lub $k=10$ jest w praktyce złotym środkiem. Empirycznie wykazano, że takie wartości prowadzą do estymacji błędu testowego, które nie cechują się ani nadmiernie wysokim obciążeniem, ani bardzo wysoką wariancją.
 
 ## Uogólnione modele addytywne (GAMs)
 
@@ -656,8 +619,8 @@ K-krotna walidacja krzyżowa z wartościami **k=5 lub k=10** jest w praktyce zł
 Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji: $Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon$. Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
 
 Dzięki GAM aktuariusze mogą:
-* Precyzyjnie modelować **nieliniowe zależności** i **interakcje** między zmiennymi, takimi jak wiek i płeć kierowcy czy dane geograficzne.
-* Analizować indywidualne dane dotyczące śmiertelności przy użyciu **regresji Poissona** bez konieczności wstępnego, subiektywnego grupowania danych.
+* Precyzyjnie modelować nieliniowe zależności i interakcje między zmiennymi, takimi jak wiek i płeć kierowcy czy dane geograficzne.
+* Analizować indywidualne dane dotyczące śmiertelności przy użyciu regresji Poissona bez konieczności wstępnego, subiektywnego grupowania danych.
 
 ---
 **Podaj definicję funkcji sklejanej stopnia 3 (splajnu kubicznego).**
@@ -666,7 +629,7 @@ Splajn sześcienny z $K$ węzłami można zamodelować jako:
 
 $$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + \dots + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i,$$
 
-dla odpowiedniego wyboru funkcji bazowych $b_1, b_2,...,b_{K+3}$. Najbardziej bezpośrednim sposobem reprezentacji splajnu sześciennego przy użyciu powyszej jest rozpoczęcie od bazy dla wielomianu sześciennego – mianowicie, $b_1(x_i) = x_i$, $b_2(x_i) = x_i^2$, i $b_3(x_i) = x_i^3$ a następnie dodanie jednej **potęgowej funkcji bazowej** na każdy węzeł. Potęgowa funkcja bazowa jest zdefiniowana jako:
+dla odpowiedniego wyboru funkcji bazowych $b_1, b_2,...,b_{K+3}$. Najbardziej bezpośrednim sposobem reprezentacji splajnu sześciennego przy użyciu powyższej jest rozpoczęcie od bazy dla wielomianu sześciennego – mianowicie, $b_1(x_i) = x_i$, $b_2(x_i) = x_i^2$, i $b_3(x_i) = x_i^3$ a następnie dodanie jednej potęgowej funkcji bazowej na każdy węzeł. Potęgowa funkcja bazowa jest zdefiniowana jako:
 
 $$h(x_i, \xi_i) = (x_i - \xi_i)^3_+ = \begin{cases} (x_i - \xi_i)^3 & \text{jeśli } x_i > \xi_i \\ 0 & \text{w przeciwnym razie}, \end{cases}$$
 
@@ -685,8 +648,8 @@ Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) bad
 $$\bar{F}(x) = x^{-\alpha}L(x)$$
 
 gdzie:
-* $\alpha > 0$ to **indeks ogona**, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
-* $L(x)$ jest funkcją **wolno zmienną**, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
+* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
+* $L(x)$ jest funkcją wolno zmienną, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
 
 Estymator Hilla:
 
@@ -697,9 +660,9 @@ gdzie:
 * $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
 
 ---
-**Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jestwykorzystywany.**
+**Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jest wykorzystywany.**
 
-Aby wybrać optymalną wartość $k$, tworzy się tzw. **wykres Hilla**, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
+Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
 
 Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
 
@@ -765,18 +728,19 @@ znaczące różnice między poszczególnymi przebiegami modelu;
 
 **Przedstaw ideę i sposób konstrukcji wykresów PDP (Partial Dependence Plot).**
 
-Główną ideą wykresów PDP jest pokazanie, jak zmiana wartości jednej lub dwóch wybranych cech wpływa na średnią predykcję modelu, przy jednoczesnym uśrednieniu efektów wszystkich pozostałych cech. Innymi słowy, wykres PDP ilustruje **efekt krańcowy** (marginalny) wybranej cechy na prognozę modelu.
+Główną ideą wykresów PDP jest pokazanie, jak zmiana wartości jednej lub dwóch wybranych cech wpływa na średnią predykcję modelu, przy jednoczesnym uśrednieniu efektów wszystkich pozostałych cech. Innymi słowy, wykres PDP ilustruje efekt krańcowy (marginalny) wybranej cechy na prognozę modelu.
 
 Pozwala to na zrozumienie, czy zależność między cechą a predykcją jest liniowa, monotoniczna, czy bardziej złożona, co jest szczególnie przydatne w przypadku modeli takich jak lasy losowe czy sieci neuronowe.
 
 Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebiega w następujących krokach:
-1.  **Wybór siatki wartości**: Dla analizowanej cechy $x_S$ wybiera się zbiór interesujących wartości (tzw. siatkę), dla których będzie badany jej wpływ.
-2.  **Modyfikacja danych**: Dla każdej obserwacji w zbiorze danych (np. uczącym) i dla każdej wartości z siatki:
+
+1.  Wybór siatki wartości: Dla analizowanej cechy $x_S$ wybiera się zbiór interesujących wartości (tzw. siatkę), dla których będzie badany jej wpływ.
+2.  Modyfikacja danych: Dla każdej obserwacji w zbiorze danych (np. uczącym) i dla każdej wartości z siatki:
     * Sztucznie ustawia się wartość cechy $x_S$ na daną wartość z siatki.
     * Wartości wszystkich pozostałych cech ($x_{\bar{S}}$) pozostawia się bez zmian.
-3.  **Predykcja**: Model generuje predykcję dla każdej tak zmodyfikowanej obserwacji.
-4.  **Uśrednianie**: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
-5.  **Wizualizacja**: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
+3.  Predykcja: Model generuje predykcję dla każdej tak zmodyfikowanej obserwacji.
+4.  Uśrednianie: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
+5.  Wizualizacja: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
 
 ## Testowanie hipotez
 
@@ -838,3 +802,25 @@ Ograniczenia jądrowej estymacji funkcji gęstości:
 * Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
 * Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
 * Może niedokładnie odwzorować ogon rozkładu danych.
+
+## DGLM - Double Generalized Linear Model
+
+**Przedstaw koncepcję modelu DGLM (Double Generalized Linear Model) oraz krótko omów sposób estymacji jego parametrów.**
+
+W klasycznym modelu GLM zakłada się, że parametr dyspersji $\phi$ jest stały dla wszystkich obserwacji. DGLM znoszą to ograniczenie, pozwalając, aby parametr dyspersji $\phi$ również zależał od cech danej obserwacji. W efekcie DGLM składa się z dwóch powiązanych ze sobą modeli:
+* modelu dla wartości średniej (tak jak w standardowym GLM),
+* modelu dyspersji.
+
+Dzięki temu model może lepiej dopasować się do danych, w których zmienność nie jest stała.
+
+Estymacja parametrów jest procesem iteracyjnym:
+
+1. Dopasowanie GLM dla średniej odpowiedzi, ze stałym $\phi$ dla wszystkich obserwacji.
+
+2. Obliczenie wkładu każdej obserwacji do dewiacji i obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$.
+
+3. Dopasowanie GLM dla dyspersji, przyjmując jako zmienną objaśnianą $R_i^2$. Przyjmuje się rozkład Gamma i na tym etapie nie uwzględnia się wag. Dopasowane wartości stają się nowym parametrem dyspersji dla każdej obserwacji.
+
+4. Dopasowanie GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji uzyskany w poprzednim kroku).
+
+5. Obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$ i powtarzanie kolejnych kroków aż do osiągnięcia zbieżności parametrów.
