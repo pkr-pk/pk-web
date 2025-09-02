@@ -445,28 +445,6 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
 2.  **Ocena podziału:** Dla każdej potencjalnej zmiennej, według której można dokonać podziału, algorytm oblicza średni ważony indeks Giniego dla węzłów potomnych, które by w wyniku tego podziału powstały.
 3.  **Wybór najlepszego podziału:** Wybierany jest taki podział (czyli taka zmienna), który prowadzi do **najniższej wartości średniego ważonego indeksu Giniego**. Oznacza to, że ten podział najlepiej separuje klasy i tworzy najczystsze możliwe podgrupy.
 
----
-
-## GARCH
-
-**Definicja procesu GARCH(p, q)**
-
-Niech $(Z_t)_{t \in \mathbb{Z}}$ będzie procesem typu **ścisły biały szum SWN(0, 1)**. Proces $(X_t)_{t \in \mathbb{Z}}$ jest procesem GARCH(p, q), jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)_{t \in \mathbb{Z}}$ o wartościach dodatnich spełnia równania:
-
-$X_t = \sigma_t Z_t$
-
-$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
-
-gdzie parametry spełniają warunki: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$. W tym modelu $\sigma_t^2$ jest warunkową wariancją procesu $X_t$.
-
-**Zastosowanie modeli GARCH**
-
-Modele klasy GARCH służą przede wszystkim do **modelowania i prognozowania zmienności** (ang. *volatility*) finansowych szeregów czasowych. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości danych finansowych, zwanych stylizowanymi faktami, których nie uwzględniają prostsze modele.
-
-* **Modelowanie klasteryzacji zmienności**: Jest to tendencja obserwowana w danych finansowych, gdzie okresy dużych wahań cen następują po sobie, a okresy spokoju również występują w seriach. Modele GARCH odwzorowują to zjawisko, pozwalając, aby dzisiejsza wariancja warunkowa ($\sigma_t^2$) zależała od wczorajszych kwadratów obserwacji ($X_{t-1}^2$) oraz od wczorajszej wariancji warunkowej ($\sigma_{t-1}^2$).
-* **Uchwycenie grubych ogonów (leptokurtozy)**: Nawet jeśli innowacje $(Z_t)$ w procesie GARCH pochodzą z rozkładu normalnego, stacjonarny rozkład samego procesu $(X_t)$ jest leptokurtyczny (ma "grubsze ogony" niż rozkład normalny), co jest zgodne z empirycznymi właściwościami stóp zwrotu z aktywów finansowych.
-* **Prognozowanie zmienności i szacowanie miar ryzyka**: Dopasowane modele GARCH pozwalają na prognozowanie przyszłej zmienności warunkowej. Prognozy te są kluczowym elementem w szacowaniu miar ryzyka, takich jak **Value-at-Risk (VaR)** i **Expected Shortfall (ES)**, w ujęciu warunkowym, czyli uwzględniającym najnowsze informacje rynkowe.
-
 ## Reszty dwiancyjne 
 
 Reszty dewiancyjne są często preferowaną formą w Uogólnionych Modelach Liniowych (GLM), ponieważ w przeciwieństwie do innych typów reszt, **uwzględniają one kształt rozkładu zmiennej odpowiedzi, w tym jego skośność**. Jest to kluczowe w zastosowaniach aktuarialnych, gdzie rozkłady rzadko są symetryczne.
@@ -686,6 +664,29 @@ Jest to pierwszy etap, w którym dane są wizualizowane na wykresie w celu oceny
 Podstawowym założeniem jest to, że dane pochodzą z odwracalnego modelu ARMA, a innowacje (błędy) procesu mają własność różnicy martyngałowej. Oznacza to, że oczekiwana wartość przyszłej innowacji, biorąc pod uwagę historię procesu, jest równa zero.
 
 Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \mid \mathcal{F}_t)$ jako predyktora, gdzie $\mathcal{F}_t$ reprezentuje historię procesu do czasu $t$. Ten predyktor minimalizuje średniokwadratowy błąd prognozy. Prognozy oblicza się rekurencyjnie. Wartości losowe do czasu $t$ są traktowane jako "znane", a oczekiwane wartości przyszłych innowacji (dla $h \ge 1$) wynoszą zero. W praktyce, ponieważ pełna historia procesu nie jest znana, do obliczeń wykorzystuje się reszty z dopasowanego modelu. W miarę wydłużania horyzontu prognozy, przewidywana wartość zbiega do bezwarunkowej średniej procesu.
+
+## Modele GARCH
+
+**Podaj definicję procesu GARCH(p, q).**
+
+Niech $(Z_t)_{t \in \mathbb{Z}}$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)_{t \in \mathbb{Z}}$ jest procesem GARCH(p, q), jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)_{t \in \mathbb{Z}}$ o wartościach dodatnich spełnia równania:
+
+$X_t = \sigma_t Z_t$
+
+$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
+
+gdzie: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$.
+
+---
+**Do jakich celów służą modele klasy GARCH?**
+
+Modele klasy GARCH służą przede wszystkim do modelowania i prognozowania zmienności szeregów czasowych, zwłaszcza w kontekście finansowym. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości finansowych szeregów czasowych, których nie potrafią opisać prostsze modele.
+
+* Modelowanie zmienności warunkowej.
+* Uchwycenie grupowania zmienności: jest to kluczowe zjawisko na rynkach finansowych, gdzie okresy dużej zmienności (dużych wahań cen) przeplatają się z okresami względnego spokoju.
+* Prognozowanie przyszłej zmienności.
+* Obliczanie miar ryzyka finansowego: prognozy zmienności uzyskane z modeli GARCH są kluczowym wkładem do estymacji miar ryzyka, takich jak Value-at-Risk (VaR) i Expected Shortfall (ES). Umożliwiają one tworzenie warunkowych miar ryzyka, które dostosowują się do aktualnej sytuacji na rynku.
+* Opisywanie dynamiki szeregów czasowych zwrotów z aktywów.
 
 ## Estymacja empiryczna danych cenzurowanych prawostronnie
 
