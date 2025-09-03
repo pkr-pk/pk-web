@@ -369,44 +369,6 @@ Główna różnica między metodami *boosting* i *bagging* polega na sposobie bu
 
 ---
 
-## Statystyczne metody uczenia zespołowego (Ensemble Statistical Learning)
-
-**Idea statystycznych metod uczenia zespołowego (Ensemble Statistical Learning)**
-
-Metody uczenia zespołowego to podejścia, które **łączą wiele prostych modeli, zwanych "słabymi uczniami" (weak learners), w celu uzyskania jednego, potężnego modelu predykcyjnego**. Zamiast polegać na jednym, skomplikowanym modelu, metody te agregują predykcje z wielu prostszych modeli. Głównym celem jest **zmniejszenie wariancji** i poprawa dokładności predykcyjnej w porównaniu do pojedynczego modelu. Poprzez uśrednienie wyników z wielu modeli zbudowanych na różnych próbkach danych, ogólny wynik staje się bardziej stabilny i mniej podatny na specyfikę pojedynczego zbioru treningowego.
-
-**Metody zespołowe wykorzystujące drzewa (Tree Ensemble Methods)**
-
-* **Bagging** (agregacja bootstrapowa).
-* **Lasy losowe** (Random Forests).
-* **Boosting**.
-* **Bayesowskie addytywne drzewa regresyjne** (Bayesian Additive Regression Trees, BART).
-
-**Opis Bagging**
-
-**Bagging**, czyli agregacja bootstrapowa (ang. *bootstrap aggregation*), to ogólna procedura mająca na celu zmniejszenie wariancji w metodach uczenia statystycznego, szczególnie skuteczna w przypadku drzew decyzyjnych, które charakteryzują się wysoką wariancją.
-
-Mechanizm działania opiera się na idei, że uśrednianie zbioru obserwacji redukuje wariancję. Ponieważ zazwyczaj nie mamy dostępu do wielu niezależnych zbiorów treningowych, Bagging tworzy je sztucznie za pomocą techniki **bootstrapu**, czyli losowania ze zwracaniem z oryginalnego zbioru danych.
-
-**Proces składa się z następujących kroków:**
-1.  **Tworzenie zbiorów bootstrapowych:** Z oryginalnego zbioru treningowego o `n` obserwacjach tworzy się `B` nowych zbiorów treningowych, każdy o rozmiarze `n`, poprzez losowanie ze zwracaniem. Każdy z tych zbiorów jest nieco inny.
-2.  **Budowanie modeli:** Na każdym z `B` "bootstrapowych" zbiorów danych budowane jest osobne, **głębokie i nieprzycinane drzewo decyzyjne**. Każde z tych drzew ma niską obciążalność (bias), ale wysoką wariancję.
-3.  **Agregacja predykcji:** Aby uzyskać ostateczną predykcję dla nowej obserwacji, wyniki z `B` drzew są łączone:
-    * W przypadku **regresji** (odpowiedź ilościowa), predykcje są uśredniane.
-    * W przypadku **klasyfikacji** (odpowiedź jakościowa), ostateczna predykcja jest wynikiem **głosowania większościowego** – wybierana jest klasa najczęściej wskazywana przez poszczególne drzewa.
-
-**Zalety i wady**
-
-Główną zaletą metody Bagging jest **znacząca poprawa dokładności predykcyjnej** w porównaniu do pojedynczego drzewa, dzięki redukcji wariancji. Użycie dużej liczby drzew `B` nie prowadzi do przeuczenia (overfittingu).
-
-Podstawową wadą jest **utrata interpretoalności**. Zamiast jednego, łatwego do zwizualizowania drzewa, otrzymujemy setki lub tysiące drzew, których nie da się przedstawić w prostej, graficznej formie.
-
-**Estymacja błędu Out-of-Bag (OOB)**
-
-Bagging oferuje efektywny sposób estymacji błędu testowego bez konieczności stosowania walidacji krzyżowej. Każde drzewo jest budowane na około 2/3 unikalnych obserwacji z oryginalnego zbioru. Pozostała 1/3 obserwacji, niewykorzystana do budowy danego drzewa, to tzw. obserwacje **Out-of-Bag (OOB)**. Dla każdej obserwacji w zbiorze treningowym można uzyskać predykcję OOB, uśredniając wyniki tylko z tych drzew, dla których była ona obserwacją OOB. Błąd OOB, obliczony na podstawie tych predykcji, jest wiarygodnym estymatorem błędu testowego.
-
----
-
 ## Współczynnik V Cramera
 
 Współczynnik V Cramera jest miarą siły związku (asocjacji) między dwiema zmiennymi, opartą na statystyce chi-kwadrat Pearsona z tablicy kontyngencji.
@@ -445,7 +407,7 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
 2.  **Ocena podziału:** Dla każdej potencjalnej zmiennej, według której można dokonać podziału, algorytm oblicza średni ważony indeks Giniego dla węzłów potomnych, które by w wyniku tego podziału powstały.
 3.  **Wybór najlepszego podziału:** Wybierany jest taki podział (czyli taka zmienna), który prowadzi do **najniższej wartości średniego ważonego indeksu Giniego**. Oznacza to, że ten podział najlepiej separuje klasy i tworzy najczystsze możliwe podgrupy.
 
-## Reszty dwiancyjne 
+## Reszty dewiancyjne 
 
 Reszty dewiancyjne są często preferowaną formą w Uogólnionych Modelach Liniowych (GLM), ponieważ w przeciwieństwie do innych typów reszt, **uwzględniają one kształt rozkładu zmiennej odpowiedzi, w tym jego skośność**. Jest to kluczowe w zastosowaniach aktuarialnych, gdzie rozkłady rzadko są symetryczne.
 
@@ -582,7 +544,7 @@ Proces polega na wielokrotnym dopasowywaniu modelu, gdzie za każdym razem jedna
 * **i. podejściem wykorzystującym jedynie jeden zbiór walidacyjny,**
 * **ii. metodą LOOCV.**
 
-**W odpowiedzi uwzględnij problem kompromisu między obciążeniem a wariancjąmodelu.**
+**W odpowiedzi uwzględnij problem kompromisu między obciążeniem a wariancją modelu.**
 
 Wybór $k$ w walidacji krzyżowej to kompromis między obciążeniem a wariancją.
 * LOOCV $(k=n)$ ma niskie obciążenie, ale wysoką wariancję.
@@ -592,7 +554,7 @@ K-krotna walidacja krzyżowa z wartościami $k=5$ lub $k=10$ jest w praktyce zł
 
 ## Uogólnione modele addytywne (GAMs)
 
-**Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędziaktuariusza.**
+**Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędzi aktuariusza.**
 
 Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji: $Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon$. Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
 
@@ -787,6 +749,32 @@ Węzeł jest uznawany za końcowy:
 **Na czym polega i w jakim celu stosuje się przycinanie drzewa regresyjnego?**
 
 Przycinanie polega budowaniu maksymalnie rozbudowanego drzewa, pozwalając mu rosnąć aż do momentu, gdy dalsze podziały nie są możliwe (np. w liściach zostaje zbyt mało obserwacji lub wszystkie mają tę samą wartość). Takie drzewo jest bardzo złożone i idealnie dopasowane do danych treningowych. Następnie, w sposób systematyczny, usuwa się (przycina) całe gałęzie drzewa, czyli węzły wraz z ich potomkami. Celem jest znalezienie optymalnego poddrzewa, które stanowi najlepszy kompromis między prostotą a dokładnością predykcji.
+
+## Bagging, Random Forests, Boosting, and Bayesian Additive Regression Trees (BART)
+
+**Krótko przedstaw ideę statystycznych metod uczenia zespołowego (Ensemble Statistical Learning).**
+
+Metody uczenia zespołowego to podejścia, które łączą wiele prostych modeli w celu uzyskania jednego, lepszego modelu predykcyjnego. Głównym celem jest zmniejszenie wariancji i poprawa dokładności predykcyjnej w porównaniu do pojedynczego modelu poprzez uśrednienie wyników z wielu modeli zbudowanych na różnych próbkach danych. Ogólny wynik staje się bardziej stabilny i mniej podatny na specyfikę pojedynczego zbioru treningowego.
+
+**Wymień co najmniej trzy takie metody wykorzystujące drzewa (Tree Ensemble Methods)**
+
+* Bagging (agregacja bootstrapowa).
+* Lasy losowe (Random Forests).
+* Boosting.
+* Bayesowskie addytywne drzewa regresyjne (Bayesian Additive Regression Trees, BART).
+
+**Opisz jedną metodę spośród Tree Ensemble Methods**
+
+Bagging
+
+Mechanizm działania opiera się na idei, że uśrednianie zbioru obserwacji redukuje wariancję. Ponieważ zazwyczaj nie mamy dostępu do wielu niezależnych zbiorów treningowych, Bagging tworzy je sztucznie za pomocą techniki bootstrapu, czyli losowania ze zwracaniem z oryginalnego zbioru danych.
+
+Proces składa się z następujących kroków:
+1.  Tworzenie zbiorów bootstrapowych: z oryginalnego zbioru treningowego o $n$ obserwacjach tworzy się $B$ nowych zbiorów treningowych, każdy o rozmiarze $n$, poprzez losowanie ze zwracaniem. Każdy z tych zbiorów jest nieco inny.
+2.  Budowanie modeli: na każdym z $B$ "bootstrapowych" zbiorów danych budowane jest osobne, głębokie i nieprzycinane drzewo decyzyjne. Każde z tych drzew ma niskie obciążenie (bias), ale wysoką wariancję.
+3.  Agregacja predykcji: aby uzyskać ostateczną predykcję dla nowej obserwacji, wyniki z $B$ drzew są łączone:
+    * W przypadku regresji (odpowiedź ilościowa), predykcje są uśredniane.
+    * W przypadku klasyfikacji (odpowiedź jakościowa), ostateczna predykcja jest wynikiem głosowania większościowego – wybierana jest klasa najczęściej wskazywana przez poszczególne drzewa.
 
 ## Jądrowe modele gęstości
 
