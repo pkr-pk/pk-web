@@ -419,35 +419,12 @@ Podstawowym problemem w prostej metodzie Monte Carlo jest jej niska wydajność,
 Aby wynik pozostał nieobciążony, każda wylosowana próba musi zostać skorygowana przez pomnożenie jej przez **iloraz wiarygodności (likelihood ratio)**, dany wzorem $f_X(x) / f̃_X(x)$.
 
 ---
-**Estymator i redukcja wariancji**
-
-Wartość oczekiwaną $E(X)$ można przedstawić jako:
-$$E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f̃_X(x)}\right) f̃_X(x)dx = E\left(\tilde{X} \frac{f_X(\tilde{X})}{f̃_X(\tilde{X})}\right)$$
-gdzie $\tilde{X}$ jest zmienną losową o gęstości $f̃_X(x)$.
-
-**Estymator próbkowania ważonego** dla $n$ symulacji ma postać:
-$$\hat{\mu}_{In} = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f̃_X(\tilde{X}_i)}$$
-Estymator ten jest nieobciążony, a jego wariancja jest mniejsza niż wariancja standardowego estymatora Monte Carlo, jeśli nowa gęstość $f̃_X(x)$ jest dobrana tak, aby iloraz wiarygodności był mały tam, gdzie wartość $x^2 f_X(x)$ jest duża.
-
----
-**Przykład zastosowania: Przechylanie wykładnicze**
-
-Popularną techniką wyboru nowej gęstości dla rozkładów o lekkich ogonach jest **przechylanie wykładnicze (exponential twisting)**, które jest zastosowaniem transformaty Esschera. Nowa gęstość jest definiowana jako:
-$$f̃_X(x) = \frac{e^{\theta x} f_X(x)}{E(e^{\theta X})}$$
-Parametr $\theta$ dobiera się tak, aby przesunąć wartość oczekiwaną nowego rozkładu w kierunku interesującego nas obszaru (np. estymowanego kwantyla).
-
-W dokumencie zilustrowano to na przykładzie szacowania kwantyla VaR dla zmiennej o rozkładzie gamma. Mimo że wstępne założenie co do wartości VaR było niedokładne, zastosowanie próbkowania ważonego z przechylaniem wykładniczym znacząco zwiększyło szybkość zbieżności i dokładność estymacji w porównaniu do prostej metody Monte Carlo (Rysunek 9.2 w dokumencie).
-
-**Ograniczenia**
-Technika przechylania wykładniczego nie ma zastosowania dla rozkładów o ciężkich ogonach (np. Pareto), ponieważ ich funkcja generująca momenty nie istnieje dla dodatnich argumentów. W takich przypadkach stosuje się inne metody, np. przechylanie funkcji hazardu.
-
 ## Algorytm aglomeracyjny
 
 Grupowanie hierarchiczne to metoda analizy skupień, która buduje hierarchię klastrów. Podejście aglomeracyjne, zwane również podejściem "oddolnym" (bottom-up), jest najpowszechniejszą metodą grupowania hierarchicznego.
 
 Proces ten tworzy wizualną reprezentację danych w postaci drzewa zwaną **dendrogramem**, który ilustruje, jak obserwacje są kolejno łączone w klastry.
 
----
 **Algorytm grupowania aglomeracyjnego**
 
 Algorytm przebiega iteracyjnie, łącząc obserwacje i klastry krok po kroku, od pojedynczych punktów aż do jednego, dużego klastra obejmującego cały zbiór danych.
@@ -830,3 +807,15 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 * Wykrywanie obserwacji słabo dopasowanych: pozwalają zidentyfikować te obserwacje, które w największym stopniu przyczyniają się do wzrostu dewiancji, a więc wskazują na miejsca, w których model niedostatecznie dobrze dopasowuje się do danych.
 * Korekta na heteroskedastyczność: podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
 * Lepsza interpretacja dla danych dyskretnych: chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
+
+## Techniki redukcji wariancji
+
+**Opisz koncepcję redukcji wariancji w metodzie Monte Carlo za pomocą metody próbkowania ważonego (metody IS - importance sampling).**
+
+Załóżmy ponownie, że $F_X$ dopuszcza gęstość $f_X$. Ideą próbkowania z wagami jest teraz przejście z $f_X$ na inną gęstość $f_{\tilde{X}}$, która koncentruje się bardziej na interesującym nas regionie. Taka nowa gęstość $f_{\tilde{X}}$ może być uzyskana z $f_X$ przez przesunięcie, przeskalowanie, przekształcenie itp. Wielkość $f_X(x)/f_{\tilde{X}}(x)$ nazywana jest funkcją ilorazu wiarygodności i jest równa naszej wadze. Mamy wtedy
+
+$$ E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f_{\tilde{X}}(x)}\right) f_{\tilde{X}}(x)dx = E\left(\tilde{X} \frac{f_X(\tilde{X})}{f_{\tilde{X}}(\tilde{X})}\right). $$
+
+Zamiast tego symulujemy $n$ niezależnych replikacji $\tilde{X}_1, \dots, \tilde{X}_n$ z nowej zmiennej losowej $\tilde{X}$ (o gęstości $f_{\tilde{X}}$) i używamy estymatora próbkowania z wagami
+
+$$ \hat{\mu}_{n}^I = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f_{\tilde{X}}(\tilde{X}_i)}. $$
