@@ -407,17 +407,6 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
 2.  **Ocena podziału:** Dla każdej potencjalnej zmiennej, według której można dokonać podziału, algorytm oblicza średni ważony indeks Giniego dla węzłów potomnych, które by w wyniku tego podziału powstały.
 3.  **Wybór najlepszego podziału:** Wybierany jest taki podział (czyli taka zmienna), który prowadzi do **najniższej wartości średniego ważonego indeksu Giniego**. Oznacza to, że ten podział najlepiej separuje klasy i tworzy najczystsze możliwe podgrupy.
 
-## Redukcja wariancji w metodzie Monte Carlo
-
-**Próbkowanie ważone (Importance Sampling - IS)** to technika redukcji wariancji w metodzie Monte Carlo, która polega na zastąpieniu oryginalnego rozkładu prawdopodobieństwa innym, który koncentruje większe prawdopodobieństwo w regionach o największym znaczeniu dla estymowanej wartości. Celem jest zwiększenie wydajności symulacji, zwłaszcza przy szacowaniu prawdopodobieństw zdarzeń rzadkich lub wartości w ogonach rozkładu.
-
----
-**Kluczowe założenia**
-
-Podstawowym problemem w prostej metodzie Monte Carlo jest jej niska wydajność, gdy wiele generowanych prób losowych nie trafia w interesujący nas obszar. Próbkowanie ważone rozwiązuje ten problem poprzez zmianę gęstości prawdopodobieństwa, z której losowane są próby, z oryginalnej $f_X(x)$ na nową gęstość $f̃_X(x)$.
-
-Aby wynik pozostał nieobciążony, każda wylosowana próba musi zostać skorygowana przez pomnożenie jej przez **iloraz wiarygodności (likelihood ratio)**, dany wzorem $f_X(x) / f̃_X(x)$.
-
 ---
 ## Algorytm aglomeracyjny
 
@@ -819,3 +808,19 @@ $$ E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f_{\tilde{X}}(x)}\right) 
 Zamiast tego symulujemy $n$ niezależnych replikacji $\tilde{X}_1, \dots, \tilde{X}_n$ z nowej zmiennej losowej $\tilde{X}$ (o gęstości $f_{\tilde{X}}$) i używamy estymatora próbkowania z wagami
 
 $$ \hat{\mu}_{n}^I = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f_{\tilde{X}}(\tilde{X}_i)}. $$
+
+## Metody klastrowe
+
+**Przedstaw przebieg procesu grupowania hierarchicznego według algorytmu aglomeracyjnego.**
+
+1.  Inicjalizacja: na początku każda z $n$ obserwacji jest traktowana jako osobny, jednoelementowy klaster. Następnie obliczana jest macierz odległości (lub braku podobieństwa) między wszystkimi parami obserwacji, najczęściej przy użyciu odległości Euklidesowej.
+
+2.  Iteracyjne łączenie: algorytm w każdym kroku zmniejsza liczbę klastrów o jeden.
+    * Identyfikowane są dwa najbliższe (najbardziej podobne) klastry na podstawie wybranej miary odległości.
+    * Te dwa klastry są łączone w jeden nowy, większy klaster.
+    * Obliczana jest odległość nowo utworzonego klastra od wszystkich pozostałych.
+    * Proces jest powtarzany $n-1$ razy, aż wszystkie obserwacje znajdą się w jednym, ostatecznym klastrze, tworząc kompletny dendrogram.
+
+Wysokość, na której dwa klastry łączą się w dendrogramie, odpowiada odległości (brakowi podobieństwa) między nimi.
+
+Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów. 
