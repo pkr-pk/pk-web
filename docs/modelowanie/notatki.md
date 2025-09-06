@@ -436,6 +436,7 @@ Proces K-krotnej walidacji krzyżowej:
     * Proces ten jest powtarzany $k$ razy, przy czym za każdym razem inna grupa pełni rolę zbioru walidacyjnego.
 
 3.  Obliczenie ostatecznego wyniku: Po przeprowadzeniu $k$ iteracji uzyskuje się $k$ różnych estymacji błędu testowego ($MSE_1, MSE_2, ..., MSE_k$). Ostateczną estymacją błędu w metodzie k-krotnej walidacji krzyżowej jest średnia z tych wartości:
+
     $$CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k} MSE_i$$
 
 ---
