@@ -407,57 +407,8 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
 2.  **Ocena podziału:** Dla każdej potencjalnej zmiennej, według której można dokonać podziału, algorytm oblicza średni ważony indeks Giniego dla węzłów potomnych, które by w wyniku tego podziału powstały.
 3.  **Wybór najlepszego podziału:** Wybierany jest taki podział (czyli taka zmienna), który prowadzi do **najniższej wartości średniego ważonego indeksu Giniego**. Oznacza to, że ten podział najlepiej separuje klasy i tworzy najczystsze możliwe podgrupy.
 
----
-## Algorytm aglomeracyjny
 
-Grupowanie hierarchiczne to metoda analizy skupień, która buduje hierarchię klastrów. Podejście aglomeracyjne, zwane również podejściem "oddolnym" (bottom-up), jest najpowszechniejszą metodą grupowania hierarchicznego.
 
-Proces ten tworzy wizualną reprezentację danych w postaci drzewa zwaną **dendrogramem**, który ilustruje, jak obserwacje są kolejno łączone w klastry.
-
-**Algorytm grupowania aglomeracyjnego**
-
-Algorytm przebiega iteracyjnie, łącząc obserwacje i klastry krok po kroku, od pojedynczych punktów aż do jednego, dużego klastra obejmującego cały zbiór danych.
-
-**Krok 1: Inicjalizacja**
-
-Proces rozpoczyna się od zdefiniowania miary odmienności (najczęściej odległości euklidesowej) między każdą parą obserwacji w zbiorze danych. Na tym etapie każda z `n` obserwacji jest traktowana jako osobny, jednoelementowy klaster.
-
----
-**Krok 2: Iteracyjne łączenie klastrów**
-
-Algorytm wykonuje `n-1` kroków, aby połączyć wszystkie obserwacje w jeden klaster. W każdej iteracji:
-1.  **Identyfikacja najbliższych klastrów**: Algorytm identyfikuje dwa klastry, które są do siebie najbardziej podobne (najmniej odmienne).
-2.  **Fuzja (łączenie) klastrów**: Te dwa najbliższe klastry są łączone w jeden nowy klaster.
-3.  **Aktualizacja miar odmienności**: Obliczane są nowe miary odmienności między nowo powstałym klastrem a wszystkimi pozostałymi.
-
-Proces ten jest kontynuowany, aż wszystkie obserwacje zostaną połączone w jeden klaster.
-
----
-**Kluczowe pojęcia w algorytmie**
-
-Aby algorytm mógł działać, należy zdefiniować dwie kluczowe miary:
-
-**1. Miara odmienności (Dissimilarity Measure)**
-Określa, jak "daleko" od siebie znajdują się dwie pojedyncze obserwacje. Najczęściej stosowaną miarą jest **odległość euklidesowa**, ale w zależności od zastosowania można użyć innych miar, takich jak **odległość oparta na korelacji**, która ocenia podobieństwo kształtów profili obserwacji, a nie ich wartości bezwzględnych.
-
-**2. Metoda łączenia (Linkage)**
-Ponieważ algorytm musi mierzyć odległość nie tylko między punktami, ale także między klastrami (które mogą zawierać wiele obserwacji), konieczne jest zdefiniowanie, w jaki sposób obliczana jest odmienność międzygrupowa. Służy do tego **metoda łączenia** (linkage). Główne typy to:
-
-* **Łączenie pełne (Complete Linkage)**: Odmienność między dwoma klastrami to odmienność między *najdalszymi* od siebie obserwacjami z tych klastrów.
-* **Łączenie pojedyncze (Single Linkage)**: Odmienność to odmienność między *najbliższymi* od siebie obserwacjami z tych klastrów.
-* **Łączenie średnie (Average Linkage)**: Odmienność to średnia wszystkich odmienności między parami obserwacji pochodzących z różnych klastrów.
-* **Łączenie oparte na centroidach (Centroid Linkage)**: Odmienność jest mierzona jako odległość między centroidami (średnimi wektorami) obu klastrów.
-
-Wybór metody łączenia ma znaczący wpływ na ostateczny kształt dendrogramu. Łączenie pełne i średnie zazwyczaj prowadzą do bardziej zrównoważonych klastrów.
-
----
-**Wynik: Dendrogram**
-
-Wynikiem działania algorytmu jest **dendrogram** – struktura przypominająca drzewo, która wizualizuje proces łączenia.
-
-* **Liście** na dole dendrogramu reprezentują poszczególne obserwacje.
-* **Wysokość**, na której dwa klastry są łączone, reprezentuje stopień ich odmienności. Im niżej następuje połączenie, tym bardziej podobne są obserwacje.
-* Aby uzyskać określoną liczbę klastrów, można "przeciąć" dendrogram na odpowiedniej wysokości. Liczba linii dendrogramu przeciętych przez tę poziomą linię cięcia odpowiada liczbie uzyskanych klastrów.
 
 
 
