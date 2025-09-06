@@ -463,7 +463,11 @@ K-krotna walidacja krzyżowa z wartościami $k=5$ lub $k=10$ jest w praktyce zł
 
 **Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędzi aktuariusza.**
 
-Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji: $Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon$. Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
+Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji:
+
+$$Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon.$$ 
+
+Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
 
 Dzięki GAM aktuariusze mogą:
 * Precyzyjnie modelować nieliniowe zależności i interakcje między zmiennymi, takimi jak wiek i płeć kierowcy czy dane geograficzne.
@@ -538,7 +542,7 @@ Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \
 
 **Podaj definicję procesu GARCH(p, q).**
 
-Niech $(Z_t)_{t \in \mathbb{Z}}$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)_{t \in \mathbb{Z}}$ jest procesem GARCH(p, q), jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)_{t \in \mathbb{Z}}$ o wartościach dodatnich spełnia równania:
+Dla $t\in\mathbb{Z}$, niech $(Z_t)$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)$ jest procesem $\text{GARCH}(p, q)$, jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)$ o wartościach dodatnich spełnia równania:
 
 $X_t = \sigma_t Z_t$
 
@@ -735,7 +739,7 @@ gdzie:
 * $y_i$ to i-ta obserwowana wartość zmiennej odpowiedzi.
 * $\hat{\mu}_i$ to i-ta dopasowana (przewidywana) wartość średnia z modelu.
 * $d_i$ to wkład i-tej obserwacji do całkowitej dewiancji modelu, $D(y, \hat{\mu})$.
-* $\text{sign}(y_i - \hat{\mu}_i) = \begin{cases} 1 & \text{jeżeli } y_i > \hat{\mu}_i \\ -1 & \text{w p.p.} \end{cases}$
+* $$\text{sign}(y_i - \hat{\mu}_i) = \begin{cases} 1 & \text{jeżeli } y_i > \hat{\mu}_i \\ -1 & \text{w p.p.} \end{cases}$$
 
 ---
 **Dlaczego reszty dewiancyjne są często preferowaną formą reszt w modelach GLM? Jakie są główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt?**
