@@ -5,62 +5,6 @@ parent: Modelowanie
 nav_order: 99
 ---
 
-## Dewiancja GLM
-
-W kontekście uogólnionych modeli liniowych (GLM), dewiancja jest miarą jakości dopasowania modelu. Służy ona do oceny, jak dobrze dany model pasuje do obserwowanych danych.
-
-**Koncepcja Dewiancji**
-
-Dewiancja stanowi uogólnienie sumy kwadratów reszt, znanej z klasycznej regresji liniowej z rozkładem normalnym, na wszystkie modele z rodziny GLM. Kwantyfikuje ona zmienność w danych, która nie została wyjaśniona przez analizowany model.
-
-Koncepcja dewiancji opiera się na porównaniu dopasowania dwóch modeli:
-
-* Modelu analizowanego: Modelu, którego jakość dopasowania chcemy ocenić.
-
-* Modelu nasyconego (pełnego): Modelu, który idealnie pasuje do danych, posiadając tyle samo parametrów, co obserwacji. W tym modelu wartość dopasowana dla każdej obserwacji jest równa jej wartości obserwowanej ($\hat{\mu} = y_i$). Jest to najlepsze możliwe dopasowanie, jakie można uzyskać dla danej rodziny rozkładów.
-
-**Wzór Koncepcyjny:**
-
-$$D(\mathbf{y}, \hat{\mathbf{\mu}}) = 2 \phi (L_{full} - L(\hat{\beta}))$$
-
-gdzie:
-
-$\phi$ - parametr dyspersji. Dla niektórych rozkładów, takich jak rozkład Poissona czy dwumianowy, parametr ten jest stały i wynosi 1. Dla innych, jak rozkład Gamma, musi być estymowany.
-
-$L_{full}$ - logarytm wiarygodności modelu pełnego (nasyconego). Jest to najwyższa możliwa wartość logarytmu wiarygodności, jaką można osiągnąć dla danych przy użyciu określonego rozkładu.
-
-$L(\hat{\beta})$ - logarytm wiarygodności analizowanego modelu, obliczony dla estymowanych parametrów $\hat{\beta}$.
-
-**Wzór ogólny:**
-
-$$D(\mathbf{y}, \hat{\mathbf{\mu}}) = 2 \sum_{i=1}^{n} \nu_i [y_i(\tilde{\theta}_i - \hat{\theta}_i) - a(\tilde{\theta}_i) + a(\hat{\theta}_i)]$$
-
-gdzie:
-
-$D(\mathbf{y}, \hat{\mathbf{\mu}})$ - dewiancja, która jest miarą rozbieżności między wektorem obserwowanych danych $\mathbf{y}$ a wektorem wartości dopasowanych przez model $\hat{\mathbf{\mu}}$.
-
-$\nu_i$ - waga przypisana $i$-tej obserwacji. Umożliwia uwzględnienie różnej "ważności" lub wolumenu informacji dla poszczególnych punktów danych.
-
-$\tilde{\theta}_i$ - estymata parametru kanonicznego dla i-tej obserwacji w modelu pełnym (nasyconym). Model pełny to model, który ma tyle parametrów, ile jest obserwacji, i w rezultacie idealnie dopasowuje się do danych (co oznacza, że dopasowana średnia jest równa obserwowanej wartości, $\hat{\mu}_i = y_i$).
-
-$\hat{\theta}_i$ - estymata parametru kanonicznego dla i-tej obserwacji w analizowanym (testowanym) modelu.
-
-$a(\cdot)$ - funkcja kumulacyjna, która jest unikalna dla każdego rozkładu z wykładniczej rodziny rozkładów (ED family). Definiuje ona związek między parametrem kanonicznym a średnią rozkładu.
-
-**Dewiancja skalowana** (ang. *scaled deviance*) to dewiancja podzielona przez parametr dyspersji:
-
-$$\tilde{D}(\mathbf{y}, \hat{\mathbf{\mu}}) = \frac{D(\mathbf{y}, \hat{\mathbf{\mu}})}{\phi}$$
-
-Dla dużych prób, **rozkład dewiancji skalowanej** można przybliżyć **rozkładem chi-kwadrat ($\chi^2$)** z liczbą stopni swobody równą $n - p - 1$, gdzie $n$ to liczba obserwacji, a $p+1$ to liczba szacowanych parametrów w modelu.
-
-**Dlaczego dewiancja jest niewystarczająca**
-
-Podczas wyboru najlepszego modelu predykcyjnego spośród zagnieżdżonych uogólnionych modeli liniowych, sama dewiancja nie jest wystarczającą miarą. Dzieje się tak, ponieważ **dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję** (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka **przeuczenia** (ang. *overfitting*), czyli stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do generalizacji i przewidywania nowych obserwacji.
-
-Dlatego, aby dokonać właściwego wyboru, należy uwzględnić kompromis między **dobrocią dopasowania** (niską dewiancją) a **złożonością modelu** (liczbą parametrów). Służą do tego **kryteria informacyjne**, takie jak **kryterium informacyjne Akaikego (AIC)** lub **Bayesowskie kryterium informacyjne (BIC)**, które "karzą" model za posiadanie większej liczby parametrów. Model o niższej wartości kryterium informacyjnego jest uznawany za lepszy, ponieważ oferuje najlepszy kompromis między dopasowaniem a złożonością.
-
----
-
 ## Krzywa Lorenza i krzywa koncentracji
 
 Kluczowe różnice
@@ -779,4 +723,31 @@ $$ \hat{\mu}_{n}^I = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_
 
 Wysokość, na której dwa klastry łączą się w dendrogramie, odpowiada odległości (brakowi podobieństwa) między nimi.
 
-Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów. 
+Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów.
+
+## Dewiancja
+
+**Podaj definicje dewiancji i skalowanej dewiancji (scaled deviance). Wskaż, której wielkości, związanej z jakością modelu regresji liniowej, odpowiada dewiancja. Jaki rozkład ma skalowana dewiancja?**
+
+Dewiancja stanowi uogólnienie sumy kwadratów reszt i jest zdefiniowana jako: 
+
+$$D(\mathbf{y}, \hat{\mathbf{\mu}}) = 2 \phi (L_{full} - L(\hat{\beta}))$$
+
+gdzie:
+
+$\phi$ - parametr dyspersji. Dla niektórych rozkładów, takich jak rozkład Poissona czy dwumianowy, parametr ten jest stały i wynosi 1. Dla innych, jak rozkład Gamma, musi być estymowany.
+
+$L_{full}$ - logarytm wiarygodności modelu pełnego (nasyconego). Jest to najwyższa możliwa wartość logarytmu wiarygodności, jaką można osiągnąć dla danych przy użyciu określonego rozkładu.
+
+$L(\hat{\beta})$ - logarytm wiarygodności analizowanego modelu, obliczony dla estymowanych parametrów $\hat{\beta}$.
+
+Dewiancja skalowana jest zdefiniowana jako:
+
+$$\tilde{D}(\mathbf{y}, \hat{\mathbf{\mu}}) = \frac{D(\mathbf{y}, \hat{\mathbf{\mu}})}{\phi}$$
+
+Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem chi-kwadrat ($\chi^2$) z liczbą stopni swobody równą $n - (p + 1)$, gdzie $n$ to liczba obserwacji, a $p+1$ to liczba szacowanych parametrów w modelu.
+
+---
+**Twoim zadaniem jest wybór modelu o najlepszych zdolnościach predykcyjnych spośród zagnieżdżonych uogólnionych modeli liniowych. Wyjaśnij dlaczego podczas wyboru takiego modelu nie tylko dewiancja powinna zostać uwzględniona.**
+ 
+Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
