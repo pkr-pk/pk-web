@@ -751,3 +751,19 @@ Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem 
 **Twoim zadaniem jest wybór modelu o najlepszych zdolnościach predykcyjnych spośród zagnieżdżonych uogólnionych modeli liniowych. Wyjaśnij dlaczego podczas wyboru takiego modelu nie tylko dewiancja powinna zostać uwzględniona.**
  
 Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
+
+---
+**Wyjaśnij związek między wiarygodnością L, a kryterium informacyjnym AIC i wskaż kiedy każdy z tych mierników może być użyty do porównania różnych modeli.**
+
+$\text{AIC} = 2p - 2\ln(L),$
+
+czyli AIC jest zdefiniowane za pomocą wiarygodności.
+
+* Wiarygodność może być użyta, gdy porównywane modele są zagnieżdżone (jeden model jest uproszczoną wersją drugiego).
+* Kryterium AIC może być użyte, gdy modele nie są zagnieżdżone lub gdy zakładają różne rozkłady dla zmiennej odpowiedzi.
+
+## Miary wpływu
+
+**Wyjaśnij do czego służy odległość Cooka (Cook's distance) i dlaczego jest różna dla różnych modeli.**
+
+Odległość Cooka jest wykorzystywana w analizie regresji jako miara wpływu poszczególnych obserwacji na wyniki regresji. Umożliwia wykrycie obserwacji, które znacząco wpływają na wyniki regresji, a tym samym pozwala zbadać ich wpływ na model.W mierze Cooka uwzględnia się reszty modeli dlatego jej wartość jest różna dla różnych modeli.
