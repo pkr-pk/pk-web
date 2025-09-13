@@ -747,3 +747,12 @@ Uporządkowana krzywa Lorenza to narzędzie graficzne służące do porównywani
 $$R = \frac{\hat{\mu}_2(X)}{\hat{\mu}_1(X)}$$
 
 Główne zastosowanie polega na identyfikacji segmentów portfela, które są źle wycenione przez obecny model, co naraża ubezpieczyciela na selekcję negatywną.
+
+## Fakty stylizowane
+
+**Wymień i krótko scharakteryzuj trzy wybrane właściwości finansowych szeregów czasowych (tzw. stylizowane fakty).**
+
+1. Brak rozkładu normalnego i grube ogony (heavy tails):
+rozkład stóp zwrotu w finansowych szeregach czasowych nie jest rozkładem normalnym oraz posiada grubsze ogony. W praktyce oznacza to, że ekstremalne wartości (zarówno bardzo wysokie zyski, jak i straty) pojawiają się znacznie częściej, niż sugerowałby to standardowy model normalny. Jest to kluczowa właściwość z punktu widzenia zarządzania ryzykiem, ponieważ modele oparte na rozkładzie normalnym mogą systematycznie niedoszacowywać realnego ryzyka.
+2. Grupowanie się zmienności (volatility clustering): jest to tendencja, zgodnie z którą okresy dużej zmienności (wysokich wahań cen) przeplatają się z okresami względnego spokoju (niskiej zmienności). Innymi słowy, duże zmiany cenowe często następują po sobie, tworząc "skupiska" lub "klastry", niezależnie od tego, czy są to wzrosty, czy spadki. Ta właściwość jest widoczna, gdy analizuje się szeregi wartości bezwzględnych lub kwadratów stóp zwrotu, które wykazują silną autokorelację.
+3. Brak autokorelacji w surowych szeregach zwrotów: same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
