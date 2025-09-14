@@ -675,7 +675,7 @@ Załóżmy ponownie, że $F_X$ dopuszcza gęstość $f_X$. Ideą próbkowania z 
 
 $$ E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f_{\tilde{X}}(x)}\right) f_{\tilde{X}}(x)dx = E\left(\tilde{X} \frac{f_X(\tilde{X})}{f_{\tilde{X}}(\tilde{X})}\right). $$
 
-Zamiast tego symulujemy $n$ niezależnych replikacji $\tilde{X}_1, \dots, \tilde{X}_n$ z nowej zmiennej losowej $\tilde{X}$ (o gęstości $f_{\tilde{X}}$) i używamy estymatora próbkowania z wagami
+Zamiast tego symulujemy $n$ niezależnych replikacji $\tilde{X_1}, \dots, \tilde{X_n}$ z nowej zmiennej losowej $\tilde{X}$ (o gęstości $f_{\tilde{X}}$) i używamy estymatora próbkowania z wagami
 
 $$ \hat{\mu}_{n}^I = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f_{\tilde{X}}(\tilde{X}_i)}. $$
 
