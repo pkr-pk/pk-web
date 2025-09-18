@@ -120,18 +120,6 @@ Wysokość połączenia odzwierciedla odległość (niepodobieństwo) między gr
 
 ---
 
-## POT peaks over threshold
-
-Wybór odpowiedniego progu `u` jest kluczowy, ponieważ wiąże się z fundamentalnym kompromisem między **obciążeniem** (błędem systematycznym) a **wariancją** (niestabilnością) oszacowań parametrów.
-
-Konsekwencje niewłaściwego wyboru progu są następujące:
-* **Wybór zbyt wysokiego progu `u`**: Powoduje, że do analizy trafia bardzo mało obserwacji (nadwyżek ponad próg). Prowadzi to do oszacowań o dużej wariancji, co oznacza, że są one **niestabilne i mało precyzyjne**.
-* **Wybór zbyt niskiego progu `u`**: Skutkuje włączeniem do analizy obserwacji, które nie pochodzą z ekstremalnego ogona rozkładu. Dla tych danych założenie o uogólnionym rozkładzie Pareto (GPD) może nie być spełnione, co prowadzi do uzyskania **obciążonych, czyli systematycznie błędnych, oszacowań**.
-
-Celem jest znalezienie najniższego możliwego progu, powyżej którego model GPD staje się trafną aproksymacją zachowania danych w ogonie rozkładu.
-
----
-
 ## Dane ucięte
 
 1. **Okrojenie z lewej strony** (ang. *left truncated*) występuje, gdy obserwacje poniżej pewnego progu `d` w ogóle nie są rejestrowane. W przypadku okrojenia nie wiedzielibyśmy nawet o istnieniu szkód, których wartość nie przekroczyła jakiegoś progu.
@@ -337,6 +325,59 @@ Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkuj
 
 Histogram dystrybuanty jest bardzo przydatne w ocenie jakości oszacowanych modeli. Histogram dystrybuanty to histogram wartości otrzymanych z tzw. transformaty całkowej prawdopodobieństwa (Probability Integral Transform - PIT). Jeżeli ciągła zmienna losowa $X$ posiada dystrybuantę $F$, to $F(X) \sim U(0, 1)$, gdzie $U(0, 1)$ oznacza rozkład jednostajny na przedziale $(0,1).$ Oznacza to, że idealny histogram powinien być płaski – wszystkie słupki powinny mieć zbliżoną wysokość, oscylującą wokół czerwonej linii (gęstość równa 1).
 
+## Teoria wartości ekstremalnych
+
+**Krótko przedstaw czym zajmuje się Teoria Wartości Ekstremalnych (Extreme Value Theory, EVT) i wskaż możliwości jej wykorzystania przez aktuariusza.**
+
+Teoria Wartości Ekstremalnych to gałąź statystyki służąca do modelowania rzadkich, ekstremalnych zdarzeń, które znajdują się w "ogonach" rozkładów prawdopodobieństwa. EVT umożliwia prognozowanie prawdopodobieństwa wystąpienia rzadkich zdarzeń o wartościach wyższych niż kiedykolwiek zaobserwowane.
+
+Wykorzystanie przez aktuariusza:
+* Modelowanie śmiertelności w najstarszych latach w celu zamykania tablic trwania życia, co jest niezbędne przy kalkulacji rent dożywotnich.
+* Obliczania wysokich kwantyli (Value-at-Risk) na potrzeby wymogów kapitałowych.
+
+---
+**Jednym z głównych podejść wykorzystywanych w EVT jest analiza przekroczeń progu POT (Peaks Over Threshold). Krótko omów to podejście.**
+
+Podstawową ideą metody POT jest założenie, że jeśli interesuje nas ogon rozkładu (np. bardzo wysokie roszczenia ubezpieczeniowe), możemy wybrać wysoki próg $u$ i analizować wszystkie wartości, które ten próg przekroczyły. Analizuje się nie same wartości, ale ich nadwyżki ponad ten próg, czyli wartości $Y−u$, pod warunkiem, że $Y>u.$
+
+---
+**Wskaż dlaczego w metodzie POT kluczową rolę odgrywa ustalenie progu przekroczeń na właściwym poziomie. Uzasadnij dlaczego w tym celu (ustaleniu progu) można wykorzystać funkcję wartości oczekiwanej nadwyżki (mean excess function).**
+
+Ustalenie progu:
+* Zbyt niski próg: jeśli wybierzemy zbyt niski próg, uwzględnimy w analizie obserwacje, które w rzeczywistości nie należą do "ekstremalnego" ogona rozkładu. Włączenie danych spoza ogona prowadzi do tego, że model jest niedopasowany, a uzyskane estymaty parametrów są obciążone (błędne).
+* Zbyt wysoki próg: spowoduje, że będziemy mieli bardzo mało danych (nadwyżek) do analizy. Mała próba danych prowadzi do estymacji parametrów o dużej wariancji.
+
+Funkcja wartości oczekiwanej nadwyżki:
+* ma liniową postać po przekroczeniu odpowiedniego progu $u.$
+
+---
+**Krótko opisz podejście Hilla do modelowania ogonów rozkładów (m in. podaj założenia odnośnie rozkładów i przedstaw odpowiedni estymator).**
+
+Metoda Hilla jest podejściem stosowanym do modelowania i estymacji ogonów rozkładów prawdopodobieństwa, zwłaszcza tych o grubych ogonach (heavy-tailed). Służy do oszacowania parametru kształtu ogona, znanego jako indeks ogona.
+
+Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) badanego rozkładu dla dużych wartości $x$ zachowuje się jak funkcja potęgowa:
+
+$$\bar{F}(x) = x^{-\alpha}L(x)$$
+
+gdzie:
+* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
+* $L(x)$ jest funkcją wolno zmienną, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
+
+Estymator Hilla:
+
+$$\hat{\alpha}^{(H)}_{k,n} = \left( \frac{1}{k} \sum_{j=1}^{k} \ln X_{j,n} - \ln X_{k,n} \right)^{-1}$$
+
+gdzie:
+* $k$ to liczba największych obserwacji użytych do estymacji ($2 \le k \le n$).
+* $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
+
+---
+**Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jest wykorzystywany.**
+
+Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
+
+Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
+
 ## Walidacja krzyżowa
 
 **Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
@@ -404,35 +445,6 @@ $$h(x_i, \xi_i) = (x_i - \xi_i)^3_+ = \begin{cases} (x_i - \xi_i)^3 & \text{jeś
 gdzie $\xi_i$ jest $i$-tym węzłem. Przykład:
 
 $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
-
-## Teoria wartości ekstremalnych
-
-**Krótko opisz podejście Hilla do modelowania ogonów rozkładów (m in. podaj założenia odnośnie rozkładów i przedstaw odpowiedni estymator).**
-
-Metoda Hilla jest podejściem stosowanym do modelowania i estymacji ogonów rozkładów prawdopodobieństwa, zwłaszcza tych o grubych ogonach (heavy-tailed). Służy do oszacowania parametru kształtu ogona, znanego jako indeks ogona.
-
-Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) badanego rozkładu dla dużych wartości $x$ zachowuje się jak funkcja potęgowa:
-
-$$\bar{F}(x) = x^{-\alpha}L(x)$$
-
-gdzie:
-* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
-* $L(x)$ jest funkcją wolno zmienną, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
-
-Estymator Hilla:
-
-$$\hat{\alpha}^{(H)}_{k,n} = \left( \frac{1}{k} \sum_{j=1}^{k} \ln X_{j,n} - \ln X_{k,n} \right)^{-1}$$
-
-gdzie:
-* $k$ to liczba największych obserwacji użytych do estymacji ($2 \le k \le n$).
-* $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
-
----
-**Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jest wykorzystywany.**
-
-Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
-
-Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
 
 ## Podstawy analizy szeregów czasowych
 
