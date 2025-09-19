@@ -378,6 +378,25 @@ Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który prze
 
 Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
 
+## Stacjonarność i błądzenie losowe
+
+**Wymień warunki stacjonarności (słabej) szeregu czasowego.**
+
+Szereg czasowy $(y_t)_{t\in\mathbb{Z}}$ jest stacjonarny (słabo stacjonarny) jeżeli:
+* wartość oczekiwana $E(y_t)$ nie zależy od $t$ $(E(y_t) = \mu, t \in \mathbb{Z}),$
+* kowariancja między $y_s$ a $y_t$ zależy tylko od $|s − t|$ $(cov(y_s, y_t) = cov(y_s + k,y_t+k), s, t, k \in \mathbb{Z}).$
+
+---
+**Podaj definicję procesu błądzenia losowego.**
+
+Proces błądzenia losowego definiuje się w następujący sposób: $y_t = y_{t-1} + c_t,$ gdzie $c_t$ jest procesem białego szumu.
+
+---
+**Wskaż i krótko przedstaw co najmniej dwie metody identyfikacji procesu błądzenia losowego.**
+
+1. Czy przyrosty $y_t - y_{t-1}$ stanowią proces białego szumu. Proces białego szumu jest stacjonarny i nie wykazuje żadnych widocznych wzorców w czasie. W praktyce polega to na stworzeniu nowego szeregu $c_t = y_t - y_{t-1}$ i graficznej ocenie, czy jest on stacjonarny.
+2. Czy odchylenie standardowe szeregu przyrostów jest istotnie mniejsze w porównaniu z odchyleniem standardowym oryginalnego szeregu.
+
 ## Walidacja krzyżowa
 
 **Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
