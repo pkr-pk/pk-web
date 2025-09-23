@@ -366,6 +366,32 @@ Proces błądzenia losowego definiuje się w następujący sposób: $y_t = y_{t-
 1. Wariancja odnosi się do tego, jak bardzo oszacowanie funkcji $\hat{f}$ zmieniłoby się, gdybyśmy je oszacowali na innym zbiorze danych treningowych. Mierzy ona wrażliwość modelu na niewielkie wahania w danych treningowych.
 2. Obciążenie odnosi się do błędu, który jest wprowadzany przez przybliżenie bardzo skomplikowanego, rzeczywistego problemu za pomocą znacznie prostszego modelu. Innymi słowy, jest to błąd wynikający z założeń upraszczających, które przyjmujemy, aby ułatwić trenowanie funkcji docelowej.
 
+## Bootstrap
+
+**Krótko przedstaw ideę metod bootstrapowych.**
+
+Metody bootstrapowe należą do klasy metod symulacyjnych polegających na wnioskowaniu o interesującej nas wielkości na podstawie wielokrotnych replikacji oryginalnej próby. Przy czym replikacje uzyskuje się poprzez wielokrotne losowanie ze zwracaniem z próby (bootstrap nieparametryczny) lub założenie, że oryginalna próba pochodzi z ustalonej rodziny rozkładów, oszacowaniu jej parametrów (na podstawie oryginalnej próby), a następnie wylosowaniu z tego rozkładu replikacji (bootstrap parametryczny).
+
+---
+**Przedstaw algorytm postępowania w przypadku stosowania:**
+* **nieparametrycznej metody bootstrapowej,**
+* **parametrycznej metody bootstrapowej.**
+
+Nieparametryczna metoda bootstrapowa:
+
+1. Symulacja próby bootstrapowej: z oryginalnego zbioru danych $(Y_1, \dots, Y_n)$ losujemy $n$ obserwacji ze zwracaniem. Oznacza to, że każda obserwacja ma taką samą szansę na wylosowanie, a raz wylosowana obserwacja może zostać wylosowana ponownie. W ten sposób tworzymy nową, sztuczną próbkę danych $Y^*$.
+2. Obliczenie estymatora: na podstawie nowo utworzonej próbki bootstrapowej $Y^*$ obliczamy interesujący nas estymator (np. średnią, wariancję, współczynnik regresji), stosując tę samą regułę decyzyjną $A$, co dla oryginalnej próbki. Otrzymujemy w ten sposób pojedynczą estymatę bootstrapową $\hat{\theta}^* = A(Y^*)$.
+3. Powtórzenie: kroki 1 i 2 powtarzamy dużą liczbę razy, np. $M = 1000$ lub więcej, uzyskując zbiór $M$ estymat bootstrapowych $( \hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)} )$.
+4. Analiza wyników: otrzymany zbiór estymat tworzy empiryczny rozkład bootstrapowy. Na jego podstawie możemy oszacować właściwości pierwotnego estymatora $\hat{\theta}$, takie jak jego błąd standardowy, lub skonstruować dla niego przedziały ufności.
+
+Parametryczna metoda bootstrapowa:
+
+1. Estymacja parametrów: na podstawie oryginalnego zbioru danych $(Y_1, \dots, Y_n)$ estymujemy nieznane parametry założonego rozkładu. Na przykład, jeśli zakładamy rozkład Poissona, estymujemy jego parametr $\lambda$. Otrzymujemy w ten sposób estymatę $\hat{\theta}$.
+2. Symulacja próby bootstrapowej: generujemy nową, sztuczną próbkę danych $Y^*$ o wielkości $n$, losując obserwacje z dopasowanego rozkładu parametrycznego $F(\cdot; \hat{\theta})$. W przeciwieństwie do metody nieparametrycznej, nie losujemy tutaj z oryginalnych danych, lecz z rozkładu teoretycznego z wyestymowanymi parametrami.
+3. Obliczenie estymatora: na podstawie nowo wygenerowanej próbki $Y^*$ obliczamy interesujący nas estymator $\hat{\theta}^* = A(Y^*)$.
+4. Powtórzenie: kroki 2 i 3 powtarzamy dużą liczbę razy ($M$), uzyskując zbiór $M$ estymat bootstrapowych $( \hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)} )$.
+5. Analiza wyników: podobnie jak w metodzie nieparametrycznej, otrzymany zbiór estymat tworzy empiryczny rozkład bootstrapowy, który służy do analizy właściwości pierwotnego estymatora $\hat{\theta}$.
+
 ## Walidacja krzyżowa
 
 **Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
