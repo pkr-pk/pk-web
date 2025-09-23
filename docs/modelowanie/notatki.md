@@ -194,44 +194,6 @@ W diagnostyce uogólnionych modeli liniowych (GLM) stosowanie reszt Pearsona jes
 
 ---
 
-## Wytyczne w zakresie stosowania modeli
-
-### Walidacja modelu
-
-Walidacja modelu obejmuje ocenę, czy:
-
-* **Model jest dopasowany do zamierzonego celu pracy**. W tym kontekście aktuariusz powinien wziąć pod uwagę takie aspekty jak:
-    * Dostępność, jakość i poziom szczegółowości danych wejściowych wymaganych przez model.
-    * Adekwatność powiązań rozpoznanych w modelu.
-    * Zdolność modelu do generowania odpowiedniego zakresu wyników wokół oczekiwanych wartości.
-* **Model spełnia swoje specyfikacje**.
-* **Wyniki modelu (pełne lub częściowe) są powtarzalne**, a wszelkie ewentualne różnice dają się wyjaśnić.
-
-Standard wskazuje, że walidacja modelu **powinna być przeprowadzona przez osobę lub osoby, które nie tworzyły danego modelu**. Odstępstwo od tej zasady jest możliwe tylko wtedy, gdyby jej zastosowanie powodowało obciążenie niewspółmierne do ryzyka związanego z modelem. Dodatkowo, przy wykorzystywaniu wyników z konkretnego uruchomienia modelu, aktuariusz powinien rozważyć, czy walidacja nie powinna zostać przeprowadzona ponownie w całości lub w części.
-
-### Walidacja Danych
-
-Aktuariusz powinien podjąć uzasadnione kroki w celu sprawdzenia spójności, kompletności i dokładności wykorzystywanych danych. Możliwe działania obejmują między innymi:
-
-* **Uzgodnienie z dokumentami finansowymi**: Porównanie danych z audytowymi sprawozdaniami finansowymi, zestawieniami obrotów i sald lub innymi odpowiednimi dokumentami, jeśli są dostępne.
-* **Testowanie racjonalności**: Porównanie danych z danymi zewnętrznymi lub niezależnymi w celu oceny ich racjonalności.
-* **Sprawdzenie spójności wewnętrznej**: Przetestowanie danych pod kątem ich wewnętrznej spójności oraz spójności z innymi istotnymi informacjami.
-* **Porównanie z danymi historycznymi**: Zestawienie danych z danymi za poprzedni okres lub okresy.
-
-Aktuariusz jest zobowiązany opisać podjęte kroki walidacyjne we wszystkich tworzonych raportach.
-
-### Postępowanie w Przypadku Braku Danych
-
-W przypadku stwierdzenia braków w danych (takich jak nieadekwatność, niespójność czy niekompletność), aktuariusz musi wziąć pod uwagę ich możliwy wpływ na wyniki pracy.
-
-1.  **Ocena istotności**: Jeżeli braki w danych prawdopodobnie nie będą miały istotnego wpływu na wyniki, nie muszą być dalej rozpatrywane.
-2.  **Postępowanie przy istotnych brakach**: Jeżeli aktuariusz nie jest w stanie w zadowalający sposób usunąć istotnych braków, powinien rozważyć jedną z poniższych opcji:
-    * **Odmówić lub przerwać świadczenie usług** zawodowych.
-    * **Współpracować ze zleceniodawcą** w celu modyfikacji zlecenia lub uzyskania dodatkowych, odpowiednich danych.
-    * **Wykonać usługi w najlepszy możliwy sposób**, jednocześnie ujawniając we wszystkich raportach informacje o brakach w danych oraz wskazując ich potencjalny wpływ na wyniki.
-
----
-
 ## Drzewa
 
 ### Na czym polega metoda *boosting* i czy można ją stosować do problemów regresji i klasyfikacji?
@@ -552,6 +514,38 @@ c) Aktuariusz powinien wykorzystując wyniki przebiegu modelu:
 znaczące różnice między poszczególnymi przebiegami modelu;
 * Rozumieć wszystkie działania zarządu lub reakcje zarządcze przyjęte w modelu. We wszystkich raportach aktuariusz powinien ujawnić takie zakładane działania zarządu lub reakcje zarządcze (ang. management actions) przyjęte w modelu oraz ich szeroko rozumiane implikacje.
 * Udokumentować, w stosownych przypadkach, ograniczenia, dane wejściowe, kluczowe założenia, cel zastosowania i wyniki modelu.
+
+---
+**Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie jakości danych dotyczące:**
+* **walidacji danych,**
+* **braku danych.**
+
+Walidacja danych: aktuariusz powinien podjąć uzasadnione kroki w celu sprawdzenia spójności, kompletności i dokładności wykorzystywanych danych. Możliwe kroki to między innymi:
+
+* a. Uzgodnienie z audytowanymi sprawozdaniami finansowymi, zestawieniami obrotów i sald lub innymi stosownymi dokumentami, jeżeli są one dostępne;
+* b. Przetestowanie danych pod kątem racjonalności w stosunku do zewnętrznych lub niezależnych danych;
+* c. Przetestowanie danych pod kątem wewnętrznej spójności i spójności z innymi istotnymi informacjami; oraz
+* d. Porównywanie danych z danymi za poprzedni okres lub okresy. Aktuariusz powinien opisać te kroki we wszystkich tworzonych raportach.
+
+Brak danych: aktuariusz powinien wziąć pod uwagę możliwy wpływ wszelkich braków w danych (takich jak nieadekwatność, niespójność i niekompletność) na wyniki pracy. Braki, które prawdopodobnie nie będą miały istotnego wpływu na wyniki, nie muszą być dalej rozpatrywane. Jeżeli aktuariusz nie może znaleźć zadowalającego sposobu usunięcia braków, powinien rozważyć:
+
+* a. Odmowę podjęcia lub kontynuowania świadczenia usług zawodowych;
+* b. Współpracę ze zleceniodawcą w celu modyfikacji usług zawodowych lub uzyskania odpowiednich dodatkowych danych lub innych informacji; lub
+* c. Z zastrzeżeniem zgodności z kodeksem etyki zawodowej, wykonanie usług zawodowych w najlepszy możliwy sposób i ujawnienie braków danych we wszystkich raportach (oraz wskazując potencjalny wpływ tych braków w danych).
+
+## Standard ERM
+
+**Wymień co najmniej 4 czynniki, które należy wziąć pod uwagę podczas projektowania modelu. Krótko opisz dwa spośród nich.**
+
+1. Cel i proporcjonalność.
+2. Czy model jest odpowiedni do mierzonych ryzyk.
+3. Czas wykonania.
+4. Ograniczenia.
+
+* Czas wykonania: modele wewnętrzne mogą wiązać się z długim czasem wykonania, zwłaszcza jeśli stosowane są scenariusze stochastyczne. Dostępnych jest kilka technik pomagających skrócić czas wykonania, a aktuariusz powinien rozważyć i ocenić każdy potencjalny negatywny wpływ na dokładność. Przykłady technik skracających czas obejmują grupowanie danych w punkty modelowe, stosowanie scenariuszy deterministycznych zamiast stochastycznych dla portfeli bez opcji, równoważne rozwiązania analityczne (w postaci zamkniętej), zmniejszenie liczby scenariuszy stochastycznych oraz redukcję granularności czasowej. Ponadto, czasy wykonania można poprawić, stosując techniki redukcji wariancji podczas generowania scenariuszy stochastycznych, takie jak zmienne antytetyczne.
+
+* Ograniczenia: modele zawsze będą miały ograniczenia statystyczne i teoretyczne. Nigdy nie można oczekiwać, że wyniki w pełni odwzorują świat rzeczywisty. Ważne jest, aby pamiętać o tych ograniczeniach podczas projektowania modelu i komunikowania jego wyników. Ważnym aspektem jest dokumentacja wszelkich istotnych ograniczeń w celu zapewnienia, że użytkownicy modelu są ich świadomi.
+
 
 ## PDP Partial Dependence Plot
 
