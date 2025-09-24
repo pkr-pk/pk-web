@@ -392,6 +392,15 @@ Parametryczna metoda bootstrapowa:
 4. Powtórzenie: kroki 2 i 3 powtarzamy dużą liczbę razy ($M$), uzyskując zbiór $M$ estymat bootstrapowych $( \hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)} )$.
 5. Analiza wyników: podobnie jak w metodzie nieparametrycznej, otrzymany zbiór estymat tworzy empiryczny rozkład bootstrapowy, który służy do analizy właściwości pierwotnego estymatora $\hat{\theta}$.
 
+## Graficzne porównanie gęstości i dystrybuant
+
+**Przedstaw ideę i konstrukcję wykresu prawdopodobieństwo-prawdopodobieństwo (p-p plot, probability plot). Wskaż zastosowanie tego wykresu.**
+
+Wykres prawdopodobieństwo-prawdopodobieństwo jest to jedna z graficznych metod oceny dopasowania modelu.
+Konstrukcja:
+* Wartości próbki porządkujemy w kolejności niemalejącej: $x_1 \le x_2 \le \cdots \le x_n.$
+* W układzie współrzędnych zaznaczamy punkty o współrzędnych $(F_n(x_j), F(x_j)),$ $j = 1,2, ...,$ gdzie $F_n(x_j)$ są wartościami dystrybuanty empirycznej $F_n(x_j) = \frac{j}{n+1},$ a $F(x_j)$ – wartościami dystrybuanty dopasowanego rozkładu. Model jest dobrze dopasowany, jeśli punkty te leżą blisko linii $y=x.$
+
 ## Walidacja krzyżowa
 
 **Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
