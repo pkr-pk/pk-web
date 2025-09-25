@@ -346,7 +346,7 @@ Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, war
 
 Szereg czasowy $(y_t)_{t\in\mathbb{Z}}$ jest stacjonarny (słabo stacjonarny) jeżeli:
 * wartość oczekiwana $E(y_t)$ nie zależy od $t$ $(E(y_t) = \mu, t \in \mathbb{Z}),$
-* kowariancja między $y_s$ a $y_t$ zależy tylko od $|s − t|$ $(cov(y_s, y_t) = cov(y_s + k,y_t+k), s, t, k \in \mathbb{Z}).$
+* kowariancja między $y_s$ a $y_t$ zależy tylko od $\mid s - t\mid$ $(cov(y_s, y_t) = cov(y_s + k,y_t+k), s, t, k \in \mathbb{Z}).$
 
 ---
 **Podaj definicję procesu błądzenia losowego.**
@@ -379,17 +379,27 @@ Metody bootstrapowe należą do klasy metod symulacyjnych polegających na wnios
 
 Nieparametryczna metoda bootstrapowa:
 
-1. Symulacja próby bootstrapowej: z oryginalnego zbioru danych $(Y_1, \dots, Y_n)$ losujemy $n$ obserwacji ze zwracaniem. Oznacza to, że każda obserwacja ma taką samą szansę na wylosowanie, a raz wylosowana obserwacja może zostać wylosowana ponownie. W ten sposób tworzymy nową, sztuczną próbkę danych $Y^*$.
-2. Obliczenie estymatora: na podstawie nowo utworzonej próbki bootstrapowej $Y^*$ obliczamy interesujący nas estymator (np. średnią, wariancję, współczynnik regresji), stosując tę samą regułę decyzyjną $A$, co dla oryginalnej próbki. Otrzymujemy w ten sposób pojedynczą estymatę bootstrapową $\hat{\theta}^* = A(Y^*)$.
-3. Powtórzenie: kroki 1 i 2 powtarzamy dużą liczbę razy, np. $M = 1000$ lub więcej, uzyskując zbiór $M$ estymat bootstrapowych $( \hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)} )$.
+1. Symulacja próby bootstrapowej: z oryginalnego zbioru danych $(Y_1, \dots, Y_n)$ losujemy $n$ obserwacji ze zwracaniem. Oznacza to, że każda obserwacja ma taką samą szansę na wylosowanie, a raz wylosowana obserwacja może zostać wylosowana ponownie. W ten sposób tworzymy nową, sztuczną próbkę danych $Y^*.$
+2. Obliczenie estymatora: na podstawie nowo utworzonej próbki bootstrapowej $Y^*$
+
+    obliczamy interesujący nas estymator (np. średnią, wariancję, współczynnik regresji), stosując tę samą regułę decyzyjną $A$, co dla oryginalnej próbki. Otrzymujemy w ten sposób pojedynczą estymatę bootstrapową $\hat{\theta}^* = A(Y^*).$
+3. Powtórzenie: kroki 1 i 2 powtarzamy dużą liczbę razy, np. $M = 1000$ lub więcej, uzyskując zbiór $M$ estymat bootstrapowych 
+
+    $$(\hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)}).$$
+
 4. Analiza wyników: otrzymany zbiór estymat tworzy empiryczny rozkład bootstrapowy. Na jego podstawie możemy oszacować właściwości pierwotnego estymatora $\hat{\theta}$, takie jak jego błąd standardowy, lub skonstruować dla niego przedziały ufności.
 
 Parametryczna metoda bootstrapowa:
 
 1. Estymacja parametrów: na podstawie oryginalnego zbioru danych $(Y_1, \dots, Y_n)$ estymujemy nieznane parametry założonego rozkładu. Na przykład, jeśli zakładamy rozkład Poissona, estymujemy jego parametr $\lambda$. Otrzymujemy w ten sposób estymatę $\hat{\theta}$.
 2. Symulacja próby bootstrapowej: generujemy nową, sztuczną próbkę danych $Y^*$ o wielkości $n$, losując obserwacje z dopasowanego rozkładu parametrycznego $F(\cdot; \hat{\theta})$. W przeciwieństwie do metody nieparametrycznej, nie losujemy tutaj z oryginalnych danych, lecz z rozkładu teoretycznego z wyestymowanymi parametrami.
-3. Obliczenie estymatora: na podstawie nowo wygenerowanej próbki $Y^*$ obliczamy interesujący nas estymator $\hat{\theta}^* = A(Y^*)$.
-4. Powtórzenie: kroki 2 i 3 powtarzamy dużą liczbę razy ($M$), uzyskując zbiór $M$ estymat bootstrapowych $( \hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)} )$.
+3. Obliczenie estymatora: na podstawie nowo wygenerowanej próbki $Y^*$ 
+
+    obliczamy interesujący nas estymator $\hat{\theta}^* = A(Y^*).$
+4. Powtórzenie: kroki 2 i 3 powtarzamy dużą liczbę razy ($M$), uzyskując zbiór $M$ estymat bootstrapowych 
+
+    $$( \hat{\theta}^{*(1)}, \dots, \hat{\theta}^{*(M)} ).$$
+
 5. Analiza wyników: podobnie jak w metodzie nieparametrycznej, otrzymany zbiór estymat tworzy empiryczny rozkład bootstrapowy, który służy do analizy właściwości pierwotnego estymatora $\hat{\theta}$.
 
 ## Graficzne porównanie gęstości i dystrybuant
@@ -513,7 +523,7 @@ Modele klasy GARCH służą przede wszystkim do modelowania i prognozowania zmie
 * Obliczanie miar ryzyka finansowego: prognozy zmienności uzyskane z modeli GARCH są kluczowym wkładem do estymacji miar ryzyka, takich jak Value-at-Risk (VaR) i Expected Shortfall (ES). Umożliwiają one tworzenie warunkowych miar ryzyka, które dostosowują się do aktualnej sytuacji na rynku.
 * Opisywanie dynamiki szeregów czasowych zwrotów z aktywów.
 
-## Estymacja empiryczna danych cenzurowanych prawostronnie
+## Dane cenzurowane i ucięte
 
 **Podaj definicję danych prawostronnie cenzurowanych (right censoring). Wskaż i omów co najmniej dwie sytuacje, w których aktuariusz analizuje tego typu dane.**
 
