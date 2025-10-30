@@ -5,291 +5,11 @@ parent: Modelowanie
 nav_order: 99
 ---
 
-## Krzywa Lorenza i krzywa koncentracji
+# Effective Statistical Learning Methods for Actuaries I
 
-Kluczowe różnice
+## 9: Teoria wartości ekstremalnych
 
-* Mierzona wartość:
-
-    * Krzywa Koncentracji $(CC[\mu(X), \hat{\mu}(X);\alpha])$ mierzy skumulowany udział rzeczywistej składki (lub straty, $\mu(X)$) dla $\alpha$ procent polis o najniższych wartościach predyktora $\hat{\mu}(X)$. Innymi słowy, pokazuje, jaka część całkowitej szkody przypada na portfel uznany przez model za najmniej ryzykowny.
-
-    * Krzywa Lorentza $(LC[\hat{\mu}(X);\alpha])$ mierzy skumulowany udział prognozowanej składki $\hat{\mu}(X)$ dla $\alpha$ procent polis o najniższych wartościach tego samego predyktora $\hat{\mu}(X)$. Pokazuje, jaką część całkowitej zebranej składki stanowią polisy o najniższych prognozach.
-
-* Cel i interpretacja:
-
-    * Krzywa Koncentracji ocenia, jak dobrze uporządkowanie ryzyka przez predyktor odpowiada rzeczywistemu rozkładowi strat. Pokazuje, co powinno zostać zebrane z danego segmentu portfela.
-    
-    * Krzywa Lorenza opisuje wewnętrzną zmienność samego predyktora – jak bardzo różnicuje on składki. Pokazuje, co model proponuje zebrać z danego segmentu.
-
-Jak działa porównanie?
-
-* Idealny predyktor: dla doskonałego predyktora, gdzie prognozowana składka jest równa składce rzeczywistej $(\hat{\mu}(X) = \mu(X))$, obie krzywe pokrywają się.
-
-* Ocena rozbieżności: różnica między krzywymi wskazuje na niedopasowanie modelu do ryzyka. Jeśli dla najmniej ryzykownych polis krzywa koncentracji leży powyżej krzywej Lorenza, oznacza to, że segment ten generuje większy udział w szkodach niż w zebranych składkach, co świadczy o ryzyku selekcji negatywnej (ang. adverse selection).
-
-* Miara ilościowa: jakość predyktora można skwantyfikować za pomocą wskaźnika ABC (Area Between Curves), czyli pola powierzchni między krzywą koncentracji a krzywą Lorenza. Mniejsza wartość ABC oznacza, że struktura cenowa modelu jest bliższa rzeczywistej strukturze ryzyka, co świadczy o wyższej jakości predyktora.
-
----
-
-## Wygładzanie wykładnicze
-
-Wygładzanie wykładnicze to jedna z metod prognozowania i analizy szeregów czasowych, która nadaje większą wagę nowszym obserwacjom, jednocześnie stopniowo zmniejszając wpływ starszych danych. Jest to technika używana do wygładzania fluktuacji w danych, co ułatwia identyfikację trendów i wzorców. Główne zastosowania:
-
-* Prognozowanie krótkoterminowe.
-* Wygładzanie danych – redukcja szumów w danych poprzez eliminowanie nagłych skoków i anomalii.
-* Modelowanie trendów i sezonowości – bardziej zaawansowane wersje, jak podwójne i potrójne wygładzanie wykładnicze (Holt-Winters), pozwalają uwzględniać trend i sezonowość w danych.
-
-Rodzaje wygładzania wykładniczego:
-
-* Proste wygładzanie wykładnicze – stosowane do danych bez wyraźnego trendu ani sezonowości.
-* Wygładzanie podwójne (Holt's method) – uwzględnia zarówno poziom, jak i trend.
-* Wygładzanie potrójne (Holt-Winters method) – dodatkowo uwzględnia sezonowość. Wygładzanie wykładnicze jest szczególnie cenione za swoją prostotę i skuteczność w prognozowaniu, zwłaszcza gdy dane wykazują krótkoterminowe fluktuacje.
-
----
-
-## Interakcja czynników ryzyka
-
-Interakcja w kontekście czynników ryzyka ubezpieczeniowego odnosi się do sytuacji, w której wpływ jednego czynnika ryzyka na prawdopodobieństwo wystąpienia szkody zależy od obecności innego czynnika ryzyka. Oznacza to, że efekty dwóch (lub więcej) zmiennych nie są jedynie sumą ich indywidualnych wpływów, ale mogą się wzmacniać lub osłabiać w zależności od ich wzajemnego oddziaływania. Różnica między interakcją a korelacją:
-
-* Korelacja mierzy stopień współzmienności dwóch zmiennych, czyli na ile ich wartości są statystycznie powiązane (np. wzrost jednej zmiennej towarzyszy wzrostowi drugiej).
-* Interakcja odnosi się do sposobu, w jaki jedna zmienna modyfikuje wpływ drugiej na określone zjawisko, np. ryzyko szkody. Może oznaczać, że efekt jednej zmiennej występuje tylko pod warunkiem obecności drugiej. 
-
-Korelacja sama w sobie nie oznacza interakcji – dwie zmienne mogą być silnie skorelowane, ale nie muszą wpływać na siebie nawzajem w sposób interakcyjny. Dlatego w analizie ryzyka ubezpieczeniowego ważne jest stosowanie modeli, które uwzględniają nie tylko współzależności, ale także potencjalne efekty interakcji między czynnikami.
-
----
-
-## Techniki statystyczne w wykrywaniu oszustw
-
-Techniki statystyczne, jak test chi-kwadrat i analiza regresji pomagają identyfikować podejrzane wzorce i anomalia w danych, co może świadczyć o nieuczciwych działaniach. Test chi-kwadrat pozwala na szybkie wykrycie nietypowych rozkładów lub zależności, podczas gdy analiza regresji umożliwia głębsze zrozumienie zmiennych wpływających na ryzyko oszustwa. Na przykład:
-
-* Zastosowanie testu chi-kwadrat: 
-    * Analiza liczby zgłaszanych roszczeń w określonych kategoriach (np.rodzaj szkody, czas zgłoszenia) w celu identyfikacji nietypowych wzorców.
-    * Porównanie rozkładu częstości zgłaszanych roszczeń w różnych segmentach klientów, aby wykryć nadreprezentację podejrzanych roszczeń.
-    * Sprawdzenie, czy występuje istotna statystycznie różnica między częstotliwością podejrzanych roszczeń a ogólną liczbą zgłoszeń.
-
-* Zastosowanie regresji:
-    * Ocena wpływu czynników, takich jak wiek zgłaszającego, liczba wcześniejszych roszczeń, miejsce zamieszkania, typ polisy na prawdopodobieństwo wystąpienia oszustwa.
-    * Budowa modeli predykcyjnych, które klasyfikują zgłoszenia jako podejrzane lub prawidłowe.
-    * Analiza reszt, aby identyfikować odstające obserwacje, które mogą sugerować nietypowe i potencjalnie oszukańcze zachowania.
-
-Techniki statystyczne są często stosowane w połączeniu z metodami eksploracji danych(data mining) i uczeniem maszynowym, co zwiększa skuteczność wykrywania oszustw.
-
----
-
-## Rozkład Tweedie
-
-W modelach aktuarialnych opartych na rodzinie rozkładów Tweedie, parametr $\xi$ kontroluje zależność wariancji od wartości oczekiwanej, co bezpośrednio wpływa na heteroskedastyczność modelu. Związek ten opisuje równanie wariancji:
-
-$$Var(Y) = \phi \mu^\xi$$
-
-gdzie: 
-
-$\phi$ – parametr skali,
-
-$\mu$ – wartość oczekiwana,
-
-$\xi$ – parametr kształtu (exponent parameter). Im większe $\xi$, tym silniejsza heteroskedastyczność, co oznacza, że wariancja bardziej zależy od wartości oczekiwanej.
-
-Rozkład Tweedie w ramach uogólnionych modeli liniowych (GLM) jest stosowany do modelowania łącznej kwoty roszczeń, która jest wypadkową zarówno ich liczby, jak i wysokości. Rozkłady te, dla parametru potęgowego (wykładnika) $\xi$ z przedziału (1, 2), odpowiadają złożonemu rozkładowi Poissona z sumami o rozkładzie Gamma.
-
-W tym podejściu:
-
-* Liczba roszczeń (składnik częstotliwości) jest modelowana przy użyciu rozkładu Poissona.
-* Wysokość pojedynczego roszczenia (składnik szkodowości) jest modelowana przy użyciu rozkładu Gamma.
-
-**Rola zmiennych objaśniających i ograniczenia modelu**
-
-Głównym ograniczeniem standardowego modelu Tweedie GLM jest założenie o stałym parametrze dyspersji $\phi$. To założenie narzuca istotne ograniczenie na wpływ zmiennych objaśniających na składniki ryzyka:
-
-* Każdy czynnik ryzyka (zmienna objaśniająca), który wpływa na oczekiwaną wysokość roszczenia (składnik Gamma), musi również wpływać na oczekiwaną liczbę roszczeń (składnik Poissona) w tym samym kierunku. Oznacza to, że jeśli dany czynnik zwiększa średnią szkodę, musi również zwiększać średnią częstotliwość roszczeń, aby parametr dyspersji $\phi$ pozostał stały.
-
-Ograniczenie to często jest sprzeczne z rzeczywistymi obserwacjami w ubezpieczeniach. Na przykład:
-
-* W rezerwach szkodowych oczekiwana liczba wypłat zazwyczaj maleje w kolejnych latach rozwoju szkody, podczas gdy średnia kwota wypłaty rośnie.
-* W ubezpieczeniach komunikacyjnych czynniki geograficzne mogą działać w przeciwnych kierunkach – w dużych miastach obserwuje się wyższą częstotliwość szkód, ale niższą ich średnią wysokość.
-
-Ze względu na te przeciwstawne tendencje, stosowanie modelu Tweedie z stałym parametrem dyspersji może prowadzić do zniekształcenia analizy.
-
----
-
-## Dendrogram
-
-Dendrogram to drzewiasta struktura, która przedstawia sposób łączenia obiektów w grupy (skupienia, klastry) na różnych poziomach podobieństwa. Poziome cięcie na określonej wysokości oznacza usunięcie połączeń powyżej tej wartości, co prowadzi do podziału obiektów na skupienia. Ich liczba zależy od wysokości, na której wykonano cięcie – im niżej, tym więcej mniejszych skupień, im wyżej, tym mniej większych.
-
-Wysokość połączenia odzwierciedla odległość (niepodobieństwo) między grupowanymi obiektami lub skupieniami. Im wyżej następuje połączenie, tym większe różnice między skupieniami. Pomaga to wybrać odpowiednią liczbę skupień oraz zrozumieć strukturę danych.
-
----
-
-## Dane ucięte
-
-1. **Okrojenie z lewej strony** (ang. *left truncated*) występuje, gdy obserwacje poniżej pewnego progu `d` w ogóle nie są rejestrowane. W przypadku okrojenia nie wiedzielibyśmy nawet o istnieniu szkód, których wartość nie przekroczyła jakiegoś progu.
-
-2. **Przykład dla danych uciętych** W przypadku polis sprzedanych przed rozpoczęciem okresu obserwacji, część ubezpieczonych umrze, podczas gdy inni dożyją, by rozpocząć obserwację. Nie tylko czasy ich zgonów nie zostaną zarejestrowane, ale nawet nie będziemy wiedzieć, ile ich było. Inną częstą sytuacją jest franszyza redukcyjna. Szkody poniżej franszyzy nie są rejestrowane i nie ma danych o tym, ile szkód było poniżej jej wartości.
-
----
-## Krzywa ROC
-
-### Podniesienie progu
-
-Podwyższenie progu sprawia, że model zmniejsza liczbę przypadków oznaczonych jako oszukańcze. Oznacza to, że więcej rzeczywistych oszustw pozostaje niewykrytych. Firma traci pieniądze na wypłatach, które nie powinny mieć miejsca.Koszt niewykrycia jednego oszustwa może być wysoki, zwłaszcza gdy wartość roszczenia jest duża. W przypadku bardzo wysokich kosztów niewykrycia oszustwa wzrost progu może prowadzić do znacznych strat, szczególnie jeśli oznacza to liczne,niewykryte przypadki oszustwa.
-
-### Obniżenie progu
-
-Obniżenie progu skutkuje większą liczbą przypadków oznaczonych jako oszustwa,nawet gdy są to faktycznie roszczenia prawdziwe. Wiąże się to z tym, że więcej niewinnych roszczeń zostaje błędnie sklasyfikowanych jako oszukańcze. Może to generować koszty administracyjne, ponieważ każda podejrzana sprawa wymaga dodatkowego procesu weryfikacji. Dodatkowo odrzucone niesłusznie roszczenia mogą prowadzić do niezadowolenia klientów, zwiększenia liczby reklamacji i potencjalnych strat związanych z utratą klientów. Jeżeli zatem koszty dodatkowej weryfikacji i utraty klientów przeważają nad korzyściami wykrycia dodatkowych oszustw, obniżenie progu może zmniejszać zyski firmy.
-
-Krzywa ROC (Receiver Operating Characteristic) to narzędzie graficzne służące do oceny jakości modeli klasyfikacyjnych, w tym modeli regresji logistycznej. Ilustruje ona zdolność modelu do rozróżniania między dwiema klasami (np. klient przedłuży umowę vs. nie przedłuży).
-
-* Osie wykresu: Krzywa ROC jest wykreślana w dwuwymiarowej przestrzeni, gdzie:
-
-    * Oś Y reprezentuje czułość (Sensitivity), czyli odsetek przypadków pozytywnych (Y=1), które zostały prawidłowo sklasyfikowane. Inaczej nazywana jest wskaźnikiem trafień (True Positive Rate).
-
-    * Oś X reprezentuje 1 - swoistość (1 - Specificity), czyli odsetek przypadków negatywnych (Y=0), które zostały błędnie sklasyfikowane jako pozytywne. Nazywana jest wskaźnikiem fałszywych alarmów (False Positive Rate).
-
-* Interpretacja krzywej: Każdy punkt na krzywej ROC odpowiada parze (czułość, 1-swoistość) dla określonego progu klasyfikacji. Idealny model miałby krzywą przebiegającą blisko lewego górnego rogu wykresu, co oznaczałoby wysoką czułość i wysoką swoistość (niski wskaźnik fałszywych alarmów) jednocześnie. Linia przerywana pod kątem 45 stopni reprezentuje model losowy (nieposiadający żadnej mocy predykcyjnej).
-
-* Pole pod krzywą (AUC): Jakościową miarą podsumowującą całą krzywą jest pole pod krzywą ROC (AUC - Area Under the Curve). Przyjmuje ono wartości od 0 do 1, gdzie:
-
-    * AUC = 1 oznacza klasyfikator idealny.
-
-    * AUC = 0.5 oznacza klasyfikator losowy.
-
-    * AUC > 0.5 oznacza, że model ma zdolność predykcyjną lepszą niż losowa. Im wartość AUC jest bliższa 1, tym lepsza jest ogólna zdolność modelu do rozróżniania klas, niezależnie od wybranego progu klasyfikacji.
-
----
-
-## PCA principal component analysis
-
-W jaki sposób analiza składowych głównych (PCA, Principal Component Analysis) może być wykorzystana do analizy danych ubezpieczeniowych, takich jak ryzyko klienta lub analiza szkód?
-
-Na przykład do:
-* redukcji zmiennych wpływających na profil ryzyka,
-* segmentacji klientów według ryzyka,
-* identyfikacji klientów o nietypowych profilach ryzyka,
-* identyfikacji kluczowych czynników wpływających na wielkość szkód,
-* monitorowania zmian w szkodowości portfela.
-
-Dlaczego PCA jest uważana za metodę uczenia bez nadzoru (unsupervised)?
-
-W metodach uczenia bez nadzoru model jest trenowany wyłącznie na podstawie danych wejściowych bez wiedzy o konkretnym wyniku czy klasie, do której miałby przyporządkować obserwacje. PCA analizuje wyłącznie struktury i zależności między zmiennymi w danych wejściowych, identyfikując ich korelacje, a następnie przekształca zbiór danych tak, aby uzyskać nowy zestaw zmiennych (składowe główne). W praktyce oznacza to, że PCA szuka wzorców i ukrytych struktur w danych, co czyni ją idealnym narzędziem do eksploracyjnej analizy danych, segmentacji czy redukcji wymiarowości,bez konieczności przypisania punktów danych do określonych kategorii czy przewidywania wyników.
-
----
-
-## Regresja liniowa
-
-**Obserwacja wpływowa** to taka, której niewielka zmiana lub pominięcie w zbiorze danych w istotny sposób modyfikuje oszacowania parametrów modelu.
-
-Wpływ obserwacji na model można ocenić za pomocą kilku miar:
-
-* **Dźwignia** (Leverage): Jest to ogólna miara wpływu, zdefiniowana jako wielkość pochodnej i-tej dopasowanej wartości względem j-tej wartości odpowiedzi. Wartości dźwigni, nazywane również hat values, wskazują na potencjalny wpływ obserwacji na dopasowane wartości. Duża dźwignia zazwyczaj oznacza, że cechy danej obserwacji są nietypowe w porównaniu z resztą danych.
-* **Odległość Cooka** (Cook's Distance): Ta miara ocenia, jak bardzo zmienia się cały wektor szacowanych współczynników regresji po pominięciu pojedynczej obserwacji. Mierzy ona odległość między parametrami oszacowanymi na pełnym zbiorze danych a parametrami oszacowanymi na zbiorze z pominiętą i-tą obserwacją. Duże wartości wskazują na obserwacje, które znacząco wpływają na oszacowania współczynników.
-
----
-
-## Reszty Pearsona
-
-W diagnostyce uogólnionych modeli liniowych (GLM) stosowanie reszt Pearsona jest korzystniejsze niż zwykłych reszt (surowych), ponieważ reszty Pearsona mają w przybliżeniu stałą wariancję, co ułatwia ich interpretację i porównywanie.
-
-* **Zwykłe reszty**, definiowane jako $r_i = y_i - \hat{\mu}_i$, mają wadę polegającą na tym, że ich wariancja nie jest stała. W wielu rozkładach z rodziny ED, w tym w rozkładzie Poissona, wariancja zmiennej odpowiedzi zależy od jej wartości oczekiwanej ($Var(Y_i) = \mu_i$). To oznacza, że im większa jest przewidywana wartość $\hat{\mu}_i$, tym większej wariancji reszty surowej możemy się spodziewać. Utrudnia to ocenę, czy dana reszta jest "duża" – ta sama wartość reszty może być nieistotna dla obserwacji o dużej wariancji, a bardzo znacząca dla obserwacji o małej wariancji.
-* **Reszty Pearsona** rozwiązują ten problem poprzez standaryzację. Dzielą one zwykłą resztę przez oszacowane odchylenie standardowe zmiennej odpowiedzi ($\sqrt{Var(\hat{\mu}_i)}$). Dzięki temu skalowaniu, reszty Pearsona mają (przynajmniej w przybliżeniu) stałą wariancję, niezależną od wartości dopasowanej $\hat{\mu}_i$. Umożliwia to bezpośrednie porównywanie reszt dla różnych obserwacji i ułatwia identyfikację obserwacji odstających oraz sprawdzanie założeń modelowych, takich jak poprawność wybranej funkcji wariancji.
-
----
-
-## Drzewa
-
-### Na czym polega metoda *boosting* i czy można ją stosować do problemów regresji i klasyfikacji?
-
-**Boosting** (wzmacnianie) to metoda uczenia zespołowego (ang. *ensemble learning*), która polega na sekwencyjnym budowaniu modeli predykcyjnych, najczęściej drzew decyzyjnych. Każdy kolejny model jest trenowany w taki sposób, aby korygować błędy popełnione przez poprzednie modele. W przeciwieństwie do jednoczesnego budowania wielu niezależnych modeli (jak w metodzie *bagging*), *boosting* uczy się powoli, iteracyjnie poprawiając dopasowanie do danych.
-
-Proces ten wygląda następująco:
-1.  Rozpoczyna się od dopasowania prostego modelu do danych.
-2.  Następnie analizuje się błędy (rezydua) tego modelu.
-3.  Kolejny model jest budowany tak, aby przewidywać te błędy (rezydua).
-4.  Nowy model jest dodawany do zespołu, a prognozy są aktualizowane. Rezydua są ponownie obliczane na podstawie prognoz całego, zaktualizowanego zespołu.
-5.  Kroki 3 i 4 są powtarzane wielokrotnie, co pozwala na stopniowe udoskonalanie modelu w obszarach, w których jego dotychczasowe działanie było najsłabsze.
-
-Metoda **boosting może być stosowana zarówno do problemów regresji, jak i klasyfikacji**.
-
-### W jaki sposób metoda *boosting* różni się od metody *bagging* pod względem sposobu wykorzystania danych treningowych?
-
-Główna różnica między metodami *boosting* i *bagging* polega na sposobie budowania modeli i wykorzystania danych treningowych:
-
-* **Bagging (Bootstrap Aggregating):**
-    * **Niezależne i równoległe budowanie modeli:** Każde drzewo decyzyjne jest budowane niezależnie od pozostałych.
-    * **Próbkowanie bootstrapowe:** Każde drzewo jest trenowane na innej, losowej próbce danych treningowych, utworzonej przez losowanie ze zwracaniem (*bootstrap*). Oznacza to, że każda próbka treningowa jest nieco inna, ale pochodzi z tej samej oryginalnej puli danych.
-
-* **Boosting:**
-    * **Sekwencyjne i zależne budowanie modeli:** Drzewa są budowane jedno po drugim, a każde nowe drzewo jest tworzone z uwzględnieniem informacji o wynikach poprzednich drzew.
-    * **Brak próbkowania bootstrapowego:** *Boosting* nie polega na losowaniu próbek ze zwracaniem. Zamiast tego, każde drzewo jest trenowane na zmodyfikowanej wersji oryginalnego zbioru danych.
-
----
-
-### Parametry dostrajania w metodzie *boosting*.
-
-1.  **Liczba drzew:** Jest to całkowita liczba drzew decyzyjnych, które zostaną sekwencyjnie zbudowane i włączone do modelu. W przeciwieństwie do *baggingu* i losowych lasów, zbyt duża liczba drzew w *boostingu* może prowadzić do przeuczenia (*overfittingu*), chociaż zjawisko to postępuje zazwyczaj powoli. Optymalną liczbę drzew często wybiera się przy użyciu walidacji krzyżowej.
-
-2.  **Współczynnik kurczenia ($\lambda$, ang. *shrinkage parameter* lub *learning rate*):** Jest to mała dodatnia liczba, która kontroluje tempo, w jakim *boosting* uczy się na błędach. Niższe wartości $\lambda$ (np. 0.01 lub 0.001) spowalniają proces uczenia, co zazwyczaj wymaga większej liczby drzew do osiągnięcia dobrych wyników.
-
-3.  **Głębokość interakcji (d, ang. *interaction depth*):** Określa maksymalną liczbę podziałów w każdym drzewie, co kontroluje złożoność pojedynczego "słabego ucznia". Często dobrze sprawdza się wartość `d = 1`, co oznacza, że każde drzewo jest tzw. pniem decyzyjnym (ang. *stump*) z jednym podziałem.
-
----
-
-## Współczynnik V Cramera
-
-Współczynnik V Cramera jest miarą siły związku (asocjacji) między dwiema zmiennymi, opartą na statystyce chi-kwadrat Pearsona z tablicy kontyngencji.
-
-**Wartości i interpretacja**
-
-Współczynnik V Cramera przyjmuje wartości w przedziale od 0 do 1. Interpretacja jego wartości jest następująca:
-* **V = 0** oznacza całkowity brak zależności statystycznej (niezależność) między analizowanymi zmiennymi.
-* **V = 1** oznacza doskonałą zależność, gdzie znajomość wartości jednej zmiennej pozwala w pełni przewidzieć wartość drugiej.
-* **Wartości pośrednie** wskazują na siłę związku – im wyższa wartość, tym silniejsza zależność.
-
-Współczynnik ten jest tak znormalizowany, aby jego wartość była niezależna od liczby obserwacji oraz wymiarów tablicy kontyngencji. Oblicza się go za pomocą wzoru:
-$$V = \sqrt{\frac{\chi^2 / n}{\min(k_1 - 1, k_2 - 1)}}$$
-gdzie:
-* $\chi^2$ to statystyka chi-kwadrat Pearsona.
-* $n$ to całkowita liczba obserwacji.
-* $k_1$ i $k_2$ to odpowiednio liczba kategorii (poziomów) dla pierwszej i drugiej zmiennej.
-
-**Zastosowanie i rodzaje zmiennych**
-
-Współczynnik V Cramera jest szeroko stosowany do oceny korelacji między cechami, zwłaszcza gdy klasyczne miary, takie jak współczynnik korelacji Pearsona, nie są odpowiednie dla danych nieciągłych.
-
-Nie jest on ograniczony wyłącznie do zmiennych jakościowych (kategorycznych). Może być również stosowany do zmiennych ilościowych (ciągłych), jednak wymaga to ich uprzedniej **dyskretyzacji** (nazywanej również grupowaniem lub "bandingiem"). Proces ten polega na podzieleniu dziedziny zmiennej ciągłej na rozłączne przedziały, co w efekcie przekształca ją w zmienną kategoryczną. Po takiej transformacji współczynnik V Cramera oblicza się w standardowy sposób, jak dla zmiennych, które pierwotnie były jakościowe.
-
----
-
-## Gini indeks
-
-Indeks Giniego jest miarą **zanieczyszczenia** (ang. *impurity*) lub niejednorodności w zbiorze danych. W kontekście drzew decyzyjnych służy jako kryterium do oceny, jak "dobry" jest potencjalny podział węzła na węzły potomne.
-
-Główna zasada jest prosta: **dążymy do tworzenia podziałów, które skutkują jak najczystszymi węzłami potomnymi**. "Czysty" węzeł to taki, w którym większość (lub wszystkie) obserwacje należą do tej samej klasy.
-
-1.  **Wartość indeksu:** Indeks Giniego przyjmuje wartości od 0 do 0.5 (dla problemu klasyfikacji binarnej).
-    * $G = 0$ oznacza **idealną czystość** – wszystkie obserwacje w węźle należą do jednej klasy.
-    * $G = 0.5$ oznacza **maksymalne zanieczyszczenie** – obserwacje rozkładają się po równo między dwie klasy (np. 50% "Tak", 50% "Nie").
-2.  **Ocena podziału:** Dla każdej potencjalnej zmiennej, według której można dokonać podziału, algorytm oblicza średni ważony indeks Giniego dla węzłów potomnych, które by w wyniku tego podziału powstały.
-3.  **Wybór najlepszego podziału:** Wybierany jest taki podział (czyli taka zmienna), który prowadzi do **najniższej wartości średniego ważonego indeksu Giniego**. Oznacza to, że ten podział najlepiej separuje klasy i tworzy najczystsze możliwe podgrupy.
-
-
-
-
-
-
-
-
-
-
-
-## Histogram dystrybuanty
-
-**Czy histogram dystrybuanty jest przydatny w ocenie jakości oszacowanych modeli, odpowiedź uzasadnij.**
-
-Histogram dystrybuanty jest bardzo przydatne w ocenie jakości oszacowanych modeli. Histogram dystrybuanty to histogram wartości otrzymanych z tzw. transformaty całkowej prawdopodobieństwa (Probability Integral Transform - PIT). Jeżeli ciągła zmienna losowa $X$ posiada dystrybuantę $F$, to $F(X) \sim U(0, 1)$, gdzie $U(0, 1)$ oznacza rozkład jednostajny na przedziale $(0,1).$ Oznacza to, że idealny histogram powinien być płaski – wszystkie słupki powinny mieć zbliżoną wysokość, oscylującą wokół czerwonej linii (gęstość równa 1).
-
-## Teoria wartości ekstremalnych
-
-**Krótko przedstaw czym zajmuje się Teoria Wartości Ekstremalnych (Extreme Value Theory, EVT) i wskaż możliwości jej wykorzystania przez aktuariusza.**
+**9.1: Krótko przedstaw czym zajmuje się Teoria Wartości Ekstremalnych (Extreme Value Theory, EVT) i wskaż możliwości jej wykorzystania przez aktuariusza.**
 
 Teoria Wartości Ekstremalnych to gałąź statystyki służąca do modelowania rzadkich, ekstremalnych zdarzeń, które znajdują się w "ogonach" rozkładów prawdopodobieństwa. EVT umożliwia prognozowanie prawdopodobieństwa wystąpienia rzadkich zdarzeń o wartościach wyższych niż kiedykolwiek zaobserwowane.
 
@@ -298,12 +18,12 @@ Wykorzystanie przez aktuariusza:
 * Obliczania wysokich kwantyli (Value-at-Risk) na potrzeby wymogów kapitałowych.
 
 ---
-**Jednym z głównych podejść wykorzystywanych w EVT jest analiza przekroczeń progu POT (Peaks Over Threshold). Krótko omów to podejście.**
+**9.5: Jednym z głównych podejść wykorzystywanych w EVT jest analiza przekroczeń progu POT (Peaks Over Threshold). Krótko omów to podejście.**
 
 Podstawową ideą metody POT jest założenie, że jeśli interesuje nas ogon rozkładu (np. bardzo wysokie roszczenia ubezpieczeniowe), możemy wybrać wysoki próg $u$ i analizować wszystkie wartości, które ten próg przekroczyły. Analizuje się nie same wartości, ale ich nadwyżki ponad ten próg, czyli wartości $Y−u$, pod warunkiem, że $Y>u.$
 
 ---
-**Wskaż dlaczego w metodzie POT kluczową rolę odgrywa ustalenie progu przekroczeń na właściwym poziomie. Uzasadnij dlaczego w tym celu (ustaleniu progu) można wykorzystać funkcję wartości oczekiwanej nadwyżki (mean excess function).**
+**9.5: Wskaż dlaczego w metodzie POT kluczową rolę odgrywa ustalenie progu przekroczeń na właściwym poziomie. Uzasadnij dlaczego w tym celu (ustaleniu progu) można wykorzystać funkcję wartości oczekiwanej nadwyżki (mean excess function).**
 
 Ustalenie progu:
 * Zbyt niski próg: jeśli wybierzemy zbyt niski próg, uwzględnimy w analizie obserwacje, które w rzeczywistości nie należą do "ekstremalnego" ogona rozkładu. Włączenie danych spoza ogona prowadzi do tego, że model jest niedopasowany, a uzyskane estymaty parametrów są obciążone (błędne).
@@ -340,40 +60,79 @@ Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który prze
 
 Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
 
-## Stacjonarność i błądzenie losowe
+# An Introduction to Statistical Learning withApplications in R
 
-**Wymień warunki stacjonarności (słabej) szeregu czasowego.**
+## 2: Uczenie statystyczne
+
+**2.2: Co rozumiemy przez pojęcia wariancja i obciążenie metody uczenia statystycznego?**
+
+1. Wariancja odnosi się do tego, jak bardzo oszacowanie funkcji $\hat{f}$ zmieniłoby się, gdybyśmy je oszacowali na innym zbiorze danych treningowych. Mierzy ona wrażliwość modelu na niewielkie wahania w danych treningowych.
+2. Obciążenie odnosi się do błędu, który jest wprowadzany przez przybliżenie bardzo skomplikowanego, rzeczywistego problemu za pomocą znacznie prostszego modelu. Innymi słowy, jest to błąd wynikający z założeń upraszczających, które przyjmujemy, aby ułatwić trenowanie funkcji docelowej.
+
+## 8: Metody oparte na drzewach
+
+**8.1: Krótko przedstaw algorytm budowy binarnego drzewa klasyfikacyjnego.**
+
+1.  **Start (korzeń drzewa):** Algorytm rozpoczyna się od jednego węzła (korzenia), który zawiera wszystkie obserwacje z zestawu treningowego.
+
+2.  **Znalezienie najlepszego podziału:**
+    *   Algorytm iteracyjnie przeszukuje wszystkie predyktory (zmienne) i wszystkie możliwe punkty podziału dla każdego z nich.
+    *   Dla każdego potencjalnego podziału obliczana jest miara "czystości" (lub "zanieczyszczenia") nowo powstałych węzłów potomnych. Najczęściej stosowane miary to:
+        *   **Indeks Giniego (*Gini Index*)**
+        *   **Entropia (*Entropy*)**
+    *   Wybierany jest ten predyktor i ten punkt podziału, który prowadzi do największego zysku informacyjnego, czyli największej redukcji zanieczyszczenia w węzłach potomnych w porównaniu do węzła macierzystego.
+
+3.  **Podział (rekurencja):** Dane są dzielone na dwa nowe węzły (regiony) zgodnie z wybraną w kroku 2 regułą. Proces z kroku 2 jest następnie powtarzany rekurencyjnie dla każdego z nowo powstałych węzłów.
+
+4.  **Kryterium zatrzymania:** Proces dzielenia jest zatrzymywany, gdy spełniony zostanie jeden z warunków, np.:
+    *   Węzeł jest idealnie "czysty" (zawiera obserwacje tylko jednej klasy).
+    *   Osiągnięto maksymalną, zdefiniowaną wcześniej głębokość drzewa.
+    *   Liczba obserwacji w węźle spadła poniżej określonego progu.
+
+---
+**8.1: Co to jest kryterium dobroci podziału (goodness of split criterion) wykorzystywane w konstrukcji takiego drzewa. Omów jedno wybrane kryterium dobroci podziału.**
+
+To funkcja matematyczna używana w algorytmie budowy drzewa decyzyjnego do oceny, jak "dobry" jest każdy potencjalny podział węzła. Celem jest znalezienie takiego podziału (czyli takiej zmiennej i takiego jej progu), który w najlepszy sposób dzieli obserwacje na dwie grupy, które są jak najbardziej jednorodne pod względem klasyfikacji.
+
+Indeks Giniego jest zdefiniowany wzorem:
+
+$$
+G = \sum_{k=1}^{K} \hat{p}_{mk}(1 - \hat{p}_{mk}),
+$$
+
+jest to miara całkowitej wariancji we wszystkich $K$ klasach. Nietrudno zauważyć, że indeks Giniego przyjmuje małą wartość, jeśli wszystkie $\hat{p}_{mk}$ są bliskie zera lub jedynki. Z tego powodu indeks Giniego jest określany jako miara *czystości* węzła — mała wartość wskazuje, że węzeł zawiera w przeważającej mierze obserwacje z pojedynczej klasy.
+
+# Regression Modeling with Actuarial and Financial Applications
+
+## 7: Modelowanie trendów
+
+**7.3: Wymień warunki stacjonarności (słabej) szeregu czasowego.**
 
 Szereg czasowy $(y_t)_{t\in\mathbb{Z}}$ jest stacjonarny (słabo stacjonarny) jeżeli:
 * wartość oczekiwana $E(y_t)$ nie zależy od $t$ $(E(y_t) = \mu, t \in \mathbb{Z}),$
 * kowariancja między $y_s$ a $y_t$ zależy tylko od $\mid s - t\mid$ $(cov(y_s, y_t) = cov(y_s + k,y_t+k), s, t, k \in \mathbb{Z}).$
 
 ---
-**Podaj definicję procesu błądzenia losowego.**
+**7.4: Podaj definicję procesu błądzenia losowego.**
 
 Proces błądzenia losowego definiuje się w następujący sposób: $y_t = y_{t-1} + c_t,$ gdzie $c_t$ jest procesem białego szumu.
 
 ---
-**Wskaż i krótko przedstaw co najmniej dwie metody identyfikacji procesu błądzenia losowego.**
+**7.4: Wskaż i krótko przedstaw co najmniej dwie metody identyfikacji procesu błądzenia losowego.**
 
 1. Czy przyrosty $y_t - y_{t-1}$ stanowią proces białego szumu. Proces białego szumu jest stacjonarny i nie wykazuje żadnych widocznych wzorców w czasie. W praktyce polega to na stworzeniu nowego szeregu $c_t = y_t - y_{t-1}$ i graficznej ocenie, czy jest on stacjonarny.
 2. Czy odchylenie standardowe szeregu przyrostów jest istotnie mniejsze w porównaniu z odchyleniem standardowym oryginalnego szeregu.
 
-## Ocena dokładności modelu
+# Statistical Foundations of Actuarial Learning andits Applications
 
-**Co rozumiemy przez pojęcia wariancja i obciążenie metody uczenia statystycznego?**
+## 4: Predictive Modeling and Forecast Evaluation
 
-1. Wariancja odnosi się do tego, jak bardzo oszacowanie funkcji $\hat{f}$ zmieniłoby się, gdybyśmy je oszacowali na innym zbiorze danych treningowych. Mierzy ona wrażliwość modelu na niewielkie wahania w danych treningowych.
-2. Obciążenie odnosi się do błędu, który jest wprowadzany przez przybliżenie bardzo skomplikowanego, rzeczywistego problemu za pomocą znacznie prostszego modelu. Innymi słowy, jest to błąd wynikający z założeń upraszczających, które przyjmujemy, aby ułatwić trenowanie funkcji docelowej.
-
-## Bootstrap
-
-**Krótko przedstaw ideę metod bootstrapowych.**
+**4.3: Krótko przedstaw ideę metod bootstrapowych.**
 
 Metody bootstrapowe należą do klasy metod symulacyjnych polegających na wnioskowaniu o interesującej nas wielkości na podstawie wielokrotnych replikacji oryginalnej próby. Przy czym replikacje uzyskuje się poprzez wielokrotne losowanie ze zwracaniem z próby (bootstrap nieparametryczny) lub założenie, że oryginalna próba pochodzi z ustalonej rodziny rozkładów, oszacowaniu jej parametrów (na podstawie oryginalnej próby), a następnie wylosowaniu z tego rozkładu replikacji (bootstrap parametryczny).
 
 ---
-**Przedstaw algorytm postępowania w przypadku stosowania:**
+**4.3: Przedstaw algorytm postępowania w przypadku stosowania:**
 * **nieparametrycznej metody bootstrapowej,**
 * **parametrycznej metody bootstrapowej.**
 
@@ -402,9 +161,11 @@ Parametryczna metoda bootstrapowa:
 
 5. Analiza wyników: podobnie jak w metodzie nieparametrycznej, otrzymany zbiór estymat tworzy empiryczny rozkład bootstrapowy, który służy do analizy właściwości pierwotnego estymatora $\hat{\theta}$.
 
-## Graficzne porównanie gęstości i dystrybuant
+# Loss Models: From Data to Decisions
 
-**Przedstaw ideę i konstrukcję wykresu prawdopodobieństwo-prawdopodobieństwo (p-p plot, probability plot). Wskaż zastosowanie tego wykresu.**
+## 15: Selekcja modeli
+
+**15.3: Przedstaw ideę i konstrukcję wykresu prawdopodobieństwo-prawdopodobieństwo (p-p plot, probability plot). Wskaż zastosowanie tego wykresu.**
 
 Wykres prawdopodobieństwo-prawdopodobieństwo jest to jedna z graficznych metod oceny dopasowania modelu.
 Konstrukcja:
@@ -535,9 +296,11 @@ $u$, świadczenia powyżej tej wartości nie są wypłacane, więc dokładna war
 
 Podczas przeprowadzania badania śmiertelności ludzi, jeśli osoba żyje w momencie zakończenia badania, nastąpiło cenzurowanie prawostronne. Wiek osoby w chwili śmierci nie jest znany, ale wiadomo, że jest on co najmniej tak duży jak wiek w momencie zakończenia badania.
 
-## Krajowy standard aktuarialny - praktyka aktuarialna
+# Krajowy standard aktuarialny - praktyka aktuarialna
 
-**Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie stosowania modeli (tj. wyboru, tworzenia, modyfikowania i przeliczania modeli) dotyczące:**
+## 2: Właściwe praktyki
+
+**2.5: Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie stosowania modeli (tj. wyboru, tworzenia, modyfikowania i przeliczania modeli) dotyczące:**
 * **a) ryzyka modelu,**
 * **b) walidacji modeli,**
 * **c) wykorzystania wyników przebiegu modelu.**
@@ -578,9 +341,11 @@ Brak danych: aktuariusz powinien wziąć pod uwagę możliwy wpływ wszelkich br
 * b. Współpracę ze zleceniodawcą w celu modyfikacji usług zawodowych lub uzyskania odpowiednich dodatkowych danych lub innych informacji; lub
 * c. Z zastrzeżeniem zgodności z kodeksem etyki zawodowej, wykonanie usług zawodowych w najlepszy możliwy sposób i ujawnienie braków danych we wszystkich raportach (oraz wskazując potencjalny wpływ tych braków w danych).
 
-## Standard ERM
+# Actuarial Aspects of ERM for InsuranceCompanies
 
-**Wymień co najmniej 4 czynniki, które należy wziąć pod uwagę podczas projektowania modelu. Krótko opisz dwa spośród nich.**
+## 3: Enterprise Risk Management System
+
+**3.5: Wymień co najmniej 4 czynniki, które należy wziąć pod uwagę podczas projektowania modelu. Krótko opisz dwa spośród nich.**
 
 1. Cel i proporcjonalność.
 2. Czy model jest odpowiedni do mierzonych ryzyk.
@@ -836,3 +601,11 @@ Główne zastosowanie polega na identyfikacji segmentów portfela, które są ź
 rozkład stóp zwrotu w finansowych szeregach czasowych nie jest rozkładem normalnym oraz posiada grubsze ogony. W praktyce oznacza to, że ekstremalne wartości (zarówno bardzo wysokie zyski, jak i straty) pojawiają się znacznie częściej, niż sugerowałby to standardowy model normalny. Jest to kluczowa właściwość z punktu widzenia zarządzania ryzykiem, ponieważ modele oparte na rozkładzie normalnym mogą systematycznie niedoszacowywać realnego ryzyka.
 2. Grupowanie się zmienności (volatility clustering): jest to tendencja, zgodnie z którą okresy dużej zmienności (wysokich wahań cen) przeplatają się z okresami względnego spokoju (niskiej zmienności). Innymi słowy, duże zmiany cenowe często następują po sobie, tworząc "skupiska" lub "klastry", niezależnie od tego, czy są to wzrosty, czy spadki. Ta właściwość jest widoczna, gdy analizuje się szeregi wartości bezwzględnych lub kwadratów stóp zwrotu, które wykazują silną autokorelację.
 3. Brak autokorelacji w surowych szeregach zwrotów: same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
+
+# Inne
+
+## Histogram dystrybuanty
+
+**Czy histogram dystrybuanty jest przydatny w ocenie jakości oszacowanych modeli, odpowiedź uzasadnij.**
+
+Histogram dystrybuanty jest bardzo przydatne w ocenie jakości oszacowanych modeli. Histogram dystrybuanty to histogram wartości otrzymanych z tzw. transformaty całkowej prawdopodobieństwa (Probability Integral Transform - PIT). Jeżeli ciągła zmienna losowa $X$ posiada dystrybuantę $F$, to $F(X) \sim U(0, 1)$, gdzie $U(0, 1)$ oznacza rozkład jednostajny na przedziale $(0,1).$ Oznacza to, że idealny histogram powinien być płaski – wszystkie słupki powinny mieć zbliżoną wysokość, oscylującą wokół czerwonej linii (gęstość równa 1).
