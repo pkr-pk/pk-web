@@ -7,6 +7,36 @@ nav_order: 99
 
 # Effective Statistical Learning Methods for Actuaries I
 
+## 6: Uogólnione modele addytywne (GAMs)
+
+**6.1: Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędzi aktuariusza.**
+
+Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji:
+
+$$Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon.$$ 
+
+Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
+
+Dzięki GAM aktuariusze mogą:
+* Precyzyjnie modelować nieliniowe zależności i interakcje między zmiennymi, takimi jak wiek i płeć kierowcy czy dane geograficzne.
+* Analizować indywidualne dane dotyczące śmiertelności przy użyciu regresji Poissona bez konieczności wstępnego, subiektywnego grupowania danych.
+
+---
+**6.3: Podaj definicję funkcji sklejanej stopnia 3 (splajnu kubicznego).**
+
+Splajn sześcienny z $K$ węzłami można zamodelować jako:
+
+$$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + \dots + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i,$$
+
+dla odpowiedniego wyboru funkcji bazowych $b_1, b_2,...,b_{K+3}$. Najbardziej bezpośrednim sposobem reprezentacji splajnu sześciennego przy użyciu powyższej jest rozpoczęcie od bazy dla wielomianu sześciennego – mianowicie, $b_1(x_i) = x_i$, $b_2(x_i) = x_i^2$, i $b_3(x_i) = x_i^3$ a następnie dodanie jednej potęgowej funkcji bazowej na każdy węzeł. Potęgowa funkcja bazowa jest zdefiniowana jako:
+
+$$h(x_i, \xi_i) = (x_i - \xi_i)^3_+ = \begin{cases} (x_i - \xi_i)^3 & \text{jeśli } x_i > \xi_i \\ 0 & \text{w przeciwnym razie}, \end{cases}$$
+
+gdzie $\xi_i$ jest $i$-tym węzłem. Przykład:
+
+$$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
+
+
 ## 9: Teoria wartości ekstremalnych
 
 **9.1: Krótko przedstaw czym zajmuje się Teoria Wartości Ekstremalnych (Extreme Value Theory, EVT) i wskaż możliwości jej wykorzystania przez aktuariusza.**
@@ -32,33 +62,40 @@ Ustalenie progu:
 Funkcja wartości oczekiwanej nadwyżki:
 * ma liniową postać po przekroczeniu odpowiedniego progu $u.$
 
----
-**Krótko opisz podejście Hilla do modelowania ogonów rozkładów (m in. podaj założenia odnośnie rozkładów i przedstaw odpowiedni estymator).**
+# Effective Statistical Learning Methods for Actuaries II
 
-Metoda Hilla jest podejściem stosowanym do modelowania i estymacji ogonów rozkładów prawdopodobieństwa, zwłaszcza tych o grubych ogonach (heavy-tailed). Służy do oszacowania parametru kształtu ogona, znanego jako indeks ogona.
+## 3: Drzewa regresyjne
 
-Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) badanego rozkładu dla dużych wartości $x$ zachowuje się jak funkcja potęgowa:
+**3.2: Wskaż co najmniej cztery reguły określające, kiedy węzeł w drzewie regresyjnym jest przyjmowany za końcowy (jest uznawany za liść).**
 
-$$\bar{F}(x) = x^{-\alpha}L(x)$$
-
-gdzie:
-* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
-* $L(x)$ jest funkcją wolno zmienną, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
-
-Estymator Hilla:
-
-$$\hat{\alpha}^{(H)}_{k,n} = \left( \frac{1}{k} \sum_{j=1}^{k} \ln X_{j,n} - \ln X_{k,n} \right)^{-1}$$
-
-gdzie:
-* $k$ to liczba największych obserwacji użytych do estymacji ($2 \le k \le n$).
-* $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
+Węzeł jest uznawany za końcowy:
+* jeśli zawiera mniej niż z góry określoną liczbę obserwacji.
+* gdy jego głębokość (czyli odległość od korzenia drzewa) osiągnie ustalony limit.
+* jeśli w wyniku tego podziału co najmniej jeden z nowo powstałych węzłów potomnych (liści) zawierałby mniej niż z góry określoną liczbę obserwacji.
+* jeśli najlepszy możliwy podział tego węzła nie przynosi spadku dewiancji (miary błędu) o wartość większą niż ustalony próg.
 
 ---
-**Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jest wykorzystywany.**
+**3.3: Na czym polega i w jakim celu stosuje się przycinanie drzewa regresyjnego?**
 
-Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
+Przycinanie polega budowaniu maksymalnie rozbudowanego drzewa, pozwalając mu rosnąć aż do momentu, gdy dalsze podziały nie są możliwe (np. w liściach zostaje zbyt mało obserwacji lub wszystkie mają tę samą wartość). Takie drzewo jest bardzo złożone i idealnie dopasowane do danych treningowych. Następnie, w sposób systematyczny, usuwa się (przycina) całe gałęzie drzewa, czyli węzły wraz z ich potomkami. Celem jest znalezienie optymalnego poddrzewa, które stanowi najlepszy kompromis między prostotą a dokładnością predykcji.
 
-Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
+## 4: Bagging Trees and Random Forests
+
+**4.6: Przedstaw ideę i sposób konstrukcji wykresów PDP (Partial Dependence Plot).**
+
+Główną ideą wykresów PDP jest pokazanie, jak zmiana wartości jednej lub dwóch wybranych cech wpływa na średnią predykcję modelu, przy jednoczesnym uśrednieniu efektów wszystkich pozostałych cech. Innymi słowy, wykres PDP ilustruje efekt krańcowy (marginalny) wybranej cechy na prognozę modelu.
+
+Pozwala to na zrozumienie, czy zależność między cechą a predykcją jest liniowa, monotoniczna, czy bardziej złożona, co jest szczególnie przydatne w przypadku modeli takich jak lasy losowe czy sieci neuronowe.
+
+Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebiega w następujących krokach:
+
+1.  Wybór siatki wartości: Dla analizowanej cechy $x_S$ wybiera się zbiór interesujących wartości (tzw. siatkę), dla których będzie badany jej wpływ.
+2.  Modyfikacja danych: Dla każdej obserwacji w zbiorze danych (np. uczącym) i dla każdej wartości z siatki:
+    * Sztucznie ustawia się wartość cechy $x_S$ na daną wartość z siatki.
+    * Wartości wszystkich pozostałych cech ($x_{\bar{S}}$) pozostawia się bez zmian.
+3.  Predykcja: Model generuje predykcję dla każdej tak zmodyfikowanej obserwacji.
+4.  Uśrednianie: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
+5.  Wizualizacja: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
 
 # An Introduction to Statistical Learning withApplications in R
 
@@ -68,6 +105,45 @@ Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, war
 
 1. Wariancja odnosi się do tego, jak bardzo oszacowanie funkcji $\hat{f}$ zmieniłoby się, gdybyśmy je oszacowali na innym zbiorze danych treningowych. Mierzy ona wrażliwość modelu na niewielkie wahania w danych treningowych.
 2. Obciążenie odnosi się do błędu, który jest wprowadzany przez przybliżenie bardzo skomplikowanego, rzeczywistego problemu za pomocą znacznie prostszego modelu. Innymi słowy, jest to błąd wynikający z założeń upraszczających, które przyjmujemy, aby ułatwić trenowanie funkcji docelowej.
+
+## 5: Metody repróbkowania
+
+**5.1: Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
+
+K-krotna walidacja krzyżowa (k-fold CV) to procedura służąca do oszacowania błędu testowego modelu statystycznego poprzez wielokrotne dzielenie danych na zbiory uczące i walidacyjne.
+
+Proces K-krotnej walidacji krzyżowej:
+
+1. Podział danych: Dostępny zbiór obserwacji jest losowo dzielony na $k$ grup (nazywanych też *zbiorami* lub *foldami*) o w przybliżeniu równej wielkości.
+
+2. Iteracyjne trenowanie i walidacja:
+    * Pierwsza grupa (zbiór 1) jest traktowana jako zbiór walidacyjny, a model jest trenowany na pozostałych $k-1$ grupach (które łącznie tworzą zbiór uczący).
+    * Oblicza się błąd predykcji (np. błąd średniokwadratowy, MSE) dla obserwacji w zbiorze walidacyjnym.
+    * Proces ten jest powtarzany $k$ razy, przy czym za każdym razem inna grupa pełni rolę zbioru walidacyjnego.
+
+3.  Obliczenie ostatecznego wyniku: Po przeprowadzeniu $k$ iteracji uzyskuje się $k$ różnych estymacji błędu testowego ($MSE_1, MSE_2, ..., MSE_k$). Ostateczną estymacją błędu w metodzie k-krotnej walidacji krzyżowej jest średnia z tych wartości:
+
+    $$CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k} MSE_i$$
+
+---
+**5.1: Podaj na czym polega walidacja za pomocą metody LOOCV (Leave-one-out cross-validation).**
+
+Walidacja krzyżowa z pominięciem jednej obserwacji (Leave-one-out cross-validation, LOOCV) to intensywna obliczeniowo, ale czasami użyteczna metoda szacowania błędu testowego modelu statystycznego. Jest to szczególny przypadek k-krotnej walidacji krzyżowej, w którym liczba podzbiorów $(k)$ jest równa liczbie obserwacji $(n)$ w zbiorze danych.
+
+Proces polega na wielokrotnym dopasowywaniu modelu, gdzie za każdym razem jedna obserwacja jest wykluczana ze zbioru uczącego i używana do walidacji.
+
+---
+**5.1: Jakie są zalety i wady k-krotnej walidacji krzyżowej w porównaniu z:**
+* **i. podejściem wykorzystującym jedynie jeden zbiór walidacyjny,**
+* **ii. metodą LOOCV.**
+
+**W odpowiedzi uwzględnij problem kompromisu między obciążeniem a wariancją modelu.**
+
+Wybór $k$ w walidacji krzyżowej to kompromis między obciążeniem a wariancją.
+* LOOCV $(k=n)$ ma niskie obciążenie, ale wysoką wariancję.
+* Podejście z jednym zbiorem walidacyjnym (odpowiednik $k=2$) ma wysokie obciążenie, ale niską wariancję.
+
+K-krotna walidacja krzyżowa z wartościami $k=5$ lub $k=10$ jest w praktyce złotym środkiem. Empirycznie wykazano, że takie wartości prowadzą do estymacji błędu testowego, które nie cechują się ani nadmiernie wysokim obciążeniem, ani bardzo wysoką wariancją.
 
 ## 8: Metody oparte na drzewach
 
@@ -163,6 +239,18 @@ Parametryczna metoda bootstrapowa:
 
 # Loss Models: From Data to Decisions
 
+## 14: Konstrukcja modeli empirycznych
+
+**14.3: Podaj definicję danych prawostronnie cenzurowanych (right censoring). Wskaż i omów co najmniej dwie sytuacje, w których aktuariusz analizuje tego typu dane.**
+
+Obserwacja cenzurowana prawostronnie w punkcie $u$, jeśli gdy jest równa lub większa od $u$, jest zapisywana jako równa 
+$u$, ale gdy jest poniżej $u$, jest zapisywana z jej obserwowaną wartością.
+
+W danych dotyczących roszczeń ubezpieczeniowych, obecność limitu polisy może prowadzić do prawostronnie cenzurowanych obserwacji. Gdy kwota szkody jest równa lub przekracza limit 
+$u$, świadczenia powyżej tej wartości nie są wypłacane, więc dokładna wartość zazwyczaj nie jest rejestrowana. Wiadomo jednak, że wystąpiła szkoda o wartości co najmniej $u$.
+
+Podczas przeprowadzania badania śmiertelności ludzi, jeśli osoba żyje w momencie zakończenia badania, nastąpiło cenzurowanie prawostronne. Wiek osoby w chwili śmierci nie jest znany, ale wiadomo, że jest on co najmniej tak duży jak wiek w momencie zakończenia badania.
+
 ## 15: Selekcja modeli
 
 **15.3: Przedstaw ideę i konstrukcję wykresu prawdopodobieństwo-prawdopodobieństwo (p-p plot, probability plot). Wskaż zastosowanie tego wykresu.**
@@ -172,77 +260,40 @@ Konstrukcja:
 * Wartości próbki porządkujemy w kolejności niemalejącej: $x_1 \le x_2 \le \cdots \le x_n.$
 * W układzie współrzędnych zaznaczamy punkty o współrzędnych $(F_n(x_j), F(x_j)),$ $j = 1,2, ...,$ gdzie $F_n(x_j)$ są wartościami dystrybuanty empirycznej $F_n(x_j) = \frac{j}{n+1},$ a $F(x_j)$ – wartościami dystrybuanty dopasowanego rozkładu. Model jest dobrze dopasowany, jeśli punkty te leżą blisko linii $y=x.$
 
-## Walidacja krzyżowa
-
-**Wyjaśnij w jaki sposób przeprowadza się k-krotną walidację krzyżową.**
-
-K-krotna walidacja krzyżowa (k-fold CV) to procedura służąca do oszacowania błędu testowego modelu statystycznego poprzez wielokrotne dzielenie danych na zbiory uczące i walidacyjne.
-
-Proces K-krotnej walidacji krzyżowej:
-
-1. Podział danych: Dostępny zbiór obserwacji jest losowo dzielony na $k$ grup (nazywanych też *zbiorami* lub *foldami*) o w przybliżeniu równej wielkości.
-
-2. Iteracyjne trenowanie i walidacja:
-    * Pierwsza grupa (zbiór 1) jest traktowana jako zbiór walidacyjny, a model jest trenowany na pozostałych $k-1$ grupach (które łącznie tworzą zbiór uczący).
-    * Oblicza się błąd predykcji (np. błąd średniokwadratowy, MSE) dla obserwacji w zbiorze walidacyjnym.
-    * Proces ten jest powtarzany $k$ razy, przy czym za każdym razem inna grupa pełni rolę zbioru walidacyjnego.
-
-3.  Obliczenie ostatecznego wyniku: Po przeprowadzeniu $k$ iteracji uzyskuje się $k$ różnych estymacji błędu testowego ($MSE_1, MSE_2, ..., MSE_k$). Ostateczną estymacją błędu w metodzie k-krotnej walidacji krzyżowej jest średnia z tych wartości:
-
-    $$CV_{(k)} = \frac{1}{k}\sum_{i=1}^{k} MSE_i$$
-
 ---
-**Podaj na czym polega walidacja za pomocą metody LOOCV (Leave-one-out cross-validation).**
+**15.4: Przedstaw ideę i konstrukcję testu ilorazu wiarygodności. Zapisz hipotezę zerową i alternatywną i wskaż czy różnią się one od hipotez (zerowej i alternatywnej) stawianych w testach zgodności (np. chi-kwadrat, Kołmogorowa-Smirnowa). Podaj postać statystyki testowej i jej rozkład.**
 
-Walidacja krzyżowa z pominięciem jednej obserwacji (Leave-one-out cross-validation, LOOCV) to intensywna obliczeniowo, ale czasami użyteczna metoda szacowania błędu testowego modelu statystycznego. Jest to szczególny przypadek k-krotnej walidacji krzyżowej, w którym liczba podzbiorów $(k)$ jest równa liczbie obserwacji $(n)$ w zbiorze danych.
+Test ilorazu wiarygodności jest narzędziem statystycznym służącym do porównywania dwóch konkurencyjnych modeli (rozkładów prawdopodobieństwa) w celu określenia, który z nich lepiej pasuje do obserwowanych danych.
 
-Proces polega na wielokrotnym dopasowywaniu modelu, gdzie za każdym razem jedna obserwacja jest wykluczana ze zbioru uczącego i używana do walidacji.
+Podstawowa idea polega na tym, że jeśli model bardziej złożony (hipoteza alternatywna) jest prawdziwy, to wymuszenie dopasowania prostszego modelu (hipoteza zerowa) powinno skutkować znacząco niższą wartością funkcji wiarygodności. 
 
----
-**Jakie są zalety i wady k-krotnej walidacji krzyżowej w porównaniu z:**
-* **i. podejściem wykorzystującym jedynie jeden zbiór walidacyjny,**
-* **ii. metodą LOOCV.**
+Hipotezy:
 
-**W odpowiedzi uwzględnij problem kompromisu między obciążeniem a wariancją modelu.**
+$H_0$: Dane pochodzą z populacji o rozkładzie A (model prostszy).
 
-Wybór $k$ w walidacji krzyżowej to kompromis między obciążeniem a wariancją.
-* LOOCV $(k=n)$ ma niskie obciążenie, ale wysoką wariancję.
-* Podejście z jednym zbiorem walidacyjnym (odpowiednik $k=2$) ma wysokie obciążenie, ale niską wariancję.
+$H_1$: Dane pochodzą z populacji o rozkładzie B (model bardziej złożony).
 
-K-krotna walidacja krzyżowa z wartościami $k=5$ lub $k=10$ jest w praktyce złotym środkiem. Empirycznie wykazano, że takie wartości prowadzą do estymacji błędu testowego, które nie cechują się ani nadmiernie wysokim obciążeniem, ani bardzo wysoką wariancją.
+Kluczowym warunkiem jest, aby model w hipotezie zerowej był zagnieżdżony w modelu z hipotezy alternatywnej. Oznacza to, że model A można otrzymać z modelu B przez nałożenie ograniczeń na jego parametry (np. model wykładniczy jest szczególnym przypadkiem modelu gamma, gdy jeden z parametrów jest ustalony na 1).
 
-## Uogólnione modele addytywne (GAMs)
+Hipotezy w teście ilorazu wiarygodności różnią się od tych w testach zgodności, takich jak test chi-kwadrat czy test Kołmogorowa-Smirnowa. Testy zgodności sprawdzają, czy dane pochodzą z jednego, konkretnego rozkładu:
 
-**Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędzi aktuariusza.**
+$H_0$: Dane pochodzą z populacji o danym rozkładzie.
 
-Uogólnione modele addytywne (GAM) to rozszerzenie uogólnionych modeli liniowych (GLM), które pozwala na modelowanie nieliniowych zależności między predyktorami a zmienną odpowiedzi, zachowując przy tym addytywną strukturę. Zamiast zakładać, że każdy predyktor ma liniowy wpływ na odpowiedź (np. $\beta_1 x_1$), GAM dopasowuje gładką, nieliniową funkcję dla każdego predyktora (np. $f_1(x_1)$). Model końcowy jest sumą tych indywidualnych funkcji:
+$H_1$: Dane nie pochodzą z populacji o danym rozkładzie.
 
-$$Y = \beta_0 + f_1(X_1) + f_2(X_2) + \dots + f_p(X_p) + \epsilon.$$ 
+Statystyka testowa:
 
-Taka budowa pozwala na dużą elastyczność w modelowaniu złożonych wzorców, jednocześnie zachowując możliwość interpretacji wpływu każdego predyktora z osobna.
+$T = 2 \ln\left(\frac{L_1}{L_0}\right) = 2(\ln L_1 - \ln L_0),$
 
-Dzięki GAM aktuariusze mogą:
-* Precyzyjnie modelować nieliniowe zależności i interakcje między zmiennymi, takimi jak wiek i płeć kierowcy czy dane geograficzne.
-* Analizować indywidualne dane dotyczące śmiertelności przy użyciu regresji Poissona bez konieczności wstępnego, subiektywnego grupowania danych.
+gdzie $L_0$, $L_1$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
 
----
-**Podaj definicję funkcji sklejanej stopnia 3 (splajnu kubicznego).**
+Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat ($\chi^2$). Liczba stopni swobody tego rozkładu jest równa różnicy w liczbie wolnych (niezależnych) parametrów między modelem z hipotezy alternatywnej a modelem z hipotezy zerowej.
 
-Splajn sześcienny z $K$ węzłami można zamodelować jako:
+# Quantitative Risk Management: Concepts, Techniques and Tools
 
-$$y_i = \beta_0 + \beta_1 b_1(x_i) + \beta_2 b_2(x_i) + \dots + \beta_{K+3} b_{K+3}(x_i) + \epsilon_i,$$
+## 4: Finansowe szeregi czasowe
 
-dla odpowiedniego wyboru funkcji bazowych $b_1, b_2,...,b_{K+3}$. Najbardziej bezpośrednim sposobem reprezentacji splajnu sześciennego przy użyciu powyższej jest rozpoczęcie od bazy dla wielomianu sześciennego – mianowicie, $b_1(x_i) = x_i$, $b_2(x_i) = x_i^2$, i $b_3(x_i) = x_i^3$ a następnie dodanie jednej potęgowej funkcji bazowej na każdy węzeł. Potęgowa funkcja bazowa jest zdefiniowana jako:
-
-$$h(x_i, \xi_i) = (x_i - \xi_i)^3_+ = \begin{cases} (x_i - \xi_i)^3 & \text{jeśli } x_i > \xi_i \\ 0 & \text{w przeciwnym razie}, \end{cases}$$
-
-gdzie $\xi_i$ jest $i$-tym węzłem. Przykład:
-
-$$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
-
-## Podstawy analizy szeregów czasowych
-
-**Wymień etapy statystycznej analizy szeregów czasowych danych $y_1, y_2,..., y_t$. Krótko opisz jeden z nich.**
+**4.1: Wymień etapy statystycznej analizy szeregów czasowych danych $y_1, y_2,..., y_t$. Krótko opisz jeden z nich.**
 
 Etapy statystycznej analizy szeregów czasowych:
 * Analiza wstępna
@@ -255,46 +306,40 @@ Analiza wstępna:
 Jest to pierwszy etap, w którym dane są wizualizowane na wykresie w celu oceny, czy zastosowanie pojedynczego modelu stacjonarnego jest zasadne. Analiza wstępna obejmuje również rozważenie, czy konieczna jest wstępna obróbka danych, na przykład w celu usunięcia trendów lub sezonowości. Istotnym elementem tego etapu jest wybór odpowiedniej długości okna czasowego dla danych, co wiąże się z kompromisem między potrzebą korzystania z najbardziej aktualnych informacji a koniecznością posiadania wystarczająco dużej próbki do precyzyjnej estymacji statystycznej.
 
 ---
-**Przedstaw sposób prognozowania szeregów czasowych za pomocą modeli ARMA. Podaj ogólne założenia i wskaż ideę.**
+**4.1: Przedstaw sposób prognozowania szeregów czasowych za pomocą modeli ARMA. Podaj ogólne założenia i wskaż ideę.**
 
 Podstawowym założeniem jest to, że dane pochodzą z odwracalnego modelu ARMA, a innowacje (błędy) procesu mają własność różnicy martyngałowej. Oznacza to, że oczekiwana wartość przyszłej innowacji, biorąc pod uwagę historię procesu, jest równa zero.
 
 Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \mid \mathcal{F}_t)$ jako predyktora, gdzie $\mathcal{F}_t$ reprezentuje historię procesu do czasu $t$. Ten predyktor minimalizuje średniokwadratowy błąd prognozy. Prognozy oblicza się rekurencyjnie. Wartości losowe do czasu $t$ są traktowane jako "znane", a oczekiwane wartości przyszłych innowacji (dla $h \ge 1$) wynoszą zero. W praktyce, ponieważ pełna historia procesu nie jest znana, do obliczeń wykorzystuje się reszty z dopasowanego modelu. W miarę wydłużania horyzontu prognozy, przewidywana wartość zbiega do bezwarunkowej średniej procesu.
 
-## Modele GARCH
+## 5: Teoria wartości ekstremalnych
 
-**Podaj definicję procesu GARCH(p, q).**
+**5.2: Krótko opisz podejście Hilla do modelowania ogonów rozkładów (m in. podaj założenia odnośnie rozkładów i przedstaw odpowiedni estymator).**
 
-Dla $t\in\mathbb{Z}$, niech $(Z_t)$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)$ jest procesem $\text{GARCH}(p, q)$, jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)$ o wartościach dodatnich spełnia równania:
+Metoda Hilla jest podejściem stosowanym do modelowania i estymacji ogonów rozkładów prawdopodobieństwa, zwłaszcza tych o grubych ogonach (heavy-tailed). Służy do oszacowania parametru kształtu ogona, znanego jako indeks ogona.
 
-$X_t = \sigma_t Z_t$
+Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) badanego rozkładu dla dużych wartości $x$ zachowuje się jak funkcja potęgowa:
 
-$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
+$$\bar{F}(x) = x^{-\alpha}L(x)$$
 
-gdzie: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$.
+gdzie:
+* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
+* $L(x)$ jest funkcją wolno zmienną, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
+
+Estymator Hilla:
+
+$$\hat{\alpha}^{(H)}_{k,n} = \left( \frac{1}{k} \sum_{j=1}^{k} \ln X_{j,n} - \ln X_{k,n} \right)^{-1}$$
+
+gdzie:
+* $k$ to liczba największych obserwacji użytych do estymacji ($2 \le k \le n$).
+* $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
 
 ---
-**Do jakich celów służą modele klasy GARCH?**
+**5.2: Przedstaw konstrukcję wykresu Hilla (Hill plot) i wskaż w jakim celu jest wykorzystywany.**
 
-Modele klasy GARCH służą przede wszystkim do modelowania i prognozowania zmienności szeregów czasowych, zwłaszcza w kontekście finansowym. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości finansowych szeregów czasowych, których nie potrafią opisać prostsze modele.
+Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który przedstawia wartości estymatora $\hat{\alpha}^{(H)}_{k,n}$ w funkcji $k$. Następnie poszukuje się na wykresie stabilnego regionu, w którym estymaty są względnie stałe, i na tej podstawie wybiera się ostateczne oszacowanie indeksu ogona $\alpha$.
 
-* Modelowanie zmienności warunkowej.
-* Uchwycenie grupowania zmienności: jest to kluczowe zjawisko na rynkach finansowych, gdzie okresy dużej zmienności (dużych wahań cen) przeplatają się z okresami względnego spokoju.
-* Prognozowanie przyszłej zmienności.
-* Obliczanie miar ryzyka finansowego: prognozy zmienności uzyskane z modeli GARCH są kluczowym wkładem do estymacji miar ryzyka, takich jak Value-at-Risk (VaR) i Expected Shortfall (ES). Umożliwiają one tworzenie warunkowych miar ryzyka, które dostosowują się do aktualnej sytuacji na rynku.
-* Opisywanie dynamiki szeregów czasowych zwrotów z aktywów.
-
-## Dane cenzurowane i ucięte
-
-**Podaj definicję danych prawostronnie cenzurowanych (right censoring). Wskaż i omów co najmniej dwie sytuacje, w których aktuariusz analizuje tego typu dane.**
-
-Obserwacja cenzurowana prawostronnie w punkcie $u$, jeśli gdy jest równa lub większa od $u$, jest zapisywana jako równa 
-$u$, ale gdy jest poniżej $u$, jest zapisywana z jej obserwowaną wartością.
-
-W danych dotyczących roszczeń ubezpieczeniowych, obecność limitu polisy może prowadzić do prawostronnie cenzurowanych obserwacji. Gdy kwota szkody jest równa lub przekracza limit 
-$u$, świadczenia powyżej tej wartości nie są wypłacane, więc dokładna wartość zazwyczaj nie jest rejestrowana. Wiadomo jednak, że wystąpiła szkoda o wartości co najmniej $u$.
-
-Podczas przeprowadzania badania śmiertelności ludzi, jeśli osoba żyje w momencie zakończenia badania, nastąpiło cenzurowanie prawostronne. Wiek osoby w chwili śmierci nie jest znany, ale wiadomo, że jest on co najmniej tak duży jak wiek w momencie zakończenia badania.
+Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
 
 # Krajowy standard aktuarialny - praktyka aktuarialna
 
@@ -356,69 +401,28 @@ Brak danych: aktuariusz powinien wziąć pod uwagę możliwy wpływ wszelkich br
 
 * Ograniczenia: modele zawsze będą miały ograniczenia statystyczne i teoretyczne. Nigdy nie można oczekiwać, że wyniki w pełni odwzorują świat rzeczywisty. Ważne jest, aby pamiętać o tych ograniczeniach podczas projektowania modelu i komunikowania jego wyników. Ważnym aspektem jest dokumentacja wszelkich istotnych ograniczeń w celu zapewnienia, że użytkownicy modelu są ich świadomi.
 
+## Modele GARCH
 
-## PDP Partial Dependence Plot
+**Podaj definicję procesu GARCH(p, q).**
 
-**Przedstaw ideę i sposób konstrukcji wykresów PDP (Partial Dependence Plot).**
+Dla $t\in\mathbb{Z}$, niech $(Z_t)$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)$ jest procesem $\text{GARCH}(p, q)$, jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)$ o wartościach dodatnich spełnia równania:
 
-Główną ideą wykresów PDP jest pokazanie, jak zmiana wartości jednej lub dwóch wybranych cech wpływa na średnią predykcję modelu, przy jednoczesnym uśrednieniu efektów wszystkich pozostałych cech. Innymi słowy, wykres PDP ilustruje efekt krańcowy (marginalny) wybranej cechy na prognozę modelu.
+$X_t = \sigma_t Z_t$
 
-Pozwala to na zrozumienie, czy zależność między cechą a predykcją jest liniowa, monotoniczna, czy bardziej złożona, co jest szczególnie przydatne w przypadku modeli takich jak lasy losowe czy sieci neuronowe.
+$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
 
-Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebiega w następujących krokach:
-
-1.  Wybór siatki wartości: Dla analizowanej cechy $x_S$ wybiera się zbiór interesujących wartości (tzw. siatkę), dla których będzie badany jej wpływ.
-2.  Modyfikacja danych: Dla każdej obserwacji w zbiorze danych (np. uczącym) i dla każdej wartości z siatki:
-    * Sztucznie ustawia się wartość cechy $x_S$ na daną wartość z siatki.
-    * Wartości wszystkich pozostałych cech ($x_{\bar{S}}$) pozostawia się bez zmian.
-3.  Predykcja: Model generuje predykcję dla każdej tak zmodyfikowanej obserwacji.
-4.  Uśrednianie: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
-5.  Wizualizacja: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
-
-## Testowanie hipotez
-
-**Przedstaw ideę i konstrukcję testu ilorazu wiarygodności. Zapisz hipotezę zerową i alternatywną i wskaż czy różnią się one od hipotez (zerowej i alternatywnej) stawianych w testach zgodności (np. chi-kwadrat, Kołmogorowa-Smirnowa). Podaj postać statystyki testowej i jej rozkład.**
-
-Test ilorazu wiarygodności jest narzędziem statystycznym służącym do porównywania dwóch konkurencyjnych modeli (rozkładów prawdopodobieństwa) w celu określenia, który z nich lepiej pasuje do obserwowanych danych.
-
-Podstawowa idea polega na tym, że jeśli model bardziej złożony (hipoteza alternatywna) jest prawdziwy, to wymuszenie dopasowania prostszego modelu (hipoteza zerowa) powinno skutkować znacząco niższą wartością funkcji wiarygodności. 
-
-Hipotezy:
-
-$H_0$: Dane pochodzą z populacji o rozkładzie A (model prostszy).
-
-$H_1$: Dane pochodzą z populacji o rozkładzie B (model bardziej złożony).
-
-Kluczowym warunkiem jest, aby model w hipotezie zerowej był zagnieżdżony w modelu z hipotezy alternatywnej. Oznacza to, że model A można otrzymać z modelu B przez nałożenie ograniczeń na jego parametry (np. model wykładniczy jest szczególnym przypadkiem modelu gamma, gdy jeden z parametrów jest ustalony na 1).
-
-Hipotezy w teście ilorazu wiarygodności różnią się od tych w testach zgodności, takich jak test chi-kwadrat czy test Kołmogorowa-Smirnowa. Testy zgodności sprawdzają, czy dane pochodzą z jednego, konkretnego rozkładu:
-
-$H_0$: Dane pochodzą z populacji o danym rozkładzie.
-
-$H_1$: Dane nie pochodzą z populacji o danym rozkładzie.
-
-Statystyka testowa:
-
-$T = 2 \ln\left(\frac{L_1}{L_0}\right) = 2(\ln L_1 - \ln L_0),$
-
-gdzie $L_0$, $L_1$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
-
-Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat ($\chi^2$). Liczba stopni swobody tego rozkładu jest równa różnicy w liczbie wolnych (niezależnych) parametrów między modelem z hipotezy alternatywnej a modelem z hipotezy zerowej.
-
-## Drzewa regresyjne
-
-**Wskaż co najmniej cztery reguły określające, kiedy węzeł w drzewie regresyjnym jest przyjmowany za końcowy (jest uznawany za liść).**
-
-Węzeł jest uznawany za końcowy:
-* jeśli zawiera mniej niż z góry określoną liczbę obserwacji.
-* gdy jego głębokość (czyli odległość od korzenia drzewa) osiągnie ustalony limit.
-* jeśli w wyniku tego podziału co najmniej jeden z nowo powstałych węzłów potomnych (liści) zawierałby mniej niż z góry określoną liczbę obserwacji.
-* jeśli najlepszy możliwy podział tego węzła nie przynosi spadku dewiancji (miary błędu) o wartość większą niż ustalony próg.
+gdzie: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$.
 
 ---
-**Na czym polega i w jakim celu stosuje się przycinanie drzewa regresyjnego?**
+**Do jakich celów służą modele klasy GARCH?**
 
-Przycinanie polega budowaniu maksymalnie rozbudowanego drzewa, pozwalając mu rosnąć aż do momentu, gdy dalsze podziały nie są możliwe (np. w liściach zostaje zbyt mało obserwacji lub wszystkie mają tę samą wartość). Takie drzewo jest bardzo złożone i idealnie dopasowane do danych treningowych. Następnie, w sposób systematyczny, usuwa się (przycina) całe gałęzie drzewa, czyli węzły wraz z ich potomkami. Celem jest znalezienie optymalnego poddrzewa, które stanowi najlepszy kompromis między prostotą a dokładnością predykcji.
+Modele klasy GARCH służą przede wszystkim do modelowania i prognozowania zmienności szeregów czasowych, zwłaszcza w kontekście finansowym. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości finansowych szeregów czasowych, których nie potrafią opisać prostsze modele.
+
+* Modelowanie zmienności warunkowej.
+* Uchwycenie grupowania zmienności: jest to kluczowe zjawisko na rynkach finansowych, gdzie okresy dużej zmienności (dużych wahań cen) przeplatają się z okresami względnego spokoju.
+* Prognozowanie przyszłej zmienności.
+* Obliczanie miar ryzyka finansowego: prognozy zmienności uzyskane z modeli GARCH są kluczowym wkładem do estymacji miar ryzyka, takich jak Value-at-Risk (VaR) i Expected Shortfall (ES). Umożliwiają one tworzenie warunkowych miar ryzyka, które dostosowują się do aktualnej sytuacji na rynku.
+* Opisywanie dynamiki szeregów czasowych zwrotów z aktywów.
 
 ## Bagging, Random Forests, Boosting, and Bayesian Additive Regression Trees (BART)
 
