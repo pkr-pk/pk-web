@@ -169,6 +169,16 @@ Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebi
 4.  Uśrednianie: Oblicza się średnią ze wszystkich predykcji uzyskanych w poprzednim kroku. Wynik jest pojedynczym punktem na wykresie PDP, odpowiadającym jednej wartości z siatki dla cechy $x_S$.
 5.  Wizualizacja: Powtarza się kroki 2-4 dla wszystkich wartości z siatki, a następnie tworzy wykres, na którym oś X reprezentuje wartości cechy $x_S$, a oś Y – odpowiadające im średnie predykcje.
 
+## 6: Inne miary do porównywania modeli
+
+**6.3: Co to jest „uporządkowana” krzywa Lorenza (ordered Lorenz curve)? W jaki sposób może być wykorzystana w taryfikacji?**
+
+Uporządkowana krzywa Lorenza to narzędzie graficzne służące do porównywania predykcyjnej mocy dwóch modeli taryfikacji składek ubezpieczeniowych, na przykład starego modelu z nowym. Pozwala ocenić, czy nowy model lepiej identyfikuje grupy ryzyka, które były niedokładnie wycenione w starym modelu, minimalizując w ten sposób ryzyko selekcji negatywnej. Podstawowym elementem jest pojęcie względności (relativity), czyli stosunku nowej składki do starej dla każdego klienta:
+
+$$R = \frac{\hat{\mu}_2(X)}{\hat{\mu}_1(X)}$$
+
+Główne zastosowanie polega na identyfikacji segmentów portfela, które są źle wycenione przez obecny model, co naraża ubezpieczyciela na selekcję negatywną.
+
 # An Introduction to Statistical Learning withApplications in R
 
 ## 2: Uczenie statystyczne
@@ -421,6 +431,15 @@ Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat
 
 # Quantitative Risk Management: Concepts, Techniques and Tools
 
+## 3: Empiryczne własności danych finansowych
+
+**3.1: Wymień i krótko scharakteryzuj trzy wybrane właściwości finansowych szeregów czasowych (tzw. stylizowane fakty).**
+
+1. Brak rozkładu normalnego i grube ogony (heavy tails):
+rozkład stóp zwrotu w finansowych szeregach czasowych nie jest rozkładem normalnym oraz posiada grubsze ogony. W praktyce oznacza to, że ekstremalne wartości (zarówno bardzo wysokie zyski, jak i straty) pojawiają się znacznie częściej, niż sugerowałby to standardowy model normalny. Jest to kluczowa właściwość z punktu widzenia zarządzania ryzykiem, ponieważ modele oparte na rozkładzie normalnym mogą systematycznie niedoszacowywać realnego ryzyka.
+2. Grupowanie się zmienności (volatility clustering): jest to tendencja, zgodnie z którą okresy dużej zmienności (wysokich wahań cen) przeplatają się z okresami względnego spokoju (niskiej zmienności). Innymi słowy, duże zmiany cenowe często następują po sobie, tworząc "skupiska" lub "klastry", niezależnie od tego, czy są to wzrosty, czy spadki. Ta właściwość jest widoczna, gdy analizuje się szeregi wartości bezwzględnych lub kwadratów stóp zwrotu, które wykazują silną autokorelację.
+3. Brak autokorelacji w surowych szeregach zwrotów: same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
+
 ## 4: Finansowe szeregi czasowe
 
 **4.1: Wymień etapy statystycznej analizy szeregów czasowych danych $y_1, y_2,..., y_t$. Krótko opisz jeden z nich.**
@@ -582,25 +601,6 @@ czyli AIC jest zdefiniowane za pomocą wiarygodności.
 **Wyjaśnij do czego służy odległość Cooka (Cook's distance) i dlaczego jest różna dla różnych modeli.**
 
 Odległość Cooka jest wykorzystywana w analizie regresji jako miara wpływu poszczególnych obserwacji na wyniki regresji. Umożliwia wykrycie obserwacji, które znacząco wpływają na wyniki regresji, a tym samym pozwala zbadać ich wpływ na model.W mierze Cooka uwzględnia się reszty modeli dlatego jej wartość jest różna dla różnych modeli.
-
-## Measuring lift
-
-**Co to jest „uporządkowana” krzywa Lorenza (ordered Lorenz curve)? W jaki sposób może być wykorzystana w taryfikacji?**
-
-Uporządkowana krzywa Lorenza to narzędzie graficzne służące do porównywania predykcyjnej mocy dwóch modeli taryfikacji składek ubezpieczeniowych, na przykład starego modelu z nowym. Pozwala ocenić, czy nowy model lepiej identyfikuje grupy ryzyka, które były niedokładnie wycenione w starym modelu, minimalizując w ten sposób ryzyko selekcji negatywnej. Podstawowym elementem jest pojęcie względności (relativity), czyli stosunku nowej składki do starej dla każdego klienta:
-
-$$R = \frac{\hat{\mu}_2(X)}{\hat{\mu}_1(X)}$$
-
-Główne zastosowanie polega na identyfikacji segmentów portfela, które są źle wycenione przez obecny model, co naraża ubezpieczyciela na selekcję negatywną.
-
-## Fakty stylizowane
-
-**Wymień i krótko scharakteryzuj trzy wybrane właściwości finansowych szeregów czasowych (tzw. stylizowane fakty).**
-
-1. Brak rozkładu normalnego i grube ogony (heavy tails):
-rozkład stóp zwrotu w finansowych szeregach czasowych nie jest rozkładem normalnym oraz posiada grubsze ogony. W praktyce oznacza to, że ekstremalne wartości (zarówno bardzo wysokie zyski, jak i straty) pojawiają się znacznie częściej, niż sugerowałby to standardowy model normalny. Jest to kluczowa właściwość z punktu widzenia zarządzania ryzykiem, ponieważ modele oparte na rozkładzie normalnym mogą systematycznie niedoszacowywać realnego ryzyka.
-2. Grupowanie się zmienności (volatility clustering): jest to tendencja, zgodnie z którą okresy dużej zmienności (wysokich wahań cen) przeplatają się z okresami względnego spokoju (niskiej zmienności). Innymi słowy, duże zmiany cenowe często następują po sobie, tworząc "skupiska" lub "klastry", niezależnie od tego, czy są to wzrosty, czy spadki. Ta właściwość jest widoczna, gdy analizuje się szeregi wartości bezwzględnych lub kwadratów stóp zwrotu, które wykazują silną autokorelację.
-3. Brak autokorelacji w surowych szeregach zwrotów: same stopy zwrotu są zazwyczaj nieskorelowane w czasie, co oznacza, że na podstawie przeszłych stóp zwrotu nie da się przewidzieć przyszłych. Jednak ich wartości bezwzględne (lub kwadraty), które są miarą zmienności, wykazują istotną, dodatnią i wolno wygasającą autokorelację. Jest to matematyczne potwierdzenie zjawiska grupowania się zmienności.
 
 # Inne
 
