@@ -9,6 +9,31 @@ nav_order: 99
 
 ## 4: Uogólnione modele liniowe (GLMs)
 
+**4.4: Krótko omów współczynnik zależności V Cramera. Wskaż jakie może przyjmować wartości i co one oznaczają w kontekście analizy siły zależności między zmiennymi. W jakich przypadkach można stosować ten współczynnik? Czy jest on ograniczony tylko do zmiennych jakościowych, czy może być używany także dla zmiennych ilościowych? Jeżeli tak, to w jaki sposób można go obliczyć?**
+
+Współczynnik V Craméra jest miarą siły związku (asocjacji) między dwiema zmiennymi, często wykorzystywaną w badaniach ubezpieczeniowych. Jego obliczenia opierają się na statystyce chi-kwadrat ($\chi^2$) z tablicy kontyngencji, która zestawia ze sobą parę analizowanych cech. Jest on zdefiniowany wzorem:
+
+$$
+V = \sqrt{\frac{\chi^2/n}{\min\{k_1 - 1, k_2 - 1\}}}
+$$
+
+gdzie:
+*   $\chi^2$ to wartość statystyki chi-kwadrat Pearsona dla testu niezależności.
+*   $n$ to liczba obserwacji.
+*   $k_1$ i $k_2$ to liczba kategorii (poziomów) dla pierwszej i drugiej zmiennej.
+
+Współczynnik V Craméra przyjmuje wartości z przedziału $(0,1)$. Interpretacja tych wartości jest następująca:
+*   Wartość 0 - oznacza całkowitą niezależność między zmiennymi.
+*   Wartość 1 - oznacza idealną (pełną) zależność między zmiennymi.
+
+Może być używany do oceny siły zależności dla różnych typów zmiennych, w tym:
+*   binarnych,
+*   kategorycznych (jakościowych),
+*   dyskretnych (skokowych).
+
+Współczynnik V Craméra może być stosowany również dla zmiennych ciągłych (ilościowych), jednak wymaga to ich wcześniejszego przygotowania. Proces ten polega na dyskretyzacji (nazywanej również grupowaniem lub "bandingiem"), czyli podziale dziedziny zmiennej ciągłej na rozłączne przedziały. Po takim przekształceniu zmienna ilościowa jest traktowana jak zmienna dyskretna lub kategoryczna.
+
+---
 **4.5 Podaj definicje dewiancji i skalowanej dewiancji (scaled deviance). Wskaż, której wielkości, związanej z jakością modelu regresji liniowej, odpowiada dewiancja. Jaki rozkład ma skalowana dewiancja?**
 
 Dewiancja stanowi uogólnienie sumy kwadratów reszt i jest zdefiniowana jako: 
@@ -34,6 +59,7 @@ Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem 
  
 Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
 
+---
 **4.9: W jaki sposób oblicza się reszty dewiancyjne (deviance residuals)?**
 
 Reszty dewiancyjne ($r_{i}^D$) są zdefiniowane jako pierwiastek kwadratowy z wkładu i-tej obserwacji do łącznej dewiancji modelu, z uwzględnieniem znaku reszty prostej. Wzór:
@@ -231,18 +257,18 @@ K-krotna walidacja krzyżowa z wartościami $k=5$ lub $k=10$ jest w praktyce zł
 
 **8.1: Krótko przedstaw algorytm budowy binarnego drzewa klasyfikacyjnego.**
 
-1.  **Start (korzeń drzewa):** Algorytm rozpoczyna się od jednego węzła (korzenia), który zawiera wszystkie obserwacje z zestawu treningowego.
+1.  Start (korzeń drzewa): Algorytm rozpoczyna się od jednego węzła (korzenia), który zawiera wszystkie obserwacje z zestawu treningowego.
 
-2.  **Znalezienie najlepszego podziału:**
+2.  Znalezienie najlepszego podziału:
     *   Algorytm iteracyjnie przeszukuje wszystkie predyktory (zmienne) i wszystkie możliwe punkty podziału dla każdego z nich.
     *   Dla każdego potencjalnego podziału obliczana jest miara "czystości" (lub "zanieczyszczenia") nowo powstałych węzłów potomnych. Najczęściej stosowane miary to:
-        *   **Indeks Giniego (*Gini Index*)**
-        *   **Entropia (*Entropy*)**
+        *   Indeks Giniego (*Gini Index*)
+        *   Entropia (*Entropy*)
     *   Wybierany jest ten predyktor i ten punkt podziału, który prowadzi do największego zysku informacyjnego, czyli największej redukcji zanieczyszczenia w węzłach potomnych w porównaniu do węzła macierzystego.
 
-3.  **Podział (rekurencja):** Dane są dzielone na dwa nowe węzły (regiony) zgodnie z wybraną w kroku 2 regułą. Proces z kroku 2 jest następnie powtarzany rekurencyjnie dla każdego z nowo powstałych węzłów.
+3.  Podział (rekurencja): Dane są dzielone na dwa nowe węzły (regiony) zgodnie z wybraną w kroku 2 regułą. Proces z kroku 2 jest następnie powtarzany rekurencyjnie dla każdego z nowo powstałych węzłów.
 
-4.  **Kryterium zatrzymania:** Proces dzielenia jest zatrzymywany, gdy spełniony zostanie jeden z warunków, np.:
+4.  Kryterium zatrzymania: Proces dzielenia jest zatrzymywany, gdy spełniony zostanie jeden z warunków, np.:
     *   Węzeł jest idealnie "czysty" (zawiera obserwacje tylko jednej klasy).
     *   Osiągnięto maksymalną, zdefiniowaną wcześniej głębokość drzewa.
     *   Liczba obserwacji w węźle spadła poniżej określonego progu.
@@ -287,6 +313,34 @@ Proces składa się z następujących kroków:
     * W przypadku regresji (odpowiedź ilościowa), predykcje są uśredniane.
     * W przypadku klasyfikacji (odpowiedź jakościowa), ostateczna predykcja jest wynikiem głosowania większościowego – wybierana jest klasa najczęściej wskazywana przez poszczególne drzewa.
 
+---
+**8.2: Jako aktuariusz wykorzystujesz modele bazujące na drzewach decyzyjnych. Chcesz skonstruować model o jak najlepszych zdolnościach predykcyjnych. Rozważasz możliwość wykorzystania metody uczenia zespołowego boosting.**
+* **a) Krótko opisz na czym polega ta metoda. Czy metoda boosting może być stosowana zarówno dla problemów regresji, jak i klasyfikacji?**
+* **b) W jaki sposób metoda boosting różni się od metody bagging pod względem sposobu wykorzystania danych treningowych?**
+* **c) Wymień i krótko opisz co najmniej dwa parametry dostrajania w metodzie boosting.**
+
+a)
+
+*Boosting* to metoda uczenia zespołowego, która, podobnie jak *bagging*, łączy wiele prostych modeli, zwanych "słabymi uczniami" (w tym kontekście drzewami decyzyjnymi), w jeden potężny model o wysokiej zdolności predykcyjnej.
+
+Kluczową cechą tej metody jest to, że drzewa są budowane sekwencyjnie. Każde kolejne drzewo jest tworzone na podstawie informacji z drzew już istniejących w modelu. W przypadku problemu regresji, boosting działa w następujący sposób:
+1.  Dopasowuje się drzewo decyzyjne do danych.
+2.  Następnie kolejne drzewo jest dopasowywane nie do pierwotnej zmiennej odpowiedzi, ale do rezyduów (błędów) z poprzedniego modelu.
+3.  Nowo utworzone drzewo jest dodawane do dopasowanej funkcji w celu aktualizacji rezyduów.
+
+Dzięki temu podejściu model "uczy się powoli", stopniowo poprawiając swoje dopasowanie w obszarach, w których dotychczas działał słabo.
+
+Metoda *boosting* jest podejściem ogólnym i może być stosowana zarówno w problemach regresji, jak i klasyfikacji.
+
+b)
+
+*Bagging* tworzy wiele niezależnych drzew na losowych próbkach z oryginalnego zbioru danych, podczas gdy *boosting* buduje drzewa sekwencyjnie, gdzie każde kolejne drzewo uczy się na błędach poprzednich, wykorzystując zmodyfikowaną wersję oryginalnego zbioru danych.
+
+c)
+
+1.  Liczba drzew $B$: liczba ta mówi ile razy model jest ponownie trenowany, jeśli liczba drzew B jest zbyt duża model może zostać przetrenowany. Z tego powodu parametr ten dobiera się za pomocą cross-walidacji.
+2.  Parametr kurczenia (shrinkage) $\lambda$: Jest to mała dodatnia liczba, która kontroluje tempo, w jakim *boosting* się uczy. Typowe wartości to 0.01 lub 0.001. Mniejsze wartości $\lambda$ wymagają zazwyczaj większej liczby drzew $B$, aby osiągnąć dobrą wydajność.
+
 ## 12: Uczenie nienadzorowane
 
 **12.4 Przedstaw przebieg procesu grupowania hierarchicznego według algorytmu aglomeracyjnego.**
@@ -302,7 +356,6 @@ Proces składa się z następujących kroków:
 Wysokość, na której dwa klastry łączą się w dendrogramie, odpowiada odległości (brakowi podobieństwa) między nimi.
 
 Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów.
-
 
 # Regression Modeling with Actuarial and Financial Applications
 
@@ -365,6 +418,26 @@ Parametryczna metoda bootstrapowa:
 
 # Loss Models: From Data to Decisions
 
+## 11: Estymacja metodą największej wiarygodności
+
+**Na czym polega różnica między obserwacjami uciętymi (truncated data) a obserwacjami cenzurowanymi (censored data)? Wskaż i omów co najmniej jedną sytuację, w której aktuariusz może wykorzystywać:**
+* **i. obserwacje ucięte,**
+* **ii. obserwacje cenzurowane.**
+
+Podstawowa różnica polega na ilości informacji dostępnej o obserwacji. W przypadku danych uciętych obserwacje spoza pewnego zakresu są całkowicie niewidoczne i nie są w ogóle rejestrowane. W przypadku danych cenzurowanych wiemy o istnieniu obserwacji, ale jej dokładna wartość jest nieznana.
+
+Obserwacje ucięte (truncated data)
+
+Obserwacja jest ucięta od dołu (left truncated) w punkcie $d$, jeśli jest rejestrowana tylko wtedy, gdy jej wartość jest większa od $d$. Jeżeli wartość jest równa lub mniejsza od $d$, obserwacja w ogóle nie jest zapisywana, a badacz nie wie o jej istnieniu.
+
+i. Obserwacje ucięte
+
+Aktuariusz analizuje dane dotyczące szkód komunikacyjnych. Polisy posiadają franszyzę integralną w wysokości $d = 1000$ zł. Ubezpieczony, którego szkoda jest niższa niż $1000$ zł, nie zgłasza jej, ponieważ nie otrzymałby odszkodowania.
+
+ii. Obserwacje cenzurowane
+
+Polisa ubezpieczeniowa pokrywa szkody do maksymalnej wysokości $u = 100 000$ zł. Jeśli rzeczywista szkoda jest wyższa (np. wynosi $150 000$ zł), ubezpieczyciel wypłaca $100 000$ zł i tylko ta informacja jest precyzyjnie rejestrowana.
+
 ## 14: Konstrukcja modeli empirycznych
 
 **14.3: Podaj definicję danych prawostronnie cenzurowanych (right censoring). Wskaż i omów co najmniej dwie sytuacje, w których aktuariusz analizuje tego typu dane.**
@@ -377,6 +450,7 @@ $u$, świadczenia powyżej tej wartości nie są wypłacane, więc dokładna war
 
 Podczas przeprowadzania badania śmiertelności ludzi, jeśli osoba żyje w momencie zakończenia badania, nastąpiło cenzurowanie prawostronne. Wiek osoby w chwili śmierci nie jest znany, ale wiadomo, że jest on co najmniej tak duży jak wiek w momencie zakończenia badania.
 
+---
 **14.6: Jakie są najważniejsze zalety i ograniczenia jądrowej estymacji funkcji gęstości w porównaniu z innymi technikami, takimi jak histogramy czy estymatory parametryczne?**
 
 Zalety estymacji jądrowej funkcji gęstości:
@@ -512,6 +586,15 @@ Aby wybrać optymalną wartość $k$, tworzy się tzw. wykres Hilla, który prze
 
 Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, wartość indeksu $\alpha$ musi być od tego $k$ większa. Np. wariancja (związana z 2 momentem, $k = 2$) jest skończona, jeśli $\alpha > 2$.
 
+---
+**5.2: Co to jest estymator Hilla i w jaki sposób jest używany do analizy danych?**
+
+Na podstawie załączonej książki "Quantitative Risk Management: Concepts, Techniques and Tools", estymator Hilla można opisać w następujący sposób:
+
+### Czym jest estymator Hilla?
+
+Estymator Hilla to narzędzie statystyczne należące do teorii wartości ekstremalnych (EVT), które służy do analizy rozkładów o tzw. "ciężkich ogonach" (heavy tails). Jego głównym celem jest oszacowanie indeksu ogona (tail index), oznaczanego jako $\alpha$.
+
 # Krajowy standard aktuarialny - praktyka aktuarialna
 
 ## 2: Właściwe praktyki
@@ -540,7 +623,7 @@ znaczące różnice między poszczególnymi przebiegami modelu;
 * Udokumentować, w stosownych przypadkach, ograniczenia, dane wejściowe, kluczowe założenia, cel zastosowania i wyniki modelu.
 
 ---
-**Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie jakości danych dotyczące:**
+**2.5 Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie jakości danych dotyczące:**
 * **walidacji danych,**
 * **braku danych.**
 
@@ -596,16 +679,13 @@ czyli AIC jest zdefiniowane za pomocą wiarygodności.
 * Wiarygodność może być użyta, gdy porównywane modele są zagnieżdżone (jeden model jest uproszczoną wersją drugiego).
 * Kryterium AIC może być użyte, gdy modele nie są zagnieżdżone lub gdy zakładają różne rozkłady dla zmiennej odpowiedzi.
 
-## Miary wpływu
-
-**Wyjaśnij do czego służy odległość Cooka (Cook's distance) i dlaczego jest różna dla różnych modeli.**
-
-Odległość Cooka jest wykorzystywana w analizie regresji jako miara wpływu poszczególnych obserwacji na wyniki regresji. Umożliwia wykrycie obserwacji, które znacząco wpływają na wyniki regresji, a tym samym pozwala zbadać ich wpływ na model.W mierze Cooka uwzględnia się reszty modeli dlatego jej wartość jest różna dla różnych modeli.
-
 # Inne
-
-## Histogram dystrybuanty
 
 **Czy histogram dystrybuanty jest przydatny w ocenie jakości oszacowanych modeli, odpowiedź uzasadnij.**
 
 Histogram dystrybuanty jest bardzo przydatne w ocenie jakości oszacowanych modeli. Histogram dystrybuanty to histogram wartości otrzymanych z tzw. transformaty całkowej prawdopodobieństwa (Probability Integral Transform - PIT). Jeżeli ciągła zmienna losowa $X$ posiada dystrybuantę $F$, to $F(X) \sim U(0, 1)$, gdzie $U(0, 1)$ oznacza rozkład jednostajny na przedziale $(0,1).$ Oznacza to, że idealny histogram powinien być płaski – wszystkie słupki powinny mieć zbliżoną wysokość, oscylującą wokół czerwonej linii (gęstość równa 1).
+
+---
+**Wyjaśnij do czego służy odległość Cooka (Cook's distance) i dlaczego jest różna dla różnych modeli.**
+
+Odległość Cooka jest wykorzystywana w analizie regresji jako miara wpływu poszczególnych obserwacji na wyniki regresji. Umożliwia wykrycie obserwacji, które znacząco wpływają na wyniki regresji, a tym samym pozwala zbadać ich wpływ na model.W mierze Cooka uwzględnia się reszty modeli dlatego jej wartość jest różna dla różnych modeli.
