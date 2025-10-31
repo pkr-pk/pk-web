@@ -7,6 +7,57 @@ nav_order: 99
 
 # Effective Statistical Learning Methods for Actuaries I
 
+## 4: Uogólnione modele liniowe (GLMs)
+
+**4.5 Podaj definicje dewiancji i skalowanej dewiancji (scaled deviance). Wskaż, której wielkości, związanej z jakością modelu regresji liniowej, odpowiada dewiancja. Jaki rozkład ma skalowana dewiancja?**
+
+Dewiancja stanowi uogólnienie sumy kwadratów reszt i jest zdefiniowana jako: 
+
+$$D(\mathbf{y}, \hat{\mathbf{\mu}}) = 2 \phi (L_{full} - L(\hat{\beta}))$$
+
+gdzie:
+
+$\phi$ - parametr dyspersji. Dla niektórych rozkładów, takich jak rozkład Poissona czy dwumianowy, parametr ten jest stały i wynosi 1. Dla innych, jak rozkład Gamma, musi być estymowany.
+
+$L_{full}$ - logarytm wiarygodności modelu pełnego (nasyconego). Jest to najwyższa możliwa wartość logarytmu wiarygodności, jaką można osiągnąć dla danych przy użyciu określonego rozkładu.
+
+$L(\hat{\beta})$ - logarytm wiarygodności analizowanego modelu, obliczony dla estymowanych parametrów $\hat{\beta}$.
+
+Dewiancja skalowana jest zdefiniowana jako:
+
+$$\tilde{D}(\mathbf{y}, \hat{\mathbf{\mu}}) = \frac{D(\mathbf{y}, \hat{\mathbf{\mu}})}{\phi}$$
+
+Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem chi-kwadrat ($\chi^2$) z liczbą stopni swobody równą $n - (p + 1)$, gdzie $n$ to liczba obserwacji, a $p+1$ to liczba szacowanych parametrów w modelu.
+
+---
+**4.5 Twoim zadaniem jest wybór modelu o najlepszych zdolnościach predykcyjnych spośród zagnieżdżonych uogólnionych modeli liniowych. Wyjaśnij dlaczego podczas wyboru takiego modelu nie tylko dewiancja powinna zostać uwzględniona.**
+ 
+Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
+
+**4.9: W jaki sposób oblicza się reszty dewiancyjne (deviance residuals)?**
+
+Reszty dewiancyjne ($r_{i}^D$) są zdefiniowane jako pierwiastek kwadratowy z wkładu i-tej obserwacji do łącznej dewiancji modelu, z uwzględnieniem znaku reszty prostej. Wzór:
+
+$$r_{i}^D = \text{sign}(y_i - \hat{\mu}_i)\sqrt{d_i} \text{}$$
+
+gdzie:
+* $y_i$ to i-ta obserwowana wartość zmiennej odpowiedzi.
+* $\hat{\mu}_i$ to i-ta dopasowana (przewidywana) wartość średnia z modelu.
+* $d_i$ to wkład i-tej obserwacji do całkowitej dewiancji modelu, $D(y, \hat{\mu})$.
+* $$\text{sign}(y_i - \hat{\mu}_i) = \begin{cases} 1 & \text{jeżeli } y_i > \hat{\mu}_i \\ -1 & \text{w p.p.} \end{cases}$$
+
+---
+**4.9: Dlaczego reszty dewiancyjne są często preferowaną formą reszt w modelach GLM? Jakie są główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt?**
+
+Reszty dewiancyjne są często preferowaną formą w Uogólnionych Modelach Liniowych (GLM), ponieważ w przeciwieństwie do innych typów reszt, uwzględniają one kształt rozkładu zmiennej odpowiedzi, w tym jego skośność. Jest to kluczowe w zastosowaniach aktuarialnych, gdzie rozkłady rzadko są symetryczne.
+
+Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
+
+* Lepsze dopasowanie do założeń GLM: w przeciwieństwie do reszt Pearsona, które wywodzą się z modeli liniowych, reszty dewiancyjne są bezpośrednio powiązane z funkcją wiarygodności przyjętego rozkładu z rodziny wykładniczej, co czyni je bardziej odpowiednimi dla struktury GLM.
+* Wykrywanie obserwacji słabo dopasowanych: pozwalają zidentyfikować te obserwacje, które w największym stopniu przyczyniają się do wzrostu dewiancji, a więc wskazują na miejsca, w których model niedostatecznie dobrze dopasowuje się do danych.
+* Korekta na heteroskedastyczność: podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
+* Lepsza interpretacja dla danych dyskretnych: chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
+
 ## 6: Uogólnione modele addytywne (GAMs)
 
 **6.1: Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędzi aktuariusza.**
@@ -36,6 +87,27 @@ gdzie $\xi_i$ jest $i$-tym węzłem. Przykład:
 
 $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
 
+## 7: Double GLMs and GAMs for Location, Scale and Shape (GAMLSS)
+
+**7.3: Przedstaw koncepcję modelu DGLM (Double Generalized Linear Model) oraz krótko omów sposób estymacji jego parametrów.**
+
+W klasycznym modelu GLM zakłada się, że parametr dyspersji $\phi$ jest stały dla wszystkich obserwacji. DGLM znoszą to ograniczenie, pozwalając, aby parametr dyspersji $\phi$ również zależał od cech danej obserwacji. W efekcie DGLM składa się z dwóch powiązanych ze sobą modeli:
+* modelu dla wartości średniej (tak jak w standardowym GLM),
+* modelu dyspersji.
+
+Dzięki temu model może lepiej dopasować się do danych, w których zmienność nie jest stała.
+
+Estymacja parametrów jest procesem iteracyjnym:
+
+1. Dopasowanie GLM dla średniej odpowiedzi, ze stałym $\phi$ dla wszystkich obserwacji.
+
+2. Obliczenie wkładu każdej obserwacji do dewiacji i obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$.
+
+3. Dopasowanie GLM dla dyspersji, przyjmując jako zmienną objaśnianą $R_i^2$. Przyjmuje się rozkład Gamma i na tym etapie nie uwzględnia się wag. Dopasowane wartości stają się nowym parametrem dyspersji dla każdej obserwacji.
+
+4. Dopasowanie GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji uzyskany w poprzednim kroku).
+
+5. Obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$ i powtarzanie kolejnych kroków aż do osiągnięcia zbieżności parametrów.
 
 ## 9: Teoria wartości ekstremalnych
 
@@ -178,6 +250,50 @@ $$
 
 jest to miara całkowitej wariancji we wszystkich $K$ klasach. Nietrudno zauważyć, że indeks Giniego przyjmuje małą wartość, jeśli wszystkie $\hat{p}_{mk}$ są bliskie zera lub jedynki. Z tego powodu indeks Giniego jest określany jako miara *czystości* węzła — mała wartość wskazuje, że węzeł zawiera w przeważającej mierze obserwacje z pojedynczej klasy.
 
+---
+**8.2: Krótko przedstaw ideę statystycznych metod uczenia zespołowego (Ensemble Statistical Learning).**
+
+Metody uczenia zespołowego to podejścia, które łączą wiele prostych modeli w celu uzyskania jednego, lepszego modelu predykcyjnego. Głównym celem jest zmniejszenie wariancji i poprawa dokładności predykcyjnej w porównaniu do pojedynczego modelu poprzez uśrednienie wyników z wielu modeli zbudowanych na różnych próbkach danych. Ogólny wynik staje się bardziej stabilny i mniej podatny na specyfikę pojedynczego zbioru treningowego.
+
+---
+**8.2: Wymień co najmniej trzy takie metody wykorzystujące drzewa (Tree Ensemble Methods)**
+
+* Bagging (agregacja bootstrapowa).
+* Lasy losowe (Random Forests).
+* Boosting.
+* Bayesowskie addytywne drzewa regresyjne (Bayesian Additive Regression Trees, BART).
+
+---
+**8.2: Opisz jedną metodę spośród Tree Ensemble Methods**
+
+Bagging
+
+Mechanizm działania opiera się na idei, że uśrednianie zbioru obserwacji redukuje wariancję. Ponieważ zazwyczaj nie mamy dostępu do wielu niezależnych zbiorów treningowych, Bagging tworzy je sztucznie za pomocą techniki bootstrapu, czyli losowania ze zwracaniem z oryginalnego zbioru danych.
+
+Proces składa się z następujących kroków:
+1.  Tworzenie zbiorów bootstrapowych: z oryginalnego zbioru treningowego o $n$ obserwacjach tworzy się $B$ nowych zbiorów treningowych, każdy o rozmiarze $n$, poprzez losowanie ze zwracaniem. Każdy z tych zbiorów jest nieco inny.
+2.  Budowanie modeli: na każdym z $B$ "bootstrapowych" zbiorów danych budowane jest osobne, głębokie i nieprzycinane drzewo decyzyjne. Każde z tych drzew ma niskie obciążenie (bias), ale wysoką wariancję.
+3.  Agregacja predykcji: aby uzyskać ostateczną predykcję dla nowej obserwacji, wyniki z $B$ drzew są łączone:
+    * W przypadku regresji (odpowiedź ilościowa), predykcje są uśredniane.
+    * W przypadku klasyfikacji (odpowiedź jakościowa), ostateczna predykcja jest wynikiem głosowania większościowego – wybierana jest klasa najczęściej wskazywana przez poszczególne drzewa.
+
+## 12: Uczenie nienadzorowane
+
+**12.4 Przedstaw przebieg procesu grupowania hierarchicznego według algorytmu aglomeracyjnego.**
+
+1.  Inicjalizacja: na początku każda z $n$ obserwacji jest traktowana jako osobny, jednoelementowy klaster. Następnie obliczana jest macierz odległości (lub braku podobieństwa) między wszystkimi parami obserwacji, najczęściej przy użyciu odległości Euklidesowej.
+
+2.  Iteracyjne łączenie: algorytm w każdym kroku zmniejsza liczbę klastrów o jeden.
+    * Identyfikowane są dwa najbliższe (najbardziej podobne) klastry na podstawie wybranej miary odległości.
+    * Te dwa klastry są łączone w jeden nowy, większy klaster.
+    * Obliczana jest odległość nowo utworzonego klastra od wszystkich pozostałych.
+    * Proces jest powtarzany $n-1$ razy, aż wszystkie obserwacje znajdą się w jednym, ostatecznym klastrze, tworząc kompletny dendrogram.
+
+Wysokość, na której dwa klastry łączą się w dendrogramie, odpowiada odległości (brakowi podobieństwa) między nimi.
+
+Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów.
+
+
 # Regression Modeling with Actuarial and Financial Applications
 
 ## 7: Modelowanie trendów
@@ -251,6 +367,20 @@ $u$, świadczenia powyżej tej wartości nie są wypłacane, więc dokładna war
 
 Podczas przeprowadzania badania śmiertelności ludzi, jeśli osoba żyje w momencie zakończenia badania, nastąpiło cenzurowanie prawostronne. Wiek osoby w chwili śmierci nie jest znany, ale wiadomo, że jest on co najmniej tak duży jak wiek w momencie zakończenia badania.
 
+**14.6: Jakie są najważniejsze zalety i ograniczenia jądrowej estymacji funkcji gęstości w porównaniu z innymi technikami, takimi jak histogramy czy estymatory parametryczne?**
+
+Zalety estymacji jądrowej funkcji gęstości:
+* Metoda nieparametryczna, nie wymaga założenia konkretnego rozkładu, co pozwala na bardziej ogólną analizę danych.
+* Za jej pomocą otrzymuje się gładką funkcję gęstości, która może lepiej odzwierciedlać rzeczywisty rozkład danych niż histogramy, szczególnie gdy dane są mało liczne lub mają skomplikowany rozkład.
+* Dzięki stałej wygładzania (szerokości jądra) można kontrolować stopień wygładzenia estymowanej gęstości. Większa wartość stałej prowadzi do bardziej wygładzonej funkcji gęstości, podczas gdy mniejsza bardziej precyzyjnie
+odwzorowuje dane.
+* Pozwala na porównywanie rozkładów różnych zestawów danych.
+
+Ograniczenia jądrowej estymacji funkcji gęstości:
+* Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
+* Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
+* Może niedokładnie odwzorować ogon rozkładu danych.
+
 ## 15: Selekcja modeli
 
 **15.3: Przedstaw ideę i konstrukcję wykresu prawdopodobieństwo-prawdopodobieństwo (p-p plot, probability plot). Wskaż zastosowanie tego wykresu.**
@@ -311,6 +441,28 @@ Jest to pierwszy etap, w którym dane są wizualizowane na wykresie w celu oceny
 Podstawowym założeniem jest to, że dane pochodzą z odwracalnego modelu ARMA, a innowacje (błędy) procesu mają własność różnicy martyngałowej. Oznacza to, że oczekiwana wartość przyszłej innowacji, biorąc pod uwagę historię procesu, jest równa zero.
 
 Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \mid \mathcal{F}_t)$ jako predyktora, gdzie $\mathcal{F}_t$ reprezentuje historię procesu do czasu $t$. Ten predyktor minimalizuje średniokwadratowy błąd prognozy. Prognozy oblicza się rekurencyjnie. Wartości losowe do czasu $t$ są traktowane jako "znane", a oczekiwane wartości przyszłych innowacji (dla $h \ge 1$) wynoszą zero. W praktyce, ponieważ pełna historia procesu nie jest znana, do obliczeń wykorzystuje się reszty z dopasowanego modelu. W miarę wydłużania horyzontu prognozy, przewidywana wartość zbiega do bezwarunkowej średniej procesu.
+
+---
+**4.2: Podaj definicję procesu GARCH(p, q).**
+
+Dla $t\in\mathbb{Z}$, niech $(Z_t)$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)$ jest procesem $\text{GARCH}(p, q)$, jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)$ o wartościach dodatnich spełnia równania:
+
+$X_t = \sigma_t Z_t$
+
+$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
+
+gdzie: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$.
+
+---
+**4.2: Do jakich celów służą modele klasy GARCH?**
+
+Modele klasy GARCH służą przede wszystkim do modelowania i prognozowania zmienności szeregów czasowych, zwłaszcza w kontekście finansowym. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości finansowych szeregów czasowych, których nie potrafią opisać prostsze modele.
+
+* Modelowanie zmienności warunkowej.
+* Uchwycenie grupowania zmienności: jest to kluczowe zjawisko na rynkach finansowych, gdzie okresy dużej zmienności (dużych wahań cen) przeplatają się z okresami względnego spokoju.
+* Prognozowanie przyszłej zmienności.
+* Obliczanie miar ryzyka finansowego: prognozy zmienności uzyskane z modeli GARCH są kluczowym wkładem do estymacji miar ryzyka, takich jak Value-at-Risk (VaR) i Expected Shortfall (ES). Umożliwiają one tworzenie warunkowych miar ryzyka, które dostosowują się do aktualnej sytuacji na rynku.
+* Opisywanie dynamiki szeregów czasowych zwrotów z aktywów.
 
 ## 5: Teoria wartości ekstremalnych
 
@@ -401,124 +553,11 @@ Brak danych: aktuariusz powinien wziąć pod uwagę możliwy wpływ wszelkich br
 
 * Ograniczenia: modele zawsze będą miały ograniczenia statystyczne i teoretyczne. Nigdy nie można oczekiwać, że wyniki w pełni odwzorują świat rzeczywisty. Ważne jest, aby pamiętać o tych ograniczeniach podczas projektowania modelu i komunikowania jego wyników. Ważnym aspektem jest dokumentacja wszelkich istotnych ograniczeń w celu zapewnienia, że użytkownicy modelu są ich świadomi.
 
-## Modele GARCH
+# Reinsurance: Actuarial and Statistical Aspects
 
-**Podaj definicję procesu GARCH(p, q).**
+## 9: Symulacje
 
-Dla $t\in\mathbb{Z}$, niech $(Z_t)$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)$ jest procesem $\text{GARCH}(p, q)$, jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)$ o wartościach dodatnich spełnia równania:
-
-$X_t = \sigma_t Z_t$
-
-$\sigma_t^2 = \alpha_0 + \sum_{i=1}^{p} \alpha_i X_{t-i}^2 + \sum_{j=1}^{q} \beta_j \sigma_{t-j}^2$
-
-gdzie: $\alpha_0 > 0$, $\alpha_i \ge 0$ dla $i=1,...,p$ oraz $\beta_j \ge 0$ dla $j=1,...,q$.
-
----
-**Do jakich celów służą modele klasy GARCH?**
-
-Modele klasy GARCH służą przede wszystkim do modelowania i prognozowania zmienności szeregów czasowych, zwłaszcza w kontekście finansowym. Ich głównym celem jest uchwycenie kluczowych empirycznych właściwości finansowych szeregów czasowych, których nie potrafią opisać prostsze modele.
-
-* Modelowanie zmienności warunkowej.
-* Uchwycenie grupowania zmienności: jest to kluczowe zjawisko na rynkach finansowych, gdzie okresy dużej zmienności (dużych wahań cen) przeplatają się z okresami względnego spokoju.
-* Prognozowanie przyszłej zmienności.
-* Obliczanie miar ryzyka finansowego: prognozy zmienności uzyskane z modeli GARCH są kluczowym wkładem do estymacji miar ryzyka, takich jak Value-at-Risk (VaR) i Expected Shortfall (ES). Umożliwiają one tworzenie warunkowych miar ryzyka, które dostosowują się do aktualnej sytuacji na rynku.
-* Opisywanie dynamiki szeregów czasowych zwrotów z aktywów.
-
-## Bagging, Random Forests, Boosting, and Bayesian Additive Regression Trees (BART)
-
-**Krótko przedstaw ideę statystycznych metod uczenia zespołowego (Ensemble Statistical Learning).**
-
-Metody uczenia zespołowego to podejścia, które łączą wiele prostych modeli w celu uzyskania jednego, lepszego modelu predykcyjnego. Głównym celem jest zmniejszenie wariancji i poprawa dokładności predykcyjnej w porównaniu do pojedynczego modelu poprzez uśrednienie wyników z wielu modeli zbudowanych na różnych próbkach danych. Ogólny wynik staje się bardziej stabilny i mniej podatny na specyfikę pojedynczego zbioru treningowego.
-
----
-**Wymień co najmniej trzy takie metody wykorzystujące drzewa (Tree Ensemble Methods)**
-
-* Bagging (agregacja bootstrapowa).
-* Lasy losowe (Random Forests).
-* Boosting.
-* Bayesowskie addytywne drzewa regresyjne (Bayesian Additive Regression Trees, BART).
-
----
-**Opisz jedną metodę spośród Tree Ensemble Methods**
-
-Bagging
-
-Mechanizm działania opiera się na idei, że uśrednianie zbioru obserwacji redukuje wariancję. Ponieważ zazwyczaj nie mamy dostępu do wielu niezależnych zbiorów treningowych, Bagging tworzy je sztucznie za pomocą techniki bootstrapu, czyli losowania ze zwracaniem z oryginalnego zbioru danych.
-
-Proces składa się z następujących kroków:
-1.  Tworzenie zbiorów bootstrapowych: z oryginalnego zbioru treningowego o $n$ obserwacjach tworzy się $B$ nowych zbiorów treningowych, każdy o rozmiarze $n$, poprzez losowanie ze zwracaniem. Każdy z tych zbiorów jest nieco inny.
-2.  Budowanie modeli: na każdym z $B$ "bootstrapowych" zbiorów danych budowane jest osobne, głębokie i nieprzycinane drzewo decyzyjne. Każde z tych drzew ma niskie obciążenie (bias), ale wysoką wariancję.
-3.  Agregacja predykcji: aby uzyskać ostateczną predykcję dla nowej obserwacji, wyniki z $B$ drzew są łączone:
-    * W przypadku regresji (odpowiedź ilościowa), predykcje są uśredniane.
-    * W przypadku klasyfikacji (odpowiedź jakościowa), ostateczna predykcja jest wynikiem głosowania większościowego – wybierana jest klasa najczęściej wskazywana przez poszczególne drzewa.
-
-## Jądrowe modele gęstości
-
-**Jakie są najważniejsze zalety i ograniczenia jądrowej estymacji funkcji gęstości w porównaniu z innymi technikami, takimi jak histogramy czy estymatory parametryczne?**
-
-Zalety estymacji jądrowej funkcji gęstości:
-* Metoda nieparametryczna, nie wymaga założenia konkretnego rozkładu, co pozwala na bardziej ogólną analizę danych.
-* Za jej pomocą otrzymuje się gładką funkcję gęstości, która może lepiej odzwierciedlać rzeczywisty rozkład danych niż histogramy, szczególnie gdy dane są mało liczne lub mają skomplikowany rozkład.
-* Dzięki stałej wygładzania (szerokości jądra) można kontrolować stopień wygładzenia estymowanej gęstości. Większa wartość stałej prowadzi do bardziej wygładzonej funkcji gęstości, podczas gdy mniejsza bardziej precyzyjnie
-odwzorowuje dane.
-* Pozwala na porównywanie rozkładów różnych zestawów danych.
-
-Ograniczenia jądrowej estymacji funkcji gęstości:
-* Wymaga wyboru odpowiedniego jądra (np. gaussowskiego, Epanechikowa) oraz stałej wygładzania. Dobór tych parametrów może być subiektywny i wpływać na wyniki, a niewłaściwy ich wybór może prowadzić do błędnej estymacji rozkładu danych.
-* Może być wymagająca obliczeniowo, szczególnie przy dużej ilości danych.
-* Może niedokładnie odwzorować ogon rozkładu danych.
-
-## DGLM - Double Generalized Linear Model
-
-**Przedstaw koncepcję modelu DGLM (Double Generalized Linear Model) oraz krótko omów sposób estymacji jego parametrów.**
-
-W klasycznym modelu GLM zakłada się, że parametr dyspersji $\phi$ jest stały dla wszystkich obserwacji. DGLM znoszą to ograniczenie, pozwalając, aby parametr dyspersji $\phi$ również zależał od cech danej obserwacji. W efekcie DGLM składa się z dwóch powiązanych ze sobą modeli:
-* modelu dla wartości średniej (tak jak w standardowym GLM),
-* modelu dyspersji.
-
-Dzięki temu model może lepiej dopasować się do danych, w których zmienność nie jest stała.
-
-Estymacja parametrów jest procesem iteracyjnym:
-
-1. Dopasowanie GLM dla średniej odpowiedzi, ze stałym $\phi$ dla wszystkich obserwacji.
-
-2. Obliczenie wkładu każdej obserwacji do dewiacji i obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$.
-
-3. Dopasowanie GLM dla dyspersji, przyjmując jako zmienną objaśnianą $R_i^2$. Przyjmuje się rozkład Gamma i na tym etapie nie uwzględnia się wag. Dopasowane wartości stają się nowym parametrem dyspersji dla każdej obserwacji.
-
-4. Dopasowanie GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji uzyskany w poprzednim kroku).
-
-5. Obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$ i powtarzanie kolejnych kroków aż do osiągnięcia zbieżności parametrów.
-
-## Reszty surowe, standaryzowane i "studentyzowane"
-
-**W jaki sposób oblicza się reszty dewiancyjne (deviance residuals)?**
-
-Reszty dewiancyjne ($r_{i}^D$) są zdefiniowane jako pierwiastek kwadratowy z wkładu i-tej obserwacji do łącznej dewiancji modelu, z uwzględnieniem znaku reszty prostej. Wzór:
-
-$$r_{i}^D = \text{sign}(y_i - \hat{\mu}_i)\sqrt{d_i} \text{}$$
-
-gdzie:
-* $y_i$ to i-ta obserwowana wartość zmiennej odpowiedzi.
-* $\hat{\mu}_i$ to i-ta dopasowana (przewidywana) wartość średnia z modelu.
-* $d_i$ to wkład i-tej obserwacji do całkowitej dewiancji modelu, $D(y, \hat{\mu})$.
-* $$\text{sign}(y_i - \hat{\mu}_i) = \begin{cases} 1 & \text{jeżeli } y_i > \hat{\mu}_i \\ -1 & \text{w p.p.} \end{cases}$$
-
----
-**Dlaczego reszty dewiancyjne są często preferowaną formą reszt w modelach GLM? Jakie są główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt?**
-
-Reszty dewiancyjne są często preferowaną formą w Uogólnionych Modelach Liniowych (GLM), ponieważ w przeciwieństwie do innych typów reszt, uwzględniają one kształt rozkładu zmiennej odpowiedzi, w tym jego skośność. Jest to kluczowe w zastosowaniach aktuarialnych, gdzie rozkłady rzadko są symetryczne.
-
-Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
-
-* Lepsze dopasowanie do założeń GLM: w przeciwieństwie do reszt Pearsona, które wywodzą się z modeli liniowych, reszty dewiancyjne są bezpośrednio powiązane z funkcją wiarygodności przyjętego rozkładu z rodziny wykładniczej, co czyni je bardziej odpowiednimi dla struktury GLM.
-* Wykrywanie obserwacji słabo dopasowanych: pozwalają zidentyfikować te obserwacje, które w największym stopniu przyczyniają się do wzrostu dewiancji, a więc wskazują na miejsca, w których model niedostatecznie dobrze dopasowuje się do danych.
-* Korekta na heteroskedastyczność: podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
-* Lepsza interpretacja dla danych dyskretnych: chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
-
-## Techniki redukcji wariancji
-
-**Opisz koncepcję redukcji wariancji w metodzie Monte Carlo za pomocą metody próbkowania ważonego (metody IS - importance sampling).**
+**9.2: Opisz koncepcję redukcji wariancji w metodzie Monte Carlo za pomocą metody próbkowania ważonego (metody IS - importance sampling).**
 
 Załóżmy ponownie, że $F_X$ dopuszcza gęstość $f_X$. Ideą próbkowania z wagami jest teraz przejście z $f_X$ na inną gęstość $f_{\tilde{X}}$, która koncentruje się bardziej na interesującym nas regionie. Taka nowa gęstość $f_{\tilde{X}}$ może być uzyskana z $f_X$ przez przesunięcie, przeskalowanie, przekształcenie itp. Wielkość $f_X(x)/f_{\tilde{X}}(x)$ nazywana jest funkcją ilorazu wiarygodności i jest równa naszej wadze. Mamy wtedy
 
@@ -527,49 +566,6 @@ $$ E(X) = \int x f_X(x)dx = \int \left(x \frac{f_X(x)}{f_{\tilde{X}}(x)}\right) 
 Zamiast tego symulujemy $n$ niezależnych replikacji $\tilde{X_1}, \dots, \tilde{X_n}$ z nowej zmiennej losowej $\tilde{X}$ (o gęstości $f_{\tilde{X}}$) i używamy estymatora próbkowania z wagami
 
 $$ \hat{\mu}_{n}^I = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f_{\tilde{X}}(\tilde{X}_i)}. $$
-
-## Metody klastrowe
-
-**Przedstaw przebieg procesu grupowania hierarchicznego według algorytmu aglomeracyjnego.**
-
-1.  Inicjalizacja: na początku każda z $n$ obserwacji jest traktowana jako osobny, jednoelementowy klaster. Następnie obliczana jest macierz odległości (lub braku podobieństwa) między wszystkimi parami obserwacji, najczęściej przy użyciu odległości Euklidesowej.
-
-2.  Iteracyjne łączenie: algorytm w każdym kroku zmniejsza liczbę klastrów o jeden.
-    * Identyfikowane są dwa najbliższe (najbardziej podobne) klastry na podstawie wybranej miary odległości.
-    * Te dwa klastry są łączone w jeden nowy, większy klaster.
-    * Obliczana jest odległość nowo utworzonego klastra od wszystkich pozostałych.
-    * Proces jest powtarzany $n-1$ razy, aż wszystkie obserwacje znajdą się w jednym, ostatecznym klastrze, tworząc kompletny dendrogram.
-
-Wysokość, na której dwa klastry łączą się w dendrogramie, odpowiada odległości (brakowi podobieństwa) między nimi.
-
-Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów.
-
-## Dewiancja
-
-**Podaj definicje dewiancji i skalowanej dewiancji (scaled deviance). Wskaż, której wielkości, związanej z jakością modelu regresji liniowej, odpowiada dewiancja. Jaki rozkład ma skalowana dewiancja?**
-
-Dewiancja stanowi uogólnienie sumy kwadratów reszt i jest zdefiniowana jako: 
-
-$$D(\mathbf{y}, \hat{\mathbf{\mu}}) = 2 \phi (L_{full} - L(\hat{\beta}))$$
-
-gdzie:
-
-$\phi$ - parametr dyspersji. Dla niektórych rozkładów, takich jak rozkład Poissona czy dwumianowy, parametr ten jest stały i wynosi 1. Dla innych, jak rozkład Gamma, musi być estymowany.
-
-$L_{full}$ - logarytm wiarygodności modelu pełnego (nasyconego). Jest to najwyższa możliwa wartość logarytmu wiarygodności, jaką można osiągnąć dla danych przy użyciu określonego rozkładu.
-
-$L(\hat{\beta})$ - logarytm wiarygodności analizowanego modelu, obliczony dla estymowanych parametrów $\hat{\beta}$.
-
-Dewiancja skalowana jest zdefiniowana jako:
-
-$$\tilde{D}(\mathbf{y}, \hat{\mathbf{\mu}}) = \frac{D(\mathbf{y}, \hat{\mathbf{\mu}})}{\phi}$$
-
-Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem chi-kwadrat ($\chi^2$) z liczbą stopni swobody równą $n - (p + 1)$, gdzie $n$ to liczba obserwacji, a $p+1$ to liczba szacowanych parametrów w modelu.
-
----
-**Twoim zadaniem jest wybór modelu o najlepszych zdolnościach predykcyjnych spośród zagnieżdżonych uogólnionych modeli liniowych. Wyjaśnij dlaczego podczas wyboru takiego modelu nie tylko dewiancja powinna zostać uwzględniona.**
- 
-Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
 
 ---
 **Wyjaśnij związek między wiarygodnością L, a kryterium informacyjnym AIC i wskaż kiedy każdy z tych mierników może być użyty do porównania różnych modeli.**
