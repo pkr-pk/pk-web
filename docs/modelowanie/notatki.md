@@ -60,6 +60,16 @@ Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem 
 Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
 
 ---
+**4.8: Podaj definicję obserwacji wpływowej (influential observation).**
+
+Obserwacja wpływowa to taka obserwacja, która, jeśli zostanie nieznacznie zmieniona lub pominięta, w istotny sposób zmodyfikuje oszacowania parametrów modelu.
+
+---
+**4.8: Opisz jedną z metod identyfikacji obserwacji wpływowych.**
+
+Odległość Cooka mierzy odległość między $\hat{\beta}$ a $\hat{\beta}_{(-i)},$ (ostatnie to wektor dopasowanych współczynników na zbiore bez $i$-tej obserwacji) przy czym duże wartości wskazują na obserwacje, które mają wpływ na oszacowane współczynniki regresji. Odległość Cooka służy do zbadania, jak każda obserwacja wpływa na cały wektor parametrów $\hat{\beta}$.
+
+---
 **4.9: W jaki sposób oblicza się reszty dewiancyjne (deviance residuals)?**
 
 Reszty dewiancyjne ($r_{i}^D$) są zdefiniowane jako pierwiastek kwadratowy z wkładu i-tej obserwacji do łącznej dewiancji modelu, z uwzględnieniem znaku reszty prostej. Wzór:
@@ -83,6 +93,11 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 * Wykrywanie obserwacji słabo dopasowanych: pozwalają zidentyfikować te obserwacje, które w największym stopniu przyczyniają się do wzrostu dewiancji, a więc wskazują na miejsca, w których model niedostatecznie dobrze dopasowuje się do danych.
 * Korekta na heteroskedastyczność: podobnie jak reszty Pearsona, ale w przeciwieństwie do reszt prostych (surowych), korygują one fakt, że wariancja w modelach GLM często zależy od wartości średniej. Reszty proste mogą być przez to mniej informatywne.
 * Lepsza interpretacja dla danych dyskretnych: chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
+
+---
+**4.9: Wyjaśnij, dlaczego w przypadku diagnostyki uogólnionych modeli liniowych korzystniejsze jest stosowanie reszt Pearsona zamiast zwykłych reszt (raw residuals,response residuals).**
+
+Reszty Pearsona są preferowane, ponieważ poprzez normalizację (dzielenie zwykłych reszt przez odchylenie standardowe i wagę) "stabilizują" wariancję reszt. Dzięki temu są one bardziej porównywalne w całym zakresie wartości dopasowanych i pozwalają na trafniejszą ocenę dopasowania modelu oraz identyfikację obserwacji odstających, bez zakłóceń wynikających z naturalnej zależności wariancji od średniej w rodzinie rozkładów wykładniczych.
 
 ## 6: Uogólnione modele addytywne (GAMs)
 
@@ -173,6 +188,12 @@ Węzeł jest uznawany za końcowy:
 * jeśli najlepszy możliwy podział tego węzła nie przynosi spadku dewiancji (miary błędu) o wartość większą niż ustalony próg.
 
 ---
+**3.2: Omów jedną wybraną regułę określającą, kiedy węzeł w drzewie regresyjnym jest przyjmowany za końcowy (jest uznawany za liść).**
+
+Proces podziału drzewa jest zatrzymywany, gdy osiągnie ono zdefiniowaną liczbę poziomów (głębokość). Głębokość węzła jest liczona od korzenia drzewa (który ma głębokość zero), a jego bezpośredni potomkowie mają głębokość o jeden większą.
+
+
+---
 **3.3: Na czym polega i w jakim celu stosuje się przycinanie drzewa regresyjnego?**
 
 Przycinanie polega budowaniu maksymalnie rozbudowanego drzewa, pozwalając mu rosnąć aż do momentu, gdy dalsze podziały nie są możliwe (np. w liściach zostaje zbyt mało obserwacji lub wszystkie mają tę samą wartość). Takie drzewo jest bardzo złożone i idealnie dopasowane do danych treningowych. Następnie, w sposób systematyczny, usuwa się (przycina) całe gałęzie drzewa, czyli węzły wraz z ich potomkami. Celem jest znalezienie optymalnego poddrzewa, które stanowi najlepszy kompromis między prostotą a dokładnością predykcji.
@@ -213,6 +234,12 @@ Główne zastosowanie polega na identyfikacji segmentów portfela, które są ź
 
 1. Wariancja odnosi się do tego, jak bardzo oszacowanie funkcji $\hat{f}$ zmieniłoby się, gdybyśmy je oszacowali na innym zbiorze danych treningowych. Mierzy ona wrażliwość modelu na niewielkie wahania w danych treningowych.
 2. Obciążenie odnosi się do błędu, który jest wprowadzany przez przybliżenie bardzo skomplikowanego, rzeczywistego problemu za pomocą znacznie prostszego modelu. Innymi słowy, jest to błąd wynikający z założeń upraszczających, które przyjmujemy, aby ułatwić trenowanie funkcji docelowej.
+
+## 4: Klasyfikacja
+
+**4.4: Krótko omów wykorzystanie krzywej ROC do oceny modeli logistycznych.**
+
+Idealna krzywa ROC "przytula" lewy górny róg wykresu, co oznacza wysoki odsetek prawdziwie pozytywnych wyników przy jednoczesnym niskim odsetku fałszywie pozytywnych wyników. Ogólna wydajność klasyfikatora, zsumowana dla wszystkich możliwych progów, jest podana przez pole pod krzywą ROC (AUC). Idealny klasyfikator ma AUC bliskie 1, podczas gdy klasyfikator, który działa nie lepiej niż losowe zgadywanie, ma AUC równe 0,5.
 
 ## 5: Metody repróbkowania
 
@@ -623,7 +650,7 @@ znaczące różnice między poszczególnymi przebiegami modelu;
 * Udokumentować, w stosownych przypadkach, ograniczenia, dane wejściowe, kluczowe założenia, cel zastosowania i wyniki modelu.
 
 ---
-**2.5 Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie jakości danych dotyczące:**
+**2.10 Przedstaw wytyczne Krajowego Standardu Aktuarialnego w zakresie jakości danych dotyczące:**
 * **walidacji danych,**
 * **braku danych.**
 
