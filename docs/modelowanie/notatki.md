@@ -34,7 +34,16 @@ Może być używany do oceny siły zależności dla różnych typów zmiennych, 
 Współczynnik V Craméra może być stosowany również dla zmiennych ciągłych (ilościowych), jednak wymaga to ich wcześniejszego przygotowania. Proces ten polega na dyskretyzacji (nazywanej również grupowaniem lub "bandingiem"), czyli podziale dziedziny zmiennej ciągłej na rozłączne przedziały. Po takim przekształceniu zmienna ilościowa jest traktowana jak zmienna dyskretna lub kategoryczna.
 
 ---
-**4.5 Podaj definicje dewiancji i skalowanej dewiancji (scaled deviance). Wskaż, której wielkości, związanej z jakością modelu regresji liniowej, odpowiada dewiancja. Jaki rozkład ma skalowana dewiancja?**
+**4.4: Jak wykluczenie zmiennej silnie skorelowanej z innymi cechami wpływa na oszacowanie pozostałych współczynników regresji? Jak nazywa się to zjawisko?**
+
+Wykluczenie zmiennej, która jest silnie skorelowana zarówno ze zmienną objaśnianą, jak i z innymi cechami uwzględnionymi w modelu, prowadzi do obciążenia oszacowań pozostałych współczynników regresji.
+
+Oszacowany współczynnik dla danej zmiennej nie odzwierciedla już jej rzeczywistego, odizolowanego wpływu na zmienną objaśnianą. Zamiast tego, "pochłania" on część efektu, który wnosiła pominięta, skorelowana zmienna. W rezultacie oszacowany współczynnik staje się mieszanką prawdziwego efektu danej cechy oraz efektu cechy pominiętej. Może to prowadzić do błędnej interpretacji, w tym do zmiany wartości, a nawet znaku współczynnika.
+
+Zjawisko to nazywa się błędem pominiętej zmiennej.
+
+---
+**4.5: Podaj definicje dewiancji i skalowanej dewiancji (scaled deviance). Wskaż, której wielkości, związanej z jakością modelu regresji liniowej, odpowiada dewiancja. Jaki rozkład ma skalowana dewiancja?**
 
 Dewiancja stanowi uogólnienie sumy kwadratów reszt i jest zdefiniowana jako: 
 
@@ -130,6 +139,11 @@ $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
 
 ## 7: Double GLMs and GAMs for Location, Scale and Shape (GAMLSS)
 
+**7.2: Dlaczego podwójny GLM jest szczególnie istotny w modelowaniu, w którym wykorzystuje się regresję Tweedie’ego (uogólnionego modelu liniowego ze zmienną zależną o rozkładzie Tweedie z indeksem 1 < p < 2)?**
+
+DGLM pozwala, aby parametr dyspersji był modelowany w zależności od cech ryzyka. Dzięki temu model jest w stanie poprawnie odwzorować przeciwstawne trendy, co czyni go znacznie bardziej elastycznym i adekwatnym do analiz aktuarialnych.
+
+---
 **7.3: Przedstaw koncepcję modelu DGLM (Double Generalized Linear Model) oraz krótko omów sposób estymacji jego parametrów.**
 
 W klasycznym modelu GLM zakłada się, że parametr dyspersji $\phi$ jest stały dla wszystkich obserwacji. DGLM znoszą to ograniczenie, pozwalając, aby parametr dyspersji $\phi$ również zależał od cech danej obserwacji. W efekcie DGLM składa się z dwóch powiązanych ze sobą modeli:
@@ -140,7 +154,7 @@ Dzięki temu model może lepiej dopasować się do danych, w których zmiennoś�
 
 Estymacja parametrów jest procesem iteracyjnym:
 
-1. Dopasowanie GLM dla średniej odpowiedzi, ze stałym $\phi$ dla wszystkich obserwacji.
+1. Dopasowanie GLM dla średniej odpowiedzi, ze stałym parametrem dyspersji $\phi$ dla wszystkich obserwacji.
 
 2. Obliczenie wkładu każdej obserwacji do dewiacji i obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$.
 
@@ -148,7 +162,24 @@ Estymacja parametrów jest procesem iteracyjnym:
 
 4. Dopasowanie GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji uzyskany w poprzednim kroku).
 
-5. Obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$ i powtarzanie kolejnych kroków aż do osiągnięcia zbieżności parametrów.
+5. Obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$ i powtarzanie kolejnych kroków aż do osiągnięcia zbieżności parametrów (zmiany między kolejnymi iteracjami będą znikome).
+
+---
+**7.3: Przedstaw kluczowe etapy iteracyjnego procesu szacowania podwójnego uogólnionego modelu liniowego (DGLM - Double Generalized Linear Model). W jaki sposób model średniej i model dyspersji „współdziałają” podczas tego procesu?**
+
+1. Dopasowanie GLM dla średniej odpowiedzi, ze stałym parametrem dyspersji $\phi$ dla wszystkich obserwacji.
+
+2. Obliczenie wkładu każdej obserwacji do dewiacji i obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$.
+
+3. Dopasowanie GLM dla dyspersji, przyjmując jako zmienną objaśnianą $R_i^2$. Przyjmuje się rozkład Gamma i na tym etapie nie uwzględnia się wag. Dopasowane wartości stają się nowym parametrem dyspersji dla każdej obserwacji.
+
+4. Dopasowanie GLM dla wartości średniej, ale tym razem z wykorzystaniem specyficznego dla każdej obserwacji parametru dyspersji (dzieląc wagę przez parametr dyspersji dla danej obserwacji uzyskany w poprzednim kroku).
+
+5. Obliczenie kwadratu Pearsona lub dewiancji reszt $R_i^2$ i powtarzanie kolejnych kroków aż do osiągnięcia zbieżności parametrów (zmiany między kolejnymi iteracjami będą znikome).
+
+* Model średniej $\rightarrow$ Model dyspersji: Model dla średniej dostarcza reszt ($R_i^2$), które są miarą tego, jak dobrze model ten pasuje do danych. Reszty te stają się zmienną objaśnianą dla modelu dyspersji. Duże reszty dla pewnych obserwacji wskazują na większą zmienność (dyspersję) w tej części danych.
+
+* Model dyspersji $\rightarrow$ Model średniej: Model dyspersji, na podstawie analizy reszt, szacuje indywidualne parametry dyspersji $\phi_i$ dla każdej obserwacji. Parametry te są następnie wykorzystywane do aktualizacji wag w kolejnej iteracji dopasowania modelu dla średniej. Obserwacje o wyższej oszacowanej dyspersji (większej zmienności) otrzymują mniejszą wagę w procesie estymacji.
 
 ## 9: Teoria wartości ekstremalnych
 
@@ -226,7 +257,7 @@ $$R = \frac{\hat{\mu}_2(X)}{\hat{\mu}_1(X)}$$
 
 Główne zastosowanie polega na identyfikacji segmentów portfela, które są źle wycenione przez obecny model, co naraża ubezpieczyciela na selekcję negatywną.
 
-# An Introduction to Statistical Learning withApplications in R
+# An Introduction to Statistical Learning with Applications in R
 
 ## 2: Uczenie statystyczne
 
@@ -370,6 +401,21 @@ c)
 
 ## 12: Uczenie nienadzorowane
 
+**12.1: Dlaczego PCA jest uważana za metodę uczenia bez nadzoru (unsupervised)?**
+
+W metodach uczenia bez nadzoru model jest trenowany wyłącznie na podstawie danych wejściowych bez wiedzy o konkretnym wyniku czy klasie, do której miałby przyporządkować obserwacje. PCA analizuje wyłącznie struktury i zależności między zmiennymi w danych wejściowych, identyfikując ich korelacje, a następnie przekształca zbiór danych tak, aby uzyskać nowy zestaw zmiennych (składowe główne). W praktyce oznacza to, że PCA szuka wzorców i ukrytych struktur w danych, co czyni ją idealnym narzędziem do eksploracyjnej analizy danych, segmentacji czy redukcji wymiarowości,bez konieczności przypisania punktów danych do określonych kategorii czy przewidywania wyników.
+
+---
+**12.2: W jaki sposób analiza składowych głównych (PCA, Principal ComponentAnalysis) może być wykorzystana do analizy danych ubezpieczeniowych, takich jak ryzyko klienta lub analiza szkód?**
+
+Na przykład do:
+* redukcji zmiennych wpływających na profil ryzyka,
+* segmentacji klientów według ryzyka,
+* identyfikacji klientów o nietypowych profilach ryzyka,
+* identyfikacji kluczowych czynników wpływających na wielkość szkód,
+* monitorowania zmian w szkodowości portfela.
+
+---
 **12.4 Przedstaw przebieg procesu grupowania hierarchicznego według algorytmu aglomeracyjnego.**
 
 1.  Inicjalizacja: na początku każda z $n$ obserwacji jest traktowana jako osobny, jednoelementowy klaster. Następnie obliczana jest macierz odległości (lub braku podobieństwa) między wszystkimi parami obserwacji, najczęściej przy użyciu odległości Euklidesowej.
@@ -405,7 +451,7 @@ Proces błądzenia losowego definiuje się w następujący sposób: $y_t = y_{t-
 1. Czy przyrosty $y_t - y_{t-1}$ stanowią proces białego szumu. Proces białego szumu jest stacjonarny i nie wykazuje żadnych widocznych wzorców w czasie. W praktyce polega to na stworzeniu nowego szeregu $c_t = y_t - y_{t-1}$ i graficznej ocenie, czy jest on stacjonarny.
 2. Czy odchylenie standardowe szeregu przyrostów jest istotnie mniejsze w porównaniu z odchyleniem standardowym oryginalnego szeregu.
 
-# Statistical Foundations of Actuarial Learning andits Applications
+# Statistical Foundations of Actuarial Learning and its Applications
 
 ## 4: Predictive Modeling and Forecast Evaluation
 
@@ -561,6 +607,16 @@ Jest to pierwszy etap, w którym dane są wizualizowane na wykresie w celu oceny
 Podstawowym założeniem jest to, że dane pochodzą z odwracalnego modelu ARMA, a innowacje (błędy) procesu mają własność różnicy martyngałowej. Oznacza to, że oczekiwana wartość przyszłej innowacji, biorąc pod uwagę historię procesu, jest równa zero.
 
 Główną ideą jest wykorzystanie warunkowej wartości oczekiwanej $E(X_{t+h} \mid \mathcal{F}_t)$ jako predyktora, gdzie $\mathcal{F}_t$ reprezentuje historię procesu do czasu $t$. Ten predyktor minimalizuje średniokwadratowy błąd prognozy. Prognozy oblicza się rekurencyjnie. Wartości losowe do czasu $t$ są traktowane jako "znane", a oczekiwane wartości przyszłych innowacji (dla $h \ge 1$) wynoszą zero. W praktyce, ponieważ pełna historia procesu nie jest znana, do obliczeń wykorzystuje się reszty z dopasowanego modelu. W miarę wydłużania horyzontu prognozy, przewidywana wartość zbiega do bezwarunkowej średniej procesu.
+
+---
+**4.1: Jakie cechy powinny posiadać reszty poprawnie zidentyfikowanego modelu ARMA?**
+
+Powinny zachowywać się jak realizacja procesu białego szumu. Oznacza to, że reszty nie powinny wykazywać autokorelacji i mieć stałą wariancję.
+
+---
+**4.1: W jakim celu stosuje się test Ljunga–Boxa?**
+
+Test Ljunga-Boxa jest używany do sprawdzania, czy w szeregu czasowym występuje autokorelacja, czyli zależność między wartościami tego szeregu w różnych momentach czasowych.
 
 ---
 **4.2: Podaj definicję procesu GARCH(p, q).**
