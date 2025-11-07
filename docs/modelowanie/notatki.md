@@ -9,6 +9,17 @@ nav_order: 99
 
 ## 4: Uogólnione modele liniowe (GLMs)
 
+**4.2: Czym jest interakcja w kontekście czynników ryzyka ubezpieczeniowego i dlaczego różni się od korelacji?**
+
+Interakcja w kontekście czynników ryzyka ubezpieczeniowego odnosi się do sytuacji, w której wpływ jednego czynnika ryzyka na prawdopodobieństwo wystąpienia szkody zależy od obecności innego czynnika ryzyka. Oznacza to, że efekty dwóch (lub więcej) zmiennych nie są jedynie sumą ich indywidualnych wpływów, ale mogą się wzmacniać lub osłabiać w zależności od ich wzajemnego oddziaływania.
+
+Różnica między interakcją a korelacją:
+* Korelacja mierzy stopień współzmienności dwóch zmiennych, czyli na ile ich wartości są statystycznie powiązane (np. wzrost jednej zmiennej towarzyszy wzrostowi drugiej).
+* Interakcja odnosi się do sposobu, w jaki jedna zmienna modyfikuje wpływ drugiej na określone zjawisko, np. ryzyko szkody. Może oznaczać, że efekt jednej zmiennej występuje tylko pod warunkiem obecności drugiej.
+
+Korelacja sama w sobie nie oznacza interakcji – dwie zmienne mogą być silnie skorelowane, ale nie muszą wpływać na siebie nawzajem w sposób interakcyjny. Dlatego w analizie ryzyka ubezpieczeniowego ważne jest stosowanie modeli, które uwzględniają nie tylko współzależności, ale także potencjalne efekty interakcji między czynnikami.
+
+---
 **4.4: Krótko omów współczynnik zależności V Cramera. Wskaż jakie może przyjmować wartości i co one oznaczają w kontekście analizy siły zależności między zmiennymi. W jakich przypadkach można stosować ten współczynnik? Czy jest on ograniczony tylko do zmiennych jakościowych, czy może być używany także dla zmiennych ilościowych? Jeżeli tak, to w jaki sposób można go obliczyć?**
 
 Współczynnik V Craméra jest miarą siły związku (asocjacji) między dwiema zmiennymi, często wykorzystywaną w badaniach ubezpieczeniowych. Jego obliczenia opierają się na statystyce chi-kwadrat ($\chi^2$) z tablicy kontyngencji, która zestawia ze sobą parę analizowanych cech. Jest on zdefiniowany wzorem:
@@ -139,6 +150,28 @@ $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \beta_4 (x - \xi)^3_+$$
 
 ## 7: Double GLMs and GAMs for Location, Scale and Shape (GAMLSS)
 
+**7.2: Jaki jest związek między wartością parametru $\xi$ (exponent parameter) a stopniem heteroskedastyczności (zmienności) w modelach aktuarialnych opartych na rodzinie rozkładów Tweedie?**
+
+W modelach aktuarialnych opartych na rodzinie rozkładów Tweedie, parametr $\xi$ kontroluje zależność wariancji od wartości oczekiwanej, co bezpośrednio wpływa na heteroskedastyczność modelu. Związek ten opisuje równanie wariancji:
+
+$$Var(Y) = \phi \mu^\xi$$
+
+gdzie: $\phi$ – parametr skali, $\mu$ – wartość oczekiwana, $\xi$ – parametr kształtu (exponent parameter).
+
+Im większe $\xi$, tym silniejsza heteroskedastyczność, co oznacza, że wariancja bardziej zależy od wartości oczekiwanej.
+
+---
+**7.2: Omów zastosowanie rozkładu Tweedie w uogólnionych modelach liniowych (GLM) w kontekście modelowania roszczeń. Zwróć uwagę na rolę zmiennych objaśniających, które mogą wpływać zarówno na liczbę roszczeń, jak i na ich wysokość.**
+
+Modele te są szczególnie przydatne, gdy aktuariusze dysponują jedynie łączną kwotą roszczeń, która jest zerowa z dodatnim prawdopodobieństwem, ale w pozostałych przypadkach ma rozkład ciągły.
+
+Kluczową zaletą modeli Tweedie jest możliwość jednoczesnego modelowania łącznej kwoty roszczeń bez konieczności oddzielnego modelowania częstotliwości i wysokości szkód. To upraszcza analizę, zwłaszcza w kontekście rezerwacji strat, gdzie dane często występują w formie trójkątów.
+
+W ramach uogólnionych modeli liniowych (GLM), zmienne objaśniające (cechy ryzyka) są włączane do modelu w celu wyjaśnienia zarówno systematycznych, jak i losowych wahań w danych dotyczących roszczeń.
+
+W modelu Tweedie, założenie o stałym parametrze dyspersji $\phi$ narzuca istotne ograniczenie. Oznacza to, że każdy czynnik ryzyka, który wpływa na oczekiwaną wysokość szkody, musi również wpływać na oczekiwaną częstotliwość roszczeń w tym samym kierunku.
+
+---
 **7.2: Dlaczego podwójny GLM jest szczególnie istotny w modelowaniu, w którym wykorzystuje się regresję Tweedie’ego (uogólnionego modelu liniowego ze zmienną zależną o rozkładzie Tweedie z indeksem 1 < p < 2)?**
 
 DGLM pozwala, aby parametr dyspersji był modelowany w zależności od cech ryzyka. Dzięki temu model jest w stanie poprawnie odwzorować przeciwstawne trendy, co czyni go znacznie bardziej elastycznym i adekwatnym do analiz aktuarialnych.
@@ -249,6 +282,24 @@ Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebi
 
 ## 6: Inne miary do porównywania modeli
 
+**6.3: Jakie są kluczowe różnice między krzywą Lorentza (Lorenz curve, $LC[\hat{\mu}(X);\alpha]$) a krzywą koncentracji (concentration curve, $CC[\mu(X), \hat{\mu}(X);\alpha]$) w kontekście oceny predyktora $\hat{\mu}(X)$.**
+
+Główna różnica polega na tym, co każda z krzywych mierzy dla danego odsetka $\alpha$ polis o najniższych przewidywanych składkach:
+
+* Krzywa Koncentracji (CC): Mierzy skumulowany udział rzeczywistych strat Y (lub, co jest równoważne, rzeczywistej, ale nieobserwowalnej, składki czystej $\mu(X)$). Innymi słowy, pokazuje, jaka część całkowitej szkody w portfelu jest generowana przez $\alpha\%$ polis uznanych przez predyktor za najbezpieczniejsze.
+* Krzywa Lorenza (LC): Mierzy skumulowany udział przewidywanej składki $\hat{\mu}(X)$. Pokazuje, jaką część całkowitej sumy przewidywanych składek w portfelu stanowią składki zebrane od $\alpha\%$ polis uznanych za najbezpieczniejsze.
+
+Podsumowując, krzywa Lorenza opisuje, jak predyktor rozdziela przewidywane składki, podczas gdy krzywa koncentracji ocenia, jak trafny jest ten podział w odniesieniu do rzeczywistych strat. Różnica między nimi jest miarą niedoskonałości modelu predykcyjnego.
+
+---
+**6.3: W jaki sposób porównanie krzywej Lorentza i krzywej koncentracji pozwala ocenić jakość predyktora $\hat{\mu}(X)$?**
+
+W praktyce aktuarialnej celem jest, aby przewidywane składki $\hat{\mu}(X)$ były jak najbliższe rzeczywistym składkom $\mu(X)$. Dlatego porównanie obu krzywych jest kluczowym narzędziem oceny modelu:
+
+* Odległość między krzywymi: Duża różnica między krzywą koncentracji a krzywą Lorenza sugeruje, że predyktor słabo przybliża prawdziwą składkę techniczną. Celem jest, aby wykresy obu krzywych były jak najbliżej siebie.
+*  Miara ABC (Area Between Curves): Mniejsza wartość ABC oznacza, że predyktor jest lepszy, ponieważ jego struktura cenowa lepiej odzwierciedla strukturę rzeczywistego ryzyka.
+
+---
 **6.3: Co to jest „uporządkowana” krzywa Lorenza (ordered Lorenz curve)? W jaki sposób może być wykorzystana w taryfikacji?**
 
 Uporządkowana krzywa Lorenza to narzędzie graficzne służące do porównywania predykcyjnej mocy dwóch modeli taryfikacji składek ubezpieczeniowych, na przykład starego modelu z nowym. Pozwala ocenić, czy nowy model lepiej identyfikuje grupy ryzyka, które były niedokładnie wycenione w starym modelu, minimalizując w ten sposób ryzyko selekcji negatywnej. Podstawowym elementem jest pojęcie względności (relativity), czyli stosunku nowej składki do starej dla każdego klienta:
@@ -429,6 +480,16 @@ Na przykład do:
 Wysokość, na której dwa klastry łączą się w dendrogramie, odpowiada odległości (brakowi podobieństwa) między nimi.
 
 Łączenie pełne (Complete Linkage): odległość między dwoma klastrami to odległość między *najdalszymi* od siebie obserwacjami należącymi do tych klastrów.
+
+---
+**12.4: Co oznacza wykonanie „poziomego cięcia” na dendrogramie?**
+
+Dendrogram to drzewiasta struktura, która przedstawia sposób łączenia obiektów w grupy (skupienia, klastry) na różnych poziomach podobieństwa. Poziome cięcie na określonej wysokości oznacza usunięcie połączeń powyżej tej wartości, co prowadzi do podziału obiektów na skupienia. Ich liczba zależy od wysokości, na której wykonano cięcie – im niżej, tym więcej mniejszych skupień, im wyżej, tym mniej większych.
+
+---
+**12.4: Dlaczego wysokość połączenia na dendrogramie jest ważna przy interpretacji wyników grupowania?**
+
+Wysokość połączenia odzwierciedla odległość (niepodobieństwo) między grupowanymi obiektami lub skupieniami. Im wyżej następuje połączenie, tym większe różnice między skupieniami. Pomaga to wybrać odpowiednią liczbę skupień oraz zrozumieć strukturę danych.
 
 # Regression Modeling with Actuarial and Financial Applications
 
@@ -619,6 +680,21 @@ Powinny zachowywać się jak realizacja procesu białego szumu. Oznacza to, że 
 Test Ljunga-Boxa jest używany do sprawdzania, czy w szeregu czasowym występuje autokorelacja, czyli zależność między wartościami tego szeregu w różnych momentach czasowych.
 
 ---
+**4.1: Czym jest wygładzanie wykładnicze (exponential smoothing) i jakie jest jego główne zastosowanie w analizie szeregów czasowych?**
+
+Wygładzanie wykładnicze to jedna z metod prognozowania i analizy szeregów czasowych, która nadaje większą wagę nowszym obserwacjom, jednocześnie stopniowo zmniejszając wpływ starszych danych. Jest to technika używana do wygładzania fluktuacji w danych, co ułatwia identyfikację trendów i wzorców. Główne zastosowania:
+* Prognozowanie krótkoterminowe.
+* Wygładzanie danych – redukcja szumów w danych poprzez eliminowanie nagłych skoków i anomalii.
+* Modelowanie trendów i sezonowości – bardziej zaawansowane wersje, jak podwójne i potrójne wygładzanie wykładnicze (Holt-Winters), pozwalają uwzględniać trend i sezonowość w danych. 
+
+Rodzaje wygładzania wykładniczego:
+* Proste wygładzanie wykładnicze – stosowane do danych bez wyraźnego trendu ani sezonowości.
+* Wygładzanie podwójne (Holt's method) – uwzględnia zarówno poziom, jak i trend.
+* Wygładzanie potrójne (Holt-Winters method) – dodatkowo uwzględnia sezonowość.
+
+Wygładzanie wykładnicze jest szczególnie cenione za swoją prostotę i skuteczność w prognozowaniu, zwłaszcza gdy dane wykazują krótkoterminowe fluktuacje.
+
+---
 **4.2: Podaj definicję procesu GARCH(p, q).**
 
 Dla $t\in\mathbb{Z}$, niech $(Z_t)$ będzie procesem typu ścisły biały szum SWN(0, 1). Proces $(X_t)$ jest procesem $\text{GARCH}(p, q)$, jeśli jest ściśle stacjonarny i dla każdego $t \in \mathbb{Z}$ oraz dla pewnego procesu $(\sigma_t)$ o wartościach dodatnich spełnia równania:
@@ -651,7 +727,7 @@ Podstawowym założeniem metody Hilla jest to, że funkcja przeżycia (ogon) bad
 $$\bar{F}(x) = x^{-\alpha}L(x)$$
 
 gdzie:
-* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha$, tym grubszy ogon).
+* $\alpha > 0$ to indeks ogona, który opisuje "ciężkość" ogona (im mniejsze $\alpha,$ tym grubszy ogon).
 * $L(x)$ jest funkcją wolno zmienną, co oznacza, że zmienia się wolniej niż jakakolwiek funkcja potęgowa.
 
 Estymator Hilla:
@@ -659,7 +735,7 @@ Estymator Hilla:
 $$\hat{\alpha}^{(H)}_{k,n} = \left( \frac{1}{k} \sum_{j=1}^{k} \ln X_{j,n} - \ln X_{k,n} \right)^{-1}$$
 
 gdzie:
-* $k$ to liczba największych obserwacji użytych do estymacji ($2 \le k \le n$).
+* $k$ to liczba największych obserwacji użytych do estymacji $(2 \le k \le n).$
 * $X_{j,n}$ to $j$-ta największa obserwacja w próbie.
 
 ---
@@ -672,11 +748,14 @@ Aby $k$-ty moment statystyczny (jak średnia czy wariancja) był skończony, war
 ---
 **5.2: Co to jest estymator Hilla i w jaki sposób jest używany do analizy danych?**
 
-Na podstawie załączonej książki "Quantitative Risk Management: Concepts, Techniques and Tools", estymator Hilla można opisać w następujący sposób:
-
-### Czym jest estymator Hilla?
-
 Estymator Hilla to narzędzie statystyczne należące do teorii wartości ekstremalnych (EVT), które służy do analizy rozkładów o tzw. "ciężkich ogonach" (heavy tails). Jego głównym celem jest oszacowanie indeksu ogona (tail index), oznaczanego jako $\alpha$.
+
+---
+**5.2: W jaki sposób estymator Hilla może być wykorzystany do modelowania dużych szkód w ubezpieczeniach majątkowych?**
+
+Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowanie szkód ekstremalnych (tzn. zdarzeń rzadkich, ale potencjalnie o dużej wartości). W ubezpieczeniach majątkowych jego użycie pozwala na lepsze zarządzanie ryzykiem i wycenę produktów ubezpieczeniowych. Jako przykład można wskazać:
+* Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawiera umowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratami wynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hilla służy do oszacowania parametru grubości ogona rozkładu strat. Pozwala to na określenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
+* Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonych katastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacować wartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. Estymator Hilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o dane historyczne.
 
 # Krajowy standard aktuarialny - praktyka aktuarialna
 
@@ -752,6 +831,12 @@ Zamiast tego symulujemy $n$ niezależnych replikacji $\tilde{X_1}, \dots, \tilde
 
 $$ \hat{\mu}_{n}^I = \frac{1}{n} \sum_{i=1}^{n} \tilde{X}_i \frac{f_X(\tilde{X}_i)}{f_{\tilde{X}}(\tilde{X}_i)}. $$
 
+# Inne
+
+**Czy histogram dystrybuanty jest przydatny w ocenie jakości oszacowanych modeli, odpowiedź uzasadnij.**
+
+Histogram dystrybuanty jest bardzo przydatne w ocenie jakości oszacowanych modeli. Histogram dystrybuanty to histogram wartości otrzymanych z tzw. transformaty całkowej prawdopodobieństwa (Probability Integral Transform - PIT). Jeżeli ciągła zmienna losowa $X$ posiada dystrybuantę $F$, to $F(X) \sim U(0, 1)$, gdzie $U(0, 1)$ oznacza rozkład jednostajny na przedziale $(0,1).$ Oznacza to, że idealny histogram powinien być płaski – wszystkie słupki powinny mieć zbliżoną wysokość, oscylującą wokół czerwonej linii (gęstość równa 1).
+
 ---
 **Wyjaśnij związek między wiarygodnością L, a kryterium informacyjnym AIC i wskaż kiedy każdy z tych mierników może być użyty do porównania różnych modeli.**
 
@@ -762,13 +847,23 @@ czyli AIC jest zdefiniowane za pomocą wiarygodności.
 * Wiarygodność może być użyta, gdy porównywane modele są zagnieżdżone (jeden model jest uproszczoną wersją drugiego).
 * Kryterium AIC może być użyte, gdy modele nie są zagnieżdżone lub gdy zakładają różne rozkłady dla zmiennej odpowiedzi.
 
-# Inne
-
-**Czy histogram dystrybuanty jest przydatny w ocenie jakości oszacowanych modeli, odpowiedź uzasadnij.**
-
-Histogram dystrybuanty jest bardzo przydatne w ocenie jakości oszacowanych modeli. Histogram dystrybuanty to histogram wartości otrzymanych z tzw. transformaty całkowej prawdopodobieństwa (Probability Integral Transform - PIT). Jeżeli ciągła zmienna losowa $X$ posiada dystrybuantę $F$, to $F(X) \sim U(0, 1)$, gdzie $U(0, 1)$ oznacza rozkład jednostajny na przedziale $(0,1).$ Oznacza to, że idealny histogram powinien być płaski – wszystkie słupki powinny mieć zbliżoną wysokość, oscylującą wokół czerwonej linii (gęstość równa 1).
-
 ---
 **Wyjaśnij do czego służy odległość Cooka (Cook's distance) i dlaczego jest różna dla różnych modeli.**
 
 Odległość Cooka jest wykorzystywana w analizie regresji jako miara wpływu poszczególnych obserwacji na wyniki regresji. Umożliwia wykrycie obserwacji, które znacząco wpływają na wyniki regresji, a tym samym pozwala zbadać ich wpływ na model.W mierze Cooka uwzględnia się reszty modeli dlatego jej wartość jest różna dla różnych modeli.
+
+---
+**Jaką rolę w wykrywaniu oszustw ubezpieczeniowych odgrywają techniki statystyczne, takie jak test chi-kwadrat czy analiza regresji?**
+
+Techniki statystyczne, jak test chi-kwadrat i analiza regresji pomagają identyfikować podejrzane wzorce i anomalia w danych, co może świadczyć o nieuczciwych działaniach. Test chi-kwadrat pozwala na szybkie wykrycie nietypowych rozkładów lub zależności,podczas gdy analiza regresji umożliwia głębsze zrozumienie zmiennych wpływających na ryzyko oszustwa. 
+
+Na przykład:
+* Zastosowanie testu chi-kwadrat:o Analiza liczby zgłaszanych roszczeń w określonych kategoriach (np.rodzaj szkody, czas zgłoszenia) w celu identyfikacji nietypowych wzorców.
+    * Porównanie rozkładu częstości zgłaszanych roszczeń w różnych segmentach klientów, aby wykryć nadreprezentację podejrzanych roszczeń.
+    * Sprawdzenie, czy występuje istotna statystycznie różnica między częstotliwością podejrzanych roszczeń a ogólną liczbą zgłoszeń.
+* Zastosowanie regresji:
+    * Ocena wpływu czynników, takich jak wiek zgłaszającego, liczba wcześniejszych roszczeń, miejsce zamieszkania, typ polisy na prawdopodobieństwo wystąpienia oszustwa.
+    * Budowa modeli predykcyjnych, które klasyfikują zgłoszenia jako podejrzane lub prawidłowe.
+    * Analiza reszt, aby identyfikować odstające obserwacje, które mogą sugerować nietypowe i potencjalnie oszukańcze zachowania.
+
+Techniki statystyczne są często stosowane w połączeniu z metodami eksploracji danych(data mining) i uczeniem maszynowym, co zwiększa skuteczność wykrywania oszustw.
