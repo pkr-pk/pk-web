@@ -75,9 +75,21 @@ $$\tilde{D}(\mathbf{y}, \hat{\mathbf{\mu}}) = \frac{D(\mathbf{y}, \hat{\mathbf{\
 Dla dużych prób, rozkład dewiancji skalowanej można przybliżyć rozkładem chi-kwadrat ($\chi^2$) z liczbą stopni swobody równą $n - (p + 1)$, gdzie $n$ to liczba obserwacji, a $p+1$ to liczba szacowanych parametrów w modelu.
 
 ---
+**4.5: Wyjaśnij, dlaczego dewiancja modelu nasyconego wynosi 0.**
+
+Model nasycony dokładnie odtwarza dane co oznacza, że nie ma żadnych reszt. Brak „straty dopasowania” oznacza, że dewiancja = 0.
+
+---
 **4.5 Twoim zadaniem jest wybór modelu o najlepszych zdolnościach predykcyjnych spośród zagnieżdżonych uogólnionych modeli liniowych. Wyjaśnij dlaczego podczas wyboru takiego modelu nie tylko dewiancja powinna zostać uwzględniona.**
  
 Dzieje się tak, ponieważ dodanie kolejnych zmiennych do modelu prawie zawsze zmniejszy jego dewiancję (lub w najgorszym przypadku pozostawi ją bez zmian). Prowadzi to do ryzyka stworzenia modelu, który jest zbyt skomplikowany i świetnie dopasowuje się do danych uczących, ale traci zdolność do przewidywania nowych obserwacji.
+
+---
+**4.6: Zinterpretuj wartość $\frac{D}{df}$, gdzie $df$ oznacza liczę stopni swobody reszt (residua degrees of freedom) dla tego modelu. Czy bardzo mała wartość $\frac{D}{df}$ jest zawsze dobrą wiadomością? Odpowiedź uzasadnij.**
+
+Jest to estymator dyspersji. W dobrze dopasowanym modelu Poissona oczekujemy $\frac{D}{df} \approx 1.$ Bardzo mała wartość tego wskaźnika nie jest jednak dobrą wiadomością - może wskazywać na zbyt małe reszty, nadmierne dopasowanie (overfitting) lub błędną specyfikację modelu. W efekcie testy istotności mogą być zbyt optymistyczne, a wnioski – mylące.
+
+Estymowana dyspersja mniejsza od 1 mówi o tym, że wariancja w dopasowanym modelu jest za niska, wartość większa od 1 mówi o zbyt dużej wariancji w dopasowanym modelu.
 
 ---
 **4.8: Podaj definicję obserwacji wpływowej (influential observation).**
