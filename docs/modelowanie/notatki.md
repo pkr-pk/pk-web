@@ -517,27 +517,6 @@ Dendrogram to drzewiasta struktura, która przedstawia sposób łączenia obiekt
 
 Wysokość połączenia odzwierciedla odległość (niepodobieństwo) między grupowanymi obiektami lub skupieniami. Im wyżej następuje połączenie, tym większe różnice między skupieniami. Pomaga to wybrać odpowiednią liczbę skupień oraz zrozumieć strukturę danych.
 
-# Regression Modeling with Actuarial and Financial Applications
-
-## 7: Modelowanie trendów
-
-**7.3: Wymień warunki stacjonarności (słabej) szeregu czasowego.**
-
-Szereg czasowy $(y_t)_{t\in\mathbb{Z}}$ jest stacjonarny (słabo stacjonarny) jeżeli:
-* wartość oczekiwana $E(y_t)$ nie zależy od $t$ $(E(y_t) = \mu, t \in \mathbb{Z}),$
-* kowariancja między $y_s$ a $y_t$ zależy tylko od $\mid s - t\mid$ $(cov(y_s, y_t) = cov(y_s + k,y_t+k), s, t, k \in \mathbb{Z}).$
-
----
-**7.4: Podaj definicję procesu błądzenia losowego.**
-
-Proces błądzenia losowego definiuje się w następujący sposób: $y_t = y_{t-1} + c_t,$ gdzie $c_t$ jest procesem białego szumu.
-
----
-**7.4: Wskaż i krótko przedstaw co najmniej dwie metody identyfikacji procesu błądzenia losowego.**
-
-1. Czy przyrosty $y_t - y_{t-1}$ stanowią proces białego szumu. Proces białego szumu jest stacjonarny i nie wykazuje żadnych widocznych wzorców w czasie. W praktyce polega to na stworzeniu nowego szeregu $c_t = y_t - y_{t-1}$ i graficznej ocenie, czy jest on stacjonarny.
-2. Czy odchylenie standardowe szeregu przyrostów jest istotnie mniejsze w porównaniu z odchyleniem standardowym oryginalnego szeregu.
-
 # Statistical Foundations of Actuarial Learning and its Applications
 
 ## 4: Predictive Modeling and Forecast Evaluation
@@ -663,6 +642,20 @@ gdzie $L_0$, $L_1$ to wiarygodności modeli z hipotezy zerowej i alternatywnej.
 
 Dla dużych prób statystyka testowa $T$ ma w przybliżeniu rozkład chi-kwadrat ($\chi^2$). Liczba stopni swobody tego rozkładu jest równa różnicy w liczbie wolnych (niezależnych) parametrów między modelem z hipotezy alternatywnej a modelem z hipotezy zerowej.
 
+# Regression Modeling with Actuarial and Financial Applications
+
+## 7: Modelowanie trendów
+
+**7.4: Podaj definicję procesu błądzenia losowego.**
+
+Proces błądzenia losowego definiuje się w następujący sposób: $y_t = y_{t-1} + c_t,$ gdzie $c_t$ jest procesem białego szumu.
+
+---
+**7.4: Wskaż i krótko przedstaw co najmniej dwie metody identyfikacji procesu błądzenia losowego.**
+
+1. Czy przyrosty $y_t - y_{t-1}$ stanowią proces białego szumu. Proces białego szumu jest stacjonarny i nie wykazuje żadnych widocznych wzorców w czasie. W praktyce polega to na stworzeniu nowego szeregu $c_t = y_t - y_{t-1}$ i graficznej ocenie, czy jest on stacjonarny.
+2. Czy odchylenie standardowe szeregu przyrostów jest istotnie mniejsze w porównaniu z odchyleniem standardowym oryginalnego szeregu.
+
 # Quantitative Risk Management: Concepts, Techniques and Tools
 
 ## 3: Empiryczne własności danych finansowych
@@ -719,6 +712,40 @@ Rodzaje wygładzania wykładniczego:
 * Wygładzanie potrójne (Holt-Winters method) – dodatkowo uwzględnia sezonowość.
 
 Wygładzanie wykładnicze jest szczególnie cenione za swoją prostotę i skuteczność w prognozowaniu, zwłaszcza gdy dane wykazują krótkoterminowe fluktuacje.
+
+---
+**4.1: Wyjaśnij, czym różni się pojęcie stacjonarności w sensie szerokim (weak stationarity) od stacjonarności w sensie ścisłym (strict stationarity).**
+
+
+Def. Stacjonarność w sensie ścisłym. Szereg czasowy $(X_t)_{t \in \mathbb{Z}}$ jest ściśle stacjonarny, jeśli
+$$ (X_{t_1}, \dots, X_{t_n}) \stackrel{\mathrm{d}}{=} (X_{t_1+k}, \dots, X_{t_n+k}) $$
+dla wszystkich $t_1, \dots, t_n, k \in \mathbb{Z}$ oraz dla wszystkich $n \in \mathbb{N}$.
+
+Def. Stacjonarność w sensie szerokim/słabym. Szereg czasowy $(X_t)_{t \in \mathbb{Z}}$ jest stacjonarny kowariancyjnie (lub słabo lub w sensie szerokim), jeśli jego dwa pierwsze momenty istnieją i spełniają warunki
+$$ \mu(t) = \mu, \quad t \in \mathbb{Z}, $$
+$$ \gamma(t, s) = \gamma(t+k, s+k), \quad t, s, k \in \mathbb{Z}. $$
+
+Szereg czasowy jest ściśle stacjonarny, jeśli jego łączny rozkład prawdopodobieństwa nie zmienia się w czasie. Oznacza to, że dla dowolnego zbioru punktów w czasie, łączny rozkład wartości w tych punktach jest taki sam, jak dla dowolnego innego zbioru punktów przesuniętych w czasie o stałą wartość.
+
+Szereg czasowy jest stacjonarny w sensie szerokim, jeśli jego pierwsze dwa momenty (wartość oczekiwana i kowariancja) są stałe w czasie i skończone.
+
+Podsumowując, stacjonarność ścisła jest silniejszym i bardziej ogólnym pojęciem, które gwarantuje niezmienność wszystkich charakterystyk statystycznych procesu w czasie. Stacjonarność w sensie szerokim jest słabszym warunkiem, ograniczającym się do stabilności wartości oczekiwanej, wariancji i autokowariancji, co w wielu praktycznych zastosowaniach jest wystarczające.
+
+---
+**4.1: Podaj wzór na autokowariancję procesu AR(1) i wyjaśnij, jak zmienia się wraz z opóźnieniem k.**
+
+Proces AR(1) jest zdefiniowany równaniem:
+
+$$X_t = \phi_1 X_{t-1} + \epsilon_t$$
+
+gdzie $\epsilon_t$ to proces białego szumu o wariancji $\sigma_\epsilon^2$, a $|\phi_1| < 1$ jest warunkiem stacjonarności.
+
+Wzór na funkcję autokowariancji $\gamma(k)$ dla opóźnienia (ang. *lag*) $k$ jest następujący:
+
+$$ \gamma(k) = \frac{\phi_1^{|k|} \sigma_\epsilon^2}{1 - \phi_1^2} $$
+
+Wartość bezwzględna autokowariancji maleje wykładniczo. Ponieważ dla stacjonarnego procesu AR(1) musi zachodzić warunek $|\phi_1| < 1$, wartość $|\phi_1^{|k|}|$ maleje do zera w miarę wzrostu $k$. Oznacza to, że korelacja między odległymi w czasie obserwacjami jest coraz słabsza.
+
 
 ---
 **4.2: Podaj definicję procesu GARCH(p, q).**
