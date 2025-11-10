@@ -251,6 +251,20 @@ Ustalenie progu:
 Funkcja wartości oczekiwanej nadwyżki:
 * ma liniową postać po przekroczeniu odpowiedniego progu $u.$
 
+---
+**9.5: Wyjaśnij (odwołując się do odpowiedniego twierdzenia) dlaczego w modeluPOT (Peak Over Threshold) nadwyżki $Y=X-u\mid X>u$ ponad wysoki próg umodeluje się uogólnionym rozkładem Pareto (GPD). Zinterpretuj parametr kształtu $\xi$ (znak i konsekwencje dla „grubości” ogona) oraz podaj dwie praktyczne przesłanki wyboru progu $u$. Odpowiedź ogranicz do kilku precyzyjnych zdań.**
+
+Użycie uogólnionego rozkładu Pareto (GPD) do modelowania nadwyżki $Y = X - u | X > u$ ponad wysoki próg $u$ w modelu POT (Peak Over Threshold) jest uzasadnione twierdzeniem Pickandsa-Balkemy-de Haana. Twierdzenie to wskazuje, że dla odpowiednio wysokich progów $u$, rozkład nadwyżek ponad ten próg może być dobrze przybliżony przez uogólniony rozkład Pareto.
+
+Parametr kształtu $\xi$ (nazywany również indeksem ogona lub indeksem wartości ekstremalnej) określa zachowanie ogona rozkładu:
+* $\xi > 0$: odpowiada rozkładom o grubych ogonach (heavy-tailed). Wskazuje to, że ogon zanika wolno, jak w przypadku funkcji potęgowej.
+*   $\xi = 0$: granica wykładnicza, odpowiada rozkładom o lekkich ogonach.
+*   $\xi < 0$: Odpowiada rozkładom o ograniczonym z góry nośniku (krótkim ogonie).
+
+Dwie praktyczne przesłanki przy wyborze progu $u$ wynikają z kompromisu między obciążeniem a wariancją:
+1. Na wykresie Mean-excess plot od danego rozpoczyna się stabilny, w przybliżeniu liniowy trend wzrostowy.
+2. Na wykresie Hilla estymator parametru kształtu stabilizuje się w pewnym płaskim regionie, co wskazuje na znalezienie właściwego początku ogona rozkładu.
+
 # Effective Statistical Learning Methods for Actuaries II
 
 ## 3: Drzewa regresyjne
@@ -768,6 +782,64 @@ Estymator Hilla to narzędzie statystyczne należące do teorii wartości ekstre
 Estymator Hilla znajduje zastosowanie w sytuacjach, gdzie kluczowe jest modelowanie szkód ekstremalnych (tzn. zdarzeń rzadkich, ale potencjalnie o dużej wartości). W ubezpieczeniach majątkowych jego użycie pozwala na lepsze zarządzanie ryzykiem i wycenę produktów ubezpieczeniowych. Jako przykład można wskazać:
 * Wyznaczanie wysokości składki reasekuracyjnej. Firma ubezpieczeniowa zawiera umowę reasekuracyjną, aby zabezpieczyć się przed nadmiernymi stratami wynikającymi z ekstremalnych szkód (np. klęski żywiołowe). Estymator Hilla służy do oszacowania parametru grubości ogona rozkładu strat. Pozwala to na określenie prawdopodobieństwa wystąpienia szkody powyżej ustalonego progu.
 * Modelowanie katastroficznych szkód majątkowych. W regionach zagrożonych katastrofami naturalnymi (huragany, powodzie) ubezpieczyciel musi oszacować wartość strat wynikających z rzadkich, ale ekstremalnych zdarzeń. Estymator Hilla pozwala na modelowanie ryzyka ekstremalnych szkód w oparciu o dane historyczne.
+
+# Reinsurance: Actuarial and Statistical Aspects
+
+## 9: Symulacje
+
+**9.2: Wskaż, w których etapach procesu modelowania ryzyka: (i) kalibracja parametrów; (ii) wycena/ustalanie składek; (iii) kalkulacja kapitału (np. VaR/TVaR, SCR); (iv) stress testy/scenariusze, metoda Monte Carlo jest szczególnie użyteczna? Dla jednego ze wskazanych etapów podaj krótkie uzasadnienie (2-3 zdania), wskazując konkretny powód (np. złożoność modelu, brak formuł zamkniętych, zależności/ogony, nieliniowe wypłaty, itp.).**
+
+(i) Kalibracja parametrów modelu
+
+Kalibracja to proces dopasowywania parametrów modelu statystycznego do danych historycznych w taki sposób, aby model jak najlepiej odzwierciedlał rzeczywistość. W przypadku prostych modeli parametry można estymować analitycznie (np. metodą największej wiarygodności). Jednak w złożonych modelach funkcja wiarygodności może być niemożliwa do bezpośredniej maksymalizacji.
+
+Metoda Monte Carlo jest szczególnie użyteczna, gdy nie ma zamkniętego wzoru na wiarygodność albo model obejmuje zależności i ciężkie ogony (np. kopule, mieszaniny,cenzurowanie). Umożliwia symulacyjną estymację parametrów (np. MLE wspierane symulacją, indirect inference czy Approximate Bayesian Computation) nawet wtedy, gdy gęstość jest trudna do zapisania. Dzięki temu można dopasować realistyczne modele bez upraszczania założeń.
+
+(ii) Wycena i ustalanie składek
+
+Wycena produktów ubezpieczeniowych (ustalanie składki) wymaga oszacowania wartości oczekiwanej przyszłych strat (tzw. składki czystej). Dla prostych produktów można to zrobić analitycznie. Jednak wiele nowoczesnych produktów ma skomplikowaną strukturę, która uniemożliwia proste obliczenia.
+
+Metoda Monte Carlo pozwala na symulację ogromnej liczby możliwych scenariuszy przyszłych strat. Dla każdego scenariusza obliczana jest wartość wypłaty z ubezpieczenia. Średnia arytmetyczna z tych wypłat jest estymatorem wartości oczekiwanej straty. Pozwala to na wycenę nawet najbardziej skomplikowanych instrumentów. Metoda sprawdza się doskonale przy wycenie produktów, których wartość zależy od wielu skorelowanych czynników ryzyka (np. stopy procentowe, inflacja, kursy walut) oraz zawiera opcje, franszyzy, limity i inne nieliniowości. Przykładem może być wycena obligacji katastroficznych (CAT bonds), gdzie wypłata zależy od wystąpienia i skali zdarzenia naturalnego (np. huraganu), którego modelowanie jest niezwykle złożone.
+
+(iii) Kalkulacja kapitału (VaR/TVaR, SCR)
+
+Instytucje finansowe muszą utrzymywać kapitał na pokrycie nieoczekiwanych strat. Miary ryzyka takie jak Value-at-Risk (VaR) i Tail Value-at-Risk (TVaR) są standardem w ocenie wymogów kapitałowych (np. SCR w Solvency II). Obliczenie tych miar wymaga znajomości rozkładu prawdopodobieństwa zagregowanych strat całego portfela, co jest trywialne tylko w teorii.
+
+Agregacja wielu zależnych od siebie ryzyk i modelowanie ogonów rozkładu. Analityczne wyznaczenie rozkładu sumy wielu zależnych zmiennych losowych o różnych rozkładach (często z grubymi ogonami) jest praktycznie niemożliwe. Metoda Monte Carlo pozwala "brutalną siłą" obliczeniową zbudować ten rozkład i precyzyjnie zmierzyć ryzyko w jego ekstremalnych obszarach (ogonach), co jest kluczowe dla wymogów kapitałowych.
+
+(iv) Stress Testy i Analiza Scenariuszy
+
+Stress testy polegają na ocenie, jak portfel lub cała instytucja zachowa się w warunkach ekstremalnych, ale prawdopodobnych kryzysów (np. krach na giełdzie, gwałtowny wzrost inflacji, wielka powódź). Celem jest zrozumienie odporności na szoki, które wykraczają poza standardowe założenia modelu.
+
+Stresy są z natury wieloczynnikowe (np. skok częstości + wysokie szkody + szok rynkowy) i mogą obejmować nieliniowe efekty oraz zależności pomiędzy liniami/rynkami. MC pozwala generować spójne scenariusze i rozkłady wyników pod narzuconymi szokami, porównać wpływ na wyniki, rezerwy, kapitał oraz przeprowadzić odwrotny test warunków skrajnych i analizy wrażliwości bez przebudowy całego modelu.
+
+**9.2: Opisz schemat estymacji metodą Monte Carlo składki $\pi = E[(S - d)^+]$ dla $S = \sum_{i=1}^{N} X_i$ (gdzie $N$ – zmienna losowa dla liczby szkód w okresie, $X_i$ – zmienne losowe dla wysokości szkód, $d$ - próg):**
+
+* **co losujemy i w jakiej kolejności,**
+* **jak definiujemy estymator $\hat{\pi}$ i jak szacujemy jego niepewność,**
+* **w jednym zdaniu wskaż, jak w praktyce uwzględnia się zależności między szkodami w tym schemacie.**
+
+1. Co losujemy i w jakiej kolejności
+
+    Dla ścieżek $m = 1, \dots, n$:
+    1.  Liczba szkód: wylosuj $N^{(m)}$ z dopasowanego rozkładu (np. Poissona, ujemnego dwumianowego).
+    2.  Wysokość szkód: wylosuj niezależnie $X_1^{(m)}, \dots, X_{N^{(m)}}^{(m)}$ z dopasowanego rozkładu (np. lognormalnego, gamma, Pareto).
+    3.  Agregacja i wypłata: policz $S^{(m)} = \sum_{i=1}^{N^{(m)}} X_i^{(m)}$ oraz $Y^{(m)} = (S^{(m)} - d)^+$.
+
+2. Niepewność
+    * Estymator składki (MC):
+        $$
+        \hat{\pi} = \frac{1}{n} \sum_{m=1}^{n} Y^{(m)}
+        $$
+    * Niepewność:
+
+        $SE(\hat{\pi}) = \frac{\hat{s}}{\sqrt{n}}$, gdzie $\hat{s}^2 = \frac{1}{n-1} \sum_{m=1}^{n} (Y^{(m)} - \hat{\pi})^2$
+
+        Przedział ufności dla poziomu $1 - \alpha$:
+
+        $\hat{\pi} \pm u_{1-\alpha/2} \hat{s}$ ($u_{1-\alpha/2}$ - kwantyl rozkładu normalnego standardowego).
+
+3. Zależności między szkodami w obrębie portfela, między liniami lub między $N$ i $X_i$ uwzględnia się na etapie generowania przez wspólny czynnik (*latent factor*, *common shock*) lub kopułę.
 
 # Krajowy standard aktuarialny - praktyka aktuarialna
 
