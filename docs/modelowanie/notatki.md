@@ -131,6 +131,27 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 
 Reszty Pearsona są preferowane, ponieważ poprzez normalizację (dzielenie zwykłych reszt przez odchylenie standardowe i wagę) "stabilizują" wariancję reszt. Dzięki temu są one bardziej porównywalne w całym zakresie wartości dopasowanych i pozwalają na trafniejszą ocenę dopasowania modelu oraz identyfikację obserwacji odstających, bez zakłóceń wynikających z naturalnej zależności wariancji od średniej w rodzinie rozkładów wykładniczych.
 
+## 5: Over-Dispersion, Credibility Adjustments, Mixed Models, and Regularization
+
+**5.2: Na czym polega model quasi-Poissona w uogólnionych modelach liniowych w porównaniu ze zwykłym modelem Poissona?**
+
+Model quasi-Poissona w uogólnionych modelach liniowych działa podobnie jak zwykły model Poissona, ale dopuszcza, że wariancja nie musi być równa średniej. W praktyce oznacza to wprowadzenie parametru dyspersji, który pozwala modelować nadmierną lub zbyt małą zmienność danych (over- lub under-dispersion) bez zmiany postaci funkcji linku ani estymatorów średniej.
+
+---
+**5.2: Wyjaśnij, jak w przypadku modelu quasi-Poissona należy interpretować wartość parametru dyspersji $\phi$, w szczególności gdy:**
+* **$\phi > 1$**
+* **$0 < \phi < 1.$**
+
+**Podaj przykłady przyczyn odpowiadających tym dwóm przypadkom (po jednej dla każdego).**
+
+W modelu quasi-Poissona parametr dyspersji $\phi$ określa, jak bardzo rzeczywista wariancja danych odbiega od tej zakładanej przez model Poissona.
+* Gdy $\phi > 1$ - występuje nadmierna zmienność (overdispersion): wariancja danych jest większa niż średnia.
+
+    Przykład przyczyny: nieobserwowana heterogeniczność między polisami. Część cech ryzyka nie została uwzględniona w modelu. W portfelu ubezpieczeń komunikacyjnych różni klienci mogą mieć odmienne zwyczaje jazdy, wiek pojazdu czy środowisko użytkowania, ale model może nie uwzględniać tych zmiennych. W efekcie częstotliwość szkód między jednostkami o pozornie tych samych cechach będzie bardziej zróżnicowana niż zakłada model.
+* Gdy $0 < \phi < 1$ - występuje niedostateczna zmienność (underdispersion): dane są mniej zróżnicowane niż przewiduje model Poissona. 
+
+    Przykład przyczyny: agregacja dużej liczby podobnych jednostek ryzyka (np.portfele złożone z wielu małych, niezależnych polis), co „wygładza” zmienność obserwacji.
+
 ## 6: Uogólnione modele addytywne (GAMs)
 
 **6.1: Krótko przedstaw ideę uogólnionych modeli addytywnych (Generalized Additive Models – GAM). Wskaż dlaczego weszły do zestawu narzędzi aktuariusza.**
@@ -312,7 +333,7 @@ Konstrukcja wykresu częściowej zależności dla pojedynczej cechy $x_S$ przebi
 
 Główna różnica polega na tym, co każda z krzywych mierzy dla danego odsetka $\alpha$ polis o najniższych przewidywanych składkach:
 
-* Krzywa Koncentracji (CC): Mierzy skumulowany udział rzeczywistych strat Y (lub, co jest równoważne, rzeczywistej, ale nieobserwowalnej, składki czystej $\mu(X)$). Innymi słowy, pokazuje, jaka część całkowitej szkody w portfelu jest generowana przez $\alpha\%$ polis uznanych przez predyktor za najbezpieczniejsze.
+* Krzywa Koncentracji (CC): Mierzy skumulowany udział rzeczywistych strat $Y$ (lub, co jest równoważne, rzeczywistej, ale nieobserwowalnej, składki czystej $\mu(X)$). Innymi słowy, pokazuje, jaka część całkowitej szkody w portfelu jest generowana przez $\alpha\%$ polis uznanych przez predyktor za najbezpieczniejsze.
 * Krzywa Lorenza (LC): Mierzy skumulowany udział przewidywanej składki $\hat{\mu}(X)$. Pokazuje, jaką część całkowitej sumy przewidywanych składek w portfelu stanowią składki zebrane od $\alpha\%$ polis uznanych za najbezpieczniejsze.
 
 Podsumowując, krzywa Lorenza opisuje, jak predyktor rozdziela przewidywane składki, podczas gdy krzywa koncentracji ocenia, jak trafny jest ten podział w odniesieniu do rzeczywistych strat. Różnica między nimi jest miarą niedoskonałości modelu predykcyjnego.
@@ -324,6 +345,54 @@ W praktyce aktuarialnej celem jest, aby przewidywane składki $\hat{\mu}(X)$ by�
 
 * Odległość między krzywymi: Duża różnica między krzywą koncentracji a krzywą Lorenza sugeruje, że predyktor słabo przybliża prawdziwą składkę techniczną. Celem jest, aby wykresy obu krzywych były jak najbliżej siebie.
 *  Miara ABC (Area Between Curves): Mniejsza wartość ABC oznacza, że predyktor jest lepszy, ponieważ jego struktura cenowa lepiej odzwierciedla strukturę rzeczywistego ryzyka.
+
+---
+**6.3: Jakie jest znaczenie porównania krzywych $LC[\hat{\mu}(X);\alpha]$ (krzywa Lorenza) i $CC[\mu(X), \hat{\mu}(X);\alpha]$ (krzywa koncentracji) w ocenie adekwatności (sprawiedliwości)systemu taryf w ubezpieczeniach, tzn. zgodności składek $\hat{\mu}(X)$ z rzeczywistym kosztem ryzyka $\mu(X)$ w różnych grupach ryzyka?**
+
+1. Diagnoza Adekwatności i Sprawiedliwości Taryfy
+
+    Idealna sytuacja to taka, w której obie krzywe niemal się pokrywają ($LC \approx CC$). Oznacza to, że składki $\hat{\mu}(X)$ są niemal idealnie proporcjonalne do rzeczywistego ryzyka $\mu(X)$.
+    
+    Grupy ubezpieczonych, które wnoszą łącznie $\alpha\%$ całkowitej składki, generują również około $\alpha\%$ całkowitych szkód. Taki system taryfowy można uznać za adekwatny i sprawiedliwy z technicznego punktu widzenia, ponieważ każda grupa ryzyka płaci składkę odpowiadającą jej szkodowości. Brak jest wówczas systemowego subsydiowania jednych grup przez drugie.
+
+2. Identyfikacja Kierunku i Skali Subsydiowania
+
+    Rozbieżność między krzywymi jest bezpośrednią miarą subsydiowania krzyżowego w portfelu.
+    
+    Gdy LC > CC: Krzywa Lorenza (składek) znajduje się powyżej krzywej koncentracji (szkód). Oznacza to, że dla danego odsetka $\alpha$ "najtańszych" klientów, ich skumulowany udział w całkowitej składce jest większy niż ich skumulowany udział w szkodach. W efekcie, segmenty o niskim ryzyku nadpłacają w stosunku do generowanych przez siebie kosztów, subsydiując grupy o wyższym ryzyku.
+    
+    Gdy CC > LC: Krzywa koncentracji jest powyżej krzywej Lorenza. Oznacza to, że skumulowane szkody dla segmentów o najniższych składkach rosną szybciej niż ich wkład w pulę składek. Te segmenty są subsydiowane – płacą za mało w stosunku do generowanego ryzyka.
+    
+    Szerokość luki (odległość w pionie) między krzywymi wizualizuje skalę tego subsydiowania. Duża rozbieżność wskazuje na poważne niedopasowanie taryfy.
+
+3. Weryfikacja Zgodności Rankingu Ryzyka
+
+    Analiza ta odpowiada na fundamentalne pytanie: "Czy porządek w portfelu według wysokości składki $\hat{\mu}(X)$ jest zgodny z porządkiem według rzeczywistej szkodowości $\mu(X)$?".
+    
+    Trwałe i systematyczne odchylenia krzywych od siebie ujawniają błędy w strukturze taryfy. Na przykład, jeśli krzywa CC początkowo biegnie znacznie powyżej LC, a następnie ją przecina i biegnie poniżej, oznacza to, że taryfa jest "zbyt płaska". Klienci o niskim ryzyku płacą za dużo (względnie), a klienci o wysokim ryzyku za mało, ponieważ różnicowanie składek jest niewystarczające.
+
+4. Lokalizacja Nieadekwatności w Portfelu
+
+    Analiza krzywych pozwala precyzyjnie zidentyfikować, w których segmentach portfela (określonych przez parametr $\alpha$) występuje największa rozbieżność.
+    
+    Jeśli krzywe znacząco się rozchodzą dla niskich wartości $\alpha$, problem dotyczy segmentu klientów płacących najniższe składki.
+
+    Jeśli rozbieżność pojawia się w środkowej części wykresu, nieadekwatność dotyczy "przeciętnych" klientów.
+    
+    Jeśli luki pojawiają się przy wysokich wartościach $\alpha$, problem leży w segmencie klientów o najwyższym ryzyku i najwyższych składkach.
+
+    Dzięki temu wiadomo, gdzie dokładnie należy wprowadzić korekty stawek.
+
+5. Ocena Ryzyka Modelowego i Błędów Specyfikacji
+
+    Stabilna, jednokierunkowa różnica między LC a CC jest silnym sygnałem, że model taryfowy $\hat{\mu}(X)$ cierpi na błąd specyfikacji. Nie jest to tylko kwestia drobnej korekty stawek, ale fundamentalnego problemu z modelem.
+    
+    Taka sytuacja sugeruje, że model może:
+    * Pomijać istotne zmienne objaśniające ryzyko.
+    * Używać nieprawidłowych wag lub offsetów (np. dla ekspozycji).
+    * Mieć błędnie zdefiniowaną postać funkcyjną (np. liniową zamiast nieliniowej).
+
+    Różnica LC–CC staje się więc miarą ryzyka modelowego, która wskazuje na konieczność rewizji i udoskonalenia samego modelu predykcyjnego, a nie tylko na prostą kalibrację stawek.
 
 ---
 **6.3: Co to jest „uporządkowana” krzywa Lorenza (ordered Lorenz curve)? W jaki sposób może być wykorzystana w taryfikacji?**
@@ -912,6 +981,28 @@ Brak danych: aktuariusz powinien wziąć pod uwagę możliwy wpływ wszelkich br
 * a. Odmowę podjęcia lub kontynuowania świadczenia usług zawodowych;
 * b. Współpracę ze zleceniodawcą w celu modyfikacji usług zawodowych lub uzyskania odpowiednich dodatkowych danych lub innych informacji; lub
 * c. Z zastrzeżeniem zgodności z kodeksem etyki zawodowej, wykonanie usług zawodowych w najlepszy możliwy sposób i ujawnienie braków danych we wszystkich raportach (oraz wskazując potencjalny wpływ tych braków w danych).
+
+---
+**Dlaczego zgodnie ze standardami aktuariusz powinien analizować jakość i kompletność danych wykorzystywanych w kalibracji i walidacji modelu?**
+
+Bez rzetelnych danych kalibracja i walidacja nie mają sensu.
+* Błędy, niespójności i outliery zniekształcają estymację, prowadzą do błędnych parametrów i miar dopasowania.
+* Braki, zmiany definicji lub niereprezentatywne okresy powodują obciążenie i niestabilność wyników (np. zawyżony VaR, złe stawki).
+* Analiza jakości danych pozwala oszacować niepewność, przeprowadzić analizy wrażliwości i transparentnie komunikować ograniczenia. 
+
+Podsumowując, kontrola jakości i kompletności danych to warunek wiarygodności wyników i decyzji dotyczących np. taryfy, rezerwy, kapitału.
+
+---
+**W portfelu brakuje pełnych danych o szkodach z lat 2019–2020. Aktuariusz chce jednak użyć modelu do wyznaczenia rezerw. Opisz dwa możliwe sposoby radzenia sobie z brakami danych.**
+
+Na przykład:
+* Uzupełnienie braków i weryfikacja. Brakujące lata zastępujemy danymi porównywalnymi (z innych okresów/źródeł), korygując je o inflację, kalendarz szkód czy zmiany procesu likwidacji. Następnie sprawdzamy spójność i jakość(uzgodnienia, testy racjonalności, porównania historyczne), a wyniki prezentujemy wraz z analizą wrażliwości i jasnym opisem ograniczeń.
+* Praca na tym, co jest, z marginesem ostrożności. Model kalibrujemy wyłącznie na dostępnych latach, a niepewność wynikającą z luk kompensujemy konserwatywnymi założeniami lub dodatkowymi marginesami. Efekt braków pokazujemy w krótkich scenariuszach/wrażliwościach i wyraźnie dokumentujemy wpływ na rezerwy.
+
+---
+**Wyjaśnij, dlaczego transparentne udokumentowanie ograniczeń danych jest istotne w procesie sprawozdawczości i zarządzania ryzykiem w zakładzie ubezpieczeń.**
+
+Transparentne opisanie ograniczeń danych chroni przed „fałszywą precyzją” (pozwala właściwie odczytać wyniki, ich niepewność i zakres stosowalności modelu). Umożliwia świadome decyzje: wskazuje, gdzie wyniki są solidne, a gdzie wymagają ostrożności, marginesów lub scenariuszy. Podnosi przejrzystość i możliwość audytu, tzn. jasno opisana „ścieżka danych” (źródła, okresy, filtry, transformacje, imputacje), wraz z rejestrem podjętych decyzji i testów jakości, umożliwia odtworzenie obliczeń, zrozumienie zastosowanych korekt i ocenę ich wpływu na wyniki. Ułatwia też przeglądy wewnętrzne i kontrole zewnętrzne. Dzięki temu raporty są rzetelne, a zarządzanie ryzykiem bardziej odpowiedzialne i przejrzyste.
 
 # Actuarial Aspects of ERM for InsuranceCompanies
 
