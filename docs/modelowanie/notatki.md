@@ -127,9 +127,23 @@ Główne zalety ich wykorzystania w porównaniu z innymi rodzajami reszt to:
 * Lepsza interpretacja dla danych dyskretnych: chociaż indywidualne reszty dla danych dyskretnych (np. liczby szkód) mogą być trudne do interpretacji, reszty dewiancyjne obliczone dla zagregowanych grup ryzyka dają znacznie lepsze wskazówki co do poprawności dopasowania modelu.
 
 ---
-**4.9: Wyjaśnij, dlaczego w przypadku diagnostyki uogólnionych modeli liniowych korzystniejsze jest stosowanie reszt Pearsona zamiast zwykłych reszt (raw residuals,response residuals).**
+**4.9: Wyjaśnij, dlaczego w przypadku diagnostyki uogólnionych modeli liniowych korzystniejsze jest stosowanie reszt Pearsona zamiast zwykłych reszt (raw residuals, response residuals).**
 
 Reszty Pearsona są preferowane, ponieważ poprzez normalizację (dzielenie zwykłych reszt przez odchylenie standardowe i wagę) "stabilizują" wariancję reszt. Dzięki temu są one bardziej porównywalne w całym zakresie wartości dopasowanych i pozwalają na trafniejszą ocenę dopasowania modelu oraz identyfikację obserwacji odstających, bez zakłóceń wynikających z naturalnej zależności wariancji od średniej w rodzinie rozkładów wykładniczych.
+
+---
+**4.9: Którą z tych reszt: reszta Pearsona, standaryzowana reszta Pearsona należy używać do porównań między obserwacjami i dlaczego?**
+
+Do porównań między obserwacjami lepsza jest standaryzowana reszta Pearsona, bo koryguje nie tylko heteroscedastyczność, ale też różnice dźwigni. Dzięki temu jej skala jest bardziej porównywalna w całym zbiorze.
+
+---
+**4.9: Wyjaśnij, czemu w przypadku uogólnionego modelu liniowego ze zmienną objaśnianą o rozkładzie zero-jedynkowym, histogram reszt zwykłych bywa dwumodalny.**
+
+W GLM z rozkładem Bernoulliego (Binomialny z $m=1$) zwykła reszta $e_i = y_i - \mu_i,$ gdzie $y_i \in \{0, 1\}$ i $0 < \hat{\mu}_i < 1.$
+* Gdy $y_i = 1,$ reszta wynosi: $1 − \mu_i > 0$ (dodatnia).
+* Gdy $y_i = 0,$ reszta wynosi: $-\mu_i$ (ujemna).
+
+W całej próbie dostajemy więc mieszaninę dwóch „chmur” wartości: dodatnich i ujemnych, co naturalnie tworzy dwumodalny histogram. To powód, dla którego do diagnostyki w modelach binarnych preferuje się reszty Pearsona lub reszty dewiancyjne (standaryzowane), które mają bardziej symetryczne i porównywalne rozkłady.
 
 ## 5: Over-Dispersion, Credibility Adjustments, Mixed Models, and Regularization
 
@@ -544,6 +558,16 @@ c)
 
 1.  Liczba drzew $B$: liczba ta mówi ile razy model jest ponownie trenowany, jeśli liczba drzew B jest zbyt duża model może zostać przetrenowany. Z tego powodu parametr ten dobiera się za pomocą cross-walidacji.
 2.  Parametr kurczenia (shrinkage) $\lambda$: Jest to mała dodatnia liczba, która kontroluje tempo, w jakim *boosting* się uczy. Typowe wartości to 0.01 lub 0.001. Mniejsze wartości $\lambda$ wymagają zazwyczaj większej liczby drzew $B$, aby osiągnąć dobrą wydajność.
+
+---
+**8.2: Wyjaśnij w jednym zdaniu, czym różni się proces uczenia kolejnych drzew w baggingu i boostingu.**
+
+Bagging uczy wiele drzew niezależnie i równolegle na bootstrapowych próbkach tych samych danych, a potem uśrednia ich przewidywania, natomiast boosting uczy drzewa sekwencyjnie, gdzie każde kolejne drzewo dopasowuje się do błędów poprzedniego zespołu (często z małym krokiem – learning rate) i koryguje dotychczasową prognozę.
+
+---
+**8.2: Która z tych metod (tj. bagging, boosting) lepiej radzi sobie z redukcją błędu systematycznego (bias)?**
+
+Boosting celuje w błąd systematyczny (bias) przez sekwencyjne korygowanie niedoszacowań/przeszacowań poprzednich modeli (uczenie na resztach lub wzdłuż gradientu straty), podczas gdy bagging przede wszystkim redukuje wariancję przez uśrednianie wielu niezależnie uczonych modeli.
 
 ## 12: Uczenie nienadzorowane
 
