@@ -811,7 +811,9 @@ Wygładzanie wykładnicze jest szczególnie cenione za swoją prostotę i skutec
 
 
 Def. Stacjonarność w sensie ścisłym. Szereg czasowy $(X_t)_{t \in \mathbb{Z}}$ jest ściśle stacjonarny, jeśli
+
 $$ (X_{t_1}, \dots, X_{t_n}) \stackrel{\mathrm{d}}{=} (X_{t_1+k}, \dots, X_{t_n+k}) $$
+
 dla wszystkich $t_1, \dots, t_n, k \in \mathbb{Z}$ oraz dla wszystkich $n \in \mathbb{N}$.
 
 Def. Stacjonarność w sensie szerokim/słabym. Szereg czasowy $(X_t)_{t \in \mathbb{Z}}$ jest stacjonarny kowariancyjnie (lub słabo lub w sensie szerokim), jeśli jego dwa pierwsze momenty istnieją i spełniają warunki
@@ -833,13 +835,13 @@ Proces AR(1) jest zdefiniowany równaniem:
 
 $$X_t = \phi_1 X_{t-1} + \epsilon_t$$
 
-gdzie $\epsilon_t$ to proces białego szumu o wariancji $\sigma_\epsilon^2$, a $|\phi_1| < 1$ jest warunkiem stacjonarności.
+gdzie $\epsilon_t$ to proces białego szumu o wariancji $\sigma_\epsilon^2$, a $\mid\phi_1\mid < 1$ jest warunkiem stacjonarności.
 
 Wzór na funkcję autokowariancji $\gamma(k)$ dla opóźnienia (ang. *lag*) $k$ jest następujący:
 
-$$ \gamma(k) = \frac{\phi_1^{|k|} \sigma_\epsilon^2}{1 - \phi_1^2} $$
+$$ \gamma(k) = \frac{\phi_1^{\mid k\mid } \sigma_\epsilon^2}{1 - \phi_1^2} $$
 
-Wartość bezwzględna autokowariancji maleje wykładniczo. Ponieważ dla stacjonarnego procesu AR(1) musi zachodzić warunek $|\phi_1| < 1$, wartość $|\phi_1^{|k|}|$ maleje do zera w miarę wzrostu $k$. Oznacza to, że korelacja między odległymi w czasie obserwacjami jest coraz słabsza.
+Wartość bezwzględna autokowariancji maleje wykładniczo. Ponieważ dla stacjonarnego procesu AR(1) musi zachodzić warunek $\mid \phi_1\mid < 1$, wartość $\mid \phi_1^{\mid k\mid}\mid$ maleje do zera w miarę wzrostu $k$. Oznacza to, że korelacja między odległymi w czasie obserwacjami jest coraz słabsza.
 
 
 ---
