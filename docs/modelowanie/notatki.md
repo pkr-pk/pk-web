@@ -289,7 +289,7 @@ Funkcja wartości oczekiwanej nadwyżki:
 ---
 **9.5: Wyjaśnij (odwołując się do odpowiedniego twierdzenia) dlaczego w modeluPOT (Peak Over Threshold) nadwyżki $Y=X-u\mid X>u$ ponad wysoki próg umodeluje się uogólnionym rozkładem Pareto (GPD). Zinterpretuj parametr kształtu $\xi$ (znak i konsekwencje dla „grubości” ogona) oraz podaj dwie praktyczne przesłanki wyboru progu $u$. Odpowiedź ogranicz do kilku precyzyjnych zdań.**
 
-Użycie uogólnionego rozkładu Pareto (GPD) do modelowania nadwyżki $Y = X - u | X > u$ ponad wysoki próg $u$ w modelu POT (Peak Over Threshold) jest uzasadnione twierdzeniem Pickandsa-Balkemy-de Haana. Twierdzenie to wskazuje, że dla odpowiednio wysokich progów $u$, rozkład nadwyżek ponad ten próg może być dobrze przybliżony przez uogólniony rozkład Pareto.
+Użycie uogólnionego rozkładu Pareto (GPD) do modelowania nadwyżki $Y = X - u \mid X > u$ ponad wysoki próg $u$ w modelu POT (Peak Over Threshold) jest uzasadnione twierdzeniem Pickandsa-Balkemy-de Haana. Twierdzenie to wskazuje, że dla odpowiednio wysokich progów $u$, rozkład nadwyżek ponad ten próg może być dobrze przybliżony przez uogólniony rozkład Pareto.
 
 Parametr kształtu $\xi$ (nazywany również indeksem ogona lub indeksem wartości ekstremalnej) określa zachowanie ogona rozkładu:
 * $\xi > 0$: odpowiada rozkładom o grubych ogonach (heavy-tailed). Wskazuje to, że ogon zanika wolno, jak w przypadku funkcji potęgowej.
