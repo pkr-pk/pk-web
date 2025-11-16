@@ -815,7 +815,9 @@ $$ (X_{t_1}, \dots, X_{t_n}) \stackrel{\mathrm{d}}{=} (X_{t_1+k}, \dots, X_{t_n+
 dla wszystkich $t_1, \dots, t_n, k \in \mathbb{Z}$ oraz dla wszystkich $n \in \mathbb{N}$.
 
 Def. Stacjonarność w sensie szerokim/słabym. Szereg czasowy $(X_t)_{t \in \mathbb{Z}}$ jest stacjonarny kowariancyjnie (lub słabo lub w sensie szerokim), jeśli jego dwa pierwsze momenty istnieją i spełniają warunki
-$$ \mu(t) = \mu, \quad t \in \mathbb{Z}, $$
+
+$$ \mu(t) = \mu, \quad t \in \mathbb{Z},$$
+
 $$ \gamma(t, s) = \gamma(t+k, s+k), \quad t, s, k \in \mathbb{Z}. $$
 
 Szereg czasowy jest ściśle stacjonarny, jeśli jego łączny rozkład prawdopodobieństwa nie zmienia się w czasie. Oznacza to, że dla dowolnego zbioru punktów w czasie, łączny rozkład wartości w tych punktach jest taki sam, jak dla dowolnego innego zbioru punktów przesuniętych w czasie o stałą wartość.
