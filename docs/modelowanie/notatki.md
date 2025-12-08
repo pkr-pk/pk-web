@@ -287,7 +287,7 @@ Funkcja wartości oczekiwanej nadwyżki:
 * ma liniową postać po przekroczeniu odpowiedniego progu $u.$
 
 ---
-**9.5: Wyjaśnij (odwołując się do odpowiedniego twierdzenia) dlaczego w modeluPOT (Peak Over Threshold) nadwyżki $Y=X-u\mid X>u$ ponad wysoki próg umodeluje się uogólnionym rozkładem Pareto (GPD). Zinterpretuj parametr kształtu $\xi$ (znak i konsekwencje dla „grubości” ogona) oraz podaj dwie praktyczne przesłanki wyboru progu $u$. Odpowiedź ogranicz do kilku precyzyjnych zdań.**
+**9.5: Wyjaśnij (odwołując się do odpowiedniego twierdzenia) dlaczego w modelu POT (Peak Over Threshold) nadwyżki $Y=X-u\mid X>u$ ponad wysoki próg $u$ modeluje się uogólnionym rozkładem Pareto (GPD). Zinterpretuj parametr kształtu $\xi$ (znak i konsekwencje dla „grubości” ogona) oraz podaj dwie praktyczne przesłanki wyboru progu $u$. Odpowiedź ogranicz do kilku precyzyjnych zdań.**
 
 Użycie uogólnionego rozkładu Pareto (GPD) do modelowania nadwyżki $Y = X - u \mid X > u$ ponad wysoki próg $u$ w modelu POT (Peak Over Threshold) jest uzasadnione twierdzeniem Pickandsa-Balkemy-de Haana. Twierdzenie to wskazuje, że dla odpowiednio wysokich progów $u$, rozkład nadwyżek ponad ten próg może być dobrze przybliżony przez uogólniony rozkład Pareto.
 
@@ -361,7 +361,7 @@ W praktyce aktuarialnej celem jest, aby przewidywane składki $\hat{\mu}(X)$ by�
 *  Miara ABC (Area Between Curves): Mniejsza wartość ABC oznacza, że predyktor jest lepszy, ponieważ jego struktura cenowa lepiej odzwierciedla strukturę rzeczywistego ryzyka.
 
 ---
-**6.3: Jakie jest znaczenie porównania krzywych $LC[\hat{\mu}(X);\alpha]$ (krzywa Lorenza) i $CC[\mu(X), \hat{\mu}(X);\alpha]$ (krzywa koncentracji) w ocenie adekwatności (sprawiedliwości)systemu taryf w ubezpieczeniach, tzn. zgodności składek $\hat{\mu}(X)$ z rzeczywistym kosztem ryzyka $\mu(X)$ w różnych grupach ryzyka?**
+**6.3: Jakie jest znaczenie porównania krzywych $LC[\hat{\mu}(X);\alpha]$ (krzywa Lorenza) i $CC[\mu(X), \hat{\mu}(X);\alpha]$ (krzywa koncentracji) w ocenie adekwatności (sprawiedliwości) systemu taryf w ubezpieczeniach, tzn. zgodności składek $\hat{\mu}(X)$ z rzeczywistym kosztem ryzyka $\mu(X)$ w różnych grupach ryzyka?**
 
 1. Diagnoza Adekwatności i Sprawiedliwości Taryfy
 
