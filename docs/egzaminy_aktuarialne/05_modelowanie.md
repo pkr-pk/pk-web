@@ -17,3 +17,4 @@ nav_order: 5
 91. [rozwiązania](pdfs_modelowanie/Egzamin_091.pdf){:target="_blank"}
 92. [rozwiązania](pdfs_modelowanie/Egzamin_092.pdf){:target="_blank"}
 93. [rozwiązania](pdfs_modelowanie/Egzamin_093.pdf){:target="_blank"}
+94. [rozwiązania](pdfs_modelowanie/Egzamin_094.pdf){:target="_blank"}
