@@ -943,14 +943,16 @@ Stresy są z natury wieloczynnikowe (np. skok częstości + wysokie szkody + szo
         $$
         \hat{\pi} = \frac{1}{n} \sum_{m=1}^{n} Y^{(m)}
         $$
-        
+
     * Niepewność:
 
         $SE(\hat{\pi}) = \frac{\hat{s}}{\sqrt{n}}$, gdzie $\hat{s}^2 = \frac{1}{n-1} \sum_{m=1}^{n} (Y^{(m)} - \hat{\pi})^2$
 
         Przedział ufności dla poziomu $1 - \alpha$:
 
-        $\hat{\pi} \pm u_{1-\alpha/2} \hat{s}$ ($u_{1-\alpha/2}$ - kwantyl rozkładu normalnego standardowego).
+        $\hat{\pi} \pm u_{1-\alpha/2} \hat{s},$ 
+        
+        gdzie $u_{1-\alpha/2}$ to kwantyl rozkładu normalnego standardowego.
 
 3. Zależności między szkodami w obrębie portfela, między liniami lub między $N$ i $X_i$ uwzględnia się na etapie generowania przez wspólny czynnik (*latent factor*, *common shock*) lub kopułę.
 
