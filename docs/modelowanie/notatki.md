@@ -939,9 +939,11 @@ Stresy są z natury wieloczynnikowe (np. skok częstości + wysokie szkody + szo
 
 2. Niepewność
     * Estymator składki (MC):
+
         $$
         \hat{\pi} = \frac{1}{n} \sum_{m=1}^{n} Y^{(m)}
         $$
+        
     * Niepewność:
 
         $SE(\hat{\pi}) = \frac{\hat{s}}{\sqrt{n}}$, gdzie $\hat{s}^2 = \frac{1}{n-1} \sum_{m=1}^{n} (Y^{(m)} - \hat{\pi})^2$
