@@ -950,7 +950,7 @@ Stresy są z natury wieloczynnikowe (np. skok częstości + wysokie szkody + szo
 
         Przedział ufności dla poziomu $1 - \alpha$:
 
-        $\hat{\pi} \pm u_{1-\alpha/2} \hat{s},$ 
+        $\hat{\pi} \pm u_{1-\frac{\alpha}{2}} \cdot \frac{\hat{s}}{\sqrt{n}},$ 
         
         gdzie $u_{1-\alpha/2}$ to kwantyl rozkładu normalnego standardowego.
 
