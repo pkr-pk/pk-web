@@ -7,7 +7,7 @@ nav_order: 5
 
 # Modelowanie
 
-[Notatki z egzaminów](../modelowanie/notatki.html){:target="_blank"}
+[Notatki z egzaminów](05_01_modelowanie_notatki.html){:target="_blank"}
 
 {:style="counter-reset:step-counter 86"}
 88. [rozwiązania](pdfs_modelowanie/Egzamin_087.pdf){:target="_blank"}

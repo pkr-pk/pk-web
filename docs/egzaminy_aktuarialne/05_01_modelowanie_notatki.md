@@ -1,8 +1,5 @@
 ---
 layout: math
-title: Notatki
-parent: Modelowanie
-nav_order: 99
 ---
 
 # Effective Statistical Learning Methods for Actuaries I
