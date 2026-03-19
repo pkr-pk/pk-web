@@ -35,6 +35,24 @@ Oznacza transfer ryzyka ubezpieczeniowego na rynki kapitałowe. Polega na zamian
 
 # ROZPORZĄDZENIE DELEGOWANE KOMISJI (UE) 2015/35 z dnia 10 października 2014 r. uzupełniające dyrektywę Parlamentu Europejskiego i Rady 2009/138/WE w sprawie podejmowania i prowadzenia działalności ubezpieczeniowej i reasekuracyjnej (Wypłacalność II)
 
+## Art. 44-47 
+
+**Jakie dwa warunki muszą spełniać stopy struktury terminowej podstawowej stopy procentowej wolnej od ryzyka.**
+
+1. Rynek tych instrumentów finansowych musi być głęboki, płynny i przejrzysty.
+2. Muszą one pozwalać na wyznaczenie podstawowych stóp procentowych wolnych od ryzyka w wiarygodny sposób (dodatkowo, jak precyzuje ust. 1, muszą być one skorygowane o ryzyko kredytowe).
+
+**Na podstawie jakich instrumentów finansowych ustalane są podstawowe stopy procentowe wolne od ryzyka.**
+
+1. Podstawowym instrumentem są swapy stóp procentowych wyznaczane dla danej waluty.
+2. Jeżeli dla danego terminu zapadalności (lub danej waluty) stopy swapów nie są dostępne na rynkach spełniających warunek głębokości, płynności i przejrzystości, wykorzystuje się stopy obligacji skarbowych (rządowych) emitowanych przez państwo, w którego walucie denominowane są zobowiązania.
+
+**Wyjaśnij pojęcie ostatecznej stopy forward (Ultimate Forward Rate).**
+
+Ostateczna stopa forward (UFR) to ustalona administracyjnie, długoterminowa stopa procentowa, do której asymptotycznie zmierza (jest ekstrapolowana) krzywa stóp procentowych wolnych od ryzyka dla bardzo długich terminów zapadalności (czyli takich, dla których na rynku brakuje już płynnych instrumentów finansowych.
+
+Jej fundamentalną cechą jest to, że jest ona stabilna w czasie i zmienia się jedynie z powodu zmian długoterminowych oczekiwań makroekonomicznych (np. długoterminowej oczekiwanej inflacji i realnej stopy procentowej). Mechanizm UFR ma na celu ochronę zakładów ubezpieczeń przed nadmierną i sztuczną zmiennością wymogów kapitałowych dla długoterminowych zobowiązań ubezpieczeniowych (np. w ubezpieczeniach na życie).
+
 ## Art. 260: Obszary zarządzania ryzykiem
 
 **W oparciu o Rozporządzenie Delegowane Wypłacalność II wymień i krótko scharakteryzuj pięć obszarów zarządzania ryzykiem**
