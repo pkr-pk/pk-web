@@ -4,6 +4,59 @@ layout: math
 
 # Financial Enterprise Risk Management
 
+## 7: Definicje Ryzyka
+
+**Wyjaśnij pojęcia, podaj przykłady oraz metody zarządzania ryzykiem:**
+* **a) Systematycznym i niesystematycznym.**
+* **b) Negatywnej selekcji – adverse selection.**
+* **c) Pokusy nadużycia – moral hazard.**
+* **d) Operacyjnym.**
+
+a) Ryzyko systematyczne i niesystematyczne
+
+1. Ryzyko systematyczne (rynkowe, niedywersyfikowalne)
+
+* Wyjaśnienie: Jest to ryzyko wynikające z ogólnorynkowych lub makroekonomicznych czynników, które wpływają na cały rynek lub gospodarkę. Nie można go wyeliminować poprzez dodawanie kolejnych, różnych aktywów do portfela (nie ulega dywersyfikacji).
+* Przykłady: Zmiany stóp procentowych przez bank centralny, wybuch wojny, globalna pandemia (np. COVID-19), recesja gospodarcza, nagłe skoki inflacji.
+* Metody zarządzania:
+    * Hedging (zabezpieczanie): Wykorzystanie instrumentów pochodnych (np. opcje, kontrakty futures), aby zająć pozycję odwrotną i zneutralizować spadki na rynku.
+    * Alokacja aktywów: Przenoszenie kapitału do tzw. "bezpiecznych przystani" (safe havens), np. obligacji skarbowych czy złota w czasach zawirowań.
+    * Zarządzanie wskaźnikiem Beta: Dostosowanie portfela tak, aby jego wrażliwość na ruchy rynkowe (Beta) była niższa, jeśli spodziewamy się spadków.
+
+2. Ryzyko niesystematyczne (specyficzne, dywersyfikowalne)
+
+* Wyjaśnienie: Jest to ryzyko związane z konkretną firmą, branżą lub projektem. Dotyka tylko pojedynczego podmiotu lub wąskiej grupy podmiotów i jest niezależne od ogólnej sytuacji rynkowej.
+* Przykłady: Strajk pracowników w konkretnej fabryce, pożar magazynu danej firmy, błędne decyzje zarządu, przegrany proces sądowy, wejście na rynek silnego konkurenta w danej niszy.
+* Metody zarządzania:
+    * Dywersyfikacja: Główna i najskuteczniejsza metoda. Polega na budowaniu portfela z aktywów, które nie są ze sobą skorelowane (np. kupowanie akcji spółek z różnych sektorów gospodarki). Jeśli jedna spółka traci z powodu swoich problemów, inne mogą zyskiwać lub pozostać stabilne, co niweluje stratę.
+
+b) Negatywna selekcja (Adverse selection)
+
+* Wyjaśnienie: Zjawisko wynikające z asymetrii informacji występującej przed zawarciem transakcji. Jedna ze stron (zazwyczaj kupujący lub ubezpieczający się) posiada lepszą wiedzę o swoim stanie/ryzyku niż druga strona. Prowadzi to do sytuacji, w której na rynku zostają tylko produkty gorszej jakości lub do ubezpieczenia zgłaszają się głównie osoby o bardzo wysokim ryzyku, co wypycha z rynku osoby o niskim ryzyku.
+* Przykład: Osoby przewlekle chore są bardziej skłonne kupić drogie i pełne ubezpieczenie zdrowotne niż osoby młode i zdrowe.
+* Metody zarządzania:
+    * Screening (selekcja/filtrowanie): Pozyskiwanie dodatkowych informacji przez stronę mniej poinformowaną przed podpisaniem umowy (np. obowiązkowe badania lekarskie przed zakupem polisy na życie, sprawdzanie historii kredytowej w BIK przed udzieleniem pożyczki).
+    * Signaling (sygnalizowanie): Strona posiadająca lepsze cechy (dobry produkt) wysyła wiarygodny sygnał (np. sprzedawca auta daje roczną gwarancję na używany pojazd, uczelnia wydaje dyplom potwierdzający wiedzę pracownika).
+    * Pule grupowe / przymus ubezpieczeniowy: Oferowanie ubezpieczeń dla całych grup (np. ubezpieczenia pracownicze), co wymusza udział zarówno osób zdrowych, jak i chorych, uśredniając ryzyko.
+
+c) Pokusa nadużycia (Moral hazard)
+
+* Wyjaśnienie: Zjawisko wynikające z asymetrii informacji występującej PO zawarciu transakcji. Polega na tym, że po zabezpieczeniu się przed ryzykiem (np. po wykupieniu ubezpieczenia lub otrzymaniu gwarancji ratunku), dany podmiot zmienia swoje zachowanie na bardziej ryzykowne, ponieważ wie, że koszty ewentualnej porażki poniesie ktoś inny.
+* Przykład: Kierowca po wykupieniu pełnego ubezpieczenia AC zaczyna jeździć bardziej agresywnie i przestaje parkować na strzeżonych parkingach.
+* Metody zarządzania:
+    * Udział własny i franszyza redukcyjna (Deductibles and co-payments): Przerzucenie części kosztów na ubezpieczonego. Jeśli kierowca wie, że za pierwszą szkodę do kwoty 1000 zł zapłaci z własnej kieszeni, będzie jeździł ostrożniej.
+    * Monitoring i kontrola: Wymóg instalacji systemów alarmowych przeciwpożarowych w ubezpieczonym budynku lub montaż telematyki (GPS) w aucie, która śledzi styl jazdy i uzależnia od niego wysokość składki.
+    * Odpowiednie systemy motywacyjne (klauzule umowne): Uzależnienie premii dla zarządu banku od długoterminowych wyników, a nie od krótkoterminowych, ryzykownych zysków.
+
+d) Ryzyko operacyjne
+
+* Wyjaśnienie: Jest to ryzyko straty wynikające z nieodpowiednich lub zawodnych wewnętrznych procesów, ludzi i systemów, lub ze zdarzeń zewnętrznych. (Obejmuje ryzyko prawne, ale zazwyczaj wyklucza ryzyko strategiczne i reputacyjne). Zasadniczo to ryzyko "codziennego prowadzenia biznesu".
+* Przykłady: Błąd pracownika, oszustwo wewnętrzne, awaria serwerów firmy, atak hakerski paraliżujący sieć IT, błędy w księgowaniu, zła organizacja pracy prowadząca do pomyłek w dostawach, pożar biurowca, powódź niszcząca maszyny, nagłe zmiany w prawie.
+* Metody zarządzania:
+    * Kontrole wewnętrzne i audyty.
+    * Plany ciągłości działania: Posiadanie zapasowych serwerowni, kopii zapasowych danych w chmurze (backup), alternatywnych lokalizacji biurowych w razie katastrofy.
+    * Szkolenia pracowników: Regularne uświadamianie pracowników w zakresie cyberbezpieczeństwa (np. testy phishingowe) i procedur BHP.
+
 ## 16: Odpowiedzi na ryzyko
 
 **16.8, 16.9: Wytłumacz na czym polegają poniższe metody zarządzania ryzykiem w ubezpieczeniach majątkowych:**
