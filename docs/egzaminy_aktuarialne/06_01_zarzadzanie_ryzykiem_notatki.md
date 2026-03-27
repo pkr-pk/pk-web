@@ -106,6 +106,32 @@ Ostateczna stopa forward (UFR) to ustalona administracyjnie, długoterminowa sto
 
 Jej fundamentalną cechą jest to, że jest ona stabilna w czasie i zmienia się jedynie z powodu zmian długoterminowych oczekiwań makroekonomicznych (np. długoterminowej oczekiwanej inflacji i realnej stopy procentowej). Mechanizm UFR ma na celu ochronę zakładów ubezpieczeń przed nadmierną i sztuczną zmiennością wymogów kapitałowych dla długoterminowych zobowiązań ubezpieczeniowych (np. w ubezpieczeniach na życie).
 
+## Art. 164
+
+**Wymień i scharakteryzuj krótko wszystkie podmoduły ryzyka w obrębie modułu ryzyka rynkowego zgodnie z Rozporządzeniem Delegowanym Wypłacalność II. Dla jednego wybranego podmodułu ryzyka opisz krótko jak wyznaczamy wymogi kapitałowe.**
+
+1. Podmoduł ryzyka stopy procentowej: odzwierciedla wrażliwość wartości aktywów, zobowiązań oraz instrumentów finansowych na zmiany lub zmienność struktury terminowej stóp procentowych wolnych od ryzyka. Ryzyko to wynika z ewentualnego niedopasowania zapadalności aktywów i zobowiązań ubezpieczeniowych.
+
+2. Podmoduł ryzyka cen akcji: odzwierciedla wrażliwość wartości na zmiany poziomu lub zmienność rynkowych cen akcji. W ramach formuły standardowej akcje dzieli się na różne typy (np. Typ 1 – akcje notowane na rynkach w EOG/OECD; Typ 2 – np. rynki wschodzące, akcje nienotowane), dla których stosuje się odmienne parametry ryzyka.
+
+3. Podmoduł ryzyka cen nieruchomości: obejmuje wrażliwość wartości aktywów na zmiany poziomu lub zmienność rynkowych cen nieruchomości. Dotyczy to m.in. bezpośrednich inwestycji w grunty czy budynki.
+
+4. Podmoduł ryzyka spreadu: odzwierciedla wrażliwość wartości aktywów (przede wszystkim dłużnych papierów wartościowych, takich jak obligacje korporacyjne) na zmiany poziomu lub zmienność spreadów kredytowych, czyli premii za ryzyko ponad stopę zwrotu wolną od ryzyka.
+
+5. Podmoduł ryzyka walutowego: pokrywa ryzyko wrażliwości na zmiany poziomu lub zmienność kursów wymiany walut. Jest to kluczowe w sytuacji występowania niedopasowania walutowego (gdy zakład np. posiada zobowiązania ubezpieczeniowe w PLN, ale część aktywów inwestuje w EUR).
+
+6. Podmoduł koncentracji ryzyka rynkowego: odzwierciedla dodatkowe ryzyko ponoszone przez zakład ubezpieczeń wynikające z braku odpowiedniej dywersyfikacji portfela inwestycyjnego lub z posiadania nadmiernej ekspozycji na jednego emitenta (lub grupę powiązanych emitentów), co w razie jego problemów finansowych grozi dużymi stratami.
+
+Do wyznaczania wymogów kapitałowych (SCR) w standardowej formule Wypłacalność II powszechnie stosuje się metodę scenariuszową (szokową).
+
+Opis na przykładzie podmodułu ryzyka cen nieruchomości.
+
+1. Zastosowanie szoku rynkowego: analiza zakłada skrajny, niekorzystny scenariusz rynkowy. Dla rynku nieruchomości przepisy definiują ten szok jako natychmiastowy spadek rynkowej wartości wszystkich posiadanych nieruchomości o 25%.
+
+2. Ocena wpływu: następnie oblicza się, jak tak zdefiniowany szok wpłynąłby na bilans ekonomiczny (aktywa i pasywa) zakładu ubezpieczeń.
+
+3. Wynik (wymóg kapitałowy): wymóg kapitałowy dla tego podmodułu (oznaczany jako $SCR_{property}$) jest równy dokładnej kwocie spadku wartości podstawowych środków własnych, który nastąpiłby po zaaplikowaniu wspomnianego szoku (-25% na ceny nieruchomości).
+
 ## Art. 260: Obszary zarządzania ryzykiem
 
 **W oparciu o Rozporządzenie Delegowane Wypłacalność II wymień i krótko scharakteryzuj pięć obszarów zarządzania ryzykiem**
