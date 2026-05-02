@@ -132,6 +132,30 @@ Opis na przykładzie podmodułu ryzyka cen nieruchomości.
 
 3. Wynik (wymóg kapitałowy): wymóg kapitałowy dla tego podmodułu (oznaczany jako $SCR_{property}$) jest równy dokładnej kwocie spadku wartości podstawowych środków własnych, który nastąpiłby po zaaplikowaniu wspomnianego szoku (-25% na ceny nieruchomości).
 
+## Art. 222-247: Kapitałowy wymóg wypłacalności
+
+**Wymień i krótko opisz wymogi jakie powinien spełnić model wewnętrzny w świetle Dyrektywy Wypłacalność II, aby został zaakceptowany przez organ nadzoru. Należy opisać pięć standardów**
+
+1. Test wykorzystania (Use test)
+
+    Model wewnętrzny nie może być tworzony wyłącznie w celu obniżenia wymogów kapitałowych i raportowania do nadzoru ("model do szuflady"). Musi być faktycznie, na co dzień używany w firmie. Zakład ubezpieczeń musi udowodnić, że model odgrywa istotną rolę w systemie zarządzania ryzykiem, procesach decyzyjnych (np. przy ustalaniu cen, reasekuracji) oraz w procesie alokacji kapitału gospodarczego.
+
+2. Standardy jakości statystycznej (Statistical quality standards)
+
+    Wymóg ten dotyczy „matematycznego i danowego” fundamentu modelu. Metody wyznaczania rozkładów prawdopodobieństwa muszą być rzetelne i opierać się na powszechnie uznanych technikach aktuarialnych. Dane używane w modelu (zarówno historyczne dane własne, jak i rynkowe) muszą być odpowiedniej jakości – kompletne, dokładne i wiarygodne. Ponadto wszelkie przyjęte założenia eksperckie muszą być rzetelnie uzasadnione.
+
+3. Standardy kalibracji (Calibration standards)
+
+    Model wewnętrzny może wykorzystywać różne miary ryzyka czy horyzonty czasowe na potrzeby wewnętrzne firmy, ale na potrzeby wyliczenia Kapitałowego Wymogu Wypłacalności (SCR) dla nadzoru, musi być w stanie wykalibrować wynik do konkretnego, narzuconego prawem standardu. Wynik ten musi odpowiadać miarze Value-at-Risk (VaR) na poziomie ufności 99,5% w horyzoncie jednego roku (zabezpieczenie przed zdarzeniem, które występuje średnio raz na 200 lat).
+
+4. Standardy walidacji (Validation standards)
+
+    Zakład ubezpieczeń ma obowiązek wdrożyć niezależny i regularny proces oceny działania swojego modelu. Walidacja polega na sprawdzaniu, czy model nadal prawidłowo odzwierciedla profil ryzyka firmy. Obejmuje to m.in. *back-testing* (porównywanie wyników przewidywanych przez model z faktycznymi stratami z przeszłości), analizę wrażliwości oraz testy warunków skrajnych (stress-testy).
+
+5. Standardy dokumentacji (Documentation standards)
+
+    Każdy element modelu wewnętrznego musi być wyczerpująco udokumentowany. Dokumentacja musi szczegółowo opisywać budowę modelu, jego podstawy teoretyczne i matematyczne, architekturę systemów IT, ograniczenia modelu oraz proces jego zatwierdzania i wprowadzania w nim zmian. Dokumentacja musi być na tyle przejrzysta i kompletna, aby organ nadzoru lub niezależny audytor mógł w pełni zrozumieć i ocenić, jak działa model.
+
 ## Art. 260: Obszary zarządzania ryzykiem
 
 **W oparciu o Rozporządzenie Delegowane Wypłacalność II wymień i krótko scharakteryzuj pięć obszarów zarządzania ryzykiem**
