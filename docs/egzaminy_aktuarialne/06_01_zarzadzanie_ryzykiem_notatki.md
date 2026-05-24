@@ -106,6 +106,41 @@ Ostateczna stopa forward (UFR) to ustalona administracyjnie, długoterminowa sto
 
 Jej fundamentalną cechą jest to, że jest ona stabilna w czasie i zmienia się jedynie z powodu zmian długoterminowych oczekiwań makroekonomicznych (np. długoterminowej oczekiwanej inflacji i realnej stopy procentowej). Mechanizm UFR ma na celu ochronę zakładów ubezpieczeń przed nadmierną i sztuczną zmiennością wymogów kapitałowych dla długoterminowych zobowiązań ubezpieczeniowych (np. w ubezpieczeniach na życie).
 
+## Art. 114: Moduł ryzyka aktuarialnego w ubezpieczeniach innych niż ubezpieczenia na życie
+
+**Wymień i scharakteryzuj krótko podmoduły ryzyka w obrębie modułu ryzyka aktuarialnego w ubezpieczeniach innych niż ubezpieczenia na życie zgodnie z Rozporządzeniem Delegowanym Wypłacalność II. Dla jednego wybranego podmodułu ryzyka opisz krótko jak wyznaczamy wymogi kapitałowe.**
+
+1. Podmoduł ryzyka składek i rezerw (Premium and Reserve Risk)
+   Jest to podstawowy i największy element ryzyka w ubezpieczeniach majątkowych. Łączy on w sobie dwa powiązane ryzyka, które oblicza się wspólnie:
+   * Ryzyko składek: dotyczy przyszłości. Jest to ryzyko, że zarobione składki okażą się niewystarczające do pokrycia przyszłych szkód i kosztów, które z nich wynikną (np. z powodu złego oszacowania taryfy lub nieoczekiwanego wzrostu częstości/wartości szkód w przyszłym roku).
+   * Ryzyko rezerw: dotyczy przeszłości. Jest to ryzyko, że obecne rezerwy techniczno-ubezpieczeniowe (już zawiązane na bilansie) okażą się niewystarczające na pokrycie ostatecznych kosztów likwidacji już zaistniałych szkód (tzw. ryzyko *run-off*).
+
+2. Podmoduł ryzyka rezygnacji (Lapse Risk)
+   Odnosi się do ryzyka straty finansowej wynikającej z nieoczekiwanej zmiany zachowań ubezpieczonych. Dotyczy sytuacji, w których klienci częściej niż zakładano rezygnują z polis, nie odnawiają ich, lub zmieniają warunki ubezpieczenia, co prowadzi do utraty oczekiwanych zysków wliczanych wcześniej w wartość portfela.
+
+3. Podmoduł ryzyka katastroficznego (Catastrophe Risk)
+   Odnosi się do ryzyka poniesienia ogromnych strat w wyniku ekstremalnych, rzadkich, ale bardzo dotkliwych zdarzeń, których nie ujmuje w pełni standardowe ryzyko składek. Dzieli się zazwyczaj na katastrofy naturalne (powodzie, wichury, trzęsienia ziemi), katastrofy spowodowane przez człowieka (terroryzm, pożary wielkich zakładów) oraz inne ryzyka katastroficzne.
+
+Algorytm dla ryzyka składek i rezerw składa się z następujących kroków:
+
+1. Wyznaczenie Miar Wolumenu (Volume Measures):
+   Dla każdej linii biznesowej wyznacza się odrębnie "rozmiar" narażenia na ryzyko:
+   * Miara wolumenu dla składek ($V_{prem}$) – oparta głównie na składkach zarobionych w kolejnym roku.
+   * Miara wolumenu dla rezerw ($V_{res}$) – oparta na wartości najlepszego oszacowania rezerw szkodowych (Claims Provision).
+
+2. Przypisanie Odchyleń Standardowych:
+   Z rozporządzenia Wypłacalność II odczytuje się narzucone parametry rynkowe, czyli odchylenia standardowe przypisane do danej linii biznesowej: odchylenie dla składek ($\sigma_{prem}$) oraz odchylenie dla rezerw ($\sigma_{res}$).
+
+3. Agregacja wewnątrz linii biznesowej:
+   Dla każdej linii (np. OC komunikacyjne) łączy się ryzyko składek i rezerw, wyliczając łączne odchylenie standardowe dla tej linii, uwzględniając korelację między składkami a rezerwami (zazwyczaj korelacja wynosi 0.5).
+
+4. Agregacja między liniami biznesowymi (Efekt dywersyfikacji):
+   Łączy się wyniki ze wszystkich linii biznesowych, które oferuje ubezpieczyciel, używając do tego macierzy korelacji określonej w dyrektywie. Pozwala to wyznaczyć całkowity wolumen dla firmy ($V$) oraz całkowite zagregowane odchylenie standardowe ($\sigma$).
+
+5. Obliczenie końcowego wymogu SCR:
+   Wymóg kapitałowy dla tego podmodułu ($SCR_{nl\_pr}$) oblicza się zakładając logarytmiczno-normalny rozkład strat. W uproszczeniu (zgodnym z aproksymacją stosowaną w Solvency II dla VaR 99.5%), wymóg kapitałowy oblicza się jako trzykrotność odchylenia standardowego pomnożonego przez całkowity wolumen:
+   **$$SCR = 3 \cdot \sigma \cdot V$$**
+
 ## Art. 164
 
 **Wymień i scharakteryzuj krótko wszystkie podmoduły ryzyka w obrębie modułu ryzyka rynkowego zgodnie z Rozporządzeniem Delegowanym Wypłacalność II. Dla jednego wybranego podmodułu ryzyka opisz krótko jak wyznaczamy wymogi kapitałowe.**
