@@ -6,6 +6,30 @@ layout: math
 
 ## 7: Definicje Ryzyka
 
+**Wyjaśnij pojęcie ryzyka systematycznego, podaj dwa przykłady ryzyka systematycznego, na które może być narażona firma ubezpieczeniowa, dwie metody zarządzania ryzykiem systematycznym oraz ich skuteczność w redukcji ryzyka systematycznego.**
+
+1. Wyjaśnienie pojęcia ryzyka systematycznego
+    Ryzyko systematyczne (często nazywane ryzykiem rynkowym lub niedywersyfikowalnym) to rodzaj ryzyka wynikający z globalnych czynników makroekonomicznych, rynkowych lub społecznych, które wpływają na cały rynek, gospodarkę lub dany sektor. 
+    Jego główną i najważniejszą cechą jest to, że nie można go wyeliminować poprzez prostą dywersyfikację portfela (np. poprzez zwiększenie liczby ubezpieczonych osób czy zakup akcji wielu różnych firm). Niezależnie od tego, jak duży i zróżnicowany jest portfel, ekspozycja na to ryzyko pozostaje, ponieważ uderza ono we wszystkie aktywa lub pasywa jednocześnie.
+
+2. Dwa przykłady ryzyka systematycznego dla firmy ubezpieczeniowej
+    * Ryzyko stóp procentowych (strona finansowa/aktywów i pasywów): 
+    Nagły spadek lub wzrost stóp procentowych narzucony przez banki centralne wpływa na cały rynek. Dla ubezpieczyciela życiowego spadek stóp jest potężnym ryzykiem systematycznym – powoduje spadek zyskowności wszystkich obligacji w portfelu (aktywów), przy jednoczesnym drastycznym wzroście wartości obecnej długoterminowych zobowiązań (pasywów, np. wypłacanych rent).
+    * Ryzyko długowieczności lub ryzyko pandemiczne (strona techniczno-ubezpieczeniowa): 
+    Przełom w medycynie wydłużający nagle życie całego społeczeństwa (ryzyko długowieczności / *longevity risk*) sprawi, że ubezpieczyciel będzie musiał wypłacać renty lub emerytury znacznie dłużej niż zakładał wszystkim swoim klientom naraz. Z kolei nowa globalna pandemia spowoduje skokowy wzrost śmiertelności, uderzając we wszystkie polisy na życie na śmierć jednocześnie. Rozbudowa portfela o kolejnych klientów nie chroni przed tymi zjawiskami.
+
+3. Dwie metody zarządzania ryzykiem systematycznym i ich skuteczność
+
+    Skoro ryzyka systematycznego nie da się zdywersyfikować wewnętrznie, firma ubezpieczeniowa musi zastosować inne metody (opierające się głównie na transferze ryzyka).
+
+    Metoda 1: Zabezpieczanie instrumentami pochodnymi (Hedging finansowy)
+    * Zasada działania: Ubezpieczyciel kupuje na rynku finansowym instrumenty (np. swapy na stopy procentowe - *Interest Rate Swaps*, opcje), których wartość zachowuje się odwrotnie do narażenia firmy. Jeśli spadają stopy procentowe i firma traci na rezerwach, posiadany kontrakt swap zyskuje na wartości, kompensując tę stratę.
+    * Skuteczność w redukcji: Metoda ta jest bardzo skuteczna w redukcji samego ryzyka systematycznego (może zneutralizować ryzyko stóp procentowych niemal do zera). Niestety, w zamian kreuje nowe ryzyka specyficzne. Skuteczność jest pomniejszana przez ryzyko niewypłacalności kontrahenta (*counterparty credit risk* - bank inwestycyjny może zbankrutować i nie wypłacić swapu) oraz ryzyko bazy (*basis risk* - instrument zabezpieczający rzadko idealnie dopasowuje się do struktury pasywów ubezpieczyciela).
+
+    Metoda 2: Transfer ryzyka na zewnątrz (Reasekuracja i Sekurytyzacja)
+    * Zasada działania: Przekazanie ryzyka podmiotom trzecim. W przypadku ryzyka demograficznego (np. długowieczności) ubezpieczyciel może zawrzeć z gigantycznym reasekuratorem tzw. "swap długowieczności", albo wyemitować na rynek kapitałowy tzw. obligacje katastroficzne (CAT bonds) chroniące go np. przed skutkami pandemii.
+    * Skuteczność w redukcji: Metoda ta bardzo skutecznie zdejmuje ryzyko systematyczne z bilansu ubezpieczyciela i przenosi je na globalnych inwestorów. Jej skuteczność jest jednak drastycznie ograniczona przez wysoki koszt. Rynki finansowe żądają ogromnych premii za przejęcie ryzyka systematycznego. Dodatkowo pojemność tego rynku jest ograniczona (może nie być chętnych na przejęcie całości ryzyka), a podobnie jak przy instrumentach pochodnych, pojawia się ryzyko kredytowe reasekuratora.
+
 **Wyjaśnij pojęcia, podaj przykłady oraz metody zarządzania ryzykiem:**
 * **a) Systematycznym i niesystematycznym.**
 * **b) Negatywnej selekcji – adverse selection.**
