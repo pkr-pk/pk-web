@@ -9,7 +9,8 @@ nav_order: 6
 
 [Notatki z egzaminów](06_01_zarzadzanie_ryzykiem_notatki.html){:target="_blank"}
 
-{:style="counter-reset:step-counter 91"}
+{:style="counter-reset:step-counter 90"}
+91. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_091.pdf){:target="_blank"}
 92. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_092.pdf){:target="_blank"}
 93. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_093.pdf){:target="_blank"}
 94. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_094.pdf){:target="_blank"}
