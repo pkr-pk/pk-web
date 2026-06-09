@@ -238,3 +238,12 @@ Opis na przykładzie podmodułu ryzyka cen nieruchomości.
 5. Zarządzanie ryzykiem operacyjnym
 
     Działania nakierowane na identyfikację, ocenę i ograniczanie ryzyka wystąpienia strat wynikających z nieodpowiednich lub zawodnych procesów wewnętrznych, błędów ludzkich, awarii systemów informatycznych, a także ze zdarzeń zewnętrznych (takich jak np. oszustwa, czy gwałtowne zmiany prawne).
+
+# Pytania z podpunktów
+
+**91.10.c Wyjaśnij krótko czym się różni umowa nadwyżki szkody (excess loss) od nadwyżki szkodowości (stop loss)**
+
+Główna różnica między tymi umowami dotyczy tego, do jakiej wartości odnosi się próg odpowiedzialności (retencja):
+
+* Nadwyżka szkody (*excess of loss*): Dotyczy pojedynczych szkód. Reasekurator pokrywa część każdej indywidualnej szkody, która przekracza ustalony dla niej próg zatrzymania ubezpieczyciela.
+* Nadwyżka szkodowości (*stop loss*): Dotyczy łącznej sumy wszystkich szkód w całym portfelu ubezpieczeń w danym okresie (najczęściej w ciągu roku). Reasekurator pokrywa skumulowaną wartość szkód dopiero wtedy, gdy ich suma przekroczy ustalony próg dla całego portfela.
