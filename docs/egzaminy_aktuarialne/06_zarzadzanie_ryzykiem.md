@@ -15,3 +15,4 @@ nav_order: 6
 93. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_093.pdf){:target="_blank"}
 94. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_094.pdf){:target="_blank"}
 95. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_095.pdf){:target="_blank"}
+96. [rozwiązania](pdfs_zarzadzanie_ryzykiem/Egzamin_096.pdf){:target="_blank"}
