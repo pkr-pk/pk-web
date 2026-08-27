@@ -81,6 +81,36 @@ d) Ryzyko operacyjne
     * Plany ciągłości działania: Posiadanie zapasowych serwerowni, kopii zapasowych danych w chmurze (backup), alternatywnych lokalizacji biurowych w razie katastrofy.
     * Szkolenia pracowników: Regularne uświadamianie pracowników w zakresie cyberbezpieczeństwa (np. testy phishingowe) i procedur BHP.
 
+**7.8 Ryzyko demograficzne** 
+
+* **a) Wyjaśnij pojęcia ryzyka śmiertelności i długowieczności.**
+
+* **b) Scharakteryzuj cztery rodzaje ryzyka śmiertelności i długowieczności związane z poziomem (level), zmiennością (volatility), trendem (trend) i zdarzeniami katastroficznymi (catastrophe), w szczególności wskaż kluczowe różnice pomiędzy czynnikami ryzyka level vs volatility, volatility vs catastrophe i level vs trend.**
+
+a) Pojęcia ryzyka śmiertelności i długowieczności
+
+*   Ryzyko śmiertelności (mortality risk): Jest to ryzyko polegające na tym, że rzeczywista umieralność w ubezpieczonym portfelu okaże się wyższa (cięższa) niż oczekiwano. Stanowi ono kluczowe zagrożenie dla ubezpieczeń na życie (np. ubezpieczeń terminowych lub na całe życie), w których ubezpieczyciel jest zobowiązany do przedterminowej wypłaty świadczeń w przypadku zgonu ubezpieczonego.
+*   Ryzyko długowieczności (longevity risk): Jest to ryzyko polegające na tym, że rzeczywista umieralność okaże się niższa (lżejsza) niż oczekiwano, co oznacza, że ludzie będą żyli dłużej, niż zakładano. Ryzyko to bezpośrednio zagraża funduszom emerytalnym oraz ubezpieczycielom oferującym renty życiowe, ponieważ zmusza ich do wypłacania świadczeń przez dłuższy okres, generując dodatkowe koszty i zwiększając rezerwy.
+
+b) Charakterystyka czterech rodzajów ryzyka oraz kluczowe różnice.
+
+1. Ryzyko poziomu (level risk): Ryzyko, że rzeczywista, bazowa umieralność w danej populacji różni się od poziomu przyjętego w kalkulacjach aktuarialnych.
+2. Ryzyko zmienności (volatility risk): Ryzyko wynikające z przypadkowych wahań liczby zgonów wokół średniej, co jest bezpośrednim efektem ograniczonej (skończonej) liczby osób w ubezpieczonym portfelu.
+3. Ryzyko katastrofy (catastrophe risk): Skrajna postać ryzyka zmienności, oznaczająca gwałtowny, drastyczny i tymczasowy wzrost umieralności wywołany nadzwyczajnymi zdarzeniami zewnętrznymi (np. wojny, pandemie, kataklizmy).
+4. Ryzyko trendu (trend risk): Ryzyko, że tempo długoterminowej poprawy (lub pogorszenia) umieralności na przestrzeni lat będzie przebiegać inaczej, niż założono w prognozach.
+
+Kluczowe różnice pomiędzy czynnikami ryzyka:
+
+* Poziom (level) vs Zmienność (volatility): 
+    * Ryzyko poziomu ma charakter systematyczny i wynika z nieprawidłowego oszacowania rzeczywistej umieralności całej populacji u źródła. 
+    * Ryzyko zmienności ma charakter czysto statystyczny i losowy. Może ono doprowadzić do strat w mniejszych portfelach nawet wtedy, gdy aktuariusz bezbłędnie oszacował rzeczywisty, bazowy poziom (level) śmiertelności danej populacji.
+* Zmienność (volatility) vs Katastrofa (catastrophe): 
+    * Zmienność opisuje standardowe, drobne fluktuacje wokół oczekiwanej średniej w normalnych warunkach rynkowych. 
+    * Katastrofa to nagłe, rzadkie i ekstremalne wydarzenie o wielkiej skali, które drastycznie podnosi śmiertelność. Ponadto, ryzyko katastroficzne dotyczy niemal wyłącznie ryzyka śmiertelności (gwałtowne skoki umieralności), ponieważ nagły, masowy i tymczasowy spadek umieralności (który uderzyłby w portfele rentowe) jest w rzeczywistości nieprawdopodobny.
+* Poziom (level) vs Trend (trend): 
+    * Ryzyko poziomu koncentruje się na błędzie oszacowania umieralności w ujęciu statycznym – odnosi się do teraźniejszości i najbliższej, natychmiastowej przyszłości. 
+    * Ryzyko trendu ma charakter wyłącznie długoterminowy i dynamiczny; dotyczy ono niepewności co do kierunku oraz tempa, w jakim wskaźniki umieralności będą ewoluować i zmieniać się w czasie (np. pod wpływem postępu medycyny) na przestrzeni kolejnych dekad.
+
 ## 16: Odpowiedzi na ryzyko
 
 **16.8, 16.9: Wytłumacz na czym polegają poniższe metody zarządzania ryzykiem w ubezpieczeniach majątkowych:**
@@ -129,6 +159,34 @@ Oznacza transfer ryzyka ubezpieczeniowego na rynki kapitałowe. Polega na zamian
 Ostateczna stopa forward (UFR) to ustalona administracyjnie, długoterminowa stopa procentowa, do której asymptotycznie zmierza (jest ekstrapolowana) krzywa stóp procentowych wolnych od ryzyka dla bardzo długich terminów zapadalności (czyli takich, dla których na rynku brakuje już płynnych instrumentów finansowych.
 
 Jej fundamentalną cechą jest to, że jest ona stabilna w czasie i zmienia się jedynie z powodu zmian długoterminowych oczekiwań makroekonomicznych (np. długoterminowej oczekiwanej inflacji i realnej stopy procentowej). Mechanizm UFR ma na celu ochronę zakładów ubezpieczeń przed nadmierną i sztuczną zmiennością wymogów kapitałowych dla długoterminowych zobowiązań ubezpieczeniowych (np. w ubezpieczeniach na życie).
+
+## Art. 55 i Załącznik 1: Linie biznesowe
+
+**W oparciu o Rozporządzenie Delegowane Komisji uzupełniające dyrektywę Wypłacalność II:**
+
+* **a) Wymień dwie linie biznesowe w ramach zobowiązań z tytułu umów ubezpieczeń innych niż ubezpieczenia na życie.**
+
+* **b) Wymień dwie linie biznesowe w ramach zobowiązań z tytułu ubezpieczeń na życie.**
+
+* **c) Wymień jakie rodzaje zobowiązań, oprócz zobowiązań ubezpieczeń na życie i innych niż ubezpieczenia na życie, uwzględniamy jeszcze w ramach wyodrębniania linii biznesowych.**
+
+* **d) W oparciu o jakie główne kryterium przypisywane są zobowiązania do linii biznesowych.**
+
+* **e) W jaki sposób przypisywane są zobowiązania z tytułu ubezpieczeń zdrowotnych do linii biznesowych.**
+
+a) Dwie linie biznesowe w ramach ubezpieczeń innych niż na życie (non-life):
+* Ubezpieczenia pokrycia kosztów świadczeń medycznych.
+* Ubezpieczenia na wypadek utraty dochodów
+
+b) Dwie linie biznesowe w ramach ubezpieczeń na życie (life):
+* Ubezpieczenia zdrowotne
+* Ubezpieczenia z udziałem w zyskach
+
+c) Zobowiązania z tytułu reasekuracji nieproporcjonalnej
+
+d) Przypisanie zobowiązania ubezpieczeniowego lub reasekuracyjnego do określonej linii biznesowej musi odzwierciedlać charakter ryzyka związanego z tym zobowiązaniem.
+
+e) O przypisaniu decydują zastosowane techniki ubezpieczeniowe (podstawa techniczna).
 
 ## Art. 114: Moduł ryzyka aktuarialnego w ubezpieczeniach innych niż ubezpieczenia na życie
 
@@ -238,12 +296,3 @@ Opis na przykładzie podmodułu ryzyka cen nieruchomości.
 5. Zarządzanie ryzykiem operacyjnym
 
     Działania nakierowane na identyfikację, ocenę i ograniczanie ryzyka wystąpienia strat wynikających z nieodpowiednich lub zawodnych procesów wewnętrznych, błędów ludzkich, awarii systemów informatycznych, a także ze zdarzeń zewnętrznych (takich jak np. oszustwa, czy gwałtowne zmiany prawne).
-
-# Pytania z podpunktów
-
-**91.10.c Wyjaśnij krótko czym się różni umowa nadwyżki szkody (excess loss) od nadwyżki szkodowości (stop loss)**
-
-Główna różnica między tymi umowami dotyczy tego, do jakiej wartości odnosi się próg odpowiedzialności (retencja):
-
-* Nadwyżka szkody (*excess of loss*): Dotyczy pojedynczych szkód. Reasekurator pokrywa część każdej indywidualnej szkody, która przekracza ustalony dla niej próg zatrzymania ubezpieczyciela.
-* Nadwyżka szkodowości (*stop loss*): Dotyczy łącznej sumy wszystkich szkód w całym portfelu ubezpieczeń w danym okresie (najczęściej w ciągu roku). Reasekurator pokrywa skumulowaną wartość szkód dopiero wtedy, gdy ich suma przekroczy ustalony próg dla całego portfela.
