@@ -8,27 +8,29 @@ layout: math
 
 **Wyjaśnij pojęcie ryzyka systematycznego, podaj dwa przykłady ryzyka systematycznego, na które może być narażona firma ubezpieczeniowa, dwie metody zarządzania ryzykiem systematycznym oraz ich skuteczność w redukcji ryzyka systematycznego.**
 
-1. Wyjaśnienie pojęcia ryzyka systematycznego
-    Ryzyko systematyczne (często nazywane ryzykiem rynkowym lub niedywersyfikowalnym) to rodzaj ryzyka wynikający z globalnych czynników makroekonomicznych, rynkowych lub społecznych, które wpływają na cały rynek, gospodarkę lub dany sektor. 
-    Jego główną i najważniejszą cechą jest to, że nie można go wyeliminować poprzez prostą dywersyfikację portfela (np. poprzez zwiększenie liczby ubezpieczonych osób czy zakup akcji wielu różnych firm). Niezależnie od tego, jak duży i zróżnicowany jest portfel, ekspozycja na to ryzyko pozostaje, ponieważ uderza ono we wszystkie aktywa lub pasywa jednocześnie.
+### **1. Pojęcie ryzyka systematycznego**
+**Ryzyko systematyczne (rynkowe / niedywersyfikowalne)** to ryzyko wynikające ze wspólnych czynników makroekonomicznych, rynkowych lub demograficznych wpływających równocześnie na cały rynek bądź sektor. 
+Jego kluczową cechą jest **brak możliwości eliminacji poprzez prostą dywersyfikację portfela** (zwiększanie liczby niezależnych polis nie redukuje tego ryzyka).
 
-2. Dwa przykłady ryzyka systematycznego dla firmy ubezpieczeniowej
-    * Ryzyko stóp procentowych (strona finansowa/aktywów i pasywów): 
-    Nagły spadek lub wzrost stóp procentowych narzucony przez banki centralne wpływa na cały rynek. Dla ubezpieczyciela życiowego spadek stóp jest potężnym ryzykiem systematycznym – powoduje spadek zyskowności wszystkich obligacji w portfelu (aktywów), przy jednoczesnym drastycznym wzroście wartości obecnej długoterminowych zobowiązań (pasywów, np. wypłacanych rent).
-    * Ryzyko długowieczności lub ryzyko pandemiczne (strona techniczno-ubezpieczeniowa): 
-    Przełom w medycynie wydłużający nagle życie całego społeczeństwa (ryzyko długowieczności / *longevity risk*) sprawi, że ubezpieczyciel będzie musiał wypłacać renty lub emerytury znacznie dłużej niż zakładał wszystkim swoim klientom naraz. Z kolei nowa globalna pandemia spowoduje skokowy wzrost śmiertelności, uderzając we wszystkie polisy na życie na śmierć jednocześnie. Rozbudowa portfela o kolejnych klientów nie chroni przed tymi zjawiskami.
+### **2. Dwa przykłady dla zakładu ubezpieczeń**
+1. **Ryzyko stóp procentowych:** Zmiana krzywej stóp wpływa jednocześnie na wycenę wszystkich aktywów oraz dyskontowanie pasywów (rezerw technicznych). Spadek stóp obniża rentowność lokat i skokowo podnosi wartość rezerw długoterminowych (np. rent).
+2. **Ryzyko długowieczności (*longevity risk*) / pandemiczne:** Ogólnokrajowy lub globalny trend spadku umieralności wydłuża okres wypłaty rent dla całego portfela jednocześnie. Z kolei pandemia skokowo zwiększa szkodowość we wszystkich ubezpieczeniach na życie.
 
-3. Dwie metody zarządzania ryzykiem systematycznym i ich skuteczność
+### **3. Dwie metody zarządzania i ich skuteczność**
 
-    Skoro ryzyka systematycznego nie da się zdywersyfikować wewnętrznie, firma ubezpieczeniowa musi zastosować inne metody (opierające się głównie na transferze ryzyka).
+#### **Metoda 1: Hedging finansowy / ALM (*Asset-Liability Matching*)**
+* **Istota:** Dopasowanie duration aktywów i pasywów oraz wykorzystanie instrumentów pochodnych (np. IRS, swapy inflacyjne, swapy długowieczności).
+* **Skuteczność:** 
+  * *Wysoka* w neutralizacji pierwotnego ryzyka systematycznego (np. domknięcie luki duration redukuje ryzyko stóp procentowych niemal do zera).
+  * *Ograniczenia:* Generuje nowe ryzyka – ryzyko kredytowe kontrahenta (*counterparty risk*), ryzyko płynności (wymogi depozytowe / *margin calls*) oraz ryzyko bazy (*basis risk* z powodu niedoskonałego dopasowania kontraktu do pasywów).
 
-    Metoda 1: Zabezpieczanie instrumentami pochodnymi (Hedging finansowy)
-    * Zasada działania: Ubezpieczyciel kupuje na rynku finansowym instrumenty (np. swapy na stopy procentowe - *Interest Rate Swaps*, opcje), których wartość zachowuje się odwrotnie do narażenia firmy. Jeśli spadają stopy procentowe i firma traci na rezerwach, posiadany kontrakt swap zyskuje na wartości, kompensując tę stratę.
-    * Skuteczność w redukcji: Metoda ta jest bardzo skuteczna w redukcji samego ryzyka systematycznego (może zneutralizować ryzyko stóp procentowych niemal do zera). Niestety, w zamian kreuje nowe ryzyka specyficzne. Skuteczność jest pomniejszana przez ryzyko niewypłacalności kontrahenta (*counterparty credit risk* - bank inwestycyjny może zbankrutować i nie wypłacić swapu) oraz ryzyko bazy (*basis risk* - instrument zabezpieczający rzadko idealnie dopasowuje się do struktury pasywów ubezpieczyciela).
+#### **Metoda 2: Transfer ryzyka (Reasekuracja i Sekurytyzacja / ILS)**
+* **Istota:** Transfer ryzyka poza bilans spółki na rzecz reasekuratorów lub rynku kapitałowego (np. umowy *Stop Loss*, obligacje katastroficzne *CAT bonds*, obligacje pandemiczne).
+* **Skuteczność:** 
+  * *Wysoka* w fizycznym zdjęciu skrajnego ogona ryzyka z bilansu i uwolnieniu kapitału wymogowego (SCR).
+  * *Ograniczenia:* Bardzo wysoki koszt transferu (wysokie premie za ryzyko systematyczne), ograniczona pojemność rynku (*market capacity*) oraz ryzyko niewypłacalności reasekuratora.
 
-    Metoda 2: Transfer ryzyka na zewnątrz (Reasekuracja i Sekurytyzacja)
-    * Zasada działania: Przekazanie ryzyka podmiotom trzecim. W przypadku ryzyka demograficznego (np. długowieczności) ubezpieczyciel może zawrzeć z gigantycznym reasekuratorem tzw. "swap długowieczności", albo wyemitować na rynek kapitałowy tzw. obligacje katastroficzne (CAT bonds) chroniące go np. przed skutkami pandemii.
-    * Skuteczność w redukcji: Metoda ta bardzo skutecznie zdejmuje ryzyko systematyczne z bilansu ubezpieczyciela i przenosi je na globalnych inwestorów. Jej skuteczność jest jednak drastycznie ograniczona przez wysoki koszt. Rynki finansowe żądają ogromnych premii za przejęcie ryzyka systematycznego. Dodatkowo pojemność tego rynku jest ograniczona (może nie być chętnych na przejęcie całości ryzyka), a podobnie jak przy instrumentach pochodnych, pojawia się ryzyko kredytowe reasekuratora.
+---
 
 **Wyjaśnij pojęcia, podaj przykłady oraz metody zarządzania ryzykiem:**
 * **a) Systematycznym i niesystematycznym.**
@@ -36,50 +38,50 @@ layout: math
 * **c) Pokusy nadużycia – moral hazard.**
 * **d) Operacyjnym.**
 
-a) Ryzyko systematyczne i niesystematyczne
+### **a) Ryzyko systematyczne i niesystematyczne**
 
-1. Ryzyko systematyczne (rynkowe, niedywersyfikowalne)
+#### **1. Ryzyko systematyczne (rynkowe / niedywersyfikowalne)**
+* **Definicja:** Ryzyko wynikające z ogólnorynkowych czynników makroekonomicznych lub zdarzeń zewnętrznych oddziałujących jednocześnie na cały rynek. **Nie ulega redukcji poprzez prostą dywersyfikację portfela**.
+* **Przykłady:** Zmiany stóp procentowych, skok inflacji, globalna pandemia, załamanie rynków finansowych (krach).
+* **Metody zarządzania:** 
+  * *Hedging finansowy / ALM:* Dopasowanie duration aktywów i pasywów, instrumenty pochodne (np. IRS, opcje, swapy).
+  * *Transfer ryzyka:* Reasekuracja nieproporcjonalna (*Stop Loss*), sekurytyzacja ryzyka ubezpieczeniowego (*CAT bonds*).
 
-* Wyjaśnienie: Jest to ryzyko wynikające z ogólnorynkowych lub makroekonomicznych czynników, które wpływają na cały rynek lub gospodarkę. Nie można go wyeliminować poprzez dodawanie kolejnych, różnych aktywów do portfela (nie ulega dywersyfikacji).
-* Przykłady: Zmiany stóp procentowych przez bank centralny, wybuch wojny, globalna pandemia (np. COVID-19), recesja gospodarcza, nagłe skoki inflacji.
-* Metody zarządzania:
-    * Hedging (zabezpieczanie): Wykorzystanie instrumentów pochodnych (np. opcje, kontrakty futures), aby zająć pozycję odwrotną i zneutralizować spadki na rynku.
-    * Alokacja aktywów: Przenoszenie kapitału do tzw. "bezpiecznych przystani" (safe havens), np. obligacji skarbowych czy złota w czasach zawirowań.
-    * Zarządzanie wskaźnikiem Beta: Dostosowanie portfela tak, aby jego wrażliwość na ruchy rynkowe (Beta) była niższa, jeśli spodziewamy się spadków.
+#### **2. Ryzyko niesystematyczne (specyficzne / dywersyfikowalne)**
+* **Definicja:** Ryzyko unikalne dla pojedynczego podmiotu, kontraktu lub wąskiej grupy aktywów, statystycznie niezależne od rynku. **Można je niemal całkowicie wyeliminować poprzez dywersyfikację**.
+* **Przykłady:** Pożar w pojedynczej fabryce, bankructwo konkretnego emitenta obligacji, błąd medyczny ubezpieczonego lekarza.
+* **Metody zarządzania:**
+  * *Dywersyfikacja:* Budowa dużego portfela wzajemnie nieskorelowanych ryzyk (prawo wielkich liczb – *pooling of risks*).
+  * *Limity koncentracji:* Nakładanie limitów ekspozycji na pojedynczego klienta, branżę lub emitenta.
 
-2. Ryzyko niesystematyczne (specyficzne, dywersyfikowalne)
+### **b) Negatywna selekcja (*Adverse Selection*)**
 
-* Wyjaśnienie: Jest to ryzyko związane z konkretną firmą, branżą lub projektem. Dotyka tylko pojedynczego podmiotu lub wąskiej grupy podmiotów i jest niezależne od ogólnej sytuacji rynkowej.
-* Przykłady: Strajk pracowników w konkretnej fabryce, pożar magazynu danej firmy, błędne decyzje zarządu, przegrany proces sądowy, wejście na rynek silnego konkurenta w danej niszy.
-* Metody zarządzania:
-    * Dywersyfikacja: Główna i najskuteczniejsza metoda. Polega na budowaniu portfela z aktywów, które nie są ze sobą skorelowane (np. kupowanie akcji spółek z różnych sektorów gospodarki). Jeśli jedna spółka traci z powodu swoich problemów, inne mogą zyskiwać lub pozostać stabilne, co niweluje stratę.
+* **Definicja:** Asymetria informacji występująca **przed zawarciem umowy** (*ex-ante*), w której podmioty o wyższym profilu ryzyka częściej kupują ubezpieczenie, co przy jednolitej składce wypycha z rynku podmioty niskiego ryzyka (spirala negatywnej selekcji).
+* **Przykłady:** Zakup polisy na życie przez osoby ze zdiagnozowaną chorobą, zakup ubezpieczenia suszowego wyłącznie przez rolników z terenów suchych.
+* **Metody zarządzania:**
+  * *Screening / Underwriting:* Medyczna i finansowa ocena ryzyka (badania lekarskie, ankiety medyczne, weryfikacja historii szkodowej).
+  * *Segmentacja taryfowa:* Różnicowanie składek według czynników ryzyka (wiek, stan zdrowia, lokalizacja).
+  * *Pule grupowe i obowiązkowość:* Ubezpieczenia grupowe (np. pracownicze) lub ustawowy przymus ubezpieczeniowy (np. OC ppm), eliminujące dobrowolność wyboru.
 
-b) Negatywna selekcja (Adverse selection)
+### **c) Pokusa nadużycia (*Moral Hazard*)**
 
-* Wyjaśnienie: Zjawisko wynikające z asymetrii informacji występującej przed zawarciem transakcji. Jedna ze stron (zazwyczaj kupujący lub ubezpieczający się) posiada lepszą wiedzę o swoim stanie/ryzyku niż druga strona. Prowadzi to do sytuacji, w której na rynku zostają tylko produkty gorszej jakości lub do ubezpieczenia zgłaszają się głównie osoby o bardzo wysokim ryzyku, co wypycha z rynku osoby o niskim ryzyku.
-* Przykład: Osoby przewlekle chore są bardziej skłonne kupić drogie i pełne ubezpieczenie zdrowotne niż osoby młode i zdrowe.
-* Metody zarządzania:
-    * Screening (selekcja/filtrowanie): Pozyskiwanie dodatkowych informacji przez stronę mniej poinformowaną przed podpisaniem umowy (np. obowiązkowe badania lekarskie przed zakupem polisy na życie, sprawdzanie historii kredytowej w BIK przed udzieleniem pożyczki).
-    * Signaling (sygnalizowanie): Strona posiadająca lepsze cechy (dobry produkt) wysyła wiarygodny sygnał (np. sprzedawca auta daje roczną gwarancję na używany pojazd, uczelnia wydaje dyplom potwierdzający wiedzę pracownika).
-    * Pule grupowe / przymus ubezpieczeniowy: Oferowanie ubezpieczeń dla całych grup (np. ubezpieczenia pracownicze), co wymusza udział zarówno osób zdrowych, jak i chorych, uśredniając ryzyko.
+* **Definicja:** Asymetria informacji i zmiana zachowania ubezpieczonego **po zawarciu umowy** (*ex-post*). Posiadanie ochrony skłania do podejmowania większego ryzyka lub zaniechania ostrożności, gdyż koszt ewentualnej straty ponosi ubezpieczyciel.
+* **Przykłady:** Brawurowa jazda po wykupieniu pełnego AC, brak dbałości o zabezpieczenia przeciwpożarowe w ubezpieczonym obiekcie, zawyżanie kosztów leczenia przy pełnym pakiecie medycznym.
+* **Metody zarządzania:**
+  * *Współpłacenie i retencja klienta:* Udział własny, franszyza redukcyjna, franszyza integralna.
+  * *Systemy premiowo-karowe:* Systemy *Bonus-Malus* (wzrost składki po zgłoszeniu szkody).
+  * *Monitoring i telematyka:* Wymogi instalacji zabezpieczeń (alarmy, zraszacze), monitoring stylu jazdy (telematyka).
 
-c) Pokusa nadużycia (Moral hazard)
+### **d) Ryzyko operacyjne**
 
-* Wyjaśnienie: Zjawisko wynikające z asymetrii informacji występującej PO zawarciu transakcji. Polega na tym, że po zabezpieczeniu się przed ryzykiem (np. po wykupieniu ubezpieczenia lub otrzymaniu gwarancji ratunku), dany podmiot zmienia swoje zachowanie na bardziej ryzykowne, ponieważ wie, że koszty ewentualnej porażki poniesie ktoś inny.
-* Przykład: Kierowca po wykupieniu pełnego ubezpieczenia AC zaczyna jeździć bardziej agresywnie i przestaje parkować na strzeżonych parkingach.
-* Metody zarządzania:
-    * Udział własny i franszyza redukcyjna (Deductibles and co-payments): Przerzucenie części kosztów na ubezpieczonego. Jeśli kierowca wie, że za pierwszą szkodę do kwoty 1000 zł zapłaci z własnej kieszeni, będzie jeździł ostrożniej.
-    * Monitoring i kontrola: Wymóg instalacji systemów alarmowych przeciwpożarowych w ubezpieczonym budynku lub montaż telematyki (GPS) w aucie, która śledzi styl jazdy i uzależnia od niego wysokość składki.
-    * Odpowiednie systemy motywacyjne (klauzule umowne): Uzależnienie premii dla zarządu banku od długoterminowych wyników, a nie od krótkoterminowych, ryzykownych zysków.
+* **Definicja:** Zgodnie z dyrektywą *Wypłacalność II* (i Bazyleą II/III) jest to ryzyko straty wynikające z **nieodpowiednich lub zawodnych procedur wewnętrznych, błędów ludzkich, awarii systemów IT lub ze zdarzeń zewnętrznych** (obejmuje ryzyko prawne, wyklucza ryzyko strategiczne i reputacyjne).
+* **Przykłady:** Błąd w arkuszu kalkulacyjnym aktuariusza przy kalkulacji rezerw, awaria bazy danych polisowych, wyciek danych (atak ransomware / phishing), nadużycie wewnętrzne (oszustwo pracownika).
+* **Metody zarządzania:**
+  * *Kontrola wewnętrzna i podział obowiązków:* Procedury "czterech oczu", audyt wewnętrzny, automatyzacja procesów.
+  * *Zarządzanie ciągłością działania (BCM / BCP):* Plany odzyskiwania awaryjnego (*Disaster Recovery Plans*), zapasowe serwerownie, polityka kopii zapasowych.
+  * *Transfer ryzyka:* Zakup polis ubezpieczeniowych od ryzyk operacyjnych (np. *Cyber Insurance*, ubezpieczenie D&O, polisy *Crime*).
 
-d) Ryzyko operacyjne
-
-* Wyjaśnienie: Jest to ryzyko straty wynikające z nieodpowiednich lub zawodnych wewnętrznych procesów, ludzi i systemów, lub ze zdarzeń zewnętrznych. (Obejmuje ryzyko prawne, ale zazwyczaj wyklucza ryzyko strategiczne i reputacyjne). Zasadniczo to ryzyko "codziennego prowadzenia biznesu".
-* Przykłady: Błąd pracownika, oszustwo wewnętrzne, awaria serwerów firmy, atak hakerski paraliżujący sieć IT, błędy w księgowaniu, zła organizacja pracy prowadząca do pomyłek w dostawach, pożar biurowca, powódź niszcząca maszyny, nagłe zmiany w prawie.
-* Metody zarządzania:
-    * Kontrole wewnętrzne i audyty.
-    * Plany ciągłości działania: Posiadanie zapasowych serwerowni, kopii zapasowych danych w chmurze (backup), alternatywnych lokalizacji biurowych w razie katastrofy.
-    * Szkolenia pracowników: Regularne uświadamianie pracowników w zakresie cyberbezpieczeństwa (np. testy phishingowe) i procedur BHP.
+---
 
 **7.8 Ryzyko demograficzne** 
 
@@ -87,29 +89,32 @@ d) Ryzyko operacyjne
 
 * **b) Scharakteryzuj cztery rodzaje ryzyka śmiertelności i długowieczności związane z poziomem (level), zmiennością (volatility), trendem (trend) i zdarzeniami katastroficznymi (catastrophe), w szczególności wskaż kluczowe różnice pomiędzy czynnikami ryzyka level vs volatility, volatility vs catastrophe i level vs trend.**
 
-a) Pojęcia ryzyka śmiertelności i długowieczności
+### **a) Pojęcia ryzyka śmiertelności i długowieczności**
 
-*   Ryzyko śmiertelności (mortality risk): Jest to ryzyko polegające na tym, że rzeczywista umieralność w ubezpieczonym portfelu okaże się wyższa (cięższa) niż oczekiwano. Stanowi ono kluczowe zagrożenie dla ubezpieczeń na życie (np. ubezpieczeń terminowych lub na całe życie), w których ubezpieczyciel jest zobowiązany do przedterminowej wypłaty świadczeń w przypadku zgonu ubezpieczonego.
-*   Ryzyko długowieczności (longevity risk): Jest to ryzyko polegające na tym, że rzeczywista umieralność okaże się niższa (lżejsza) niż oczekiwano, co oznacza, że ludzie będą żyli dłużej, niż zakładano. Ryzyko to bezpośrednio zagraża funduszom emerytalnym oraz ubezpieczycielom oferującym renty życiowe, ponieważ zmusza ich do wypłacania świadczeń przez dłuższy okres, generując dodatkowe koszty i zwiększając rezerwy.
+* **Ryzyko śmiertelności (*mortality risk*):** Ryzyko, że rzeczywista umieralność w portfelu ubezpieczonych okaże się **wyższa** od zakładanej. Zagrożenie dla produktów ochronnych na wypadek śmierci (np. terminowe ubezpieczenia na życie).
+* **Ryzyko długowieczności (*longevity risk*):** Ryzyko, że rzeczywista umieralność okaże się **niższa** od zakładanej (ubezpieczeni żyją dłużej). Zagrożenie dla produktów wypłacających świadczenia dożywotnie (np. renty życiowe, fundusze emerytalne).
 
-b) Charakterystyka czterech rodzajów ryzyka oraz kluczowe różnice.
+### **b) Charakterystyka czterech rodzajów ryzyka i kluczowe różnice**
 
-1. Ryzyko poziomu (level risk): Ryzyko, że rzeczywista, bazowa umieralność w danej populacji różni się od poziomu przyjętego w kalkulacjach aktuarialnych.
-2. Ryzyko zmienności (volatility risk): Ryzyko wynikające z przypadkowych wahań liczby zgonów wokół średniej, co jest bezpośrednim efektem ograniczonej (skończonej) liczby osób w ubezpieczonym portfelu.
-3. Ryzyko katastrofy (catastrophe risk): Skrajna postać ryzyka zmienności, oznaczająca gwałtowny, drastyczny i tymczasowy wzrost umieralności wywołany nadzwyczajnymi zdarzeniami zewnętrznymi (np. wojny, pandemie, kataklizmy).
-4. Ryzyko trendu (trend risk): Ryzyko, że tempo długoterminowej poprawy (lub pogorszenia) umieralności na przestrzeni lat będzie przebiegać inaczej, niż założono w prognozach.
+#### **1. Charakterystyka:**
+1. **Ryzyko poziomu (*level risk*):** Ryzyko, że bazowy, początkowy poziom natężenia zgonów przyjęty w modelu różni się od rzeczywistego poziomu w ubezpieczanej populacji (błąd kalibracji parametrów bazowych).
+2. **Ryzyko zmienności (*volatility risk*):** Ryzyko losowych, przypadkowych wahań liczby zgonów wokół wartości oczekiwanej w danym roku, wynikające ze skończonej liczby ubezpieczonych w portfelu.
+3. **Ryzyko katastroficzne (*catastrophe risk*):** Ryzyko nagłego, jednorazowego i ekstremalnego wzrostu zgonów wywołanego nadzwyczajnym zdarzeniem zewnętrznym (np. pandemia, wojna).
+4. **Ryzyko trendu (*trend risk*):** Ryzyko niepewności co do tempa długookresowej zmiany (zazwyczaj spadku) umieralności w przyszłości (np. wpływ postępu medycyny).
 
-Kluczowe różnice pomiędzy czynnikami ryzyka:
+#### **2. Kluczowe różnice:**
 
-* Poziom (level) vs Zmienność (volatility): 
-    * Ryzyko poziomu ma charakter systematyczny i wynika z nieprawidłowego oszacowania rzeczywistej umieralności całej populacji u źródła. 
-    * Ryzyko zmienności ma charakter czysto statystyczny i losowy. Może ono doprowadzić do strat w mniejszych portfelach nawet wtedy, gdy aktuariusz bezbłędnie oszacował rzeczywisty, bazowy poziom (level) śmiertelności danej populacji.
-* Zmienność (volatility) vs Katastrofa (catastrophe): 
-    * Zmienność opisuje standardowe, drobne fluktuacje wokół oczekiwanej średniej w normalnych warunkach rynkowych. 
-    * Katastrofa to nagłe, rzadkie i ekstremalne wydarzenie o wielkiej skali, które drastycznie podnosi śmiertelność. Ponadto, ryzyko katastroficzne dotyczy niemal wyłącznie ryzyka śmiertelności (gwałtowne skoki umieralności), ponieważ nagły, masowy i tymczasowy spadek umieralności (który uderzyłby w portfele rentowe) jest w rzeczywistości nieprawdopodobny.
-* Poziom (level) vs Trend (trend): 
-    * Ryzyko poziomu koncentruje się na błędzie oszacowania umieralności w ujęciu statycznym – odnosi się do teraźniejszości i najbliższej, natychmiastowej przyszłości. 
-    * Ryzyko trendu ma charakter wyłącznie długoterminowy i dynamiczny; dotyczy ono niepewności co do kierunku oraz tempa, w jakim wskaźniki umieralności będą ewoluować i zmieniać się w czasie (np. pod wpływem postępu medycyny) na przestrzeni kolejnych dekad.
+* **Level vs Volatility:**
+  * **Level:** Ryzyko **systematyczne** (niedywersyfikowalne liczbą polis) – wynika z błędnego oszacowania parametrów populacyjnych; zwiększanie portfela go nie eliminuje.
+  * **Volatility:** Ryzyko **niesystematyczne** (dywersyfikowalne) – wynika z procesu losowego i **zanika wraz ze wzrostem wielkości portfela** (zgodnie z prawem wielkich liczb).
+
+* **Volatility vs Catastrophe:**
+  * **Volatility:** Standardowe, ciągłe fluktuacje stochastyczne w warunkach normalnych (*attritional risk*), wpływające symetrycznie na obie strony (zarówno na śmiertelność, jak i renty).
+  * **Catastrophe:** Zjawisko skrajne o grubym ogonie (*tail event*), o charakterze asymetrycznym – zagraża niemal wyłącznie produktom ze świadczeniem w razie śmierci (nagły spadek śmiertelności o skali katastroficznej w praktyce nie występuje).
+
+* **Level vs Trend:**
+  * **Level:** Błąd **statyczny** w punkcie wyjścia – dotyczy niedoszacowania obecnego poziomu śmiertelności na dzień wyceny.
+  * **Trend:** Błąd **dynamiczny** w czasie – dotyczy niepewności co do pochodnej (stopy zmian) umieralności w długim horyzoncie czasowym (ujawnia się stopniowo na przestrzeni kolejnych dekad).
 
 ## 16: Odpowiedzi na ryzyko
 
@@ -120,25 +125,39 @@ Kluczowe różnice pomiędzy czynnikami ryzyka:
 * **d) Reasekuracja.**
 * **e) Sekurytyzacja.**
 
-a) Premium rating / prior rating (Taryfikacja *a priori* / na podstawie czynników ryzyka):
+### **a) Premium rating / prior rating (Taryfikacja *a priori*)**
+* **Istota:** Ustalenie wyjściowej składki technicznej **przed** rozpoczęciem okresu ochrony na podstawie obserwowalnych cech ubezpieczonego i przedmiotu ubezpieczenia (zmiennych taryfowych, np. wiek kierowcy, lokalizacja, moc silnika).
+* **Narzędzia i cel:** Uogólnione modele liniowe (GLM) do modelowania częstości i dotkliwości szkód; podział portfela na homogeniczne klasy ryzyka w celu **ograniczenia negatywnej selekcji (*adverse selection*)**.
 
-Polega na ustalaniu wyjściowej wysokości składki ubezpieczeniowej na podstawie analizy cech i czynników ryzyka charakteryzujących dany podmiot (np. wiek kierowcy, pojemność silnika). Wykorzystuje się do tego modele statystyczne (np. GLM), aby odpowiednio sklasyfikować ryzyko jeszcze przed wystąpieniem jakichkolwiek roszczeń. 
+### **b) Experience rating / posterior rating (Taryfikacja *a posteriori*)**
+* **Istota:** Modyfikacja składki bazowej na podstawie **rzeczywistej historii szkodowości** danego ubezpieczonego lub floty (doświadczenia szkodowego).
+* **Narzędzia i cel:** Systemy *Bonus-Malus* (lub NCD – *No Claims Discount*), modele teorii wiarygodności (np. model Bühlmanna-Strauba). Służy korekcie asymetrii informacji oraz **redukcji pokusy nadużycia (*moral hazard*)**.
 
-b) Experience rating / posterior rating (Taryfikacja *a posteriori* / na podstawie doświadczenia):
+### **c) Dywersyfikacja**
+* **Istota:** Łączenie w portfelu dużej liczby wzajemnie nieskorelowanych ryzyk, co zgodnie z prawem wielkich liczb redukuje wariancję jednostkowej straty (ryzyko specyficzne).
+* **Wymiary w majątku:** Dywersyfikacja **geograficzna** (unikanie kumulacji ryzyk powodziowych/wichur), **między liniami biznesowymi** (łączenie np. komunikacji i ubezpieczeń mienia) oraz **sektorowa**.
 
-Polega na dostosowywaniu wysokości składki ubezpieczeniowej na podstawie rzeczywistej, historycznej szkodowości danego klienta lub konkretnego portfela w przeszłości. Najbardziej widocznym przykładem tej metody jest system zniżek za bezszkodową jazdę (NCD - *no claims discount*) w ubezpieczeniach komunikacyjnych.
+### **d) Reasekuracja**
+* **Istota:** Umowny transfer części ryzyka ubezpieczeniowego na inny podmiot (reasekuratora) w zamian za część składki.
+* **Formy i cel:** Reasekuracja proporcjonalna (kwotowa, *surplus*) oraz nieproporcjonalna (*Excess of Loss*, *Stop Loss*). Zwiększa pojemność ubezpieczeniową (*underwriting capacity*), stabilizuje wynik techniczny i **obniża wymóg kapitałowy (SCR)**.
 
-c) Dywersyfikacja:
+### **e) Sekurytyzacja (np. *CAT bonds* / ILS)**
+* **Istota:** Transfer ryzyka ubezpieczeniowego (zazwyczaj ekstremalnego / katastroficznego) bezpośrednio na **rynki kapitałowe** poprzez emisję zbywalnych papierów wartościowych przez spółkę celową (SPV/SPI).
+* **Mechanizm i cel:** Inwestorzy kupują obligacje katastroficzne; w przypadku wystąpienia zdefiniowanego kataklizmu kapitał z obligacji przechodzi na ubezpieczyciela na pokrycie szkód. Pozwala na ominięcie ograniczeń pojemności tradycyjnego rynku reasekuracji przy niemal zerowym ryzyku kredytowym kontrahenta (środki są zdeponowane w *collateral trust*).
 
-Polega na ograniczaniu ryzyka poprzez unikanie jego nadmiernej koncentracji. W ubezpieczeniach majątkowych osiąga się to poprzez zróżnicowanie portfela pod kątem geograficznym, łączenie klientów o różnych profilach ryzyka, a także sprzedaż polis z różnych, nieskorelowanych ze sobą klas ubezpieczeń.
 
-d) Reasekuracja:
 
-To podstawowa metoda transferu ryzyka. Polega na przekazaniu (odstąpieniu) części ryzyka ubezpieczeniowego innemu podmiotowi (reasekuratorowi). Może przyjmować formę reasekuracji proporcjonalnej (podział udziału w każdej polisie) lub nieproporcjonalnej / nadwyżkowej (*excess-of-loss*), która chroni przed pojedynczymi, ekstremalnie dużymi szkodami.
 
-e) Sekurytyzacja:
 
-Oznacza transfer ryzyka ubezpieczeniowego na rynki kapitałowe. Polega na zamianie ekspozycji na ryzyko w zbywalny instrument finansowy (papier wartościowy). W ubezpieczeniach majątkowych najczęstszym przykładem są obligacje katastroficzne (*catastrophe bonds*), które inwestorzy kupują, a których wypłata kapitału zostaje wstrzymana lub obniżona, jeśli ubezpieczyciel zostanie dotknięty masowymi stratami (np. na skutek powodzi czy huraganu).
+
+
+
+
+
+
+
+
+
 
 # ROZPORZĄDZENIE DELEGOWANE KOMISJI (UE) 2015/35 z dnia 10 października 2014 r. uzupełniające dyrektywę Parlamentu Europejskiego i Rady 2009/138/WE w sprawie podejmowania i prowadzenia działalności ubezpieczeniowej i reasekuracyjnej (Wypłacalność II)
 
