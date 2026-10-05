@@ -145,33 +145,23 @@ Jego kluczową cechą jest **brak możliwości eliminacji poprzez prostą dywers
 * **Istota:** Transfer ryzyka ubezpieczeniowego (zazwyczaj ekstremalnego / katastroficznego) bezpośrednio na **rynki kapitałowe** poprzez emisję zbywalnych papierów wartościowych przez spółkę celową (SPV/SPI).
 * **Mechanizm i cel:** Inwestorzy kupują obligacje katastroficzne; w przypadku wystąpienia zdefiniowanego kataklizmu kapitał z obligacji przechodzi na ubezpieczyciela na pokrycie szkód. Pozwala na ominięcie ograniczeń pojemności tradycyjnego rynku reasekuracji przy niemal zerowym ryzyku kredytowym kontrahenta (środki są zdeponowane w *collateral trust*).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ROZPORZĄDZENIE DELEGOWANE KOMISJI (UE) 2015/35 z dnia 10 października 2014 r. uzupełniające dyrektywę Parlamentu Europejskiego i Rady 2009/138/WE w sprawie podejmowania i prowadzenia działalności ubezpieczeniowej i reasekuracyjnej (Wypłacalność II)
 
 ## Art. 44-47 
 
 **Jakie dwa warunki muszą spełniać stopy struktury terminowej podstawowej stopy procentowej wolnej od ryzyka.**
 
-1. Rynek tych instrumentów finansowych musi być głęboki, płynny i przejrzysty.
-2. Muszą one pozwalać na wyznaczenie podstawowych stóp procentowych wolnych od ryzyka w wiarygodny sposób (dodatkowo, jak precyzuje ust. 1, muszą być one skorygowane o ryzyko kredytowe).
+1. **Możliwość uzyskania bez ryzyka:** Ubezpieczyciele są w stanie w praktyce uzyskać te stopy w sposób wolny od ryzyka.
+2. **Wiarygodność i rynek DLT:** Są ustalane w sposób wiarygodny na podstawie instrumentów notowanych na głębokim, płynnym i przejrzystym rynku finansowym.
+
+---
 
 **Na podstawie jakich instrumentów finansowych ustalane są podstawowe stopy procentowe wolne od ryzyka.**
 
-1. Podstawowym instrumentem są swapy stóp procentowych wyznaczane dla danej waluty.
-2. Jeżeli dla danego terminu zapadalności (lub danej waluty) stopy swapów nie są dostępne na rynkach spełniających warunek głębokości, płynności i przejrzystości, wykorzystuje się stopy obligacji skarbowych (rządowych) emitowanych przez państwo, w którego walucie denominowane są zobowiązania.
+1. **Stopy swapu stóp procentowych** dla danej waluty i zapadalności – skorygowane o ryzyko kredytowe (jest to instrument pierwszego wyboru / podstawowy).
+2. **Stopy obligacji skarbowych** wyemitowanych w danej walucie – skorygowane o ryzyko kredytowe emitenta; stosowane jako alternatywa dla walut lub terminów zapadalności, dla których rynek swapów nie jest wystarczająco głęboki, płynny i przejrzysty (DLT).
+
+---
 
 **Wyjaśnij pojęcie ostatecznej stopy forward (Ultimate Forward Rate).**
 
@@ -267,6 +257,18 @@ Opis na przykładzie podmodułu ryzyka cen nieruchomości.
 2. Ocena wpływu: następnie oblicza się, jak tak zdefiniowany szok wpłynąłby na bilans ekonomiczny (aktywa i pasywa) zakładu ubezpieczeń.
 
 3. Wynik (wymóg kapitałowy): wymóg kapitałowy dla tego podmodułu (oznaczany jako $SCR_{property}$) jest równy dokładnej kwocie spadku wartości podstawowych środków własnych, który nastąpiłby po zaaplikowaniu wspomnianego szoku (-25% na ceny nieruchomości).
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Art. 222-247: Kapitałowy wymóg wypłacalności
 
