@@ -258,18 +258,6 @@ Opis na przykładzie podmodułu ryzyka cen nieruchomości.
 
 3. Wynik (wymóg kapitałowy): wymóg kapitałowy dla tego podmodułu (oznaczany jako $SCR_{property}$) jest równy dokładnej kwocie spadku wartości podstawowych środków własnych, który nastąpiłby po zaaplikowaniu wspomnianego szoku (-25% na ceny nieruchomości).
 
-
-
-
-
-
-
-
-
-
-
-
-
 ## Art. 222-247: Kapitałowy wymóg wypłacalności
 
 **Wymień i krótko opisz wymogi jakie powinien spełnić model wewnętrzny w świetle Dyrektywy Wypłacalność II, aby został zaakceptowany przez organ nadzoru. Należy opisać pięć standardów**
