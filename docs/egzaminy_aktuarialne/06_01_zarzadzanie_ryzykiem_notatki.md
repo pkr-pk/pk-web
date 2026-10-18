@@ -229,8 +229,7 @@ Algorytm dla ryzyka składek i rezerw składa się z następujących kroków:
    Łączy się wyniki ze wszystkich linii biznesowych, które oferuje ubezpieczyciel, używając do tego macierzy korelacji określonej w dyrektywie. Pozwala to wyznaczyć całkowity wolumen dla firmy ($V$) oraz całkowite zagregowane odchylenie standardowe ($\sigma$).
 
 5. Obliczenie końcowego wymogu SCR:
-   Wymóg kapitałowy dla tego podmodułu ($SCR_{nl\_pr}$) oblicza się zakładając logarytmiczno-normalny rozkład strat. W uproszczeniu (zgodnym z aproksymacją stosowaną w Solvency II dla VaR 99.5%), wymóg kapitałowy oblicza się jako trzykrotność odchylenia standardowego pomnożonego przez całkowity wolumen:
-   **$$SCR = 3 \cdot \sigma \cdot V$$**
+   Wymóg kapitałowy dla tego podmodułu ($SCR_{nl\_pr}$) oblicza się zakładając logarytmiczno-normalny rozkład strat. W uproszczeniu (zgodnym z aproksymacją stosowaną w Solvency II dla VaR 99.5%), wymóg kapitałowy oblicza się jako trzykrotność odchylenia standardowego pomnożonego przez całkowity wolumen: $SCR = 3 \cdot \sigma \cdot V$.
 
 ## Art. 164
 
